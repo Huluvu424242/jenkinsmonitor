@@ -1,0 +1,22 @@
+# Changelog
+Alle wichtigen Änderungen am Projekt sind in dieser Datei dokumentiert.
+
+Das Format basiert auf http://keepachangelog.com/de/[Keep a Changelog].
+Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
+
+// ## [3.1.1] fertiggestellt 2018-05-11
+
+## [unreleased]
+### Added
+
+- https://github.com/FunThomas424242/rades-example.template/issues/1[issue #1] Projekt aufgesetzt.
+
+
+
+### Changed
+
+- n/a
+
+### Removed
+
+- n/a

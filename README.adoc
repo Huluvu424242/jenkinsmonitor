@@ -1,0 +1,81 @@
+[#status]
+image:https://img.shields.io/badge/License-LGPL%20v3-blue.svg[link="https://www.gnu.org/licenses/lgpl-3.0"]
+image:https://maven-badges.herokuapp.com/maven-central/com.github.funthomas424242/rades-example.template/badge.svg?style=flat["Maven Central", link="https://maven-badges.herokuapp.com/maven-central/com.github.funthomas424242/rades-example.template"]
+// image:https://api.bintray.com/packages/funthomas424242/funthomas424242-libs/rades-example.template/images/download.svg[link="https://bintray.com/funthomas424242/funthomas424242-libs/rades-example.template/_latestVersion"]
+image:https://travis-ci.org/FunThomas424242/rades-example.template.svg?branch=master["Build Status", link="https://travis-ci.org/FunThomas424242/rades-example.template"]
+image:https://api.codacy.com/project/badge/Grade/88bf76546176437ea389629a2087d1b5["Codacy code quality", link="https://www.codacy.com/app/FunThomas424242/rades-example.template?utm_source=github.com&utm_medium=referral&utm_content=FunThomas424242/rades-example.template&utm_campaign=Badge_Grade"]
+image:https://codecov.io/gh/FunThomas424242/rades-example.template/branch/master/graph/badge.svg[link="https://codecov.io/gh/FunThomas424242/rades-example.template"]
+image:http://images.webestools.com/buttons.php?frm=2&btn_type=11&txt=Scrum Board["Scrum Board,scaledwidth="15%"", link="https://github.com/FunThomas424242/rades-example.template/projects/1"]
+
+image:https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square["standard-readme compilant",link="https://github.com/RichardLitt/standard-readme"]
+
+== rades-example.template
+Template zum Aufsetzen eines RADES Beispiel Projektes.
+
+== Inhaltsverzeichnis
+
+- link:#hintergrund[Hintergrund]
+- link:#installation[Installation]
+- link:#nutzung[Nutzung]
+- link:#literatur[Literatur und Quellen]
+- link:#projektverantwortlicher[Projektverantwortlicher]
+- link:#unterstützung[Unterstützung]
+- link:#lizenz[Lizenz]
+
+[#hintergrund]
+== Hintergrund
+Lange habe ich versucht ein Projekttemplate zu erstellen. Es gibt dazu bereits einige Projekte (beispielsweise https://github.com/FunThomas424242/rades.scaffolding[rades.scaffolding])in meinem persönlichem Account. Doch nun ist mir Github dankenswerter Weise zuvor gekommen und hat einen Mechanismus angeboten ein bestehendes Projekt als Template Projekt zu markieren. Das konnte ich prima nutzen und möchte mich dafür recht herzlich Bedanken. 
+Dieses Projekt stellt ein Template für alle Projekte im RADES Beispiel Projekt Style dar. Wem es gefällt oder wer ein RADES Beispiel Projekt beisteuern möchte, der darf es gerne nutzen - alle anderen natürlich auch ;)
+
+[#installation]
+== Installation
+
+Installation bedeutet im konkreten Fall Erstellung eines neuen Repositories in Deinem Account mit exakt der selben Verzeichnis- und Dateistruktur wie sie dieses Projekt hier aufweist.
+
+[#nutzung]
+== Nutzung
+
+Das Projekt ist ein Template für Projekte im Style von RADES Beispielen. Wem die Projektstruktur gefällt der klickt einfach auf den grünen "Use this Template" Button im oberen Bildschirmbereich.
+
+[#literatur]
+== Literatur und Quellen im Netz
+
+* https://github.com/noffle/art-of-readme[Art of Readme] - Erlerne die Kunst gute READMEs zu schreiben.
+* https://github.com/davidbgk/open-source-template/[open-source-template] - A README template to encourage open-source contributions.
+* https://www.makeareadme.com/
+* https://github.com/RichardLitt/standard-readme
+* https://github.com/RichardLitt/generator-standard-readme/
+* https://github.com/noffle/art-of-readme
+* https://keepachangelog.com/de
+
+[#projektverantwortlicher]
+== Projektverantwortlicher
+
+https://github.com/FunThomas424242[@Huluvu424242]
+
+[#unterstützung]
+== Unterstützung
+
+Unterstützung ist jederzeit erwünscht. Ein gelungener Einstieg sollte sich über Duchlesen, Prüfen/Testen, Korrigieren/Weiterentwickeln und Änderungen als Pull-Request einstellen, ergeben.
+Du kannst aber auch jederzeit gern ein Ticket öffnen unter: https://github.com/PIUGroup/rades-example.template/issues/new/choose[Ticket Erstellen].
+
+Dieses Projekt folgt den unter https://piugroup.github.io/rades-example.template/code-of-conduct.txt[Verhaltenskodex] abgelegten Verhaltensregeln. Welche auch unter https://www.contributor-covenant.org/de/version/1/4/code-of-conduct/[Verhaltenskodex für Unterstützer] veröffentlicht wurden. 
+
+=== Unterstützer
+
+Dieses Projekt lebt vom Support all seiner Unterstützer genau wie auch vom Support all jener welche nicht namentlich bekannt sind aber das Projekt im Internet bekannt machen oder anderweitig unterstützen.
+
+Vielen Dank für all Euren Suppprt! 
+
+////
+Ab 100 Sterne auf github ist eine Verwaltung über opencollective für OpenSource Projekte möglich
+This project exists thanks to all the people who contribute. 
+<a href="graphs/contributors"><img src="https://opencollective.com/standard-readme/contributors.svg?width=890&button=false" /></a>
+////
+
+[#lizenz]
+== Lizenz
+
+link:LICENSE[LGPL-3.0] © link:https://github.com/PIUGroup[PIUG]
+
+
