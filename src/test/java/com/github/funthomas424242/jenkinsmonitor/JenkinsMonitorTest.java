@@ -23,35 +23,72 @@ package com.github.funthomas424242.jenkinsmonitor;
  */
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class JenkinsMonitorTest {
 
-    JenkinsMonitor jenkinsMonitor;
+    protected static final String USER_HOME = "user.home";
+    protected static final String JENKINSMONITOR_CONFIGURATIONFILENAME = "jenkinsmonitor.properties";
+    protected static final int DEFAULT_POLLPERIOD = 5;
+
+    JenkinsMonitor withoutConfigJenkinsMonitor;
+    JenkinsMonitor emptyConfigJenkinsMonitor;
+    JenkinsMonitor validConfigJenkinsMonitor;
 
     @BeforeEach
     void setUpTestfall() {
-        jenkinsMonitor = new JenkinsMonitor();
+        final Path withoutConfigfilePath = Paths.get(".", "src/test/resources/xxx_configuration.properties");
+        final File withoutConfigFile = withoutConfigfilePath.toAbsolutePath().toFile();
+        withoutConfigJenkinsMonitor = new JenkinsMonitor(withoutConfigFile);
+
+
+        final Path emptyConfigfilePath = Paths.get(".", "src/test/resources/empty_configuration.properties");
+        final File emptyConfigFile = emptyConfigfilePath.toAbsolutePath().toFile();
+        emptyConfigJenkinsMonitor = new JenkinsMonitor(emptyConfigFile);
+
+        final Path validConfigfilePath = Paths.get(".", "src/test/resources/valid_configuration.properties");
+        final File configFile = validConfigfilePath.toAbsolutePath().toFile();
+        validConfigJenkinsMonitor = new JenkinsMonitor(configFile);
     }
 
 
     @Test
-    void nutztValidJenkinsPropertyfile() {
+    void usedSpecifiedConfigfile() {
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor();
 
         final File file = jenkinsMonitor.getConfigurationfile();
 
         final String propertyFilePath = file.getAbsolutePath().toString();
-        final String expectedPath = System.getProperty("user.home")+File.separator+"jenkinsmonitor.properties";
+        final String expectedPath = System.getProperty(USER_HOME) + File.separator + JENKINSMONITOR_CONFIGURATIONFILENAME;
         assertEquals(expectedPath, propertyFilePath);
     }
 
+    @Test
+    @DisplayName("Prüfe Default Konfiguration wenn kein Configfile existiert")
+    void validDefaultsWhenNotExistingConfigfile() {
+        final int pollPeriod = this.withoutConfigJenkinsMonitor.getPollPeriod();
+        assertEquals(DEFAULT_POLLPERIOD, pollPeriod);
+    }
 
+    @Test
+    void validDefaultsWithEmptyConfigfile() {
+        final int pollPeriod = emptyConfigJenkinsMonitor.getPollPeriod();
+        assertEquals(DEFAULT_POLLPERIOD, pollPeriod);
+    }
+
+    @Test
+    void useSpecifiedPollPeriod() {
+        final int pollPeriod = validConfigJenkinsMonitor.getPollPeriod();
+        assertEquals(6, pollPeriod);
+    }
 
 
 }

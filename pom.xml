@@ -182,6 +182,8 @@
           <excludes>
             <exclude>**/*.png</exclude>
             <exclude>**/*.json</exclude>
+            <exclude>**/empty*.properties</exclude>
+            <exclude>**/valid*.properties</exclude>
           </excludes>
         </configuration>
         <executions>
