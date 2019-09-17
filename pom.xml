@@ -328,7 +328,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>com.github.funthomas424242.jenkinsmonitor.MyPocketmodGenerator</mainClass>
+                                    <mainClass>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor</mainClass>
                                 </manifest>
                             </archive>
                             <tarLongFileMode>posix</tarLongFileMode>
