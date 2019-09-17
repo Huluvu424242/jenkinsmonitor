@@ -40,6 +40,7 @@ Das Projekt ist ein Template für Projekte im Style von RADES Beispielen. Wem di
 [#literatur]
 == Literatur und Quellen im Netz
 
+* https://www.baeldung.com/maven-wrapper
 * https://github.com/noffle/art-of-readme[Art of Readme] - Erlerne die Kunst gute READMEs zu schreiben.
 * https://github.com/davidbgk/open-source-template/[open-source-template] - A README template to encourage open-source contributions.
 * https://www.makeareadme.com/
