@@ -39,7 +39,7 @@ public class JenkinsMonitor {
         this.propertyFile = new File(propertyFilePath);
     }
 
-    public File getPropertyfile() {
+    public File getConfigurationfile() {
         return this.propertyFile;
     }
 }

@@ -26,8 +26,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.time.LocalDate;
-import java.time.Period;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -46,7 +44,7 @@ class JenkinsMonitorTest {
     void nutztValidJenkinsPropertyfile() {
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor();
 
-        final File file = jenkinsMonitor.getPropertyfile();
+        final File file = jenkinsMonitor.getConfigurationfile();
 
         final String propertyFilePath = file.getAbsolutePath().toString();
         final String expectedPath = System.getProperty("user.home")+File.separator+"jenkinsmonitor.properties";
