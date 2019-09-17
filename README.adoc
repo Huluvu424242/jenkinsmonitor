@@ -1,15 +1,15 @@
 [#status]
 image:https://img.shields.io/badge/License-LGPL%20v3-blue.svg[link="https://www.gnu.org/licenses/lgpl-3.0"]
-image:https://maven-badges.herokuapp.com/maven-central/com.github.funthomas424242/rades-example.template/badge.svg?style=flat["Maven Central", link="https://maven-badges.herokuapp.com/maven-central/com.github.funthomas424242/rades-example.template"]
-// image:https://api.bintray.com/packages/funthomas424242/funthomas424242-libs/rades-example.template/images/download.svg[link="https://bintray.com/funthomas424242/funthomas424242-libs/rades-example.template/_latestVersion"]
-image:https://travis-ci.org/FunThomas424242/rades-example.template.svg?branch=master["Build Status", link="https://travis-ci.org/FunThomas424242/rades-example.template"]
-image:https://api.codacy.com/project/badge/Grade/88bf76546176437ea389629a2087d1b5["Codacy code quality", link="https://www.codacy.com/app/FunThomas424242/rades-example.template?utm_source=github.com&utm_medium=referral&utm_content=FunThomas424242/rades-example.template&utm_campaign=Badge_Grade"]
-image:https://codecov.io/gh/FunThomas424242/rades-example.template/branch/master/graph/badge.svg[link="https://codecov.io/gh/FunThomas424242/rades-example.template"]
-image:http://images.webestools.com/buttons.php?frm=2&btn_type=11&txt=Scrum Board["Scrum Board,scaledwidth="15%"", link="https://github.com/FunThomas424242/rades-example.template/projects/1"]
+image:https://maven-badges.herokuapp.com/maven-central/com.github.funthomas424242/jenkinsmonitor/badge.svg?style=flat["Maven Central", link="https://maven-badges.herokuapp.com/maven-central/com.github.funthomas424242/jenkinsmonitor"]
+// image:https://api.bintray.com/packages/funthomas424242/funthomas424242-libs/jenkinsmonitor/images/download.svg[link="https://bintray.com/funthomas424242/funthomas424242-libs/jenkinsmonitor/_latestVersion"]
+image:https://travis-ci.org/FunThomas424242/jenkinsmonitor.svg?branch=master["Build Status", link="https://travis-ci.org/FunThomas424242/jenkinsmonitor"]
+image:https://api.codacy.com/project/badge/Grade/88bf76546176437ea389629a2087d1b5["Codacy code quality", link="https://www.codacy.com/app/FunThomas424242/jenkinsmonitor?utm_source=github.com&utm_medium=referral&utm_content=FunThomas424242/jenkinsmonitor&utm_campaign=Badge_Grade"]
+image:https://codecov.io/gh/FunThomas424242/jenkinsmonitor/branch/master/graph/badge.svg[link="https://codecov.io/gh/FunThomas424242/jenkinsmonitor"]
+image:http://images.webestools.com/buttons.php?frm=2&btn_type=11&txt=Scrum Board["Scrum Board,scaledwidth="15%"", link="https://github.com/FunThomas424242/jenkinsmonitor/projects/1"]
 
 image:https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square["standard-readme compilant",link="https://github.com/RichardLitt/standard-readme"]
 
-== rades-example.template
+== jenkinsmonitor
 Template zum Aufsetzen eines RADES Beispiel Projektes.
 
 == Inhaltsverzeichnis
@@ -57,9 +57,9 @@ https://github.com/FunThomas424242[@Huluvu424242]
 == Unterstützung
 
 Unterstützung ist jederzeit erwünscht. Ein gelungener Einstieg sollte sich über Duchlesen, Prüfen/Testen, Korrigieren/Weiterentwickeln und Änderungen als Pull-Request einstellen, ergeben.
-Du kannst aber auch jederzeit gern ein Ticket öffnen unter: https://github.com/PIUGroup/rades-example.template/issues/new/choose[Ticket Erstellen].
+Du kannst aber auch jederzeit gern ein Ticket öffnen unter: https://github.com/PIUGroup/jenkinsmonitor/issues/new/choose[Ticket Erstellen].
 
-Dieses Projekt folgt den unter https://piugroup.github.io/rades-example.template/code-of-conduct.txt[Verhaltenskodex] abgelegten Verhaltensregeln. Welche auch unter https://www.contributor-covenant.org/de/version/1/4/code-of-conduct/[Verhaltenskodex für Unterstützer] veröffentlicht wurden. 
+Dieses Projekt folgt den unter https://piugroup.github.io/jenkinsmonitor/code-of-conduct.txt[Verhaltenskodex] abgelegten Verhaltensregeln. Welche auch unter https://www.contributor-covenant.org/de/version/1/4/code-of-conduct/[Verhaltenskodex für Unterstützer] veröffentlicht wurden.
 
 === Unterstützer
 

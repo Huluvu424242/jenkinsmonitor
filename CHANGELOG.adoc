@@ -9,7 +9,7 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 ## [unreleased]
 ### Added
 
-- https://github.com/FunThomas424242/rades-example.template/issues/1[issue #1] Projekt aufgesetzt.
+- https://github.com/FunThomas424242/jenkinsmonitor/issues/1[issue #1] Projekt aufgesetzt.
 
 
 

@@ -2,7 +2,7 @@ package com.github.funthomas424242.example.bookshop;
 
 /*-
  * #%L
- * rades-example Example
+ * jenkinsmonitor Example
  * %%
  * Copyright (C) 2018 - 2019 PIUG
  * %%

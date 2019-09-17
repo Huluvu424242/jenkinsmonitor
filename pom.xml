@@ -6,12 +6,12 @@
 
     <groupId>com.github.funthomas424242</groupId>
     <version>0.0.1-SNAPSHOT</version>
-    <artifactId>rades-example.template</artifactId>
+    <artifactId>jenkinsmonitor</artifactId>
     <packaging>jar</packaging>
     <name>RADES Example Template</name>
     <description>Vorlage zur Erstellung eines RADES Example Projektes</description>
     <inceptionYear>2019</inceptionYear>
-    <url>https://github.com/FunThomas424242/rades-example.template</url>
+    <url>https://github.com/FunThomas424242/jenkinsmonitor</url>
     <licenses>
         <license>
             <url>https://www.gnu.org/licenses/lgpl-3.0.de.html</url>
@@ -22,17 +22,17 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:https://github.com/FunThomas424242/rades-example.template.git</connection>
-        <developerConnection>scm:git:git@github.com:FunThomas424242/rades-example.template.git</developerConnection>
-        <url>https://github.com/FunThomas424242/rades-example.template</url>
+        <connection>scm:git:https://github.com/FunThomas424242/jenkinsmonitor.git</connection>
+        <developerConnection>scm:git:git@github.com:FunThomas424242/jenkinsmonitor.git</developerConnection>
+        <url>https://github.com/FunThomas424242/jenkinsmonitor</url>
     </scm>
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/FunThomas424242/rades-example.template/issues/new</url>
+        <url>https://github.com/FunThomas424242/jenkinsmonitor/issues/new</url>
     </issueManagement>
     <ciManagement>
         <system>Travis</system>
-        <url>https://travis-ci.org/FunThomas424242/rades-example.template</url>
+        <url>https://travis-ci.org/FunThomas424242/jenkinsmonitor</url>
     </ciManagement>
     <distributionManagement>
         <snapshotRepository>
@@ -295,7 +295,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.github.funthomas424242.rades-example.MyPocketmodGenerator</mainClass>
+                            <mainClass>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -345,7 +345,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>com.github.funthomas424242.rades-example.MyPocketmodGenerator</mainClass>
+                                    <mainClass>com.github.funthomas424242.jenkinsmonitor.MyPocketmodGenerator</mainClass>
                                 </manifest>
                             </archive>
                             <tarLongFileMode>posix</tarLongFileMode>
