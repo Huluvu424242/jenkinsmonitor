@@ -25,6 +25,7 @@ package com.github.funthomas424242.jenkinsmonitor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -37,23 +38,22 @@ class JenkinsMonitorTest {
 
     @BeforeEach
     void setUpTestfall() {
-        jenkinsMonitor = new JenkinsMonitor("Thomas", "Schubert",
-                1968, 12, 25);
+        jenkinsMonitor = new JenkinsMonitor();
     }
 
 
     @Test
-    void initAlterAufNull() {
-        assertEquals(0, jenkinsMonitor.alter);
+    void nutztValidJenkinsPropertyfile() {
+        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor();
+
+        final File file = jenkinsMonitor.getPropertyfile();
+
+        final String propertyFilePath = file.getAbsolutePath().toString();
+        final String expectedPath = System.getProperty("user.home")+File.separator+"jenkinsmonitor.properties";
+        assertEquals(expectedPath, propertyFilePath);
     }
 
 
-    @Test
-    void berechneAlterKorrekt() {
-        final int alter = Period.between(jenkinsMonitor.geburtstag, LocalDate.now()).getYears();
-        jenkinsMonitor.berechneAlter();
-        assertEquals(alter, jenkinsMonitor.alter);
-    }
 
 
 }
