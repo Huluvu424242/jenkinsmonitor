@@ -1,4 +1,4 @@
-package com.github.funthomas424242.example.bookshop;
+package com.github.funthomas424242.jenkinsmonitor;
 
 /*-
  * #%L
@@ -31,28 +31,28 @@ import java.time.Period;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-class PersonTest {
+class JenkinsMonitorTest {
 
-    Person person;
+    JenkinsMonitor jenkinsMonitor;
 
     @BeforeEach
     void setUpTestfall() {
-        person = new Person("Thomas", "Schubert",
+        jenkinsMonitor = new JenkinsMonitor("Thomas", "Schubert",
                 1968, 12, 25);
     }
 
 
     @Test
     void initAlterAufNull() {
-        assertEquals(0, person.alter);
+        assertEquals(0, jenkinsMonitor.alter);
     }
 
 
     @Test
     void berechneAlterKorrekt() {
-        final int alter = Period.between(person.geburtstag, LocalDate.now()).getYears();
-        person.berechneAlter();
-        assertEquals(alter, person.alter);
+        final int alter = Period.between(jenkinsMonitor.geburtstag, LocalDate.now()).getYears();
+        jenkinsMonitor.berechneAlter();
+        assertEquals(alter, jenkinsMonitor.alter);
     }
 
 

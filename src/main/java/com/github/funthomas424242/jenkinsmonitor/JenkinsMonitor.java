@@ -1,4 +1,4 @@
-package com.github.funthomas424242.example.bookshop;
+package com.github.funthomas424242.jenkinsmonitor;
 
 /*-
  * #%L
@@ -25,7 +25,7 @@ package com.github.funthomas424242.example.bookshop;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Person {
+public class JenkinsMonitor {
 
     final String name;
 
@@ -35,7 +35,7 @@ public class Person {
 
     int alter;
 
-    public Person(final String vorname, final String name, final int geburtsjahr, final int geburtsmonat, final int geburtstag) {
+    public JenkinsMonitor(final String vorname, final String name, final int geburtsjahr, final int geburtsmonat, final int geburtstag) {
         this.vorname = vorname;
         this.name = name;
         this.geburtstag = LocalDate.of(geburtsjahr, geburtsmonat, geburtstag);
