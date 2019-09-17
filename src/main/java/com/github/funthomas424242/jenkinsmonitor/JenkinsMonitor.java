@@ -22,12 +22,17 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class JenkinsMonitor {
+
+    protected static final Logger LOG = LoggerFactory.getLogger(JenkinsMonitor.class);
 
 
     public static final String JENKINSMONITOR_CONFIGURATIONFILENAME = "jenkinsmonitor.properties";
@@ -53,7 +58,7 @@ public class JenkinsMonitor {
         try (FileInputStream propStream = new FileInputStream(this.configurationFile)) {
             properties.load(propStream);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e.getLocalizedMessage(),e);
         }
         return properties;
     }
