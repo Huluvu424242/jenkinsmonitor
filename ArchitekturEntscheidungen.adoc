@@ -61,6 +61,30 @@
   Die CI wird über Travis-CI realisiert.
   Das Deployment erfolgt manuell über Bintray bis ins maven central.
 
+== Entscheidung Implementierung
+
+* Jenkins Abfrage
+
+  17.09.2019:
+  Die Abfrage erfolgt per REST Client nach diesem Vorbild:
+  https://serverfault.com/questions/309848/how-do-i-check-the-build-status-of-a-jenkins-build-from-the-command-line
+
+* REST Client
+
+  17.09.2019:
+  Client wird nach diesem Vorlbild implementiert:
+  https://alvinalexander.com/java/java-apache-httpclient-restful-client-examples
+
+* TrayIcon
+
+  Fachliche Anforderung möglichst native, möglichst wenig Framework
+
+  17.09.2019:
+  Implementierung erfolgt über awt Klassen nach diesem Vorbild:
+  https://ourcodeworld.com/articles/read/837/how-to-create-and-display-a-windows-10-notification-with-java-awt
+
+
+
 == Entscheidung Testvorgehen
 
 Generell soll möglichst ohne Mock Frameworks ausgekommen werden.
