@@ -4,6 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class ImageGeneratorTest {
@@ -14,8 +17,9 @@ public class ImageGeneratorTest {
     void createGrayIcon100x100() {
 //        final JobStatus[] jobsStatus = new JobStatus[0];
         final ImageGenerator generator = new ImageGenerator(null);
-        final Image image = generator.getImage();
-
+        final BufferedImage image = generator.getImage();
+        assertEquals(100,image.getHeight());
+        assertEquals(100,image.getWidth());
     }
 
 
