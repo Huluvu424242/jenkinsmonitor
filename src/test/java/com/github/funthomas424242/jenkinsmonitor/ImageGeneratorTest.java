@@ -72,4 +72,34 @@ class ImageGeneratorTest {
         assertEquals(Color.green.getRGB(), image.getRGB(10, 10));
     }
 
+    @Test
+    @DisplayName("Initialisierung mit einem instabilen Job generiert ein gelbes Icon 100x100")
+    void initOneJobYellowIcon100x100() {
+        final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
+        jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
+            , JobStatusBeschreibung.JobStatus.INSTABIL
+            , null);
+        final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
+        final BufferedImage image = generator.getImage(100, 100);
+        assertEquals(100, image.getHeight());
+        assertEquals(100, image.getWidth());
+        assertEquals(JobStatusBeschreibung.JobStatus.INSTABIL.getColor().getRGB(), image.getRGB(10, 10));
+        assertEquals(Color.yellow.getRGB(), image.getRGB(10, 10));
+    }
+
+    @Test
+    @DisplayName("Initialisierung mit einem fehlerhaften Job generiert ein rotes Icon 100x100")
+    void initOneJobRedIcon100x100() {
+        final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
+        jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
+            , JobStatusBeschreibung.JobStatus.FAILED
+            , null);
+        final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
+        final BufferedImage image = generator.getImage(100, 100);
+        assertEquals(100, image.getHeight());
+        assertEquals(100, image.getWidth());
+        assertEquals(JobStatusBeschreibung.JobStatus.FAILED.getColor().getRGB(), image.getRGB(10, 10));
+        assertEquals(Color.red.getRGB(), image.getRGB(10, 10));
+    }
+
 }
