@@ -29,19 +29,29 @@ public class ImageGenerator {
 
     protected final JobStatusBeschreibung[] jobsStatusBeschreibungen;
 
-    public ImageGenerator(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
+    ImageGenerator(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
         this.jobsStatusBeschreibungen = jobsStatusBeschreibungen;
     }
 
-    public BufferedImage getImage(final int width, final int height) {
-        return createGrayImage(width, height);
+    BufferedImage getImage(final int width, final int height) {
+        BufferedImage image = createImage(width, height, JobStatusBeschreibung.JobStatus.OTHER);
+
+        if (jobsStatusBeschreibungen == null || jobsStatusBeschreibungen.length < 1) {
+            return image;
+        }
+
+
+        for (JobStatusBeschreibung jobStatusBeschreibung : jobsStatusBeschreibungen) {
+            image =  createImage(width, height, jobStatusBeschreibung.getJobStatus());
+        }
+        return image;
     }
 
-    protected BufferedImage createGrayImage(int width, int height) {
+    protected BufferedImage createImage(int width, int height, final JobStatusBeschreibung.JobStatus jobStatus) {
         final BufferedImage image = new BufferedImage(width, height,
             BufferedImage.TYPE_BYTE_INDEXED);
         final Graphics g = image.createGraphics();
-        g.setColor(JobStatusBeschreibung.JobStatus.OTHER.getColor());
+        g.setColor(jobStatus.getColor());
         g.fillRect(0, 0, width, height);
         g.dispose();
 
