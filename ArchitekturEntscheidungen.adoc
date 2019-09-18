@@ -80,6 +80,7 @@ Zur Testausführung wird vorwiegend das Framework JUnit5 genutzt.
   Aufwänden im Maven Build nutzbar sein und die Testfälle lassen sich angeblich
   recht einfach in JUnit per Rule beschreiben.
   http://wiremock.org/
+  https://blog.jonas-hellmann.de/testen-eines-rest-clients-in-java-mit-wiremock/
 
 *
 
