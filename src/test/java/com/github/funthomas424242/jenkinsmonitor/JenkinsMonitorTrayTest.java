@@ -42,18 +42,6 @@ public class JenkinsMonitorTrayTest {
         jenkinsMonitorTray.show();
     }
 
-    @Test
-    @Disabled
-    @DisplayName("Erzeuge ein graues Image mit Breite 5 und Höhe 10")
-    public void createGrauesImage() {
-        final BufferedImage grayImage = jenkinsMonitorTray.createGrayImage();
-        assertEquals(5,grayImage.getWidth());
-        assertEquals(10,grayImage.getHeight());
-//        assertEquals("No jobs watching", grayImage.getToolTip());
-    }
-
-
-
 
     @Test
     @DisplayName("Initial zeigt der Tooltipp <<No jobs watching>>")
