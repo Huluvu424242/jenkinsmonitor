@@ -99,7 +99,14 @@ Zur Testausführung wird vorwiegend das Framework JUnit5 genutzt.
 
   17.09.2019:
   FEST wird zum Test der GUI Komponenten verwendet:
+  https://www.javaworld.com/article/2077740/test-driven-gui-development-with-fest.html
   http://web.archive.org/web/20110101141359/http://fest.easytesting.org/
+  Alternativen:
+  https://testing.bredex.de/
+  https://sourceforge.net/projects/abbot/
+  http://abbot.sourceforge.net/doc/overview.shtml
+  http://www.cafeaulait.org/slides/sd2006west/guitesting/Testing_GUIs_with_Abbot_and_Costello.html
+
 
 
 
