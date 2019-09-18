@@ -31,7 +31,7 @@ import java.awt.image.BufferedImage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class ImageGeneratorTest {
+class ImageGeneratorTest {
 
 
     @Test
@@ -53,6 +53,8 @@ public class ImageGeneratorTest {
         final BufferedImage image = generator.getImage(100,100);
         assertEquals(100,image.getHeight());
         assertEquals(100,image.getWidth());
+        assertEquals(JobStatusBeschreibung.JobStatus.OTHER.getColor().getRGB(),image.getRGB(10,10));
+        assertEquals(Color.lightGray.getRGB(), image.getRGB(10,10));
     }
 
 
