@@ -9,15 +9,12 @@ public class ImageGenerator {
 
     }
 
-    public BufferedImage getImage() {
-        int with = 100;
-        int hight = 100;
-
-        final BufferedImage image = new BufferedImage(with, hight,
+    public BufferedImage getImage( final int width, final int height) {
+        final BufferedImage image = new BufferedImage(width, height,
             BufferedImage.TYPE_BYTE_INDEXED);
         final Graphics g = image.createGraphics();
         g.setColor(Color.gray);
-        g.fillRect(0, 0, with, hight);
+        g.fillRect(0, 0, width, height);
         g.dispose();
 
         return image;

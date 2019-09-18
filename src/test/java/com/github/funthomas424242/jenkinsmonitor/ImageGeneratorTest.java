@@ -17,7 +17,7 @@ public class ImageGeneratorTest {
     void createGrayIcon100x100() {
 //        final JobStatus[] jobsStatus = new JobStatus[0];
         final ImageGenerator generator = new ImageGenerator(null);
-        final BufferedImage image = generator.getImage();
+        final BufferedImage image = generator.getImage(100,100);
         assertEquals(100,image.getHeight());
         assertEquals(100,image.getWidth());
     }
