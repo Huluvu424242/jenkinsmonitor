@@ -131,6 +131,14 @@ Zur Testausführung wird vorwiegend das Framework JUnit5 genutzt.
   http://abbot.sourceforge.net/doc/overview.shtml
   http://www.cafeaulait.org/slides/sd2006west/guitesting/Testing_GUIs_with_Abbot_and_Costello.html
 
+== Lessons learned
+
+**Gray Anomalie**
+Wenn man von BufferedImage createGraphics aufruft und ein Rechteck
+mit Color.gray füllt. Kann man im Test nicht vergleichen über
+assertEquals(Color.gray.getRGB(), image.getRGB(x,y) )
+Es gibt eine leichte Wertdifferenz obwohl x und y im gefüllten Rechteck liegen.
+Bei Color.red gibt es keine Anomalie.
 
 
 
