@@ -27,20 +27,20 @@ import java.net.URL;
 
 public class JobStatusBeschreibung {
 
-    public enum Status {
+    public enum JobStatus {
         SUCCESS,
         FAILED,
         INSTABIL
-    };
+    }
 
-    protected final Status jobStatus;
+    protected final JobStatus jobStatus;
 
     protected final String jobName;
 
     protected final URL jobUrl;
 
 
-    public JobStatusBeschreibung(final String jobName, final Status jobStatus, final URL jobUrl){
+    public JobStatusBeschreibung(final String jobName, final JobStatus jobStatus, final URL jobUrl){
         this.jobStatus = jobStatus;
         this.jobName=jobName;
         this.jobUrl=jobUrl;
@@ -56,7 +56,7 @@ public class JobStatusBeschreibung {
         }
     }
 
-    public Status getJobStatus() {
+    public JobStatus getJobStatus() {
         return jobStatus;
     }
 

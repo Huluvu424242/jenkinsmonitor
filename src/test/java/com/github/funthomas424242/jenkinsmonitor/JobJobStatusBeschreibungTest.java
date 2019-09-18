@@ -32,7 +32,7 @@ import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JobStatusBeschreibungTest {
+class JobJobStatusBeschreibungTest {
 
     public static final String NAME_JOB1 = "job1";
     protected static URL LOCALHOST_JOB_TEST_URL;
@@ -58,7 +58,7 @@ class JobStatusBeschreibungTest {
     @DisplayName("Statusfarbe eines erfolgreichen Jobs ist grün")
     void erfolgreicheJobsSindGruen() {
         final JobStatusBeschreibung jobStatusBeschreibung = new JobStatusBeschreibung(NAME_JOB1
-            , JobStatusBeschreibung.Status.SUCCESS
+            , JobStatusBeschreibung.JobStatus.SUCCESS
             , LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobStatusBeschreibung);
         assertEquals(Color.green, jobStatusBeschreibung.getStatusColor());
@@ -68,7 +68,7 @@ class JobStatusBeschreibungTest {
     @DisplayName("Statusfarbe eines instabilen Jobs ist gelb")
     void instabileJobsSindGelb() {
         final JobStatusBeschreibung jobStatusBeschreibung = new JobStatusBeschreibung(NAME_JOB1
-            , JobStatusBeschreibung.Status.INSTABIL
+            , JobStatusBeschreibung.JobStatus.INSTABIL
             , LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobStatusBeschreibung);
         assertEquals(Color.yellow, jobStatusBeschreibung.getStatusColor());
@@ -78,7 +78,7 @@ class JobStatusBeschreibungTest {
     @DisplayName("Statusfarbe eines fehlerhaften Jobs ist rot")
     void fehlerhafteJobsSindRot() {
         final JobStatusBeschreibung jobStatusBeschreibung = new JobStatusBeschreibung(NAME_JOB1
-            , JobStatusBeschreibung.Status.FAILED
+            , JobStatusBeschreibung.JobStatus.FAILED
             , LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobStatusBeschreibung);
         assertEquals(Color.red, jobStatusBeschreibung.getStatusColor());
