@@ -83,4 +83,7 @@ class JobJobStatusBeschreibungTest {
         assertNotNull(jobStatusBeschreibung);
         assertEquals(Color.red, jobStatusBeschreibung.getStatusColor());
     }
+
+//    @Test
+//    @DisplayName("Der JobStatus ")
 }

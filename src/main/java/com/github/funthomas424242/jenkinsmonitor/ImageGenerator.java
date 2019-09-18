@@ -10,12 +10,12 @@ package com.github.funthomas424242.jenkinsmonitor;
  * it under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Lesser Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Lesser Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
@@ -33,7 +33,7 @@ public class ImageGenerator {
         this.jobsStatusBeschreibungen = jobsStatusBeschreibungen;
     }
 
-    public BufferedImage getImage( final int width, final int height) {
+    public BufferedImage getImage(final int width, final int height) {
         return createGrayImage(width, height);
     }
 
@@ -41,7 +41,6 @@ public class ImageGenerator {
         final BufferedImage image = new BufferedImage(width, height,
             BufferedImage.TYPE_BYTE_INDEXED);
         final Graphics g = image.createGraphics();
-//        final Graphics g = image.getGraphics();
         g.setColor(Color.lightGray);
         g.fillRect(0, 0, width, height);
         g.dispose();

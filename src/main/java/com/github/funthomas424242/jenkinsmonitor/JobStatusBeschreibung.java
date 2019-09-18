@@ -10,12 +10,12 @@ package com.github.funthomas424242.jenkinsmonitor;
  * it under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Lesser Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Lesser Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
@@ -28,9 +28,20 @@ import java.net.URL;
 public class JobStatusBeschreibung {
 
     public enum JobStatus {
-        SUCCESS,
-        FAILED,
-        INSTABIL
+        SUCCESS(Color.green),
+        FAILED(Color.red),
+        INSTABIL(Color.yellow),
+        OTHER(Color.gray);
+
+        protected Color color;
+
+        JobStatus(Color color) {
+            this.color = color;
+        }
+
+        public Color getColor() {
+            return this.color;
+        }
     }
 
     protected final JobStatus jobStatus;
@@ -40,27 +51,22 @@ public class JobStatusBeschreibung {
     protected final URL jobUrl;
 
 
-    public JobStatusBeschreibung(final String jobName, final JobStatus jobStatus, final URL jobUrl){
+    public JobStatusBeschreibung(final String jobName, final JobStatus jobStatus, final URL jobUrl) {
         this.jobStatus = jobStatus;
-        this.jobName=jobName;
-        this.jobUrl=jobUrl;
+        this.jobName = jobName;
+        this.jobUrl = jobUrl;
     }
 
     public Color getStatusColor() {
-        if(jobStatus == null ) return Color.gray;
-        switch (jobStatus){
-            case FAILED: return Color.red;
-            case SUCCESS: return Color.green;
-            case INSTABIL: return Color.yellow;
-            default: return Color.gray;
-        }
+        if (jobStatus == null) return JobStatus.OTHER.getColor();
+        return jobStatus.getColor();
     }
 
     public JobStatus getJobStatus() {
         return jobStatus;
     }
 
-    public URL getJobUrl(){
+    public URL getJobUrl() {
         return this.jobUrl;
     }
 }
