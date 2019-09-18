@@ -25,6 +25,7 @@ package com.github.funthomas424242.jenkinsmonitor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,6 +41,7 @@ public class ImageGeneratorTest {
         final BufferedImage image = generator.getImage(100,100);
         assertEquals(100,image.getHeight());
         assertEquals(100,image.getWidth());
+        assertEquals(Color.lightGray.getRGB(),image.getRGB(12,12));
     }
 
     @Test

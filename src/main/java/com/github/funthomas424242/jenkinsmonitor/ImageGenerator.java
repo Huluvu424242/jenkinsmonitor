@@ -27,15 +27,22 @@ import java.awt.image.BufferedImage;
 
 public class ImageGenerator {
 
-    public ImageGenerator(Object o) {
+    protected final JobStatusBeschreibung[] jobsStatusBeschreibungen;
 
+    public ImageGenerator(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
+        this.jobsStatusBeschreibungen = jobsStatusBeschreibungen;
     }
 
     public BufferedImage getImage( final int width, final int height) {
+        return createGrayImage(width, height);
+    }
+
+    protected BufferedImage createGrayImage(int width, int height) {
         final BufferedImage image = new BufferedImage(width, height,
             BufferedImage.TYPE_BYTE_INDEXED);
         final Graphics g = image.createGraphics();
-        g.setColor(Color.gray);
+//        final Graphics g = image.getGraphics();
+        g.setColor(Color.lightGray);
         g.fillRect(0, 0, width, height);
         g.dispose();
 
