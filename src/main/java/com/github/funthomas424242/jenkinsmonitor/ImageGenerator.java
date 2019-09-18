@@ -34,25 +34,32 @@ public class ImageGenerator {
     }
 
     BufferedImage getImage(final int width, final int height) {
-        BufferedImage image = createImage(width, height, JobStatusBeschreibung.JobStatus.OTHER);
+        final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_INDEXED);
+        createPartImage(image, 0, width, height,JobStatusBeschreibung.JobStatus.OTHER);
 
         if (jobsStatusBeschreibungen == null || jobsStatusBeschreibungen.length < 1) {
             return image;
         }
 
-
+        final int jobCount = jobsStatusBeschreibungen.length;
+        final int partImageWidth = width / jobCount;
+        int startX = 0;
         for (JobStatusBeschreibung jobStatusBeschreibung : jobsStatusBeschreibungen) {
-            image =  createImage(width, height, jobStatusBeschreibung.getJobStatus());
+            createPartImage(image, startX, partImageWidth, height, jobStatusBeschreibung.getJobStatus());
+            startX += partImageWidth;
         }
         return image;
     }
 
-    protected BufferedImage createImage(int width, int height, final JobStatusBeschreibung.JobStatus jobStatus) {
-        final BufferedImage image = new BufferedImage(width, height,
-            BufferedImage.TYPE_BYTE_INDEXED);
+    protected BufferedImage createPartImage(BufferedImage image,
+                                            final int x,
+                                            final int width,
+                                            final int height,
+                                            final JobStatusBeschreibung.JobStatus jobStatus) {
+
         final Graphics g = image.createGraphics();
         g.setColor(jobStatus.getColor());
-        g.fillRect(0, 0, width, height);
+        g.fillRect(x, 0, width, height);
         g.dispose();
 
         return image;
