@@ -37,18 +37,6 @@ Installation bedeutet im konkreten Fall Erstellung eines neuen Repositories in D
 
 Das Projekt ist ein Template für Projekte im Style von RADES Beispielen. Wem die Projektstruktur gefällt der klickt einfach auf den grünen "Use this Template" Button im oberen Bildschirmbereich.
 
-[#literatur]
-== Literatur und Quellen im Netz
-
-* https://www.baeldung.com/maven-wrapper
-* https://github.com/noffle/art-of-readme[Art of Readme] - Erlerne die Kunst gute READMEs zu schreiben.
-* https://github.com/davidbgk/open-source-template/[open-source-template] - A README template to encourage open-source contributions.
-* https://www.makeareadme.com/
-* https://github.com/RichardLitt/standard-readme
-* https://github.com/RichardLitt/generator-standard-readme/
-* https://github.com/noffle/art-of-readme
-* https://keepachangelog.com/de
-
 [#projektverantwortlicher]
 == Projektverantwortlicher
 

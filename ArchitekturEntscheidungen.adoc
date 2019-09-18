@@ -1,0 +1,97 @@
+= Architekturentscheidungen
+
+== Technische Aspekte der fachlichen Umsetzung
+
+* Der Jenkins wird über einen REST Client abgefragt
+* Die Statusabfragen werden per Polling in einem konfiguriertem Zeitintervall gesendet
+* Die optische Darstellung erfolgt im Window Tray
+
+=== Entscheidung Programmiersprache
+
+* Das Programm soll auf möglichst vielen Plattformen laufen
+-> fachliche Anforderung ist der Support von Windows
+17.09.2019: Es wird Java SE verwendet.
+
+=== Entscheidung Jenkins REST API
+
+* Aktuell sind bestimmte URL Pattern bekannt mit denen der Build Status vom Jenkins abgefragt werden kann
+
+  Fachliche Anforderung ist eine Abfrage ohne Authentication
+
+  17.09.2019:
+  Es werden folgende URL Pattern unterstützt:
+  ** http://jenkinshost/job/freejobname/lastBuild/api/json
+  ** http://jenkinshost/job/multibranchpiplinejobname/job/branchname/lastBuild/api/json
+
+* Es wird ein JSON Response erwartet welcher den Buildstatus des abgefragten Jobs beschreibt
+
+  Fachliche Anforderung ist die Anzeige des Buildjob Namen und einen Status grün, gelb oder rot
+
+  17.09.2019:
+  Aus dem Response JSON Objekt werden folgende Attribute ausgewertet:
+  ** fullDisplayName
+  ** result
+
+== Enscheidung GUI Technologie
+
+* Die Darstellung soll im Systemtray als Icon erscheinen
+
+  Fachliche Anforderung ist:
+  ** Bei Rechtsklick auf das Icon erscheint eine List der Buildjobsname in der Farbe des letzten Buildstatus
+  ** Bei Linksklick auf das Icon erscheint ein Menü mit folgenden Einträgen:
+     *** Reload Config -> liest die Konfigurationsdatei neu ein
+     *** About -> Link zur Projektwebseite
+
+  17.09.2019:
+  Java bietet mit AWT eine Möglichkeit GUI Elemente in den Systemtray zu bringen
+  Daher erfolgt die Implementierung über AWT Klassen.
+  Swing oder JavaFX werden nicht benutzt, um die Abhängigkeiten zu verringern
+
+== Entscheidung Entwicklungsmethode
+
+* Das Produkt soll professionelle Qualtiät über einen CI und Test first Ansatz sicherstellen
+
+  Vorteile des test first Ansatzes:
+  ** Eignet sich für Button Up. Daher kann mit der Entwicklung der eigentlichen Fachlichkeit sofort begonnen
+     werden und später die Integration der Komponenten erfolgen
+  ** Bei neuen Testtools kann mit einfachen Testfällen zunächst auch das Testwerkzeug erkundet werden.
+
+  17.09.2019:
+  Die Sourcen werden auf github gehostet.
+  Die CI wird über Travis-CI realisiert.
+  Das Deployment erfolgt manuell über Bintray bis ins maven central.
+
+== Entscheidung Testvorgehen
+
+Generell soll möglichst ohne Mock Frameworks ausgekommen werden.
+Hier sollte der test first Ansatz helfen weite Teile der Anwendung möglichst einfach mit eigenen Mocks oder Stubs
+testen zu können.
+
+17.09.2019:
+Zur Testausführung wird vorwiegend das Framework JUnit5 genutzt.
+
+* Der REST Client
+
+  Hier ist ein Framework notwendig, da sonst unverhältnismäßig viel Aufwand bei der Implementierung
+  der Mocks erwartet wird.
+
+  17.09.2019:
+  Es wird zunächst versucht das Framework wireMock zu nutzen. Es soll mit geringen
+  Aufwänden im Maven Build nutzbar sein und die Testfälle lassen sich angeblich
+  recht einfach in JUnit per Rule beschreiben.
+  http://wiremock.org/
+
+*
+
+
+[##literatur]
+== Literatur und Quellen im Netz
+
+* https://www.baeldung.com/maven-wrapper
+* https://github.com/noffle/art-of-readme[Art of Readme] - Erlerne die Kunst gute READMEs zu schreiben.
+* https://github.com/davidbgk/open-source-template/[open-source-template] - A README template to encourage open-source contributions.
+* https://www.makeareadme.com/
+* https://github.com/RichardLitt/standard-readme
+* https://github.com/RichardLitt/generator-standard-readme/
+* https://github.com/noffle/art-of-readme
+* https://keepachangelog.com/de
