@@ -49,7 +49,8 @@ class JobStatusTest {
             , null
             , null);
         assertNotNull(jobStatus);
-//        assertNull(jobStatus.get)
+        assertNull(jobStatus.getStatus());
+        assertNull(jobStatus.getJobUrl());
         assertEquals(Color.gray,jobStatus.getStatusColor());
     }
 

@@ -28,6 +28,8 @@ import java.util.Enumeration;
 
 public class JobStatus {
 
+
+
     public enum Status {
         SUCCESS,
         FAILED,
@@ -55,5 +57,13 @@ public class JobStatus {
             case INSTABIL: return Color.yellow;
             default: return Color.gray;
         }
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public URL getJobUrl(){
+        return this.jobUrl;
     }
 }
