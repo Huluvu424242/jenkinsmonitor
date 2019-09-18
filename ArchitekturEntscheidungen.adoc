@@ -82,7 +82,25 @@ Zur Testausführung wird vorwiegend das Framework JUnit5 genutzt.
   http://wiremock.org/
   https://blog.jonas-hellmann.de/testen-eines-rest-clients-in-java-mit-wiremock/
 
-*
+* Der Timer fürs Polling
+
+  Hierfür dürfte bei entsprechender Programmierung kein Framework notwendig sein.
+
+  17.09.2019:
+  Realisierung wie im Artikel beschrieben:
+  https://capgemini.github.io/development/testing-timers/
+
+* Die GUI Darstellung und Verhalten
+
+  Hier wird ein Framework benötigt, da es unverhältnismäßig viel Aufwand bedeutet auf
+  OS Ebene zu testen.
+
+  Das einzige mir aktuell bekannte Framewok ist FEST. Es liegen keine Erfahrungen vor.
+
+  17.09.2019:
+  FEST wird zum Test der GUI Komponenten verwendet:
+  http://web.archive.org/web/20110101141359/http://fest.easytesting.org/
+
 
 
 [##literatur]
