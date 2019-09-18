@@ -24,7 +24,6 @@ package com.github.funthomas424242.jenkinsmonitor;
 
 import java.awt.*;
 import java.net.URL;
-import java.util.Enumeration;
 
 public class JobStatusBeschreibung {
 
@@ -34,22 +33,22 @@ public class JobStatusBeschreibung {
         INSTABIL
     };
 
-    protected final Status status;
+    protected final Status jobStatus;
 
     protected final String jobName;
 
     protected final URL jobUrl;
 
 
-    public JobStatusBeschreibung(final String jobName, final Status status, final URL jobUrl){
-        this.status=status;
+    public JobStatusBeschreibung(final String jobName, final Status jobStatus, final URL jobUrl){
+        this.jobStatus = jobStatus;
         this.jobName=jobName;
         this.jobUrl=jobUrl;
     }
 
     public Color getStatusColor() {
-        if(status == null ) return Color.gray;
-        switch (status){
+        if(jobStatus == null ) return Color.gray;
+        switch (jobStatus){
             case FAILED: return Color.red;
             case SUCCESS: return Color.green;
             case INSTABIL: return Color.yellow;
@@ -57,8 +56,8 @@ public class JobStatusBeschreibung {
         }
     }
 
-    public Status getStatus() {
-        return status;
+    public Status getJobStatus() {
+        return jobStatus;
     }
 
     public URL getJobUrl(){
