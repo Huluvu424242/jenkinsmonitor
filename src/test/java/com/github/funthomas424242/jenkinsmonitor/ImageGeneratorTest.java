@@ -41,7 +41,8 @@ public class ImageGeneratorTest {
         final BufferedImage image = generator.getImage(100,100);
         assertEquals(100,image.getHeight());
         assertEquals(100,image.getWidth());
-        assertEquals(Color.lightGray.getRGB(),image.getRGB(12,12));
+        assertEquals(JobStatusBeschreibung.JobStatus.OTHER.getColor().getRGB(),image.getRGB(10,10));
+        assertEquals(Color.lightGray.getRGB(), image.getRGB(10,10));
     }
 
     @Test

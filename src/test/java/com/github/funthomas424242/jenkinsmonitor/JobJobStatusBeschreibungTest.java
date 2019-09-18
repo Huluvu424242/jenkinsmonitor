@@ -51,7 +51,7 @@ class JobJobStatusBeschreibungTest {
         assertNotNull(jobStatusBeschreibung);
         assertNull(jobStatusBeschreibung.getJobStatus());
         assertNull(jobStatusBeschreibung.getJobUrl());
-        assertEquals(Color.gray, jobStatusBeschreibung.getStatusColor());
+        assertEquals(JobStatusBeschreibung.JobStatus.OTHER.getColor(), jobStatusBeschreibung.getStatusColor());
     }
 
     @Test
@@ -61,7 +61,7 @@ class JobJobStatusBeschreibungTest {
             , JobStatusBeschreibung.JobStatus.SUCCESS
             , LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobStatusBeschreibung);
-        assertEquals(Color.green, jobStatusBeschreibung.getStatusColor());
+        assertEquals(JobStatusBeschreibung.JobStatus.SUCCESS.getColor(), jobStatusBeschreibung.getStatusColor());
     }
 
     @Test
@@ -71,7 +71,7 @@ class JobJobStatusBeschreibungTest {
             , JobStatusBeschreibung.JobStatus.INSTABIL
             , LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobStatusBeschreibung);
-        assertEquals(Color.yellow, jobStatusBeschreibung.getStatusColor());
+        assertEquals(JobStatusBeschreibung.JobStatus.INSTABIL.getColor(), jobStatusBeschreibung.getStatusColor());
     }
 
     @Test
@@ -81,9 +81,7 @@ class JobJobStatusBeschreibungTest {
             , JobStatusBeschreibung.JobStatus.FAILED
             , LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobStatusBeschreibung);
-        assertEquals(Color.red, jobStatusBeschreibung.getStatusColor());
+        assertEquals(JobStatusBeschreibung.JobStatus.FAILED.getColor(), jobStatusBeschreibung.getStatusColor());
     }
 
-//    @Test
-//    @DisplayName("Der JobStatus ")
 }

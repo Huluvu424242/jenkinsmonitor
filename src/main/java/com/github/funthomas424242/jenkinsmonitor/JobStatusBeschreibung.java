@@ -31,7 +31,8 @@ public class JobStatusBeschreibung {
         SUCCESS(Color.green),
         FAILED(Color.red),
         INSTABIL(Color.yellow),
-        OTHER(Color.gray);
+        // lightGray statt gray wegen gray Anomalie!
+        OTHER(Color.lightGray);
 
         protected Color color;
 

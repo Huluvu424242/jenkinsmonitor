@@ -41,7 +41,7 @@ public class ImageGenerator {
         final BufferedImage image = new BufferedImage(width, height,
             BufferedImage.TYPE_BYTE_INDEXED);
         final Graphics g = image.createGraphics();
-        g.setColor(Color.lightGray);
+        g.setColor(JobStatusBeschreibung.JobStatus.OTHER.getColor());
         g.fillRect(0, 0, width, height);
         g.dispose();
 
