@@ -69,8 +69,12 @@ public class JenkinsMonitorTray {
         }
     }
 
-    public void updateJobStatus(JobStatusBeschreibung[] jobStatusBeschreibungen) {
+    protected void updateJobStatus(JobStatusBeschreibung[] jobStatusBeschreibungen) {
         this.jobStatusBeschreibungen = jobStatusBeschreibungen;
+        updateDarstellung();
+    }
+
+    protected void updateDarstellung() {
         tray.remove(getTrayIcon());
         erzeugeDarstellung();
     }
