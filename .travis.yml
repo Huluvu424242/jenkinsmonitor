@@ -17,7 +17,7 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 
-script: xvfb-run ./mvnw clean install site
+script: ./mvnw clean install site
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
