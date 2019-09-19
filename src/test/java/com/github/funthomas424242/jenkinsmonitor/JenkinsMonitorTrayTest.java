@@ -22,10 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -44,6 +41,11 @@ public class JenkinsMonitorTrayTest {
         jenkinsMonitorTray.erzeugeDarstellung();
     }
 
+    @AfterEach
+    public void tearDown(){
+        jenkinsMonitorTray=null;
+    }
+
     @Test
     @DisplayName("Initial wird ein graues Icon angezeigt mit Tooltipp <<No jobs watching>>")
     public void shouldShowNoJobsWatching() throws AWTException {
@@ -53,7 +55,6 @@ public class JenkinsMonitorTrayTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master success>>")
     public void shouldShowOneJobWatching() {
         final JobStatusBeschreibung[] jobStatusBeschreibungen = new JobStatusBeschreibung[1];
@@ -64,10 +65,6 @@ public class JenkinsMonitorTrayTest {
 //        assertEquals("MulitbranchJob/master s/uccess", trayIcon.getToolTip());
     }
 
-    @Test
-    @Disabled
-    public void show() {
-        jenkinsMonitorTray.getTrayIcon();
-    }
+
 
 }

@@ -26,23 +26,24 @@ import java.awt.*;
 
 public class JenkinsMonitorTray {
 
-    protected SystemTray tray;
+    protected SystemTrayWrapper tray;
 
     protected JobStatusBeschreibung[] jobStatusBeschreibungen;
 
     JenkinsMonitorTray() {
-        this(null);
+        this(new SystemTrayWrapper(),null);
     }
 
-    JenkinsMonitorTray(JobStatusBeschreibung[] jobStatusBeschreibungen){
+    JenkinsMonitorTray(SystemTrayWrapper systemTray, JobStatusBeschreibung[] jobStatusBeschreibungen){
         this.jobStatusBeschreibungen=jobStatusBeschreibungen;
         //Obtain only one instance of the SystemTray object
-        this.tray = SystemTray.getSystemTray();
+        this.tray = systemTray;
     }
 
 
     TrayIcon getTrayIcon() {
-        return this.tray.getTrayIcons()[0];
+//        return this.tray.getTrayIcons()[0];
+        return this.tray.getTrayIcon();
     }
 
     void erzeugeDarstellung() {
