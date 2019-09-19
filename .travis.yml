@@ -9,13 +9,13 @@ jdk:
   - openjdk8
 
 
-before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
+#before_script:
+#  - "export DISPLAY=:99.0"
+#  - "sh -e /etc/init.d/xvfb start"
+#  - sleep 3 # give xvfb some time to start
 
 
-script: ./mvnw clean install site
+script: xvfb-run ./mvnw clean install site
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
