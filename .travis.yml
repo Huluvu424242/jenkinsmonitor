@@ -8,8 +8,8 @@ language: java
 jdk:
   - openjdk8
 
-services:
-  - xvfb
+#services:
+#  - xvfb
 
 #before_script:
 #  - "export DISPLAY=:99.0"
