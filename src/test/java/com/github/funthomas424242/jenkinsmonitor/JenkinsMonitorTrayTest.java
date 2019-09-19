@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static com.github.funthomas424242.jenkinsmonitor.TrayImage.isImageOfColor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,19 +41,7 @@ public class JenkinsMonitorTrayTest {
     @BeforeEach
     public void setUp() {
         jenkinsMonitorTray = new JenkinsMonitorTray();
-        jenkinsMonitorTray.show();
-    }
-
-    boolean isImageOfColor(BufferedImage image, Color color) {
-        boolean isOfColor = true;
-        final int width = image.getWidth();
-        final int height = image.getHeight();
-        for (int breite = 0; breite < width; breite++) {
-            for (int hoehe = 0; hoehe < height; hoehe++) {
-                isOfColor = isOfColor && image.getRGB(breite, hoehe) == color.getRGB();
-            }
-        }
-        return isOfColor;
+        jenkinsMonitorTray.createIcon();
     }
 
     @Test
@@ -60,27 +49,18 @@ public class JenkinsMonitorTrayTest {
     public void shouldShowNoJobsWatching() throws AWTException {
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertEquals("No jobs watching", trayIcon.getToolTip());
-        final Image image = trayIcon.getImage();
-        assertTrue(isImageOfColor((BufferedImage) image, JobStatusBeschreibung.JobStatus.OTHER.getColor()));
+        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobStatusBeschreibung.JobStatus.OTHER.getColor()));
     }
-
-
-    @Test
-    @Disabled
-    @DisplayName("Erzeuge ein grünes TrayIcon")
-    public void createOneJobGreen() {
-        final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
-        assertEquals("No jobs watching", trayIcon.getToolTip());
-    }
-
 
     @Test
     @Disabled
     @DisplayName("Der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master success>>")
     public void shouldShowOneJobWatching() {
-        final Configuration configuration = new OneJobConfiguration();
-        jenkinsMonitorTray.reloadConfiguration(configuration);
+        final JobStatusBeschreibung[] jobStatusBeschreibungen = new JobStatusBeschreibung[1];
+        jobStatusBeschreibungen[0]=new JobStatusBeschreibung("multibranch1/master", JobStatusBeschreibung.JobStatus.SUCCESS,null);
+        jenkinsMonitorTray.updateJobStatus(jobStatusBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
+        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobStatusBeschreibung.JobStatus.SUCCESS.getColor()));
 //        assertEquals("MulitbranchJob/master s/uccess", trayIcon.getToolTip());
     }
 

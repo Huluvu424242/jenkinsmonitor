@@ -28,7 +28,9 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static com.github.funthomas424242.jenkinsmonitor.TrayImage.isImageOfColor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class ImageGeneratorTest {
@@ -41,8 +43,8 @@ class ImageGeneratorTest {
         final BufferedImage image = generator.getImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertEquals(JobStatusBeschreibung.JobStatus.OTHER.getColor().getRGB(), image.getRGB(10, 10));
-        assertEquals(Color.lightGray.getRGB(), image.getRGB(10, 10));
+        assertTrue(isImageOfColor(image, JobStatusBeschreibung.JobStatus.OTHER.getColor()));
+        assertTrue(isImageOfColor(image, Color.lightGray));
     }
 
     @Test
@@ -53,8 +55,8 @@ class ImageGeneratorTest {
         final BufferedImage image = generator.getImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertEquals(JobStatusBeschreibung.JobStatus.OTHER.getColor().getRGB(), image.getRGB(10, 10));
-        assertEquals(Color.lightGray.getRGB(), image.getRGB(10, 10));
+        assertTrue(isImageOfColor(image, JobStatusBeschreibung.JobStatus.OTHER.getColor()));
+        assertTrue(isImageOfColor(image, Color.lightGray));
     }
 
     @Test
@@ -68,8 +70,8 @@ class ImageGeneratorTest {
         final BufferedImage image = generator.getImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertEquals(JobStatusBeschreibung.JobStatus.SUCCESS.getColor().getRGB(), image.getRGB(10, 10));
-        assertEquals(Color.green.getRGB(), image.getRGB(10, 10));
+        assertTrue(isImageOfColor(image, JobStatusBeschreibung.JobStatus.SUCCESS.getColor()));
+        assertTrue(isImageOfColor(image, Color.green));
     }
 
     @Test
@@ -83,8 +85,8 @@ class ImageGeneratorTest {
         final BufferedImage image = generator.getImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertEquals(JobStatusBeschreibung.JobStatus.INSTABIL.getColor().getRGB(), image.getRGB(10, 10));
-        assertEquals(Color.yellow.getRGB(), image.getRGB(10, 10));
+        assertTrue(isImageOfColor(image, JobStatusBeschreibung.JobStatus.INSTABIL.getColor()));
+        assertTrue(isImageOfColor(image, Color.yellow));
     }
 
     @Test
@@ -98,8 +100,8 @@ class ImageGeneratorTest {
         final BufferedImage image = generator.getImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertEquals(JobStatusBeschreibung.JobStatus.FAILED.getColor().getRGB(), image.getRGB(10, 10));
-        assertEquals(Color.red.getRGB(), image.getRGB(10, 10));
+        assertTrue(isImageOfColor(image, JobStatusBeschreibung.JobStatus.FAILED.getColor()));
+        assertTrue(isImageOfColor(image, Color.red));
     }
 
     @Test
