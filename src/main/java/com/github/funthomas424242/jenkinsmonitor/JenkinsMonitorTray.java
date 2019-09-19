@@ -28,7 +28,14 @@ public class JenkinsMonitorTray {
 
     protected SystemTray tray;
 
+    protected JobStatusBeschreibung[] jobStatusBeschreibungen;
+
     JenkinsMonitorTray() {
+        this(null);
+    }
+
+    JenkinsMonitorTray(JobStatusBeschreibung[] jobStatusBeschreibungen){
+        this.jobStatusBeschreibungen=jobStatusBeschreibungen;
         //Obtain only one instance of the SystemTray object
         this.tray = SystemTray.getSystemTray();
     }
@@ -38,10 +45,10 @@ public class JenkinsMonitorTray {
         return this.tray.getTrayIcons()[0];
     }
 
-    void show() {
+    void erzeugeDarstellung() {
         try {
 
-            final ImageGenerator imageGenerator = new ImageGenerator(null);
+            final ImageGenerator imageGenerator = new ImageGenerator(this.jobStatusBeschreibungen);
             Image grayImage = imageGenerator.getImage(100, 100);
 
             TrayIcon trayIcon = new TrayIcon(grayImage, "No jobs watching");
@@ -62,8 +69,10 @@ public class JenkinsMonitorTray {
         }
     }
 
-    public void reloadConfiguration(Configuration configuration) {
-
+    public void updateJobStatus(JobStatusBeschreibung[] jobStatusBeschreibungen) {
+        this.jobStatusBeschreibungen = jobStatusBeschreibungen;
+        tray.remove(getTrayIcon());
+        erzeugeDarstellung();
     }
 
 }

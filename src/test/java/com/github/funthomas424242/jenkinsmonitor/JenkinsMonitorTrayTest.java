@@ -41,7 +41,7 @@ public class JenkinsMonitorTrayTest {
     @BeforeEach
     public void setUp() {
         jenkinsMonitorTray = new JenkinsMonitorTray();
-        jenkinsMonitorTray.createIcon();
+        jenkinsMonitorTray.erzeugeDarstellung();
     }
 
     @Test
