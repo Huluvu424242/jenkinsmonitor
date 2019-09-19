@@ -1,6 +1,6 @@
-dist: xenial
-services:
-  - xvfb
+sudo: required
+#dist: xenial
+
 
 language: java
 
@@ -8,6 +8,8 @@ language: java
 jdk:
   - openjdk8
 
+services:
+  - xvfb
 
 #before_script:
 #  - "export DISPLAY=:99.0"
