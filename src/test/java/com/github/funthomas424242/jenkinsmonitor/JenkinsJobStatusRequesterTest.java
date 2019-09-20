@@ -68,7 +68,7 @@ public class JenkinsJobStatusRequesterTest {
         assertNotNull(jobBeschreibung);
         assertNotNull(jobBeschreibung.getJobStatus());
         assertNotNull(jobBeschreibung.getJobName());
-        assertEquals(JobBeschreibung.JobStatus.FAILED.getColor(),jobBeschreibung.getJobStatus().getColor());
+        assertEquals(JobStatus.FAILED.getColor(),jobBeschreibung.getJobStatus().getColor());
     }
 
 }

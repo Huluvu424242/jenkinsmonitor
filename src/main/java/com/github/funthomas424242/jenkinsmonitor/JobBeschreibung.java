@@ -27,23 +27,7 @@ import java.net.URL;
 
 public class JobBeschreibung {
 
-    public enum JobStatus {
-        SUCCESS(Color.green),
-        FAILED(Color.red),
-        INSTABIL(Color.yellow),
-        // lightGray statt gray wegen gray Anomalie!
-        OTHER(Color.lightGray);
 
-        protected Color color;
-
-        JobStatus(Color color) {
-            this.color = color;
-        }
-
-        public Color getColor() {
-            return this.color;
-        }
-    }
 
     protected final JobStatus jobStatus;
 

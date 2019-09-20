@@ -35,7 +35,7 @@ public class ImageGenerator {
 
     BufferedImage getImage(final int width, final int height) {
         final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_INDEXED);
-        createPartImage(image, 0, width, height, JobBeschreibung.JobStatus.OTHER);
+        createPartImage(image, 0, width, height, JobStatus.OTHER);
 
         if (jobsStatusBeschreibungen == null || jobsStatusBeschreibungen.length < 1) {
             return image;
@@ -55,7 +55,7 @@ public class ImageGenerator {
                                             final int x,
                                             final int width,
                                             final int height,
-                                            final JobBeschreibung.JobStatus jobStatus) {
+                                            final JobStatus jobStatus) {
 
         final Graphics g = image.createGraphics();
         g.setColor(jobStatus.getColor());
