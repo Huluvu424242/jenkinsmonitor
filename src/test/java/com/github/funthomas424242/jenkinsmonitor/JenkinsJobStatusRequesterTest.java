@@ -13,11 +13,13 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 public class JenkinsJobStatusRequesterTest {
 
 
-    protected static URL urlMultibranchJob1;
+    protected static URL URL_MULTIBRANCH_JOB1;
+
+
 
     @BeforeAll
     static void setUp() throws MalformedURLException {
-        urlMultibranchJob1 = new URL("http://stachel:8090/job/multibranchjob1/job/master");
+        URL_MULTIBRANCH_JOB1 = new URL("http://stachel:8090/job/multibranchjob1/job/master");
     }
 
     @Test
@@ -25,7 +27,7 @@ public class JenkinsJobStatusRequesterTest {
     protected void validInstanz(){
         final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         assumeTrue(requester!=null);
-        assertNotNull(requester.getJobStatus(urlMultibranchJob1));
+        assertNotNull(requester.getJobStatus(URL_MULTIBRANCH_JOB1));
     }
 
 }
