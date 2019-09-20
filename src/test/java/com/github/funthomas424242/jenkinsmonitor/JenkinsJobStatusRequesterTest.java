@@ -17,33 +17,26 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 public class JenkinsJobStatusRequesterTest {
 
 
-    protected static URL STATUS_URL_MULTIBRANCH_JOB1;
+    protected static URL STATUS_URL_MULTIBRANCH_JOB1_RED;
 
     WireMockServer wireMockServer;
 
     @BeforeAll
     static void setUp() throws MalformedURLException {
-        STATUS_URL_MULTIBRANCH_JOB1 = new URL("http://localhost:8099/job/multibranchjobred/job/master/lastBuild/api/json");
+        STATUS_URL_MULTIBRANCH_JOB1_RED = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_RED);
     }
 
     @BeforeEach
     public void setup () {
         wireMockServer = new WireMockServer(8099);
         wireMockServer.start();
-        JenkinsAPICompatibillityTest.definiereJenkinsAPIMock(wireMockServer);
+        JenkinsAPIMock.definiereAnnahmen(wireMockServer);
     }
 
     @AfterEach
     public void teardown () {
         wireMockServer.stop();
     }
-
-//    public void setupStub() {
-//        wireMockServer.stubFor(WireMock.get(WireMock.urlEqualTo("/job/multibranchjobred/job/master/lastBuild/api/json"))
-//            .willReturn(WireMock.aResponse().withHeader("Content-Type", "application/json")
-//                .withStatus(200)
-//                .withBodyFile("json/multibranch-job1-red.json")));
-//    }
 
 
 
@@ -52,7 +45,7 @@ public class JenkinsJobStatusRequesterTest {
     protected void validInstanz(){
         final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         assumeTrue(requester!=null);
-        assertNotNull(requester.getJobStatus(STATUS_URL_MULTIBRANCH_JOB1));
+        assertNotNull(requester.getJobStatus(STATUS_URL_MULTIBRANCH_JOB1_RED));
     }
 
 }

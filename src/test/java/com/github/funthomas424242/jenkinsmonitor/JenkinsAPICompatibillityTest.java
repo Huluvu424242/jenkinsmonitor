@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 public class JenkinsAPICompatibillityTest {
 
 
-    protected static URL STATUS_URL_MULTIBRANCH_JOB1;
+    protected static URL STATUS_URL_MULTIBRANCH_JOB1_RED;
 
     WireMockServer wireMockServer;
 
     @BeforeAll
     static void setUp() throws MalformedURLException {
-        STATUS_URL_MULTIBRANCH_JOB1 = new URL("http://localhost:8099/"+JenkinsAPIMock.STATUSPATH_MULTIBRANCH_JOB1_RED);
+        STATUS_URL_MULTIBRANCH_JOB1_RED = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_RED);
     }
 
     @BeforeEach
@@ -41,7 +41,7 @@ public class JenkinsAPICompatibillityTest {
     @DisplayName("Kein echter Test nur GemockterClient testet gemockten Server -> API Compatibillity Test")
     public void testStatusCodePositive() {
             when().
-            get(STATUS_URL_MULTIBRANCH_JOB1).
+            get(STATUS_URL_MULTIBRANCH_JOB1_RED).
             then().
             statusCode(200).
             body("fullDisplayName", Matchers.equalTo("mypocketmod » master #2"),

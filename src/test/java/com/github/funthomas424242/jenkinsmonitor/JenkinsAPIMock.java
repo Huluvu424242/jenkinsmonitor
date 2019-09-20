@@ -5,11 +5,16 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 
 public class JenkinsAPIMock {
 
+    public static String JENKINS_ROOT = "http://localhost:8099";
 
     public static String STATUSPATH_MULTIBRANCH_JOB1_RED = "/job/multibranchjobred/job/master/lastBuild/api/json";
+    public static String STATUS_URL_MULTIBRANCH_JOB1_RED = JENKINS_ROOT + STATUSPATH_MULTIBRANCH_JOB1_RED;
     public static String STATUSPATH_MULTIBRANCH_JOB1_GREEN = "/job/multibranchjobgreen/job/master/lastBuild/api/json";
+    public static String STATUS_URL_MULTIBRANCH_JOB1_GREEN = JENKINS_ROOT + STATUSPATH_MULTIBRANCH_JOB1_GREEN;
     public static String STATUSPATH_MULTIBRANCH_JOB1_YELLOW = "/job/multibranchjobyellow/job/master/lastBuild/api/json";
+    public static String STATUS_URL_MULTIBRANCH_JOB1_YELLOW = JENKINS_ROOT + STATUSPATH_MULTIBRANCH_JOB1_YELLOW;
     public static String STATUSPATH_MULTIBRANCH_JOB1_GRAY = "/job/multibranchjobgray/job/master/lastBuild/api/json";
+    public static String STATUS_URL_MULTIBRANCH_JOB1_GRAY = JENKINS_ROOT + STATUSPATH_MULTIBRANCH_JOB1_GRAY;
 
 
     public static void definiereAnnahmen(WireMockServer jenkins) {
