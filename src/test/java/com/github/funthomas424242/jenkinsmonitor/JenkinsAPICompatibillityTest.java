@@ -1,7 +1,6 @@
 package com.github.funthomas424242.jenkinsmonitor;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.client.WireMock;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
 
@@ -22,14 +21,14 @@ public class JenkinsAPICompatibillityTest {
 
     @BeforeAll
     static void setUp() throws MalformedURLException {
-        STATUS_URL_MULTIBRANCH_JOB1 = new URL("http://localhost:8099/job/multibranchjobred/job/master/lastBuild/api/json");
+        STATUS_URL_MULTIBRANCH_JOB1 = new URL("http://localhost:8099/"+JenkinsAPIMock.STATUSPATH_MULTIBRANCH_JOB1_RED);
     }
 
     @BeforeEach
     public void setup () {
         wireMockServer = new WireMockServer(8099);
         wireMockServer.start();
-        definiereJenkinsAPIMock(wireMockServer);
+        JenkinsAPIMock.definiereAnnahmen(wireMockServer);
     }
 
     @AfterEach
@@ -37,12 +36,6 @@ public class JenkinsAPICompatibillityTest {
         wireMockServer.stop();
     }
 
-    public static void definiereJenkinsAPIMock(WireMockServer jenkins ) {
-        jenkins.stubFor(WireMock.get(WireMock.urlEqualTo("/job/multibranchjobred/job/master/lastBuild/api/json"))
-            .willReturn(WireMock.aResponse().withHeader("Content-Type", "application/json")
-                .withStatus(200)
-                .withBodyFile("json/multibranch-job1-red.json")));
-    }
 
     @Test
     @DisplayName("Kein echter Test nur GemockterClient testet gemockten Server -> API Compatibillity Test")
