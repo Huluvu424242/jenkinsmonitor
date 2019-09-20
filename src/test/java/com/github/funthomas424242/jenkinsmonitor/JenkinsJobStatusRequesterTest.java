@@ -37,7 +37,7 @@ public class JenkinsJobStatusRequesterTest {
     }
 
     public void setupStub() {
-        wireMockServer.stubFor(get(urlEqualTo("/an/endpoint"))
+        wireMockServer.stubFor(get(urlEqualTo("/job/mypocketmod/job/master/lastBuild/api/json"))
             .willReturn(aResponse().withHeader("Content-Type", "text/plain")
                 .withStatus(200)
                 .withBodyFile("json/multibranch-job1-red.json")));
@@ -47,7 +47,7 @@ public class JenkinsJobStatusRequesterTest {
     public void testStatusCodePositive() {
         given().
             when().
-            get("http://localhost:8099/an/endpoint").
+            get("http://localhost:8099/job/mypocketmod/job/master/lastBuild/api/json").
             then().
             assertThat().statusCode(200);
     }
