@@ -59,11 +59,12 @@ public class JenkinsJobStatusRequesterTest {
 
 
     @Test
-    @DisplayName("Valid Request erzeugt gültigen Response")
+    @DisplayName("Fehlgeschlagener Multibranch Job erzeugt roten Status")
     protected void validInstanz(){
         final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         assumeTrue(requester!=null);
-        assertNotNull(requester.getJobStatus(STATUS_URL_MULTIBRANCH_JOB1_RED));
+        final JobStatusBeschreibung.JobStatus status = requester.getJobStatus(STATUS_URL_MULTIBRANCH_JOB1_RED);
+        assertNotNull(status);
     }
 
 }
