@@ -89,7 +89,7 @@
     "keepLog": false,
     "number": 2,
     "queueId": 37,
-    "result": "SUCCESS",
+    "result": "INSTABLE",
     "timestamp": 1568557693971,
     "url": "http://stachel:8090/job/mypocketmod/job/master/2/",
     "changeSets": [],

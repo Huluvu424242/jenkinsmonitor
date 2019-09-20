@@ -1,5 +1,5 @@
 {
-    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+    "_class": "hudson.model.FreeStyleBuild",
     "actions": [
         {
             "_class": "hudson.model.CauseAction",
@@ -15,30 +15,26 @@
         },
         {},
         {
-            "_class": "jenkins.scm.api.SCMRevisionAction"
-        },
-        {},
-        {
             "_class": "hudson.plugins.git.util.BuildData",
             "buildsByBranchName": {
                 "refs/remotes/origin/master": {
                     "_class": "hudson.plugins.git.util.Build",
-                    "buildNumber": 2,
+                    "buildNumber": 6,
                     "buildResult": null,
                     "marked": {
-                        "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
+                        "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
                         "branch": [
                             {
-                                "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
+                                "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
                                 "name": "refs/remotes/origin/master"
                             }
                         ]
                     },
                     "revision": {
-                        "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
+                        "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
                         "branch": [
                             {
-                                "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
+                                "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
                                 "name": "refs/remotes/origin/master"
                             }
                         ]
@@ -46,16 +42,16 @@
                 }
             },
             "lastBuiltRevision": {
-                "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
+                "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
                 "branch": [
                     {
-                        "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
+                        "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
                         "name": "refs/remotes/origin/master"
                     }
                 ]
             },
             "remoteUrls": [
-                "https://github.com/jglick/simple-maven-project-with-tests.git"
+                "https://github.com/FunThomas424242/rades-annotations.git"
             ],
             "scmName": ""
         },
@@ -64,39 +60,28 @@
         },
         {},
         {},
-        {},
-        {},
-        {
-            "_class": "org.jenkinsci.plugins.pipeline.modeldefinition.actions.RestartDeclarativePipelineAction"
-        },
-        {},
-        {
-            "_class": "org.jenkinsci.plugins.workflow.job.views.FlowGraphAction"
-        },
-        {},
-        {},
         {}
     ],
     "artifacts": [],
     "building": false,
     "description": null,
-    "displayName": "#2",
-    "duration": 5160,
-    "estimatedDuration": 11686,
+    "displayName": "#6",
+    "duration": 28582,
+    "estimatedDuration": 47475,
     "executor": null,
-    "fullDisplayName": "mypocketmod » master #2",
-    "id": "2",
+    "fullDisplayName": "rades-annotations #6",
+    "id": "6",
     "keepLog": false,
-    "number": 2,
-    "queueId": 37,
+    "number": 6,
+    "queueId": 39,
     "result": "SUCCESS",
-    "timestamp": 1568557693971,
-    "url": "http://stachel:8090/job/mypocketmod/job/master/2/",
-    "changeSets": [],
-    "culprits": [],
-    "nextBuild": null,
-    "previousBuild": {
-        "number": 1,
-        "url": "http://stachel:8090/job/mypocketmod/job/master/1/"
-    }
+    "timestamp": 1568557708973,
+    "url": "http://stachel:8090/job/rades-annotations/6/",
+    "builtOn": "",
+    "changeSet": {
+        "_class": "hudson.plugins.git.GitChangeSetList",
+        "items": [],
+        "kind": "git"
+    },
+    "culprits": []
 }
