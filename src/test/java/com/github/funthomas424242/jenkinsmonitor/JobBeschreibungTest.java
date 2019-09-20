@@ -31,7 +31,7 @@ import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JobJobBeschreibungTest {
+class JobBeschreibungTest {
 
     public static final String NAME_JOB1 = "job1";
     protected static URL LOCALHOST_JOB_TEST_URL;
