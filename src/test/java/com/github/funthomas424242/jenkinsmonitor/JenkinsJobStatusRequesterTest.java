@@ -21,12 +21,12 @@ public class JenkinsJobStatusRequesterTest {
 
     @BeforeAll
     static void setUp() throws MalformedURLException {
-        URL_MULTIBRANCH_JOB1 = new URL("http://stachel:8090/job/multibranchjob1/job/master");
+        URL_MULTIBRANCH_JOB1 = new URL("http://stachel:8099/job/multibranchjob1/job/master");
     }
 
     @BeforeEach
     public void setup () {
-        wireMockServer = new WireMockServer(8090);
+        wireMockServer = new WireMockServer(8099);
         wireMockServer.start();
         setupStub();
     }
@@ -40,14 +40,14 @@ public class JenkinsJobStatusRequesterTest {
         wireMockServer.stubFor(get(urlEqualTo("/an/endpoint"))
             .willReturn(aResponse().withHeader("Content-Type", "text/plain")
                 .withStatus(200)
-                .withBodyFile("json/multibranch-job1-green.json")));
+                .withBodyFile("json/multibranch-job1-red.json")));
     }
 
     @Test
     public void testStatusCodePositive() {
         given().
             when().
-            get("http://localhost:8090/an/endpoint").
+            get("http://localhost:8099/an/endpoint").
             then().
             assertThat().statusCode(200);
     }

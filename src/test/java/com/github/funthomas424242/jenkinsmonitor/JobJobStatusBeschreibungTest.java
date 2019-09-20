@@ -38,7 +38,7 @@ class JobJobStatusBeschreibungTest {
 
     @BeforeAll
     static void  setUp() throws MalformedURLException {
-        new URL("http://localhost:8090/job/test");
+        new URL("http://localhost:8099/job/test");
     }
 
     @Test

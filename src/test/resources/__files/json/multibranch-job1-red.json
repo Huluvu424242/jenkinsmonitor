@@ -91,12 +91,12 @@
     "queueId": 37,
     "result": "FAILURE",
     "timestamp": 1568557693971,
-    "url": "http://stachel:8090/job/mypocketmod/job/master/2/",
+    "url": "http://stachel:8099/job/mypocketmod/job/master/2/",
     "changeSets": [],
     "culprits": [],
     "nextBuild": null,
     "previousBuild": {
         "number": 1,
-        "url": "http://stachel:8090/job/mypocketmod/job/master/1/"
+        "url": "http://stachel:8099/job/mypocketmod/job/master/1/"
     }
 }
