@@ -103,6 +103,7 @@ Zur Testausführung wird vorwiegend das Framework JUnit5 genutzt.
   Es wird zunächst versucht das Framework wireMock zu nutzen. Es soll mit geringen
   Aufwänden im Maven Build nutzbar sein und die Testfälle lassen sich angeblich
   recht einfach in JUnit per Rule beschreiben.
+  https://github.com/swtestacademy/junit5-wiremock-example
   http://wiremock.org/
   https://blog.jonas-hellmann.de/testen-eines-rest-clients-in-java-mit-wiremock/
 
