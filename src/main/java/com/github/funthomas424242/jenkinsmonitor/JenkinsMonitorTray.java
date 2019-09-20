@@ -30,23 +30,22 @@ public class JenkinsMonitorTray {
 
     protected JobStatusBeschreibung[] jobStatusBeschreibungen;
 
-    JenkinsMonitorTray() {
+    protected JenkinsMonitorTray() {
         this(new SystemTrayWrapper(),null);
     }
 
-    JenkinsMonitorTray(SystemTrayWrapper systemTray, JobStatusBeschreibung[] jobStatusBeschreibungen){
+    protected JenkinsMonitorTray(SystemTrayWrapper systemTray, JobStatusBeschreibung[] jobStatusBeschreibungen){
         this.jobStatusBeschreibungen=jobStatusBeschreibungen;
         //Obtain only one instance of the SystemTray object
         this.tray = systemTray;
     }
 
 
-    TrayIcon getTrayIcon() {
-//        return this.tray.getTrayIcons()[0];
+    protected TrayIcon getTrayIcon() {
         return this.tray.getTrayIcon();
     }
 
-    void erzeugeDarstellung() {
+    protected void erzeugeDarstellung() {
         try {
 
             final ImageGenerator imageGenerator = new ImageGenerator(this.jobStatusBeschreibungen);
