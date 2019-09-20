@@ -50,37 +50,37 @@ class JobJobBeschreibungTest {
         assertNotNull(jobBeschreibung);
         assertNull(jobBeschreibung.getJobStatus());
         assertNull(jobBeschreibung.getJobUrl());
-        assertEquals(JobBeschreibung.JobStatus.OTHER.getColor(), jobBeschreibung.getStatusColor());
+        assertEquals(JobStatus.OTHER.getColor(), jobBeschreibung.getStatusColor());
     }
 
     @Test
     @DisplayName("Statusfarbe eines erfolgreichen Jobs ist grün")
     void erfolgreicheJobsSindGruen() {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
-            , JobBeschreibung.JobStatus.SUCCESS
+            , JobStatus.SUCCESS
             , LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobBeschreibung);
-        assertEquals(JobBeschreibung.JobStatus.SUCCESS.getColor(), jobBeschreibung.getStatusColor());
+        assertEquals(JobStatus.SUCCESS.getColor(), jobBeschreibung.getStatusColor());
     }
 
     @Test
     @DisplayName("Statusfarbe eines instabilen Jobs ist gelb")
     void instabileJobsSindGelb() {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
-            , JobBeschreibung.JobStatus.INSTABIL
+            , JobStatus.INSTABIL
             , LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobBeschreibung);
-        assertEquals(JobBeschreibung.JobStatus.INSTABIL.getColor(), jobBeschreibung.getStatusColor());
+        assertEquals(JobStatus.INSTABIL.getColor(), jobBeschreibung.getStatusColor());
     }
 
     @Test
     @DisplayName("Statusfarbe eines fehlerhaften Jobs ist rot")
     void fehlerhafteJobsSindRot() {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
-            , JobBeschreibung.JobStatus.FAILED
+            , JobStatus.FAILED
             , LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobBeschreibung);
-        assertEquals(JobBeschreibung.JobStatus.FAILED.getColor(), jobBeschreibung.getStatusColor());
+        assertEquals(JobStatus.FAILED.getColor(), jobBeschreibung.getStatusColor());
     }
 
 }
