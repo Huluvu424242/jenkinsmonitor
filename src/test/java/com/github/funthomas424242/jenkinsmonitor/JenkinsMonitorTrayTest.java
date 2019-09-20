@@ -31,6 +31,7 @@ import static com.github.funthomas424242.jenkinsmonitor.TrayImage.isImageOfColor
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("headfull")
 public class JenkinsMonitorTrayTest {
 
     JenkinsMonitorTray jenkinsMonitorTray;
