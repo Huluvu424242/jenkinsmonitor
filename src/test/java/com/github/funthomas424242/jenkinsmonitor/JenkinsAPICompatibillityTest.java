@@ -36,16 +36,22 @@ public class JenkinsAPICompatibillityTest {
 
 
     protected static URL STATUS_URL_MULTIBRANCH_JOB1_RED;
+    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GREEN;
+    protected static URL STATUS_URL_MULTIBRANCH_JOB1_YELLOW;
+    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GRAY;
 
     WireMockServer wireMockServer;
 
     @BeforeAll
     static void setUp() throws MalformedURLException {
         STATUS_URL_MULTIBRANCH_JOB1_RED = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_RED);
+        STATUS_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GREEN);
+        STATUS_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_YELLOW);
+        STATUS_URL_MULTIBRANCH_JOB1_GRAY = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GRAY);
     }
 
     @BeforeEach
-    public void setup () {
+    protected void setup () {
         wireMockServer = new WireMockServer(8099);
         wireMockServer.start();
         JenkinsAPIMock.definiereAnnahmen(wireMockServer);
@@ -58,14 +64,51 @@ public class JenkinsAPICompatibillityTest {
 
 
     @Test
-    @DisplayName("Kein echter Test nur GemockterClient testet gemockten Server -> API Compatibillity Test")
-    public void testStatusCodePositive() {
+    @DisplayName("Jenkins API Compatibillity: Statusabfrage roter Multibranch Job")
+    public void statusMultibranchJobRot() {
             when().
             get(STATUS_URL_MULTIBRANCH_JOB1_RED).
             then().
             statusCode(200).
             body("fullDisplayName", Matchers.equalTo("mypocketmod » master #2"),
                 "result", Matchers.equalTo("FAILURE"));
+
+    }
+
+    @Test
+    @DisplayName("Jenkins API Compatibillity: Statusabfrage roter Multibranch Job")
+    public void statusMultibranchJobGruen() {
+        when().
+            get(STATUS_URL_MULTIBRANCH_JOB1_GREEN).
+            then().
+            statusCode(200).
+            body("fullDisplayName", Matchers.equalTo("mypocketmod » master #2"),
+                "result", Matchers.equalTo("SUCCESS"));
+
+    }
+
+    @Test
+    @DisplayName("Jenkins API Compatibillity: Statusabfrage roter Multibranch Job")
+    public void statusMultibranchJobGelb() {
+        when().
+            get(STATUS_URL_MULTIBRANCH_JOB1_YELLOW).
+            then().
+            statusCode(200).
+            body("fullDisplayName", Matchers.equalTo("mypocketmod » master #2"),
+                "result", Matchers.equalTo("UNSTABLE"));
+
+    }
+
+    @Test
+    @Disabled()
+    @Tag("testbacklog")
+    @DisplayName("Jenkins API Compatibillity: Statusabfrage roter Multibranch Job")
+    public void statusMultibranchJobGrau() {
+        when().
+            get(STATUS_URL_MULTIBRANCH_JOB1_GRAY).
+            then().
+            statusCode(200).
+            body( Matchers.emptyArray());
 
     }
 
