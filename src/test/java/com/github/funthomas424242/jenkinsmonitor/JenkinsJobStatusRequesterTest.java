@@ -64,11 +64,11 @@ public class JenkinsJobStatusRequesterTest {
     protected void validInstanz(){
         final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         assumeTrue(requester!=null);
-        final JobStatusBeschreibung jobBeschreibung = requester.getJobStatus(STATUS_URL_MULTIBRANCH_JOB1_RED);
+        final JobBeschreibung jobBeschreibung = requester.getJobStatus(STATUS_URL_MULTIBRANCH_JOB1_RED);
         assertNotNull(jobBeschreibung);
         assertNotNull(jobBeschreibung.getJobStatus());
         assertNotNull(jobBeschreibung.getJobName());
-        assertEquals(JobStatusBeschreibung.JobStatus.FAILED.getColor(),jobBeschreibung.getJobStatus().getColor());
+        assertEquals(JobBeschreibung.JobStatus.FAILED.getColor(),jobBeschreibung.getJobStatus().getColor());
     }
 
 }

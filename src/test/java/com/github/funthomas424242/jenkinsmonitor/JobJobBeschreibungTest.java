@@ -31,7 +31,7 @@ import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JobJobStatusBeschreibungTest {
+class JobJobBeschreibungTest {
 
     public static final String NAME_JOB1 = "job1";
     protected static URL LOCALHOST_JOB_TEST_URL;
@@ -44,43 +44,43 @@ class JobJobStatusBeschreibungTest {
     @Test
     @DisplayName("Es wird eine gültige Instanz erstellt")
     void valideInitialisierung() {
-        final JobStatusBeschreibung jobStatusBeschreibung = new JobStatusBeschreibung(null
+        final JobBeschreibung jobBeschreibung = new JobBeschreibung(null
             , null
             , null);
-        assertNotNull(jobStatusBeschreibung);
-        assertNull(jobStatusBeschreibung.getJobStatus());
-        assertNull(jobStatusBeschreibung.getJobUrl());
-        assertEquals(JobStatusBeschreibung.JobStatus.OTHER.getColor(), jobStatusBeschreibung.getStatusColor());
+        assertNotNull(jobBeschreibung);
+        assertNull(jobBeschreibung.getJobStatus());
+        assertNull(jobBeschreibung.getJobUrl());
+        assertEquals(JobBeschreibung.JobStatus.OTHER.getColor(), jobBeschreibung.getStatusColor());
     }
 
     @Test
     @DisplayName("Statusfarbe eines erfolgreichen Jobs ist grün")
     void erfolgreicheJobsSindGruen() {
-        final JobStatusBeschreibung jobStatusBeschreibung = new JobStatusBeschreibung(NAME_JOB1
-            , JobStatusBeschreibung.JobStatus.SUCCESS
+        final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
+            , JobBeschreibung.JobStatus.SUCCESS
             , LOCALHOST_JOB_TEST_URL);
-        assertNotNull(jobStatusBeschreibung);
-        assertEquals(JobStatusBeschreibung.JobStatus.SUCCESS.getColor(), jobStatusBeschreibung.getStatusColor());
+        assertNotNull(jobBeschreibung);
+        assertEquals(JobBeschreibung.JobStatus.SUCCESS.getColor(), jobBeschreibung.getStatusColor());
     }
 
     @Test
     @DisplayName("Statusfarbe eines instabilen Jobs ist gelb")
     void instabileJobsSindGelb() {
-        final JobStatusBeschreibung jobStatusBeschreibung = new JobStatusBeschreibung(NAME_JOB1
-            , JobStatusBeschreibung.JobStatus.INSTABIL
+        final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
+            , JobBeschreibung.JobStatus.INSTABIL
             , LOCALHOST_JOB_TEST_URL);
-        assertNotNull(jobStatusBeschreibung);
-        assertEquals(JobStatusBeschreibung.JobStatus.INSTABIL.getColor(), jobStatusBeschreibung.getStatusColor());
+        assertNotNull(jobBeschreibung);
+        assertEquals(JobBeschreibung.JobStatus.INSTABIL.getColor(), jobBeschreibung.getStatusColor());
     }
 
     @Test
     @DisplayName("Statusfarbe eines fehlerhaften Jobs ist rot")
     void fehlerhafteJobsSindRot() {
-        final JobStatusBeschreibung jobStatusBeschreibung = new JobStatusBeschreibung(NAME_JOB1
-            , JobStatusBeschreibung.JobStatus.FAILED
+        final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
+            , JobBeschreibung.JobStatus.FAILED
             , LOCALHOST_JOB_TEST_URL);
-        assertNotNull(jobStatusBeschreibung);
-        assertEquals(JobStatusBeschreibung.JobStatus.FAILED.getColor(), jobStatusBeschreibung.getStatusColor());
+        assertNotNull(jobBeschreibung);
+        assertEquals(JobBeschreibung.JobStatus.FAILED.getColor(), jobBeschreibung.getStatusColor());
     }
 
 }

@@ -52,39 +52,39 @@ public class JenkinsMonitorTrayTest {
     public void shouldShowNoJobsWatching() throws AWTException {
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertEquals("No jobs watching", trayIcon.getToolTip());
-        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobStatusBeschreibung.JobStatus.OTHER.getColor()));
+        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobBeschreibung.JobStatus.OTHER.getColor()));
     }
 
     @Test
     @DisplayName("Bei einem erfolreichen Job soll das TrayIcon grün sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master success>>")
     public void shouldShowOneSuccessJobWatching() {
-        final JobStatusBeschreibung[] jobStatusBeschreibungen = new JobStatusBeschreibung[1];
-        jobStatusBeschreibungen[0]=new JobStatusBeschreibung("MultibrachnJob/master", JobStatusBeschreibung.JobStatus.SUCCESS,null);
-        jenkinsMonitorTray.updateJobStatus(jobStatusBeschreibungen);
+        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
+        jobBeschreibungen[0]=new JobBeschreibung("MultibrachnJob/master", JobBeschreibung.JobStatus.SUCCESS,null);
+        jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
-        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobStatusBeschreibung.JobStatus.SUCCESS.getColor()));
+        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobBeschreibung.JobStatus.SUCCESS.getColor()));
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());
     }
 
     @Test
     @DisplayName("Bei einem instabilen Job soll das TrayIcon gelb sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master unstable>>")
     public void shouldShowOneInstabilJobWatching() {
-        final JobStatusBeschreibung[] jobStatusBeschreibungen = new JobStatusBeschreibung[1];
-        jobStatusBeschreibungen[0]=new JobStatusBeschreibung("MultibranchJob/master", JobStatusBeschreibung.JobStatus.INSTABIL,null);
-        jenkinsMonitorTray.updateJobStatus(jobStatusBeschreibungen);
+        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
+        jobBeschreibungen[0]=new JobBeschreibung("MultibranchJob/master", JobBeschreibung.JobStatus.INSTABIL,null);
+        jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
-        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobStatusBeschreibung.JobStatus.INSTABIL.getColor()));
+        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobBeschreibung.JobStatus.INSTABIL.getColor()));
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());
     }
 
     @Test
     @DisplayName("Bei einem instabilen Job soll das TrayIcon gelb sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master unstable>>")
     public void shouldShowOneFailedJobWatching() {
-        final JobStatusBeschreibung[] jobStatusBeschreibungen = new JobStatusBeschreibung[1];
-        jobStatusBeschreibungen[0]=new JobStatusBeschreibung("MultibranchJob/master", JobStatusBeschreibung.JobStatus.FAILED,null);
-        jenkinsMonitorTray.updateJobStatus(jobStatusBeschreibungen);
+        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
+        jobBeschreibungen[0]=new JobBeschreibung("MultibranchJob/master", JobBeschreibung.JobStatus.FAILED,null);
+        jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
-        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobStatusBeschreibung.JobStatus.FAILED.getColor()));
+        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobBeschreibung.JobStatus.FAILED.getColor()));
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());
     }
 

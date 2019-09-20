@@ -43,84 +43,84 @@ class ImageGeneratorTest {
         final BufferedImage image = generator.getImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertTrue(isImageOfColor(image, JobStatusBeschreibung.JobStatus.OTHER.getColor()));
+        assertTrue(isImageOfColor(image, JobBeschreibung.JobStatus.OTHER.getColor()));
         assertTrue(isImageOfColor(image, Color.lightGray));
     }
 
     @Test
     @DisplayName("Initialisierung ohne Jobs generiert ein graues Icon 100x100")
     void initEmptyCreateGrayIcon100x100() {
-        final JobStatusBeschreibung[] jobsStatus = new JobStatusBeschreibung[0];
+        final JobBeschreibung[] jobsStatus = new JobBeschreibung[0];
         final ImageGenerator generator = new ImageGenerator(jobsStatus);
         final BufferedImage image = generator.getImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertTrue(isImageOfColor(image, JobStatusBeschreibung.JobStatus.OTHER.getColor()));
+        assertTrue(isImageOfColor(image, JobBeschreibung.JobStatus.OTHER.getColor()));
         assertTrue(isImageOfColor(image, Color.lightGray));
     }
 
     @Test
     @DisplayName("Initialisierung mit einem erfolgreichen Job generiert ein grünes Icon 100x100")
     void initOneJobGreenIcon100x100() {
-        final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
-        jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
-            , JobStatusBeschreibung.JobStatus.SUCCESS
+        final JobBeschreibung[] jobsStatusBeschreibungen = new JobBeschreibung[1];
+        jobsStatusBeschreibungen[0] = new JobBeschreibung("Job1/master"
+            , JobBeschreibung.JobStatus.SUCCESS
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final BufferedImage image = generator.getImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertTrue(isImageOfColor(image, JobStatusBeschreibung.JobStatus.SUCCESS.getColor()));
+        assertTrue(isImageOfColor(image, JobBeschreibung.JobStatus.SUCCESS.getColor()));
         assertTrue(isImageOfColor(image, Color.green));
     }
 
     @Test
     @DisplayName("Initialisierung mit einem instabilen Job generiert ein gelbes Icon 100x100")
     void initOneJobYellowIcon100x100() {
-        final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
-        jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
-            , JobStatusBeschreibung.JobStatus.INSTABIL
+        final JobBeschreibung[] jobsStatusBeschreibungen = new JobBeschreibung[1];
+        jobsStatusBeschreibungen[0] = new JobBeschreibung("Job1/master"
+            , JobBeschreibung.JobStatus.INSTABIL
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final BufferedImage image = generator.getImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertTrue(isImageOfColor(image, JobStatusBeschreibung.JobStatus.INSTABIL.getColor()));
+        assertTrue(isImageOfColor(image, JobBeschreibung.JobStatus.INSTABIL.getColor()));
         assertTrue(isImageOfColor(image, Color.yellow));
     }
 
     @Test
     @DisplayName("Initialisierung mit einem fehlerhaften Job generiert ein rotes Icon 100x100")
     void initOneJobRedIcon100x100() {
-        final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
-        jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
-            , JobStatusBeschreibung.JobStatus.FAILED
+        final JobBeschreibung[] jobsStatusBeschreibungen = new JobBeschreibung[1];
+        jobsStatusBeschreibungen[0] = new JobBeschreibung("Job1/master"
+            , JobBeschreibung.JobStatus.FAILED
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final BufferedImage image = generator.getImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertTrue(isImageOfColor(image, JobStatusBeschreibung.JobStatus.FAILED.getColor()));
+        assertTrue(isImageOfColor(image, JobBeschreibung.JobStatus.FAILED.getColor()));
         assertTrue(isImageOfColor(image, Color.red));
     }
 
     @Test
     @DisplayName("Initialisierung mit einem fehlerhaften Job generiert ein Icon 100x100 halb grün halb rot")
     void initTwoJobsOneGreenOneRedIcon50x100() {
-        final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[2];
-        jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
-            , JobStatusBeschreibung.JobStatus.SUCCESS
+        final JobBeschreibung[] jobsStatusBeschreibungen = new JobBeschreibung[2];
+        jobsStatusBeschreibungen[0] = new JobBeschreibung("Job1/master"
+            , JobBeschreibung.JobStatus.SUCCESS
             , null);
-        jobsStatusBeschreibungen[1] = new JobStatusBeschreibung("Job2/master"
-            , JobStatusBeschreibung.JobStatus.FAILED
+        jobsStatusBeschreibungen[1] = new JobBeschreibung("Job2/master"
+            , JobBeschreibung.JobStatus.FAILED
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final BufferedImage image = generator.getImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertEquals(JobStatusBeschreibung.JobStatus.SUCCESS.getColor().getRGB(), image.getRGB(10, 10));
+        assertEquals(JobBeschreibung.JobStatus.SUCCESS.getColor().getRGB(), image.getRGB(10, 10));
         assertEquals(Color.green.getRGB(), image.getRGB(10, 10));
-        assertEquals(JobStatusBeschreibung.JobStatus.FAILED.getColor().getRGB(), image.getRGB(60, 10));
+        assertEquals(JobBeschreibung.JobStatus.FAILED.getColor().getRGB(), image.getRGB(60, 10));
         assertEquals(Color.red.getRGB(), image.getRGB(60, 10));
     }
 

@@ -25,7 +25,7 @@ package com.github.funthomas424242.jenkinsmonitor;
 import java.awt.*;
 import java.net.URL;
 
-public class JobStatusBeschreibung {
+public class JobBeschreibung {
 
     public enum JobStatus {
         SUCCESS(Color.green),
@@ -52,7 +52,7 @@ public class JobStatusBeschreibung {
     protected final URL jobUrl;
 
 
-    public JobStatusBeschreibung(final String jobName, final JobStatus jobStatus, final URL jobUrl) {
+    public JobBeschreibung(final String jobName, final JobStatus jobStatus, final URL jobUrl) {
         this.jobStatus = jobStatus;
         this.jobName = jobName;
         this.jobUrl = jobUrl;

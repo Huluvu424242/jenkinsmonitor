@@ -27,15 +27,15 @@ import java.awt.image.BufferedImage;
 
 public class ImageGenerator {
 
-    protected final JobStatusBeschreibung[] jobsStatusBeschreibungen;
+    protected final JobBeschreibung[] jobsStatusBeschreibungen;
 
-    ImageGenerator(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
+    ImageGenerator(final JobBeschreibung[] jobsStatusBeschreibungen) {
         this.jobsStatusBeschreibungen = jobsStatusBeschreibungen;
     }
 
     BufferedImage getImage(final int width, final int height) {
         final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_INDEXED);
-        createPartImage(image, 0, width, height,JobStatusBeschreibung.JobStatus.OTHER);
+        createPartImage(image, 0, width, height, JobBeschreibung.JobStatus.OTHER);
 
         if (jobsStatusBeschreibungen == null || jobsStatusBeschreibungen.length < 1) {
             return image;
@@ -44,8 +44,8 @@ public class ImageGenerator {
         final int jobCount = jobsStatusBeschreibungen.length;
         final int partImageWidth = width / jobCount;
         int startX = 0;
-        for (JobStatusBeschreibung jobStatusBeschreibung : jobsStatusBeschreibungen) {
-            createPartImage(image, startX, partImageWidth, height, jobStatusBeschreibung.getJobStatus());
+        for (JobBeschreibung jobBeschreibung : jobsStatusBeschreibungen) {
+            createPartImage(image, startX, partImageWidth, height, jobBeschreibung.getJobStatus());
             startX += partImageWidth;
         }
         return image;
@@ -55,7 +55,7 @@ public class ImageGenerator {
                                             final int x,
                                             final int width,
                                             final int height,
-                                            final JobStatusBeschreibung.JobStatus jobStatus) {
+                                            final JobBeschreibung.JobStatus jobStatus) {
 
         final Graphics g = image.createGraphics();
         g.setColor(jobStatus.getColor());
