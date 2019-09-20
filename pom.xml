@@ -279,9 +279,9 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M2</version>
         <configuration>
-          <ecludeedGroups>
+          <excludedGroups>
             ${junit-excluded-groups}
-          </ecludeedGroups>
+          </excludedGroups>
         </configuration>
       </plugin>
       <plugin>
