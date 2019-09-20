@@ -1,13 +1,15 @@
 package com.github.funthomas424242.jenkinsmonitor;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static io.restassured.RestAssured.given;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static io.restassured.RestAssured.when;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -15,13 +17,13 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 public class JenkinsJobStatusRequesterTest {
 
 
-    protected static URL URL_MULTIBRANCH_JOB1;
+    protected static URL STATUS_URL_MULTIBRANCH_JOB1;
 
     WireMockServer wireMockServer;
 
     @BeforeAll
     static void setUp() throws MalformedURLException {
-        URL_MULTIBRANCH_JOB1 = new URL("http://stachel:8099/job/multibranchjob1/job/master");
+        STATUS_URL_MULTIBRANCH_JOB1 = new URL("http://localhost:8099/job/multibranchjobred/job/master/lastBuild/api/json");
     }
 
     @BeforeEach
@@ -37,19 +39,23 @@ public class JenkinsJobStatusRequesterTest {
     }
 
     public void setupStub() {
-        wireMockServer.stubFor(get(urlEqualTo("/job/mypocketmod/job/master/lastBuild/api/json"))
-            .willReturn(aResponse().withHeader("Content-Type", "text/plain")
+        wireMockServer.stubFor(WireMock.get(WireMock.urlEqualTo("/job/multibranchjobred/job/master/lastBuild/api/json"))
+            .willReturn(WireMock.aResponse().withHeader("Content-Type", "application/json")
                 .withStatus(200)
                 .withBodyFile("json/multibranch-job1-red.json")));
     }
 
     @Test
+    @Tag("compatibillity")
+    @DisplayName("Kein echter Test nur GemockterClient testet gemockten Server -> API Compatibillity Test")
     public void testStatusCodePositive() {
-        given().
             when().
-            get("http://localhost:8099/job/mypocketmod/job/master/lastBuild/api/json").
+            get(STATUS_URL_MULTIBRANCH_JOB1).
             then().
-            assertThat().statusCode(200);
+            statusCode(200).
+            body("fullDisplayName", Matchers.equalTo("mypocketmod » master #2"),
+                "result", Matchers.equalTo("FAILURE"));
+
     }
 
     @Test
@@ -57,7 +63,7 @@ public class JenkinsJobStatusRequesterTest {
     protected void validInstanz(){
         final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         assumeTrue(requester!=null);
-        assertNotNull(requester.getJobStatus(URL_MULTIBRANCH_JOB1));
+        assertNotNull(requester.getJobStatus(STATUS_URL_MULTIBRANCH_JOB1));
     }
 
 }
