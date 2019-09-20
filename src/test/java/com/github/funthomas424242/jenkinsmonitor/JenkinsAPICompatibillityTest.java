@@ -8,13 +8,12 @@ import org.junit.jupiter.api.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static io.restassured.RestAssured.when;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-
-public class JenkinsJobStatusRequesterTest {
+@Tag("compatibillity")
+public class JenkinsAPICompatibillityTest {
 
 
     protected static URL STATUS_URL_MULTIBRANCH_JOB1;
@@ -30,7 +29,7 @@ public class JenkinsJobStatusRequesterTest {
     public void setup () {
         wireMockServer = new WireMockServer(8099);
         wireMockServer.start();
-        JenkinsAPICompatibillityTest.definiereJenkinsAPIMock(wireMockServer);
+        definiereJenkinsAPIMock(wireMockServer);
     }
 
     @AfterEach
@@ -38,21 +37,25 @@ public class JenkinsJobStatusRequesterTest {
         wireMockServer.stop();
     }
 
-//    public void setupStub() {
-//        wireMockServer.stubFor(WireMock.get(WireMock.urlEqualTo("/job/multibranchjobred/job/master/lastBuild/api/json"))
-//            .willReturn(WireMock.aResponse().withHeader("Content-Type", "application/json")
-//                .withStatus(200)
-//                .withBodyFile("json/multibranch-job1-red.json")));
-//    }
-
-
+    public static void definiereJenkinsAPIMock(WireMockServer jenkins ) {
+        jenkins.stubFor(WireMock.get(WireMock.urlEqualTo("/job/multibranchjobred/job/master/lastBuild/api/json"))
+            .willReturn(WireMock.aResponse().withHeader("Content-Type", "application/json")
+                .withStatus(200)
+                .withBodyFile("json/multibranch-job1-red.json")));
+    }
 
     @Test
-    @DisplayName("Valid Request erzeugt gültigen Response")
-    protected void validInstanz(){
-        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
-        assumeTrue(requester!=null);
-        assertNotNull(requester.getJobStatus(STATUS_URL_MULTIBRANCH_JOB1));
+    @DisplayName("Kein echter Test nur GemockterClient testet gemockten Server -> API Compatibillity Test")
+    public void testStatusCodePositive() {
+            when().
+            get(STATUS_URL_MULTIBRANCH_JOB1).
+            then().
+            statusCode(200).
+            body("fullDisplayName", Matchers.equalTo("mypocketmod » master #2"),
+                "result", Matchers.equalTo("FAILURE"));
+
     }
+
+
 
 }
