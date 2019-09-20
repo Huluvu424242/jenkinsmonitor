@@ -70,4 +70,8 @@ public class JobStatusBeschreibung {
     public URL getJobUrl() {
         return this.jobUrl;
     }
+
+    public String getJobName(){
+        return this.jobName;
+    }
 }

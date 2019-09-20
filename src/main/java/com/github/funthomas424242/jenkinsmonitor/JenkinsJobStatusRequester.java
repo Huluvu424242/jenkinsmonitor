@@ -26,7 +26,7 @@ import java.net.URL;
 
 public class JenkinsJobStatusRequester {
 
-    public JobStatusBeschreibung.JobStatus getJobStatus(final URL jenkinsJobURL) {
-        return "{hallo}";
+    public JobStatusBeschreibung getJobStatus(final URL jenkinsJobURL) {
+        return new JobStatusBeschreibung("job1", JobStatusBeschreibung.JobStatus.FAILED,null);
     }
 }

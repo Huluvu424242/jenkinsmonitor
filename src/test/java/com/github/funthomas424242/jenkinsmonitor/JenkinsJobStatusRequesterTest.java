@@ -28,6 +28,7 @@ import org.junit.jupiter.api.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -63,8 +64,11 @@ public class JenkinsJobStatusRequesterTest {
     protected void validInstanz(){
         final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         assumeTrue(requester!=null);
-        final JobStatusBeschreibung.JobStatus status = requester.getJobStatus(STATUS_URL_MULTIBRANCH_JOB1_RED);
-        assertNotNull(status);
+        final JobStatusBeschreibung jobBeschreibung = requester.getJobStatus(STATUS_URL_MULTIBRANCH_JOB1_RED);
+        assertNotNull(jobBeschreibung);
+        assertNotNull(jobBeschreibung.getJobStatus());
+        assertNotNull(jobBeschreibung.getJobName());
+        assertEquals(JobStatusBeschreibung.JobStatus.FAILED.getColor(),jobBeschreibung.getJobStatus().getColor());
     }
 
 }
