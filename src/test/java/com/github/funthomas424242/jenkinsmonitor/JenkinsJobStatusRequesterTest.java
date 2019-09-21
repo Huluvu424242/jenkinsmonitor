@@ -83,12 +83,11 @@ public class JenkinsJobStatusRequesterTest {
         assertNotNull(jobBeschreibung);
         assertNotNull(jobBeschreibung.getJobStatus());
         assertNotNull(jobBeschreibung.getJobName());
-        assertEquals(JobStatus.FAILED.getColor(), jobBeschreibung.getJobStatus().getColor());
+        assertEquals(JobStatus.FAILURE.getColor(), jobBeschreibung.getJobStatus().getColor());
     }
 
 
     @Test
-    @Disabled
     @DisplayName("Erfolgreicher Multibranch Job erzeugt grünen Status")
     protected void getStatusGreen() {
         final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();

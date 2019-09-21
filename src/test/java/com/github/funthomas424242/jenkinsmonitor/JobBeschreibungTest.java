@@ -77,10 +77,10 @@ class JobBeschreibungTest {
     @DisplayName("Statusfarbe eines fehlerhaften Jobs ist rot")
     void fehlerhafteJobsSindRot() {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
-            , JobStatus.FAILED
+            , JobStatus.FAILURE
             , LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobBeschreibung);
-        assertEquals(JobStatus.FAILED.getColor(), jobBeschreibung.getStatusColor());
+        assertEquals(JobStatus.FAILURE.getColor(), jobBeschreibung.getStatusColor());
     }
 
 }

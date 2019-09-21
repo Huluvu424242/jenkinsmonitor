@@ -43,22 +43,19 @@ public class JenkinsJobStatusRequester {
 
     public static final String STATUS_PATH = "/lastBuild/api/json";
 
-    protected HttpClient httpClient;
-
-    JenkinsJobStatusRequester() {
-
-    }
-
-    public JobBeschreibung getJobStatus(final URL jenkinsJobURL) throws MalformedURLException {
+    public JobBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
         final URL abfrageURL = new URL(jenkinsJobURL.toExternalForm() + STATUS_PATH);
-
-        return new JobBeschreibung("job1", JobStatus.FAILED, null);
+        final JSONObject resultJSON = sendGetRequest(abfrageURL);
+        final String jobName = resultJSON.getString("fullDisplayName");
+        final String jobStatus = resultJSON.getString("result");
+        return new JobBeschreibung(jobName, JobStatus.valueOf(jobStatus), jenkinsJobURL);
     }
 
     public JSONObject sendGetRequest(final URL statusAbfrageUrl) throws IOException {
         JSONObject resultJSON = null;
+        HttpClient httpClient=null;
         try {
-            this.httpClient = new DefaultHttpClient();
+            httpClient = new DefaultHttpClient();
             final HttpHost target = new HttpHost(statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort(), statusAbfrageUrl.getProtocol());
             final HttpGet httpGetRequest = new HttpGet(statusAbfrageUrl.getPath());
             final HttpResponse httpResponse = httpClient.execute(target, httpGetRequest);
@@ -72,7 +69,9 @@ public class JenkinsJobStatusRequester {
             resultJSON = new JSONObject(requestResult);
 
         } finally {
-            this.httpClient.getConnectionManager().shutdown();
+            if( httpClient != null) {
+                httpClient.getConnectionManager().shutdown();
+            }
         }
         return resultJSON;
     }
