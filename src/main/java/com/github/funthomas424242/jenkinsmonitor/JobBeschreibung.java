@@ -24,8 +24,9 @@ package com.github.funthomas424242.jenkinsmonitor;
 
 import java.awt.*;
 import java.net.URL;
+import java.util.Objects;
 
-public class JobBeschreibung {
+public final class JobBeschreibung {
 
 
 
@@ -57,5 +58,21 @@ public class JobBeschreibung {
 
     public String getJobName(){
         return this.jobName;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JobBeschreibung that = (JobBeschreibung) o;
+        return jobStatus == that.jobStatus &&
+            Objects.equals(jobName, that.jobName) &&
+            Objects.equals(jobUrl, that.jobUrl);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(jobStatus, jobName, jobUrl);
     }
 }

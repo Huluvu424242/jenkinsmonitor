@@ -22,6 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,6 +41,13 @@ class JobBeschreibungTest {
     static void  setUp() throws MalformedURLException {
         new URL("http://localhost:8099/job/test");
     }
+
+    @Test
+    @DisplayName("Prüfe equals und hashCode")
+    protected void checkEqualsAndHashCode(){
+        EqualsVerifier.forClass(JobBeschreibung.class).verify();
+    }
+
 
     @Test
     @DisplayName("Es wird eine gültige Instanz erstellt")
