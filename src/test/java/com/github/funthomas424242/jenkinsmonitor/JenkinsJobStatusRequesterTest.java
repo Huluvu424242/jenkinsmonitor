@@ -23,12 +23,10 @@ package com.github.funthomas424242.jenkinsmonitor;
  */
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import org.apache.http.client.HttpClient;
 import org.json.JSONObject;
 import org.junit.jupiter.api.*;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -116,8 +114,8 @@ public class JenkinsJobStatusRequesterTest {
             return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_RED);
         });
         assertNotNull(json);
-        assertEquals("mypocketmod » master #2",json.get("fullDisplayName"));
-        assertEquals("FAILURE",json.get("result"));
+        assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
+        assertEquals("FAILURE", json.get("result"));
     }
 
     @Test
@@ -128,8 +126,8 @@ public class JenkinsJobStatusRequesterTest {
             return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_GREEN);
         });
         assertNotNull(json);
-        assertEquals("mypocketmod » master #2",json.get("fullDisplayName"));
-        assertEquals("SUCCESS",json.get("result"));
+        assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
+        assertEquals("SUCCESS", json.get("result"));
     }
 
     @Test
@@ -140,8 +138,8 @@ public class JenkinsJobStatusRequesterTest {
             return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_YELLOW);
         });
         assertNotNull(json);
-        assertEquals("mypocketmod » master #2",json.get("fullDisplayName"));
-        assertEquals("UNSTABLE",json.get("result"));
+        assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
+        assertEquals("UNSTABLE", json.get("result"));
     }
 
     @Test
