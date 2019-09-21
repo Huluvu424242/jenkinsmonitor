@@ -72,4 +72,7 @@ public class Configuration {
         return Integer.parseInt(propValue);
     }
 
+    public JobBeschreibung[] getJobBeschreibungen() {
+        return new JobBeschreibung[0];
+    }
 }

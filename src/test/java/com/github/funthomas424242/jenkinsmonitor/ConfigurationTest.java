@@ -31,6 +31,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class ConfigurationTest {
@@ -80,6 +81,10 @@ class ConfigurationTest {
     void validDefaultsWhenNotExistingConfigfile() {
         final int pollPeriodInSecond = this.notexistingConfigurationfile.getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
+
+        final JobBeschreibung[] jobBeschreibungen = this.notexistingConfigurationfile.getJobBeschreibungen();
+        assertNotNull(jobBeschreibungen);
+        assertEquals(0,jobBeschreibungen.length);
     }
 
     @Test
@@ -87,6 +92,10 @@ class ConfigurationTest {
     void validDefaultsWithEmptyConfigfile() {
         final int pollPeriodInSecond = emptyConfigurationfile.getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
+
+        final JobBeschreibung[] jobBeschreibungen = this.emptyConfigurationfile.getJobBeschreibungen();
+        assertNotNull(jobBeschreibungen);
+        assertEquals(0,jobBeschreibungen.length);
     }
 
     @Test
