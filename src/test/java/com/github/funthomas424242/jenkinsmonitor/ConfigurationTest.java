@@ -103,6 +103,10 @@ class ConfigurationTest {
     void useDefaultPollPeriod() {
         final int pollPeriodInSecond = validConfigurationfile.getPollPeriodInSecond();
         assertEquals(6, pollPeriodInSecond);
+
+        final JobBeschreibung[] jobBeschreibungen = this.validConfigurationfile.getJobBeschreibungen();
+        assertNotNull(jobBeschreibungen);
+        assertEquals(2,jobBeschreibungen.length);
     }
 
 

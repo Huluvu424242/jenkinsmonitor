@@ -28,6 +28,11 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 public class Configuration {
@@ -38,6 +43,7 @@ public class Configuration {
     public static final String PROPERTY_USER_HOME = "user.home";
     public static final String JENKINSMONITOR_POLLPERIOD = "jenkinsmonitor.pollperiod";
     public static final String DEFAULT_POLLPERIOD = "5";
+    public static final String JOBKEY_PREFIX = "joburl-";
 
     protected final File configurationFile;
 
@@ -73,6 +79,25 @@ public class Configuration {
     }
 
     public JobBeschreibung[] getJobBeschreibungen() {
-        return new JobBeschreibung[0];
+        final List<JobBeschreibung> jobBeschreibungen = new ArrayList<>();
+        configurationProperties.forEach( (k, v) -> {
+            final String key = (String)k;
+            final String value = (String) v;
+            if (key.startsWith(JOBKEY_PREFIX)) {
+                final URL jobURL = urlOf(value);
+                final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, null, jobURL);
+                jobBeschreibungen.add(jobBeschreibung);
+            }
+        });
+        return jobBeschreibungen.toArray(new JobBeschreibung[jobBeschreibungen.size()]);
+    }
+
+    protected URL urlOf(final String urlPath){
+        try {
+            return new URL(urlPath);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
