@@ -25,50 +25,13 @@ package com.github.funthomas424242.jenkinsmonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
 public class JenkinsMonitor {
 
     protected static final Logger LOG = LoggerFactory.getLogger(JenkinsMonitor.class);
 
 
-    public static final String JENKINSMONITOR_CONFIGURATIONFILENAME = "jenkinsmonitor.properties";
-    public static final String PROPERTY_USER_HOME = "user.home";
-    public static final String JENKINSMONITOR_POLLPERIOD = "jenkinsmonitor.pollperiod";
-    public static final String DEFAULT_POLLPERIOD = "5";
-
-    protected final File configurationFile;
-
-    protected Properties configurationProperties;
-
     public JenkinsMonitor() {
-        this(new File(System.getProperty(PROPERTY_USER_HOME) + File.separator + JENKINSMONITOR_CONFIGURATIONFILENAME));
+
     }
 
-    protected JenkinsMonitor(File configurationFile) {
-        this.configurationFile = configurationFile;
-        this.configurationProperties=initializeConfiguration();
-    }
-
-    protected Properties initializeConfiguration() {
-       final Properties properties = new Properties();
-        try (FileInputStream propStream = new FileInputStream(this.configurationFile)) {
-            properties.load(propStream);
-        } catch (IOException e) {
-            LOG.error(e.getLocalizedMessage(),e);
-        }
-        return properties;
-    }
-
-    public File getConfigurationfile() {
-        return this.configurationFile;
-    }
-
-    public int getPollPeriod() {
-        final String propValue = this.configurationProperties.getProperty(JENKINSMONITOR_POLLPERIOD, DEFAULT_POLLPERIOD);
-        return Integer.parseInt(propValue);
-    }
 }

@@ -58,10 +58,9 @@ public class MavenWrapperDownloader {
         File mavenWrapperPropertyFile = new File(baseDirectory, MAVEN_WRAPPER_PROPERTIES_PATH);
         String url = DEFAULT_DOWNLOAD_URL;
         if(mavenWrapperPropertyFile.exists()) {
-            FileInputStream mavenWrapperPropertyFileInputStream = null;
-            try {
-                mavenWrapperPropertyFileInputStream = new FileInputStream(mavenWrapperPropertyFile);
-                Properties mavenWrapperProperties = new Properties();
+            try(FileInputStream mavenWrapperPropertyFileInputStream = new FileInputStream(mavenWrapperPropertyFile)
+            {
+                final Properties mavenWrapperProperties = new Properties();
                 mavenWrapperProperties.load(mavenWrapperPropertyFileInputStream);
                 url = mavenWrapperProperties.getProperty(PROPERTY_NAME_WRAPPER_URL, url);
             } catch (IOException e) {
