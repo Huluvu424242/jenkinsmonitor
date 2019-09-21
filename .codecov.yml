@@ -1,4 +1,3 @@
 ignore:
-    - ".github/"  # ignore folders and all its contents
-    - ".mvn/"       # wildcards accepted
-    - "**/*.md"
+    - ".mvn"       # wildcards accepted
+#    - ".github/"  # ignore folders and all its contents
