@@ -23,6 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor;
  */
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -30,8 +31,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class ConfigurationTest {
@@ -109,10 +109,28 @@ class ConfigurationTest {
         assertEquals(2, jobBeschreibungen.length);
     }
 
+    @Test
+    @DisplayName("Prüfe auf gleiche Werte bei reload aus Configfile")
+    void reloadCurrentConfiguration() {
+        final int pollPeriodInSecond1 = validConfigurationfile.getPollPeriodInSecond();
+        final JobBeschreibung[] jobBeschreibungen1 = this.validConfigurationfile.getJobBeschreibungen();
+        assumeTrue(pollPeriodInSecond1==6);
+        assumeTrue(jobBeschreibungen1!=null);
+        assumeTrue(jobBeschreibungen1.length==2);
+        validConfigurationfile.reload();
+        final int pollPeriodInSecond2 = validConfigurationfile.getPollPeriodInSecond();
+        final JobBeschreibung[] jobBeschreibungen2 = this.validConfigurationfile.getJobBeschreibungen();
+        assumeTrue(pollPeriodInSecond2==6);
+        assumeTrue(jobBeschreibungen2!=null);
+        assumeTrue(jobBeschreibungen2.length==2);
+        //
+        assertEquals(pollPeriodInSecond1,pollPeriodInSecond2);
+        assertArrayEquals(jobBeschreibungen1,jobBeschreibungen2);
+    }
 
     @Test
-    @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
-    void reloadCurrentConfiguration() {
+    @DisplayName("Prüfe auf neue Werte bei reload aus anderem Configfile")
+    void reloadOtherConfiguration() {
         final Path emptyConfigfilePath = Paths.get(".", PATH_EMPTY_CONFIGURATION_FILE);
         final File emptyConfigFile = emptyConfigfilePath.toAbsolutePath().toFile();
         final Configuration tmpConfigurationfile = new Configuration(emptyConfigFile);
@@ -123,7 +141,7 @@ class ConfigurationTest {
 
         final Path validConfigfilePath = Paths.get(".", PATH_VALID_CONFIGURATION_FILE);
         final File configFile = validConfigfilePath.toAbsolutePath().toFile();
-        tmpConfigurationfile.reload(configFile);
+        tmpConfigurationfile.reloadFromFile(configFile);
         final JobBeschreibung[] jobBeschreibungenGefuellt = tmpConfigurationfile.getJobBeschreibungen();
         assertNotNull(jobBeschreibungenGefuellt);
         assertEquals(2, jobBeschreibungenGefuellt.length);

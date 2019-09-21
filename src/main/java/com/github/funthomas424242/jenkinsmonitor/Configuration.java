@@ -101,7 +101,11 @@ public class Configuration {
         return null;
     }
 
-    public void reload(final File configFile) {
+    public void reload() {
+        this.configurationProperties=loadPropertiesFromFile(this.configurationFile);
+    }
+
+    public void reloadFromFile(final File configFile) {
         this.configurationFile=configFile;
         this.configurationProperties=loadPropertiesFromFile(configFile);
     }
