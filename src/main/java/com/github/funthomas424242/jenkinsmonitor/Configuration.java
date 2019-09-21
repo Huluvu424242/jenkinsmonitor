@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
@@ -45,7 +44,7 @@ public class Configuration {
     public static final String DEFAULT_POLLPERIOD = "5";
     public static final String JOBKEY_PREFIX = "joburl-";
 
-    protected final File configurationFile;
+    protected File configurationFile;
 
     protected Properties configurationProperties;
 
@@ -53,15 +52,16 @@ public class Configuration {
         this(new File(System.getProperty(PROPERTY_USER_HOME) + File.separator + JENKINSMONITOR_CONFIGURATIONFILENAME));
     }
 
-    public Configuration(File configurationFile) {
+    public Configuration(final File configurationFile) {
         this.configurationFile = configurationFile;
-        this.configurationProperties = initializeConfiguration();
+        //TODO zu viel Logik im Konstruktor
+        this.configurationProperties = loadPropertiesFromFile(configurationFile);
     }
 
 
-    protected Properties initializeConfiguration() {
+    protected Properties loadPropertiesFromFile(final File configFile) {
         final Properties properties = new Properties();
-        try (FileInputStream propStream = new FileInputStream(this.configurationFile)) {
+        try (FileInputStream propStream = new FileInputStream(configFile)) {
             properties.load(propStream);
         } catch (IOException e) {
             LOG.error(e.getLocalizedMessage(), e);
@@ -99,5 +99,10 @@ public class Configuration {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void reload(final File configFile) {
+        this.configurationFile=configFile;
+        this.configurationProperties=loadPropertiesFromFile(configFile);
     }
 }

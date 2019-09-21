@@ -84,7 +84,7 @@ class ConfigurationTest {
 
         final JobBeschreibung[] jobBeschreibungen = this.notexistingConfigurationfile.getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
-        assertEquals(0,jobBeschreibungen.length);
+        assertEquals(0, jobBeschreibungen.length);
     }
 
     @Test
@@ -95,7 +95,7 @@ class ConfigurationTest {
 
         final JobBeschreibung[] jobBeschreibungen = this.emptyConfigurationfile.getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
-        assertEquals(0,jobBeschreibungen.length);
+        assertEquals(0, jobBeschreibungen.length);
     }
 
     @Test
@@ -106,7 +106,27 @@ class ConfigurationTest {
 
         final JobBeschreibung[] jobBeschreibungen = this.validConfigurationfile.getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
-        assertEquals(2,jobBeschreibungen.length);
+        assertEquals(2, jobBeschreibungen.length);
+    }
+
+
+    @Test
+    @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
+    void reloadCurrentConfiguration() {
+        final Path emptyConfigfilePath = Paths.get(".", PATH_EMPTY_CONFIGURATION_FILE);
+        final File emptyConfigFile = emptyConfigfilePath.toAbsolutePath().toFile();
+        final Configuration tmpConfigurationfile = new Configuration(emptyConfigFile);
+        assumeTrue(tmpConfigurationfile != null);
+        final JobBeschreibung[] jobBeschreibungenenLeer = tmpConfigurationfile.getJobBeschreibungen();
+        assumeTrue(jobBeschreibungenenLeer != null);
+        assumeTrue(jobBeschreibungenenLeer.length==0);
+
+        final Path validConfigfilePath = Paths.get(".", PATH_VALID_CONFIGURATION_FILE);
+        final File configFile = validConfigfilePath.toAbsolutePath().toFile();
+        tmpConfigurationfile.reload(configFile);
+        final JobBeschreibung[] jobBeschreibungenGefuellt = tmpConfigurationfile.getJobBeschreibungen();
+        assertNotNull(jobBeschreibungenGefuellt);
+        assertEquals(2, jobBeschreibungenGefuellt.length);
     }
 
 
