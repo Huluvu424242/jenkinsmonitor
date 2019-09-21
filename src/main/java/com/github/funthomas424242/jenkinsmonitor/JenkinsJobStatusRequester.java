@@ -35,7 +35,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.stream.Collectors;
 
@@ -52,7 +51,7 @@ public class JenkinsJobStatusRequester {
             final String jobStatus = resultJSON.getString("result");
             return new JobBeschreibung(jobName, JobStatus.valueOf(jobStatus), jenkinsJobURL);
         }catch(JSONException ex){
-            return new JobBeschreibung(jenkinsJobURL.getPath().toString(), JobStatus.OTHER, jenkinsJobURL);
+            return new JobBeschreibung(jenkinsJobURL.getPath(), JobStatus.OTHER, jenkinsJobURL);
         }
     }
 
