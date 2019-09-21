@@ -44,7 +44,10 @@ public class JenkinsJobStatusRequesterTest {
     protected static URL JOB_URL_MULTIBRANCH_JOB1_YELLOW;
     protected static URL JOB_URL_MULTIBRANCH_JOB1_GRAY;
 
+    protected static URL STATUS_URL_MULTIBRANCH_JOB1_RED;
     protected static URL STATUS_URL_MULTIBRANCH_JOB1_GREEN;
+    protected static URL STATUS_URL_MULTIBRANCH_JOB1_YELLOW;
+    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GRAY;
 
     WireMockServer wireMockServer;
 
@@ -55,7 +58,10 @@ public class JenkinsJobStatusRequesterTest {
         JOB_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_YELLOW);
         JOB_URL_MULTIBRANCH_JOB1_GRAY = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_GRAY);
 
+        STATUS_URL_MULTIBRANCH_JOB1_RED = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_RED);
         STATUS_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GREEN);
+        STATUS_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_YELLOW);
+        STATUS_URL_MULTIBRANCH_JOB1_GRAY = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GRAY);
     }
 
     @BeforeEach
@@ -101,9 +107,22 @@ public class JenkinsJobStatusRequesterTest {
         assertEquals(JobStatus.SUCCESS.getColor(), jobBeschreibung.getJobStatus().getColor());
     }
 
+
+    @Test
+    @DisplayName("Die Statusabfrage eines roten Build Jobs gibt ein valides JSON zurück")
+    protected void getValidJsonRed() {
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
+        final JSONObject json = assertDoesNotThrow(() -> {
+            return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_RED);
+        });
+        assertNotNull(json);
+        assertEquals("mypocketmod » master #2",json.get("fullDisplayName"));
+        assertEquals("FAILURE",json.get("result"));
+    }
+
     @Test
     @DisplayName("Die Statusabfrage eines grünen Build Jobs gibt ein valides JSON zurück")
-    protected void createHttpClient() {
+    protected void getValidJsonGreen() {
         final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         final JSONObject json = assertDoesNotThrow(() -> {
             return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_GREEN);
@@ -111,6 +130,29 @@ public class JenkinsJobStatusRequesterTest {
         assertNotNull(json);
         assertEquals("mypocketmod » master #2",json.get("fullDisplayName"));
         assertEquals("SUCCESS",json.get("result"));
+    }
+
+    @Test
+    @DisplayName("Die Statusabfrage eines gelben Build Jobs gibt ein valides JSON zurück")
+    protected void getValidJsonYellow() {
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
+        final JSONObject json = assertDoesNotThrow(() -> {
+            return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_YELLOW);
+        });
+        assertNotNull(json);
+        assertEquals("mypocketmod » master #2",json.get("fullDisplayName"));
+        assertEquals("UNSTABLE",json.get("result"));
+    }
+
+    @Test
+    @DisplayName("Die Statusabfrage eines grauen Build Jobs gibt KEIN valides JSON zurück")
+    protected void getValidJsonGray() {
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
+        final JSONObject json = assertDoesNotThrow(() -> {
+            return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_GRAY);
+        });
+        assertNotNull(json);
+        assertTrue(json.isEmpty());
     }
 
 
