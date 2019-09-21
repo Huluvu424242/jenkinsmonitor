@@ -67,7 +67,7 @@ public class Configuration {
         return this.configurationFile;
     }
 
-    public int getPollPeriod() {
+    public int getPollPeriodInSecond() {
         final String propValue = this.configurationProperties.getProperty(JENKINSMONITOR_POLLPERIOD, DEFAULT_POLLPERIOD);
         return Integer.parseInt(propValue);
     }
