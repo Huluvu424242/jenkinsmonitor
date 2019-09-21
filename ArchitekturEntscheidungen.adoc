@@ -146,6 +146,7 @@ Bei Color.red gibt es keine Anomalie.
 [##literatur]
 == Literatur und Quellen im Netz
 
+* https://www.petrikainulainen.net/programming/testing/junit-5-tutorial-writing-assertions-with-junit-5-api/
 * https://www.baeldung.com/maven-wrapper
 * https://github.com/noffle/art-of-readme[Art of Readme] - Erlerne die Kunst gute READMEs zu schreiben.
 * https://github.com/davidbgk/open-source-template/[open-source-template] - A README template to encourage open-source contributions.
