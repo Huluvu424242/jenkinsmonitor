@@ -22,5 +22,5 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
-public class OneJobConfiguration extends Configuration {
+public class OneJobConfigurationMock extends Configuration {
 }

@@ -78,7 +78,7 @@ public class JenkinsJobStatusRequesterTest {
     @DisplayName("Fehlgeschlagener Multibranch Job erzeugt roten Status")
     protected void getStatusRed() {
 
-        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester(JenkinsAPIMock.STATUS_PATH);
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         assumeTrue(requester != null);
         final JobBeschreibung jobBeschreibung = assertDoesNotThrow(() -> {
             return requester.getJobStatus(JOB_URL_MULTIBRANCH_JOB1_RED);
@@ -93,7 +93,7 @@ public class JenkinsJobStatusRequesterTest {
     @Test
     @DisplayName("Erfolgreicher Multibranch Job erzeugt grünen Status")
     protected void getStatusGreen() {
-        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester(JenkinsAPIMock.STATUS_PATH);
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         assumeTrue(requester != null);
         final JobBeschreibung jobBeschreibung = assertDoesNotThrow(() -> {
             return requester.getJobStatus(JOB_URL_MULTIBRANCH_JOB1_GREEN);
@@ -107,7 +107,7 @@ public class JenkinsJobStatusRequesterTest {
     @Test
     @DisplayName("Instabiler Multibranch Job erzeugt gelben Status")
     protected void getStatusYellow() {
-        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester(JenkinsAPIMock.STATUS_PATH);
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         assumeTrue(requester != null);
         final JobBeschreibung jobBeschreibung = assertDoesNotThrow(() -> {
             return requester.getJobStatus(JOB_URL_MULTIBRANCH_JOB1_YELLOW);
@@ -121,7 +121,7 @@ public class JenkinsJobStatusRequesterTest {
     @Test
     @DisplayName("Unbekanter  Multibranch Job Status erzeugt grauen Status")
     protected void getStatusGray() {
-        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester(JenkinsAPIMock.STATUS_PATH);
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         assumeTrue(requester != null);
         final JobBeschreibung jobBeschreibung = assertDoesNotThrow(() -> {
             return requester.getJobStatus(JOB_URL_MULTIBRANCH_JOB1_GRAY);
@@ -136,7 +136,7 @@ public class JenkinsJobStatusRequesterTest {
     @Test
     @DisplayName("Die Statusabfrage eines roten Build Jobs gibt ein valides JSON zurück")
     protected void getValidJsonRed() {
-        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester(JenkinsAPIMock.STATUS_PATH);
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         final JSONObject json = assertDoesNotThrow(() -> {
             return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_RED);
         });
@@ -148,7 +148,7 @@ public class JenkinsJobStatusRequesterTest {
     @Test
     @DisplayName("Die Statusabfrage eines grünen Build Jobs gibt ein valides JSON zurück")
     protected void getValidJsonGreen() {
-        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester(JenkinsAPIMock.STATUS_PATH);
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         final JSONObject json = assertDoesNotThrow(() -> {
             return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_GREEN);
         });
@@ -160,7 +160,7 @@ public class JenkinsJobStatusRequesterTest {
     @Test
     @DisplayName("Die Statusabfrage eines gelben Build Jobs gibt ein valides JSON zurück")
     protected void getValidJsonYellow() {
-        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester(JenkinsAPIMock.STATUS_PATH);
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         final JSONObject json = assertDoesNotThrow(() -> {
             return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_YELLOW);
         });
@@ -172,7 +172,7 @@ public class JenkinsJobStatusRequesterTest {
     @Test
     @DisplayName("Die Statusabfrage eines grauen Build Jobs gibt KEIN valides JSON zurück")
     protected void getValidJsonGray() {
-        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester(JenkinsAPIMock.STATUS_PATH);
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
         final JSONObject json = assertDoesNotThrow(() -> {
             return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_GRAY);
         });

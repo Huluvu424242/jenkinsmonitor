@@ -100,7 +100,7 @@ public class JenkinsAPICompatibillityTest {
     }
 
     @Test
-    @Disabled()
+    @Disabled
     @Tag("testbacklog")
     @DisplayName("Jenkins API Compatibillity: Statusabfrage roter Multibranch Job")
     public void statusMultibranchJobGrau() {
@@ -108,7 +108,7 @@ public class JenkinsAPICompatibillityTest {
             get(STATUS_URL_MULTIBRANCH_JOB1_GRAY).
             then().
             statusCode(200).
-            body( Matchers.emptyArray());
+            body( Matchers.anEmptyMap());
 
     }
 

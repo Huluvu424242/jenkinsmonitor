@@ -25,13 +25,13 @@ package com.github.funthomas424242.jenkinsmonitor;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 
+import static com.github.funthomas424242.jenkinsmonitor.JenkinsAPI.STATUS_PATH;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 
 public class JenkinsAPIMock {
 
     public static String JENKINS_ROOT = "http://localhost:8099";
-    public static String STATUS_PATH = "/lastBuild/api/json";
 
     public static String JOBPATH_MULTIBRANCH_JOB1_RED = "/job/multibranchjobred/job/master";
     public static String STATUSPATH_MULTIBRANCH_JOB1_RED = JOBPATH_MULTIBRANCH_JOB1_RED + STATUS_PATH;

@@ -25,9 +25,9 @@ package com.github.funthomas424242.jenkinsmonitor;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,47 +43,42 @@ public class JenkinsJobStatusRequester {
 
     public static final String JSONKEY_FULL_DISPLAY_NAME = "fullDisplayName";
     public static final String JSONKEY_RESULT = "result";
-    final String apiStatusPath;
 
-    JenkinsJobStatusRequester(final String apiStatusPath){
-        this.apiStatusPath=apiStatusPath;
-    }
 
     public JobBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
-        final URL abfrageURL = new URL(jenkinsJobURL.toExternalForm() + apiStatusPath);
+        final URL abfrageURL = new URL(jenkinsJobURL.toExternalForm() + JenkinsAPI.STATUS_PATH);
         final JSONObject resultJSON = sendGetRequest(abfrageURL);
         try {
             final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
             final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
             return new JobBeschreibung(jobName, JobStatus.valueOf(jobStatus), jenkinsJobURL);
-        }catch(JSONException ex){
+        } catch (JSONException ex) {
             return new JobBeschreibung(jenkinsJobURL.getPath(), JobStatus.OTHER, jenkinsJobURL);
         }
     }
 
     public JSONObject sendGetRequest(final URL statusAbfrageUrl) throws IOException {
         JSONObject resultJSON = null;
-        HttpClient httpClient=null;
-        try {
-            httpClient = new DefaultHttpClient();
+        try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             final HttpHost target = new HttpHost(statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort(), statusAbfrageUrl.getProtocol());
             final HttpGet httpGetRequest = new HttpGet(statusAbfrageUrl.getPath());
             final HttpResponse httpResponse = httpClient.execute(target, httpGetRequest);
             final HttpEntity entity = httpResponse.getEntity();
             final InputStream inputStream = entity.getContent();
 
-            final String requestResult;
-            try (BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream))) {
-                requestResult = buffer.lines().collect(Collectors.joining("\n"));
-            }
+            final String requestResult = readStreamIntoString(inputStream);
             resultJSON = new JSONObject(requestResult);
 
-        } finally {
-            if( httpClient != null) {
-                httpClient.getConnectionManager().shutdown();
-            }
         }
         return resultJSON;
+    }
+
+    protected String readStreamIntoString(InputStream inputStream) throws IOException {
+        String requestResult;
+        try (BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream))) {
+            requestResult = buffer.lines().collect(Collectors.joining("\n"));
+        }
+        return requestResult;
     }
 
 
