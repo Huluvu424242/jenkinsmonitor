@@ -22,11 +22,13 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class JenkinsJobStatusRequester {
 
-    public JobBeschreibung getJobStatus(final URL jenkinsJobURL) {
+    public JobBeschreibung getJobStatus(final URL jenkinsJobURL) throws MalformedURLException {
+        final URL abfrageURL = new URL(jenkinsJobURL.toExternalForm()+"/"+"lastBuild/api/json");
         return new JobBeschreibung("job1", JobStatus.FAILED,null);
     }
 }
