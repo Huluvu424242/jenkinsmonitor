@@ -41,6 +41,8 @@ import java.util.stream.Collectors;
 
 public class JenkinsJobStatusRequester {
 
+    public static final String JSONKEY_FULL_DISPLAY_NAME = "fullDisplayName";
+    public static final String JSONKEY_RESULT = "result";
     final String apiStatusPath;
 
     JenkinsJobStatusRequester(final String apiStatusPath){
@@ -51,8 +53,8 @@ public class JenkinsJobStatusRequester {
         final URL abfrageURL = new URL(jenkinsJobURL.toExternalForm() + apiStatusPath);
         final JSONObject resultJSON = sendGetRequest(abfrageURL);
         try {
-            final String jobName = resultJSON.getString("fullDisplayName");
-            final String jobStatus = resultJSON.getString("result");
+            final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
+            final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
             return new JobBeschreibung(jobName, JobStatus.valueOf(jobStatus), jenkinsJobURL);
         }catch(JSONException ex){
             return new JobBeschreibung(jenkinsJobURL.getPath(), JobStatus.OTHER, jenkinsJobURL);
