@@ -10,12 +10,12 @@ package com.github.funthomas424242.jenkinsmonitor;
  * it under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Lesser Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Lesser Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
@@ -40,10 +40,10 @@ public class JenkinsAPICompatibillityTest {
     protected static URL STATUS_URL_MULTIBRANCH_JOB1_YELLOW;
     protected static URL STATUS_URL_MULTIBRANCH_JOB1_GRAY;
 
-    WireMockServer wireMockServer;
+    protected WireMockServer wireMockServer;
 
     @BeforeAll
-    static void setUp() throws MalformedURLException {
+    protected static void setUpAll() throws MalformedURLException {
         STATUS_URL_MULTIBRANCH_JOB1_RED = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_RED);
         STATUS_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GREEN);
         STATUS_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_YELLOW);
@@ -51,14 +51,14 @@ public class JenkinsAPICompatibillityTest {
     }
 
     @BeforeEach
-    protected void setup () {
+    protected void setUp() {
         wireMockServer = new WireMockServer(8099);
         wireMockServer.start();
         JenkinsAPIMock.definiereAnnahmen(wireMockServer);
     }
 
     @AfterEach
-    public void teardown () {
+    public void tearDown() {
         wireMockServer.stop();
     }
 
@@ -66,7 +66,7 @@ public class JenkinsAPICompatibillityTest {
     @Test
     @DisplayName("Jenkins API Compatibillity: Statusabfrage roter Multibranch Job")
     public void statusMultibranchJobRot() {
-            when().
+        when().
             get(STATUS_URL_MULTIBRANCH_JOB1_RED).
             then().
             statusCode(200).
@@ -108,10 +108,9 @@ public class JenkinsAPICompatibillityTest {
             get(STATUS_URL_MULTIBRANCH_JOB1_GRAY).
             then().
             statusCode(200).
-            body( Matchers.anEmptyMap());
+            body(Matchers.anEmptyMap());
 
     }
-
 
 
 }

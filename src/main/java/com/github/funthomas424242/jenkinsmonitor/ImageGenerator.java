@@ -29,11 +29,11 @@ public class ImageGenerator {
 
     protected final JobBeschreibung[] jobsStatusBeschreibungen;
 
-    ImageGenerator(final JobBeschreibung[] jobsStatusBeschreibungen) {
+    protected ImageGenerator(final JobBeschreibung[] jobsStatusBeschreibungen) {
         this.jobsStatusBeschreibungen = jobsStatusBeschreibungen;
     }
 
-    BufferedImage getImage(final int width, final int height) {
+    protected BufferedImage getImage(final int width, final int height) {
         final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_INDEXED);
         createPartImage(image, 0, width, height, JobStatus.OTHER);
 

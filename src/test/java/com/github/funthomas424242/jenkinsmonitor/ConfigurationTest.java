@@ -23,7 +23,6 @@ package com.github.funthomas424242.jenkinsmonitor;
  */
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -114,18 +113,18 @@ class ConfigurationTest {
     void reloadCurrentConfiguration() {
         final int pollPeriodInSecond1 = validConfigurationfile.getPollPeriodInSecond();
         final JobBeschreibung[] jobBeschreibungen1 = this.validConfigurationfile.getJobBeschreibungen();
-        assumeTrue(pollPeriodInSecond1==6);
-        assumeTrue(jobBeschreibungen1!=null);
-        assumeTrue(jobBeschreibungen1.length==2);
+        assumeTrue(pollPeriodInSecond1 == 6);
+        assumeTrue(jobBeschreibungen1 != null);
+        assumeTrue(jobBeschreibungen1.length == 2);
         validConfigurationfile.reload();
         final int pollPeriodInSecond2 = validConfigurationfile.getPollPeriodInSecond();
         final JobBeschreibung[] jobBeschreibungen2 = this.validConfigurationfile.getJobBeschreibungen();
-        assumeTrue(pollPeriodInSecond2==6);
-        assumeTrue(jobBeschreibungen2!=null);
-        assumeTrue(jobBeschreibungen2.length==2);
+        assumeTrue(pollPeriodInSecond2 == 6);
+        assumeTrue(jobBeschreibungen2 != null);
+        assumeTrue(jobBeschreibungen2.length == 2);
         //
-        assertEquals(pollPeriodInSecond1,pollPeriodInSecond2);
-        assertArrayEquals(jobBeschreibungen1,jobBeschreibungen2);
+        assertEquals(pollPeriodInSecond1, pollPeriodInSecond2);
+        assertArrayEquals(jobBeschreibungen1, jobBeschreibungen2);
     }
 
     @Test
@@ -137,7 +136,7 @@ class ConfigurationTest {
         assumeTrue(tmpConfigurationfile != null);
         final JobBeschreibung[] jobBeschreibungenenLeer = tmpConfigurationfile.getJobBeschreibungen();
         assumeTrue(jobBeschreibungenenLeer != null);
-        assumeTrue(jobBeschreibungenenLeer.length==0);
+        assumeTrue(jobBeschreibungenenLeer.length == 0);
 
         final Path validConfigfilePath = Paths.get(".", PATH_VALID_CONFIGURATION_FILE);
         final File configFile = validConfigfilePath.toAbsolutePath().toFile();

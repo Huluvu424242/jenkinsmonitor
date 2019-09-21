@@ -49,7 +49,7 @@ public class JenkinsJobStatusRequesterTest {
     WireMockServer wireMockServer;
 
     @BeforeAll
-    static void setUp() throws MalformedURLException, URISyntaxException {
+    static void setUpAll() throws MalformedURLException, URISyntaxException {
         JOB_URL_MULTIBRANCH_JOB1_RED = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_RED);
         JOB_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_GREEN);
         JOB_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_YELLOW);
@@ -62,14 +62,14 @@ public class JenkinsJobStatusRequesterTest {
     }
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         wireMockServer = new WireMockServer(8099);
         wireMockServer.start();
         JenkinsAPIMock.definiereAnnahmen(wireMockServer);
     }
 
     @AfterEach
-    public void teardown() {
+    public void tearDown() {
         wireMockServer.stop();
     }
 
