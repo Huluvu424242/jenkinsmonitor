@@ -41,10 +41,14 @@ import java.util.stream.Collectors;
 
 public class JenkinsJobStatusRequester {
 
-    public static final String STATUS_PATH = "/lastBuild/api/json";
+    final String apiStatusPath;
+
+    JenkinsJobStatusRequester(final String apiStatusPath){
+        this.apiStatusPath=apiStatusPath;
+    }
 
     public JobBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
-        final URL abfrageURL = new URL(jenkinsJobURL.toExternalForm() + STATUS_PATH);
+        final URL abfrageURL = new URL(jenkinsJobURL.toExternalForm() + apiStatusPath);
         final JSONObject resultJSON = sendGetRequest(abfrageURL);
         try {
             final String jobName = resultJSON.getString("fullDisplayName");
