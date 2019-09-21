@@ -67,10 +67,10 @@ class JobBeschreibungTest {
     @DisplayName("Statusfarbe eines instabilen Jobs ist gelb")
     void instabileJobsSindGelb() {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
-            , JobStatus.INSTABIL
+            , JobStatus.UNSTABLE
             , LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobBeschreibung);
-        assertEquals(JobStatus.INSTABIL.getColor(), jobBeschreibung.getStatusColor());
+        assertEquals(JobStatus.UNSTABLE.getColor(), jobBeschreibung.getStatusColor());
     }
 
     @Test

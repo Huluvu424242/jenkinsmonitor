@@ -70,10 +70,10 @@ public class JenkinsMonitorTrayTest {
     @DisplayName("Bei einem instabilen Job soll das TrayIcon gelb sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master unstable>>")
     public void shouldShowOneInstabilJobWatching() {
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0]=new JobBeschreibung("MultibranchJob/master", JobStatus.INSTABIL,null);
+        jobBeschreibungen[0]=new JobBeschreibung("MultibranchJob/master", JobStatus.UNSTABLE,null);
         jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
-        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobStatus.INSTABIL.getColor()));
+        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobStatus.UNSTABLE.getColor()));
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());
     }
 

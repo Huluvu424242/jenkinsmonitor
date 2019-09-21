@@ -5,7 +5,7 @@ import java.awt.*;
 public enum JobStatus {
     SUCCESS(Color.green),
     FAILURE(Color.red),
-    INSTABIL(Color.yellow),
+    UNSTABLE(Color.yellow),
     // lightGray statt gray wegen gray Anomalie!
     OTHER(Color.lightGray);
 

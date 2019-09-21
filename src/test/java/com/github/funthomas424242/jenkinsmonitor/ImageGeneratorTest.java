@@ -79,13 +79,13 @@ class ImageGeneratorTest {
     void initOneJobYellowIcon100x100() {
         final JobBeschreibung[] jobsStatusBeschreibungen = new JobBeschreibung[1];
         jobsStatusBeschreibungen[0] = new JobBeschreibung("Job1/master"
-            , JobStatus.INSTABIL
+            , JobStatus.UNSTABLE
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final BufferedImage image = generator.getImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertTrue(isImageOfColor(image, JobStatus.INSTABIL.getColor()));
+        assertTrue(isImageOfColor(image, JobStatus.UNSTABLE.getColor()));
         assertTrue(isImageOfColor(image, Color.yellow));
     }
 

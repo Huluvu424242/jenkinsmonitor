@@ -28,6 +28,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -46,9 +47,13 @@ public class JenkinsJobStatusRequester {
     public JobBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
         final URL abfrageURL = new URL(jenkinsJobURL.toExternalForm() + STATUS_PATH);
         final JSONObject resultJSON = sendGetRequest(abfrageURL);
-        final String jobName = resultJSON.getString("fullDisplayName");
-        final String jobStatus = resultJSON.getString("result");
-        return new JobBeschreibung(jobName, JobStatus.valueOf(jobStatus), jenkinsJobURL);
+        try {
+            final String jobName = resultJSON.getString("fullDisplayName");
+            final String jobStatus = resultJSON.getString("result");
+            return new JobBeschreibung(jobName, JobStatus.valueOf(jobStatus), jenkinsJobURL);
+        }catch(JSONException ex){
+            return new JobBeschreibung(jenkinsJobURL.getPath().toString(), JobStatus.OTHER, jenkinsJobURL);
+        }
     }
 
     public JSONObject sendGetRequest(final URL statusAbfrageUrl) throws IOException {
