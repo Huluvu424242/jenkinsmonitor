@@ -23,9 +23,13 @@ package com.github.funthomas424242.jenkinsmonitor;
  */
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import org.apache.http.client.HttpClient;
+import org.json.JSONObject;
 import org.junit.jupiter.api.*;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,14 +44,18 @@ public class JenkinsJobStatusRequesterTest {
     protected static URL JOB_URL_MULTIBRANCH_JOB1_YELLOW;
     protected static URL JOB_URL_MULTIBRANCH_JOB1_GRAY;
 
+    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GREEN;
+
     WireMockServer wireMockServer;
 
     @BeforeAll
-    static void setUp() throws MalformedURLException {
+    static void setUp() throws MalformedURLException, URISyntaxException {
         JOB_URL_MULTIBRANCH_JOB1_RED = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_RED);
         JOB_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_GREEN);
         JOB_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_YELLOW);
         JOB_URL_MULTIBRANCH_JOB1_GRAY = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_GRAY);
+
+        STATUS_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GREEN);
     }
 
     @BeforeEach
@@ -78,6 +86,7 @@ public class JenkinsJobStatusRequesterTest {
         assertEquals(JobStatus.FAILED.getColor(), jobBeschreibung.getJobStatus().getColor());
     }
 
+
     @Test
     @Disabled
     @DisplayName("Erfolgreicher Multibranch Job erzeugt grünen Status")
@@ -92,5 +101,18 @@ public class JenkinsJobStatusRequesterTest {
         assertNotNull(jobBeschreibung.getJobName());
         assertEquals(JobStatus.SUCCESS.getColor(), jobBeschreibung.getJobStatus().getColor());
     }
+
+    @Test
+    @DisplayName("Die Statusabfrage eines grünen Build Jobs gibt ein valides JSON zurück")
+    protected void createHttpClient() {
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester();
+        final JSONObject json = assertDoesNotThrow(() -> {
+            return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_GREEN);
+        });
+        assertNotNull(json);
+        assertEquals("mypocketmod » master #2",json.get("fullDisplayName"));
+        assertEquals("SUCCESS",json.get("result"));
+    }
+
 
 }
