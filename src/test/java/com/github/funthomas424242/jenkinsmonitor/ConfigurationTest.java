@@ -83,14 +83,14 @@ class ConfigurationTest {
     }
 
     @Test
-    @DisplayName("Die Default Pollperiod ist auf 5s gesetzt")
+    @DisplayName("Prüfe Default Konfiguration wenn das Configfile leer ist")
     void validDefaultsWithEmptyConfigfile() {
         final int pollPeriodInSecond = emptyConfigurationfile.getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
     }
 
     @Test
-    @DisplayName("Die eingetragene Pollperiod ist auf 6s gesetzt")
+    @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
     void useDefaultPollPeriod() {
         final int pollPeriodInSecond = validConfigurationfile.getPollPeriodInSecond();
         assertEquals(6, pollPeriodInSecond);
