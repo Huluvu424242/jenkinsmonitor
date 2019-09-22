@@ -22,9 +22,10 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
-import org.junit.jupiter.api.*;
-
-import java.awt.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -56,7 +57,7 @@ class JenkinsMonitorTest {
     @DisplayName("JenkinsMonitor besitzt eine Tray Instanz nach seiner Erzeugung")
     protected void checkTrayInstanz() {
         final JenkinsMonitor monitor = new JenkinsMonitor();
-        assumeTrue(monitor!=null);
+        assumeTrue(monitor != null);
         assertNotNull(monitor.monitorTray);
     }
 
