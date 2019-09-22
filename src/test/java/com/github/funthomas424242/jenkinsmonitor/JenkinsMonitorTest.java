@@ -27,6 +27,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -84,6 +87,28 @@ class JenkinsMonitorTest {
         final Configuration config = new ConfigurationMockValidTwoJobs();
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
         assertNotNull(jenkinsMonitor.monitorTray.getTrayIcon());
+    }
+
+    @Test
+    @DisplayName("Eine leere Konfiguration erzeugt ein graues TrayIcon")
+    protected void TrayIconHasGrayImage() {
+        final Configuration config = new ConfigurationMockEmpty();
+        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
+        final TrayIcon icon = jenkinsMonitor.monitorTray.getTrayIcon();
+        final BufferedImage image = (BufferedImage) icon.getImage();
+        assertNotNull(icon);
+        TrayImage.isImageOfColor(image,JobStatus.OTHER.getColor());
+    }
+
+    @Test
+    @DisplayName("Eine Konfiguration mit einem erfolgreichen Job erzeugt ein grünes TrayIcon")
+    protected void TrayIconHasGreenImage() {
+        final Configuration config = new ConfigurationMockOneJobSuccess();
+        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
+        final TrayIcon icon = jenkinsMonitor.monitorTray.getTrayIcon();
+        final BufferedImage image = (BufferedImage) icon.getImage();
+        assertNotNull(icon);
+        TrayImage.isImageOfColor(image,JobStatus.SUCCESS.getColor());
     }
 
 }
