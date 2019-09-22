@@ -22,10 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -76,6 +73,13 @@ class JenkinsMonitorTest {
         assumeTrue(jenkinsMonitor.configuration != null);
         assumeTrue(jenkinsMonitor.monitorTray != null);
         assertEquals(0, jenkinsMonitor.configuration.getJobBeschreibungen().length);
+    }
+
+    @Test
+    @DisplayName("Tray Konfiguration ist identisch zur JenkinsMonitor Konfiguration")
+    protected void equalsConfigWithTrayAndMonitor() {
+        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(new ConfigurationMockValidTwoJobs());
+        assertEquals(jenkinsMonitor.configuration, jenkinsMonitor.monitorTray.getConfiguration());
     }
 
 }

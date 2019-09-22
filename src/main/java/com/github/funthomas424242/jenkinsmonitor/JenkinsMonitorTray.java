@@ -84,4 +84,7 @@ public class JenkinsMonitorTray {
         erzeugeDarstellung();
     }
 
+    public Configuration getConfiguration() {
+        return this.configuration;
+    }
 }
