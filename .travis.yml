@@ -17,7 +17,7 @@ jdk:
 #  - sleep 3 # give xvfb some time to start
 
 
-script: ./mvnw -Ptravis-ci clean install site
+script: ./mvnw -Ptravis-ci clean site install
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
