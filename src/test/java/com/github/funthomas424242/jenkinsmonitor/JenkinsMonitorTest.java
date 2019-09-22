@@ -27,6 +27,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @Tag("headfull")
@@ -49,6 +50,7 @@ class JenkinsMonitorTest {
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor();
         assumeTrue(jenkinsMonitor.configuration != null);
         assumeTrue(jenkinsMonitor.monitorTray != null);
+        assertEquals(0, jenkinsMonitor.configuration.getJobBeschreibungen().length);
     }
 
 }
