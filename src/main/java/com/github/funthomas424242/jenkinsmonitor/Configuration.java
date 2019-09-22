@@ -32,6 +32,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
 
 public class Configuration {
@@ -108,5 +109,19 @@ public class Configuration {
     public void reloadFromFile(final File configFile) {
         this.configurationFile=configFile;
         this.configurationProperties=loadPropertiesFromFile(configFile);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Configuration that = (Configuration) o;
+        return configurationFile.equals(that.configurationFile) &&
+            configurationProperties.equals(that.configurationProperties);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(configurationFile, configurationProperties);
     }
 }
