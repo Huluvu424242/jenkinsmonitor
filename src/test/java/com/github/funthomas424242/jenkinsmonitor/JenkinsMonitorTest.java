@@ -22,19 +22,33 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import com.github.tomakehurst.wiremock.WireMockServer;
+import org.junit.jupiter.api.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static com.github.funthomas424242.jenkinsmonitor.TrayImage.isImageOfColor;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @Tag("headfull")
 class JenkinsMonitorTest {
+
+    WireMockServer wireMockServer;
+
+    @BeforeEach
+    public void setUp() {
+        wireMockServer = new WireMockServer(8099);
+        wireMockServer.start();
+        JenkinsAPIMock.definiereAnnahmen(wireMockServer);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        wireMockServer.stop();
+    }
+
 
     @Test
     @DisplayName("JenkinsMonitor ist Hauptklasse und enthält eine main Methode.")
@@ -97,7 +111,7 @@ class JenkinsMonitorTest {
         final TrayIcon icon = jenkinsMonitor.monitorTray.getTrayIcon();
         final BufferedImage image = (BufferedImage) icon.getImage();
         assertNotNull(icon);
-        TrayImage.isImageOfColor(image,JobStatus.OTHER.getColor());
+        isImageOfColor(image, JobStatus.OTHER.getColor());
     }
 
     @Test
@@ -106,9 +120,21 @@ class JenkinsMonitorTest {
         final Configuration config = new ConfigurationMockOneJobSuccess();
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
         final TrayIcon icon = jenkinsMonitor.monitorTray.getTrayIcon();
-        final BufferedImage image = (BufferedImage) icon.getImage();
         assertNotNull(icon);
-        TrayImage.isImageOfColor(image,JobStatus.SUCCESS.getColor());
+        final BufferedImage image = (BufferedImage) icon.getImage();
+        assertNotNull(image);
+        assertTrue(isImageOfColor(image, JobStatus.SUCCESS.getColor()));
     }
 
+    @Test
+    @Disabled
+    @DisplayName("Eine Konfiguration mit einem erfolgreichen Job erzeugt ein rotes TrayIcon")
+    protected void TrayIconHasRedImage() {
+        final Configuration config = new ConfigurationMockOneJobFailed();
+        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
+        final TrayIcon icon = jenkinsMonitor.monitorTray.getTrayIcon();
+        final BufferedImage image = (BufferedImage) icon.getImage();
+        assertNotNull(icon);
+        assertTrue(isImageOfColor(image, JobStatus.FAILURE.getColor()));
+    }
 }

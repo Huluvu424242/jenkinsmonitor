@@ -30,22 +30,28 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 
 public class JenkinsJobStatusRequester {
 
+    final Logger LOG = LoggerFactory.getLogger(JenkinsJobStatusRequester.class);
+
+
     public static final String JSONKEY_FULL_DISPLAY_NAME = "fullDisplayName";
     public static final String JSONKEY_RESULT = "result";
 
 
-    public JobBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
+    protected JobBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
         final URL abfrageURL = new URL(jenkinsJobURL.toExternalForm() + JenkinsAPI.STATUS_PATH);
         final JSONObject resultJSON = sendGetRequest(abfrageURL);
         try {
@@ -57,7 +63,7 @@ public class JenkinsJobStatusRequester {
         }
     }
 
-    public JSONObject sendGetRequest(final URL statusAbfrageUrl) throws IOException {
+    protected JSONObject sendGetRequest(final URL statusAbfrageUrl) throws IOException {
         JSONObject resultJSON = null;
         try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             final HttpHost target = new HttpHost(statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort(), statusAbfrageUrl.getProtocol());
@@ -81,5 +87,21 @@ public class JenkinsJobStatusRequester {
         return requestResult;
     }
 
+
+    public JobBeschreibung[] ladeJobsStatus(JobBeschreibung[] jobBeschreibungen) {
+       return Arrays.stream(jobBeschreibungen).map((beschreibung) -> {
+            JobBeschreibung returnValue=null;
+            try {
+                final JobBeschreibung jobStatus = getJobStatus(beschreibung.getJobUrl());
+                returnValue= new JobBeschreibung(jobStatus.getJobName()
+                    , jobStatus.getJobStatus()
+                    , beschreibung.getJobUrl());
+            } catch (IOException e) {
+                LOG.error(e.getLocalizedMessage(), e);
+            }
+            return returnValue;
+        }).toArray(JobBeschreibung[]::new);
+
+    }
 
 }

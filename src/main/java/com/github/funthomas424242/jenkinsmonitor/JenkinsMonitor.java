@@ -39,7 +39,7 @@ public class JenkinsMonitor {
 
     public JenkinsMonitor(Configuration configuration) {
         this.monitorTray = new JenkinsMonitorTray(configuration);
-        this.monitorTray.erzeugeDarstellung();
+        this.monitorTray.updateJobStatus();
     }
 
 

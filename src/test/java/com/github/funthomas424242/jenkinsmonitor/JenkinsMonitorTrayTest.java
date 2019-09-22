@@ -26,25 +26,44 @@ import org.junit.jupiter.api.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
 import static com.github.funthomas424242.jenkinsmonitor.TrayImage.isImageOfColor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+class RequesterMock extends JenkinsJobStatusRequester {
+
+    private final JobStatus jobStatus;
+
+    public RequesterMock(JobStatus jobStatus) {
+        this.jobStatus = jobStatus;
+    }
+
+    @Override
+    protected JobBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
+        return new JobBeschreibung("xxx", jobStatus, jenkinsJobURL);
+    }
+}
+
+
 @Tag("headfull")
 public class JenkinsMonitorTrayTest {
+
 
     JenkinsMonitorTray jenkinsMonitorTray;
 
     @BeforeEach
     public void setUp() {
         jenkinsMonitorTray = new JenkinsMonitorTray();
-        jenkinsMonitorTray.erzeugeDarstellung();
+        jenkinsMonitorTray.requester = new RequesterMock(JobStatus.OTHER);
+        jenkinsMonitorTray.updateJobStatus();
     }
 
     @AfterEach
-    public void tearDown(){
-        jenkinsMonitorTray=null;
+    public void tearDown() {
+        jenkinsMonitorTray = null;
     }
 
     @Test
@@ -52,17 +71,18 @@ public class JenkinsMonitorTrayTest {
     public void shouldShowNoJobsWatching() throws AWTException {
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertEquals("No jobs watching", trayIcon.getToolTip());
-        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobStatus.OTHER.getColor()));
+        assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.OTHER.getColor()));
     }
 
     @Test
     @DisplayName("Bei einem erfolreichen Job soll das TrayIcon grün sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master success>>")
     public void shouldShowOneSuccessJobWatching() {
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0]=new JobBeschreibung("MultibrachnJob/master", JobStatus.SUCCESS,null);
+        jobBeschreibungen[0] = new JobBeschreibung(null, null, null);
+        jenkinsMonitorTray.requester = new RequesterMock(JobStatus.SUCCESS);
         jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
-        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobStatus.SUCCESS.getColor()));
+        assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.SUCCESS.getColor()));
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());
     }
 
@@ -70,10 +90,11 @@ public class JenkinsMonitorTrayTest {
     @DisplayName("Bei einem instabilen Job soll das TrayIcon gelb sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master unstable>>")
     public void shouldShowOneInstabilJobWatching() {
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0]=new JobBeschreibung("MultibranchJob/master", JobStatus.UNSTABLE,null);
+        jobBeschreibungen[0] = new JobBeschreibung(null, null, null);
+        jenkinsMonitorTray.requester = new RequesterMock(JobStatus.UNSTABLE);
         jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
-        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobStatus.UNSTABLE.getColor()));
+        assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.UNSTABLE.getColor()));
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());
     }
 
@@ -81,14 +102,15 @@ public class JenkinsMonitorTrayTest {
     @DisplayName("Bei einem instabilen Job soll das TrayIcon gelb sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master unstable>>")
     public void shouldShowOneFailedJobWatching() {
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0]=new JobBeschreibung("MultibranchJob/master", JobStatus.FAILURE,null);
+        jobBeschreibungen[0] = new JobBeschreibung(null, null, null);
+        jenkinsMonitorTray.requester = new RequesterMock(JobStatus.FAILURE);
         jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
-        assertTrue(isImageOfColor((BufferedImage)  trayIcon.getImage(), JobStatus.FAILURE.getColor()));
+        assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.FAILURE.getColor()));
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());
     }
 
-    // TODO
+    // TODO  die Tooltipps noch prüfen und das Folgende
 //        assumeTrue(jenkinsMonitor.jobBeschreibungen != null);
 //        assertEquals(0, jenkinsMonitor.jobBeschreibungen.length);
 //
