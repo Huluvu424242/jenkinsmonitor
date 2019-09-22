@@ -23,6 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor;
  */
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -31,6 +32,7 @@ class JenkinsMonitorTest {
 
 
     @Test
+    @Tag("headfull")
     @DisplayName("Initiale Konfiguration enthält keine JobBeschribungen")
     protected void initialConfigWithEmptyJobs() {
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor();
