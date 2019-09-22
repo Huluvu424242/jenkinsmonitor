@@ -22,5 +22,20 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
-public class OneJobConfigurationMock extends Configuration {
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+public class ConfigurationMockEmpty extends Configuration {
+    public static final String PATH_EMPTY_CONFIGURATION_FILE = "src/test/resources/empty_configuration.properties";
+
+
+    public ConfigurationMockEmpty(){
+        super(getConfigFile());
+    }
+
+    protected static File getConfigFile() {
+        final Path emptyConfigfilePath = Paths.get(".", PATH_EMPTY_CONFIGURATION_FILE);
+        return emptyConfigfilePath.toAbsolutePath().toFile();
+    }
 }

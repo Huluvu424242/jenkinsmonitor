@@ -27,8 +27,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -38,28 +36,17 @@ class ConfigurationTest {
     protected static final String USER_HOME = "user.home";
     protected static final String Configuration_CONFIGURATIONFILENAME = "jenkinsmonitor.properties";
     protected static final int DEFAULT_POLLPERIOD = 5;
-    public static final String PATH_VALID_CONFIGURATION_FILE = "src/test/resources/valid_configuration.properties";
-    public static final String PATH_EMPTY_CONFIGURATION_FILE = "src/test/resources/empty_configuration.properties";
-    public static final String PATH_NOTEXISTING_CONFIGURATION_FILE = "src/test/resources/xxx_configuration.properties";
+
 
     Configuration notexistingConfigurationfile;
     Configuration emptyConfigurationfile;
     Configuration validConfigurationfile;
 
     @BeforeEach
-    void init() {
-        final Path withoutConfigfilePath = Paths.get(".", PATH_NOTEXISTING_CONFIGURATION_FILE);
-        final File withoutConfigFile = withoutConfigfilePath.toAbsolutePath().toFile();
-        notexistingConfigurationfile = new Configuration(withoutConfigFile);
-
-
-        final Path emptyConfigfilePath = Paths.get(".", PATH_EMPTY_CONFIGURATION_FILE);
-        final File emptyConfigFile = emptyConfigfilePath.toAbsolutePath().toFile();
-        emptyConfigurationfile = new Configuration(emptyConfigFile);
-
-        final Path validConfigfilePath = Paths.get(".", PATH_VALID_CONFIGURATION_FILE);
-        final File configFile = validConfigfilePath.toAbsolutePath().toFile();
-        validConfigurationfile = new Configuration(configFile);
+    void setUp() {
+        notexistingConfigurationfile = new ConfigurationMockNoExisting();
+        emptyConfigurationfile = new ConfigurationMockEmpty();
+        validConfigurationfile = new ConfigurationMockValidTwoJobs();
     }
 
 
@@ -130,16 +117,14 @@ class ConfigurationTest {
     @Test
     @DisplayName("Prüfe auf neue Werte bei reload aus anderem Configfile")
     void reloadOtherConfiguration() {
-        final Path emptyConfigfilePath = Paths.get(".", PATH_EMPTY_CONFIGURATION_FILE);
-        final File emptyConfigFile = emptyConfigfilePath.toAbsolutePath().toFile();
+        final File emptyConfigFile = new ConfigurationMockEmpty().getConfigurationfile();
         final Configuration tmpConfigurationfile = new Configuration(emptyConfigFile);
         assumeTrue(tmpConfigurationfile != null);
         final JobBeschreibung[] jobBeschreibungenenLeer = tmpConfigurationfile.getJobBeschreibungen();
         assumeTrue(jobBeschreibungenenLeer != null);
         assumeTrue(jobBeschreibungenenLeer.length == 0);
 
-        final Path validConfigfilePath = Paths.get(".", PATH_VALID_CONFIGURATION_FILE);
-        final File configFile = validConfigfilePath.toAbsolutePath().toFile();
+        final File configFile = new ConfigurationMockValidTwoJobs().getConfigurationfile();
         tmpConfigurationfile.reloadFromFile(configFile);
         final JobBeschreibung[] jobBeschreibungenGefuellt = tmpConfigurationfile.getJobBeschreibungen();
         assertNotNull(jobBeschreibungenGefuellt);
