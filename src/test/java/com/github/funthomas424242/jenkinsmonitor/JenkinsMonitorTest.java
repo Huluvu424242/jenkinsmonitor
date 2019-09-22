@@ -127,14 +127,14 @@ class JenkinsMonitorTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Eine Konfiguration mit einem erfolgreichen Job erzeugt ein rotes TrayIcon")
     protected void TrayIconHasRedImage() {
         final Configuration config = new ConfigurationMockOneJobFailed();
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
         final TrayIcon icon = jenkinsMonitor.monitorTray.getTrayIcon();
-        final BufferedImage image = (BufferedImage) icon.getImage();
         assertNotNull(icon);
+        final BufferedImage image = (BufferedImage) icon.getImage();
+        assertNotNull(image);
         assertTrue(isImageOfColor(image, JobStatus.FAILURE.getColor()));
     }
 }
