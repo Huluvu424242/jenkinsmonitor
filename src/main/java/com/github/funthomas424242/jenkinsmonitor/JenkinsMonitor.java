@@ -39,4 +39,8 @@ public class JenkinsMonitor {
         this.monitorTray= new JenkinsMonitorTray();
     }
 
+
+    public static void main(final String[] commandlineArgs) {
+        final JenkinsMonitor monitor = new JenkinsMonitor();
+    }
 }
