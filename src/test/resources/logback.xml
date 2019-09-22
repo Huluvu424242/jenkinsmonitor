@@ -31,7 +31,7 @@
     </layout>
   </appender>
 
-  <logger name="com.github.funthomas424242" level="debug" additivity="false">
+  <logger name="com.github.funthomas424242" level="error" additivity="false">
     <appender-ref ref="CONSOLE"/>
   </logger>
 

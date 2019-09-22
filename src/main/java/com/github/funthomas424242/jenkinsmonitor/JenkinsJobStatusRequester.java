@@ -73,6 +73,7 @@ public class JenkinsJobStatusRequester {
             final InputStream inputStream = entity.getContent();
 
             final String requestResult = readStreamIntoString(inputStream);
+            LOG.debug("Empfangen als JSON:\n"+requestResult);
             resultJSON = new JSONObject(requestResult);
 
         }
