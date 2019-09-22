@@ -88,5 +88,16 @@ public class JenkinsMonitorTrayTest {
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());
     }
 
+    // TODO
+//        assumeTrue(jenkinsMonitor.jobBeschreibungen != null);
+//        assertEquals(0, jenkinsMonitor.jobBeschreibungen.length);
+//
+//        final Path validConfigfilePath = Paths.get(".", PATH_VALID_CONFIGURATION_FILE);
+//        final File configFile = validConfigfilePath.toAbsolutePath().toFile();
+//        jenkinsMonitor.configuration.reloadFromFile(configFile);
+//        assumeTrue(jenkinsMonitor.configuration != null);
+//        assumeTrue(jenkinsMonitor.jobBeschreibungen != null);
+//        assertEquals(2, jenkinsMonitor.jobBeschreibungen.length);
+
 
 }

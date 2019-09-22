@@ -30,8 +30,13 @@ public class JenkinsMonitor {
     protected static final Logger LOG = LoggerFactory.getLogger(JenkinsMonitor.class);
 
 
-    public JenkinsMonitor() {
+    protected Configuration configuration;
+    protected JenkinsMonitorTray monitorTray;
 
+
+    public JenkinsMonitor() {
+        this.configuration = new Configuration();
+        this.monitorTray= new JenkinsMonitorTray();
     }
 
 }

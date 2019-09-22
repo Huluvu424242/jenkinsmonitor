@@ -26,16 +26,21 @@ import java.awt.*;
 
 public class JenkinsMonitorTray {
 
+    protected final Configuration configuration;
     protected SystemTrayWrapper tray;
 
     protected JobBeschreibung[] jobBeschreibungen;
 
     protected JenkinsMonitorTray() {
-        this(new SystemTrayWrapper(),null);
+        this(new SystemTrayWrapper(), new Configuration());
     }
 
-    protected JenkinsMonitorTray(SystemTrayWrapper systemTray, JobBeschreibung[] jobBeschreibungen){
-        this.jobBeschreibungen = jobBeschreibungen;
+    protected JenkinsMonitorTray(final Configuration configuration) {
+        this(new SystemTrayWrapper(), configuration);
+    }
+
+    protected JenkinsMonitorTray(SystemTrayWrapper systemTray, Configuration configuration) {
+        this.configuration = configuration;
         //Obtain only one instance of the SystemTray object
         this.tray = systemTray;
     }
