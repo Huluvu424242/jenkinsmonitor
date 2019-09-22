@@ -24,6 +24,8 @@ package com.github.funthomas424242.jenkinsmonitor;
 
 import org.junit.jupiter.api.*;
 
+import java.awt.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -73,6 +75,14 @@ class JenkinsMonitorTest {
         final Configuration config = new ConfigurationMockValidTwoJobs();
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
         assertSame(config, jenkinsMonitor.monitorTray.getConfiguration());
+    }
+
+    @Test
+    @DisplayName("Nach Erzeugung besitzt der JenkinsMonitor ein Tray Icon")
+    protected void afterInitTrayIconExists() {
+        final Configuration config = new ConfigurationMockValidTwoJobs();
+        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
+        assertNotNull(jenkinsMonitor.monitorTray.getTrayIcon());
     }
 
 }
