@@ -76,7 +76,7 @@ public class JenkinsAPICompatibillityTest {
     }
 
     @Test
-    @DisplayName("Jenkins API Compatibillity: Statusabfrage roter Multibranch Job")
+    @DisplayName("Jenkins API Compatibillity: Statusabfrage grüner Multibranch Job")
     public void statusMultibranchJobGruen() {
         when().
             get(STATUS_URL_MULTIBRANCH_JOB1_GREEN).
@@ -88,7 +88,7 @@ public class JenkinsAPICompatibillityTest {
     }
 
     @Test
-    @DisplayName("Jenkins API Compatibillity: Statusabfrage roter Multibranch Job")
+    @DisplayName("Jenkins API Compatibillity: Statusabfrage gelber Multibranch Job")
     public void statusMultibranchJobGelb() {
         when().
             get(STATUS_URL_MULTIBRANCH_JOB1_YELLOW).
@@ -102,7 +102,7 @@ public class JenkinsAPICompatibillityTest {
     @Test
     @Disabled
     @Tag("testbacklog")
-    @DisplayName("Jenkins API Compatibillity: Statusabfrage roter Multibranch Job")
+    @DisplayName("Jenkins API Compatibillity: Statusabfrage unbekannter Multibranch Job")
     public void statusMultibranchJobGrau() {
         when().
             get(STATUS_URL_MULTIBRANCH_JOB1_GRAY).
