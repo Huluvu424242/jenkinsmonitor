@@ -25,9 +25,9 @@ package com.github.funthomas424242.jenkinsmonitor;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class TrayImage {
+public interface TrayImage {
 
-    public static boolean  isImageOfColor(BufferedImage image, Color color) {
+    static  boolean  isImageOfColor(BufferedImage image, Color color) {
         boolean isOfColor = true;
         final int width = image.getWidth();
         final int height = image.getHeight();
