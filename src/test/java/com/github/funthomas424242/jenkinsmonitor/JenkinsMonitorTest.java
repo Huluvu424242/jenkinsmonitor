@@ -24,8 +24,7 @@ package com.github.funthomas424242.jenkinsmonitor;
 
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @Tag("headfull")
@@ -50,13 +49,6 @@ class JenkinsMonitorTest {
 
     }
 
-    @Test
-    @DisplayName("JenkinsMonitor besitzt eine Config Instanz nach seiner Erzeugung")
-    protected void checkConfigInstanz() {
-            final JenkinsMonitor monitor = new JenkinsMonitor();
-            assumeTrue(monitor!=null);
-            assertNotNull(monitor.configuration);
-    }
 
     @Test
     @DisplayName("JenkinsMonitor besitzt eine Tray Instanz nach seiner Erzeugung")
@@ -70,16 +62,17 @@ class JenkinsMonitorTest {
     @DisplayName("Initiale Konfiguration enthält keine JobBeschribungen")
     protected void initialConfigWithEmptyJobs() {
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(new ConfigurationMockNoExisting());
-        assumeTrue(jenkinsMonitor.configuration != null);
         assumeTrue(jenkinsMonitor.monitorTray != null);
-        assertEquals(0, jenkinsMonitor.configuration.getJobBeschreibungen().length);
+        assumeTrue(jenkinsMonitor.monitorTray.getConfiguration() != null);
+        assertEquals(0, jenkinsMonitor.monitorTray.getConfiguration().getJobBeschreibungen().length);
     }
 
     @Test
-    @DisplayName("Tray Konfiguration ist identisch zur JenkinsMonitor Konfiguration")
+    @DisplayName("Tray Konfiguration ist identisch zur der dem JenkinsMonitor übergebenen")
     protected void equalsConfigWithTrayAndMonitor() {
-        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(new ConfigurationMockValidTwoJobs());
-        assertEquals(jenkinsMonitor.configuration, jenkinsMonitor.monitorTray.getConfiguration());
+        final Configuration config = new ConfigurationMockValidTwoJobs();
+        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
+        assertSame(config, jenkinsMonitor.monitorTray.getConfiguration());
     }
 
 }
