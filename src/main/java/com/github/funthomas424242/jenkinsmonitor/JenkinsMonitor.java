@@ -35,8 +35,12 @@ public class JenkinsMonitor {
 
 
     public JenkinsMonitor() {
-        this.configuration = new Configuration();
-        this.monitorTray= new JenkinsMonitorTray();
+        this(new Configuration());
+    }
+
+    public JenkinsMonitor(Configuration configuration) {
+        this.configuration = configuration;
+        this.monitorTray = new JenkinsMonitorTray();
     }
 
 

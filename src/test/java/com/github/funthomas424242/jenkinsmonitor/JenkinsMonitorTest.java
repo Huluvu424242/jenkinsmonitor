@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @Tag("headfull")
@@ -43,11 +44,35 @@ class JenkinsMonitorTest {
 
     }
 
+    @Test
+    @DisplayName("JenkinsMonitor ist Hauptklasse und enthält eine main Methode die auch ohne Argumente aufgerufen werden kann.")
+    protected void checkMainEmptyParaMethod() {
+        Assertions.assertDoesNotThrow(() -> {
+            JenkinsMonitor.main(null);
+        });
+
+    }
+
+    @Test
+    @DisplayName("JenkinsMonitor besitzt eine Config Instanz nach seiner Erzeugung")
+    protected void checkConfigInstanz() {
+            final JenkinsMonitor monitor = new JenkinsMonitor();
+            assumeTrue(monitor!=null);
+            assertNotNull(monitor.configuration);
+    }
+
+    @Test
+    @DisplayName("JenkinsMonitor besitzt eine Tray Instanz nach seiner Erzeugung")
+    protected void checkTrayInstanz() {
+        final JenkinsMonitor monitor = new JenkinsMonitor();
+        assumeTrue(monitor!=null);
+        assertNotNull(monitor.monitorTray);
+    }
 
     @Test
     @DisplayName("Initiale Konfiguration enthält keine JobBeschribungen")
     protected void initialConfigWithEmptyJobs() {
-        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor();
+        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(new ConfigurationMockNoExisting());
         assumeTrue(jenkinsMonitor.configuration != null);
         assumeTrue(jenkinsMonitor.monitorTray != null);
         assertEquals(0, jenkinsMonitor.configuration.getJobBeschreibungen().length);
