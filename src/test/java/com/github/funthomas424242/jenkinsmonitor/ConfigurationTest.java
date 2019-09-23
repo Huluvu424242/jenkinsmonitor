@@ -22,11 +22,17 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -37,10 +43,24 @@ class ConfigurationTest {
     protected static final String Configuration_CONFIGURATIONFILENAME = "jenkinsmonitor.properties";
     protected static final int DEFAULT_POLLPERIOD = 5;
 
+    protected static Logger LOG = LoggerFactory.getLogger(ConfigurationTest.class);
 
     Configuration notexistingConfigurationfile;
     Configuration emptyConfigurationfile;
     Configuration validConfigurationfile;
+
+    @BeforeAll
+    static void setUpAll() {
+        final Path defaultConfigfilePath = Paths.get(System.getProperty(USER_HOME) + File.separator + Configuration_CONFIGURATIONFILENAME);
+        final File defaultConfigfile = defaultConfigfilePath.toFile();
+        if (defaultConfigfile != null && defaultConfigfile.exists()) {
+            final long timeStamp = new Date().getTime();
+            final File newFile = new File(defaultConfigfilePath.toAbsolutePath().toString() + "-old-" + timeStamp);
+            final boolean ok = defaultConfigfile.renameTo(newFile);
+            LOG.debug("### Bereinige Testumgebung: Configfile renamed from " + defaultConfigfile.getAbsolutePath().toString() + " zu "
+                + newFile.getAbsolutePath().toString());
+        }
+    }
 
     @BeforeEach
     void setUp() {
