@@ -161,15 +161,15 @@ class ConfigurationTest {
     @DisplayName("Prüfe auf neue Werte bei reload aus anderem Configfile")
     void reloadOtherConfiguration() {
         final File emptyConfigFile = new ConfigurationMockEmpty().getConfigurationfile();
-        final Configuration tmpConfigurationfile = new Configuration(emptyConfigFile);
-        assumeTrue(tmpConfigurationfile != null);
-        final JobBeschreibung[] jobBeschreibungenenLeer = tmpConfigurationfile.getJobBeschreibungen();
+        final Configuration tmpConfiguration = new Configuration(emptyConfigFile);
+        assumeTrue(tmpConfiguration != null);
+        final JobBeschreibung[] jobBeschreibungenenLeer = tmpConfiguration.getJobBeschreibungen();
         assumeTrue(jobBeschreibungenenLeer != null);
         assumeTrue(jobBeschreibungenenLeer.length == 0);
 
         final File configFile = new ConfigurationMockValidTwoJobs().getConfigurationfile();
-        tmpConfigurationfile.reloadFromFile(configFile);
-        final JobBeschreibung[] jobBeschreibungenGefuellt = tmpConfigurationfile.getJobBeschreibungen();
+        tmpConfiguration.reloadFromFile(configFile);
+        final JobBeschreibung[] jobBeschreibungenGefuellt = tmpConfiguration.getJobBeschreibungen();
         assertNotNull(jobBeschreibungenGefuellt);
         assertEquals(2, jobBeschreibungenGefuellt.length);
     }
