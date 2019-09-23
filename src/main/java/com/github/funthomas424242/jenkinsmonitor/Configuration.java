@@ -49,7 +49,7 @@ public class Configuration {
 
     protected Properties configurationProperties;
 
-    public Configuration() {
+    protected Configuration() {
         this(new File(System.getProperty(PROPERTY_USER_HOME) + File.separator + JENKINSMONITOR_CONFIGURATIONFILENAME));
     }
 
