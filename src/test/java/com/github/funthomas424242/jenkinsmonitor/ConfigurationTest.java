@@ -28,6 +28,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.security.krb5.Config;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -35,6 +36,7 @@ import java.nio.file.Paths;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class ConfigurationTest {
@@ -67,6 +69,15 @@ class ConfigurationTest {
         notexistingConfigurationfile = new ConfigurationMockNoExisting();
         emptyConfigurationfile = new ConfigurationMockEmpty();
         validConfigurationfile = new ConfigurationMockValidTwoJobs();
+    }
+
+    @Test
+    @DisplayName("Nach Lesen der Pollperiod ist die Configuration initialisiert")
+    void initAfterGetPollOK() {
+        final Configuration configuration = new ConfigurationMockEmpty();
+        assumeFalse(configuration.isInitialisiert);
+        configuration.getPollPeriodInSecond();
+        assertTrue(configuration.isInitialisiert);
     }
 
 

@@ -49,25 +49,27 @@ public class Configuration {
 
     protected Properties configurationProperties;
 
+    protected boolean isInitialisiert;
+
     protected Configuration() {
         this(new File(System.getProperty(PROPERTY_USER_HOME) + File.separator + JENKINSMONITOR_CONFIGURATIONFILENAME));
     }
 
     public Configuration(final File configurationFile) {
         this.configurationFile = configurationFile;
-        //TODO zu viel Logik im Konstruktor
-        this.configurationProperties = loadPropertiesFromFile(configurationFile);
+        isInitialisiert = false;
     }
 
-
-    protected Properties loadPropertiesFromFile(final File configFile) {
+    protected void loadPropertiesFromFile(final File configFile) {
+        if (this.isInitialisiert) return;
         final Properties properties = new Properties();
         try (FileInputStream propStream = new FileInputStream(configFile)) {
             properties.load(propStream);
+            this.isInitialisiert = true;
         } catch (IOException e) {
             LOG.error(e.getLocalizedMessage(), e);
         }
-        return properties;
+        this.configurationProperties = properties;
     }
 
     public File getConfigurationfile() {
@@ -75,14 +77,16 @@ public class Configuration {
     }
 
     public int getPollPeriodInSecond() {
+        loadPropertiesFromFile(configurationFile);
         final String propValue = this.configurationProperties.getProperty(JENKINSMONITOR_POLLPERIOD, DEFAULT_POLLPERIOD);
         return Integer.parseInt(propValue);
     }
 
     public JobBeschreibung[] getJobBeschreibungen() {
+        loadPropertiesFromFile(configurationFile);
         final List<JobBeschreibung> jobBeschreibungen = new ArrayList<>();
-        configurationProperties.forEach( (k, v) -> {
-            final String key = (String)k;
+        configurationProperties.forEach((k, v) -> {
+            final String key = (String) k;
             final String value = (String) v;
             if (key.startsWith(JOBKEY_PREFIX)) {
                 final URL jobURL = urlOf(value);
@@ -93,7 +97,8 @@ public class Configuration {
         return jobBeschreibungen.toArray(new JobBeschreibung[jobBeschreibungen.size()]);
     }
 
-    protected URL urlOf(final String urlPath){
+    // TODO andere Klasse
+    protected URL urlOf(final String urlPath) {
         try {
             return new URL(urlPath);
         } catch (MalformedURLException e) {
@@ -103,12 +108,13 @@ public class Configuration {
     }
 
     public void reload() {
-        this.configurationProperties=loadPropertiesFromFile(this.configurationFile);
+        reloadFromFile(this.configurationFile);
     }
 
     public void reloadFromFile(final File configFile) {
-        this.configurationFile=configFile;
-        this.configurationProperties=loadPropertiesFromFile(configFile);
+        this.isInitialisiert = false;
+        this.configurationFile = configFile;
+        loadPropertiesFromFile(configFile);
     }
 
     @Override
