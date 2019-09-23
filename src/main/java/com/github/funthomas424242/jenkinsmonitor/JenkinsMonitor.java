@@ -29,21 +29,15 @@ public class JenkinsMonitor {
 
     protected static final Logger LOG = LoggerFactory.getLogger(JenkinsMonitor.class);
 
-
     protected JenkinsMonitorTray monitorTray;
-
-
-    public JenkinsMonitor() {
-        this(new Configuration());
-    }
 
     public JenkinsMonitor(Configuration configuration) {
         this.monitorTray = new JenkinsMonitorTray(configuration);
         this.monitorTray.updateJobStatus();
     }
 
-
     public static void main(final String[] commandlineArgs) {
-        final JenkinsMonitor monitor = new JenkinsMonitor();
+        final Configuration defaultConfiguration = new Configuration(Configuration.getDefaultConfigurationsfile());
+        final JenkinsMonitor monitor = new JenkinsMonitor(defaultConfiguration);
     }
 }

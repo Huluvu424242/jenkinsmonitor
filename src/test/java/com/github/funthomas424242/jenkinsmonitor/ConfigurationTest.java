@@ -93,7 +93,8 @@ class ConfigurationTest {
     @DisplayName("Die Default Konfiguration wird aus ~/jenkinsmonitor.properties geladen")
     void useDefaultConfigfile() {
         assertDoesNotThrow(() -> {
-            final Configuration configuration = new Configuration();
+            final File defaultConfigurationsfile = Configuration.getDefaultConfigurationsfile();
+            final Configuration configuration = new Configuration(defaultConfigurationsfile);
             assumeTrue(configuration != null);
             final File file = configuration.getConfigurationfile();
 

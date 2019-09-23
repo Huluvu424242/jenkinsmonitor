@@ -51,8 +51,8 @@ public class Configuration {
 
     protected boolean isInitialisiert;
 
-    protected Configuration() {
-        this(new File(System.getProperty(PROPERTY_USER_HOME) + File.separator + JENKINSMONITOR_CONFIGURATIONFILENAME));
+    public static File getDefaultConfigurationsfile() {
+        return new File(System.getProperty(PROPERTY_USER_HOME) + File.separator + JENKINSMONITOR_CONFIGURATIONFILENAME);
     }
 
     public Configuration(final File configurationFile) {

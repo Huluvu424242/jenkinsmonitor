@@ -73,7 +73,8 @@ class JenkinsMonitorTest {
     @Test
     @DisplayName("JenkinsMonitor besitzt eine Tray Instanz nach seiner Erzeugung")
     protected void checkTrayInstanz() {
-        final JenkinsMonitor monitor = new JenkinsMonitor();
+
+        final JenkinsMonitor monitor = new JenkinsMonitor(new ConfigurationMockNoExisting());
         assumeTrue(monitor != null);
         assertNotNull(monitor.monitorTray);
     }

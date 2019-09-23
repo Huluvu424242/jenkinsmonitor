@@ -56,7 +56,7 @@ public class JenkinsMonitorTrayTest {
 
     @BeforeEach
     public void setUp() {
-        jenkinsMonitorTray = new JenkinsMonitorTray();
+        jenkinsMonitorTray = new JenkinsMonitorTray(new ConfigurationMockEmpty());
         jenkinsMonitorTray.requester = new RequesterMock(JobStatus.OTHER);
         jenkinsMonitorTray.updateJobStatus();
     }

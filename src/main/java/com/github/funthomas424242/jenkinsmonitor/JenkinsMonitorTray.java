@@ -32,10 +32,6 @@ public class JenkinsMonitorTray {
 
     protected JobBeschreibung[] jobStatusBeschreibungen;
 
-    protected JenkinsMonitorTray() {
-        this(new SystemTrayWrapper(), new Configuration());
-    }
-
     protected JenkinsMonitorTray(final Configuration configuration) {
         this(new SystemTrayWrapper(), configuration);
     }
