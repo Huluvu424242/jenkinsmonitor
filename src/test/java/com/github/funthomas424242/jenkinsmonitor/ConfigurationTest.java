@@ -80,6 +80,15 @@ class ConfigurationTest {
         assertTrue(configuration.isInitialisiert);
     }
 
+    @Test
+    @DisplayName("Nach Lesen der JobBeschreibungen ist die Configuration initialisiert")
+    void initAfterGetJobBeschreibungenOK() {
+        final Configuration configuration = new ConfigurationMockEmpty();
+        assumeFalse(configuration.isInitialisiert);
+        configuration.getJobBeschreibungen();
+        assertTrue(configuration.isInitialisiert);
+    }
+
 
     @Test
     @DisplayName("Die Default Konfiguration wird aus ~/jenkinsmonitor.properties geladen")
