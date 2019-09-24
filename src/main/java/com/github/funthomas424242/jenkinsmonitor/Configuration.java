@@ -89,22 +89,12 @@ public class Configuration {
             final String key = (String) k;
             final String value = (String) v;
             if (key.startsWith(JOBKEY_PREFIX)) {
-                final URL jobURL = urlOf(value);
+                final URL jobURL = NetworkHelper.urlOf(value);
                 final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, null, jobURL);
                 jobBeschreibungen.add(jobBeschreibung);
             }
         });
         return jobBeschreibungen.toArray(new JobBeschreibung[jobBeschreibungen.size()]);
-    }
-
-    // TODO andere Klasse
-    protected URL urlOf(final String urlPath) {
-        try {
-            return new URL(urlPath);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     public void reload() {

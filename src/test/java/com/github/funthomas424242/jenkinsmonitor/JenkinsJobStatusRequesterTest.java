@@ -180,5 +180,28 @@ public class JenkinsJobStatusRequesterTest {
         assertTrue(json.isEmpty());
     }
 
+    @Test
+    @DisplayName("prüfe ladeJobStatutus für einen Job mit rotem Build")
+    void checkLadeJobStatusFailure(){
+
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester(){
+            @Override
+            protected  JobBeschreibung getJobStatus(URL url){
+                return new JobBeschreibung("hallo",JobStatus.FAILURE,url);
+            }
+        };
+        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
+        jobBeschreibungen[0] = new JobBeschreibung(null, null, NetworkHelper.urlOf("http://test.org"));
+
+        final JobBeschreibung[] jobStatusBeschreibungen = requester.ladeJobsStatus(jobBeschreibungen);
+        assumeTrue(jobBeschreibungen!=null);
+        assertEquals("hallo",jobStatusBeschreibungen[0].getJobName());
+        assertEquals(JobStatus.FAILURE,jobStatusBeschreibungen[0].getJobStatus());
+        assertEquals("http://test.org",jobStatusBeschreibungen[0].getJobUrl().toExternalForm());
+
+
+    }
+
+
 
 }
