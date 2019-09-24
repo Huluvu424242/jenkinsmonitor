@@ -26,6 +26,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import org.json.JSONObject;
 import org.junit.jupiter.api.*;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -181,12 +182,34 @@ public class JenkinsJobStatusRequesterTest {
     }
 
     @Test
+    @DisplayName("ladeStatus beim Auftreten einer IO Exception wird diese geloggt")
+    void checkLadeStatusWithException() {
+
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester() {
+            @Override
+            protected JobBeschreibung getJobStatus(URL url) throws IOException {
+                throw new IOException();
+            }
+        };
+
+        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
+        jobBeschreibungen[0] = new JobBeschreibung(null, null, NetworkHelper.urlOf("http://test.org"));
+
+        final JobBeschreibung[] jobStatusBeschreibungen = assertDoesNotThrow(() -> {
+            final JobBeschreibung[] statusBeschreibungen = requester.ladeJobsStatus(jobBeschreibungen);
+            assumeTrue(statusBeschreibungen != null);
+            return statusBeschreibungen;
+        });
+    }
+
+
+    @Test
     @DisplayName("prüfe ladeJobStatutus für einen Job mit rotem Build")
     void checkLadeOneJobStatusFailure() {
 
         final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester() {
             @Override
-            protected JobBeschreibung getJobStatus(URL url) {
+            protected JobBeschreibung getJobStatus(URL url) throws IOException {
                 return new JobBeschreibung("hallo", JobStatus.FAILURE, url);
             }
         };
@@ -208,7 +231,7 @@ public class JenkinsJobStatusRequesterTest {
             int counter = 0;
 
             @Override
-            protected JobBeschreibung getJobStatus(URL url) {
+            protected JobBeschreibung getJobStatus(URL url) throws IOException {
                 if (counter == 0) {
                     counter++;
                     return new JobBeschreibung("hallo", JobStatus.FAILURE, url);
