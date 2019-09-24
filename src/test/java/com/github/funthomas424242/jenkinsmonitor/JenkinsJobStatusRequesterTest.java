@@ -182,26 +182,63 @@ public class JenkinsJobStatusRequesterTest {
 
     @Test
     @DisplayName("prüfe ladeJobStatutus für einen Job mit rotem Build")
-    void checkLadeJobStatusFailure(){
+    void checkLadeOneJobStatusFailure() {
 
-        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester(){
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester() {
             @Override
-            protected  JobBeschreibung getJobStatus(URL url){
-                return new JobBeschreibung("hallo",JobStatus.FAILURE,url);
+            protected JobBeschreibung getJobStatus(URL url) {
+                return new JobBeschreibung("hallo", JobStatus.FAILURE, url);
             }
         };
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
         jobBeschreibungen[0] = new JobBeschreibung(null, null, NetworkHelper.urlOf("http://test.org"));
 
         final JobBeschreibung[] jobStatusBeschreibungen = requester.ladeJobsStatus(jobBeschreibungen);
-        assumeTrue(jobBeschreibungen!=null);
-        assertEquals("hallo",jobStatusBeschreibungen[0].getJobName());
-        assertEquals(JobStatus.FAILURE,jobStatusBeschreibungen[0].getJobStatus());
-        assertEquals("http://test.org",jobStatusBeschreibungen[0].getJobUrl().toExternalForm());
-
-
+        assumeTrue(jobBeschreibungen != null);
+        assertEquals("hallo", jobStatusBeschreibungen[0].getJobName());
+        assertEquals(JobStatus.FAILURE, jobStatusBeschreibungen[0].getJobStatus());
+        assertEquals("http://test.org", jobStatusBeschreibungen[0].getJobUrl().toExternalForm());
     }
 
+    @Test
+    @DisplayName("prüfe ladeJobStatutus für zwei Jobs einer rot und einer gelb")
+    void checkLadeTwoJobStatusSUCCESS_UNSTABLE() {
 
+        final JenkinsJobStatusRequester requester = new JenkinsJobStatusRequester() {
+            int counter = 0;
+
+            @Override
+            protected JobBeschreibung getJobStatus(URL url) {
+                if (counter == 0) {
+                    counter++;
+                    return new JobBeschreibung("hallo", JobStatus.FAILURE, url);
+                } else {
+                    counter++;
+                    return new JobBeschreibung("hallo", JobStatus.SUCCESS, url);
+                }
+            }
+        };
+
+        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[2];
+        jobBeschreibungen[0] = new JobBeschreibung("the first job", JobStatus.OTHER, NetworkHelper.urlOf("http://test.org"));
+        jobBeschreibungen[1] = new JobBeschreibung("idname", JobStatus.OTHER, NetworkHelper.urlOf("http://test1.org"));
+
+        /**/
+        {
+            final JobBeschreibung[] jobStatusBeschreibungen = requester.ladeJobsStatus(jobBeschreibungen);
+            assumeTrue(jobBeschreibungen != null);
+            assertEquals("hallo", jobStatusBeschreibungen[0].getJobName());
+            assertEquals(JobStatus.FAILURE, jobStatusBeschreibungen[0].getJobStatus());
+            assertEquals("http://test.org", jobStatusBeschreibungen[0].getJobUrl().toExternalForm());
+        }
+        /**/
+        {
+            final JobBeschreibung[] jobStatusBeschreibungen = requester.ladeJobsStatus(jobBeschreibungen);
+            assumeTrue(jobBeschreibungen != null);
+            assertEquals("hallo", jobStatusBeschreibungen[1].getJobName());
+            assertEquals(JobStatus.SUCCESS, jobStatusBeschreibungen[1].getJobStatus());
+            assertEquals("http://test1.org", jobStatusBeschreibungen[1].getJobUrl().toExternalForm());
+        }
+    }
 
 }
