@@ -22,8 +22,6 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.JobStatus;
-
 import java.awt.*;
 import java.net.URL;
 import java.util.Objects;

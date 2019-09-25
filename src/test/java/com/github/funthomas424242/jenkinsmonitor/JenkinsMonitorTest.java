@@ -24,6 +24,7 @@ package com.github.funthomas424242.jenkinsmonitor;
 
 import com.github.funthomas424242.jenkinsmonitor.config.*;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsAPIMock;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.*;
 

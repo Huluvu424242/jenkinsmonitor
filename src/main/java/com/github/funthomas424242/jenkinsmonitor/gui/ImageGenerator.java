@@ -23,7 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusBeschreibung;
-import com.github.funthomas424242.jenkinsmonitor.JobStatus;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
