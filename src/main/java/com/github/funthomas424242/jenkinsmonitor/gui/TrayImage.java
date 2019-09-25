@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor;
+package com.github.funthomas424242.jenkinsmonitor.gui;
 
 /*-
  * #%L
@@ -23,32 +23,19 @@ package com.github.funthomas424242.jenkinsmonitor;
  */
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
-public class SystemTrayWrapper {
+public interface TrayImage {
 
-    protected SystemTray tray;
-
-    protected TrayIcon trayIcon;
-
-    public SystemTrayWrapper(){
-        tray=SystemTray.getSystemTray();
-    }
-
-    public TrayIcon[] getTrayIcons() {
-        return this.tray.getTrayIcons();
-    }
-
-    public void add(TrayIcon icon) throws AWTException {
-        this.tray.add(icon);
-        this.trayIcon=icon;
-    }
-
-    public void remove(TrayIcon icon){
-        this.tray.remove(icon);
-        this.trayIcon=null;
-    }
-
-    protected TrayIcon getTrayIcon(){
-        return trayIcon;
+    static  boolean  isImageOfColor(BufferedImage image, Color color) {
+        boolean isOfColor = true;
+        final int width = image.getWidth();
+        final int height = image.getHeight();
+        for (int breite = 0; breite < width; breite++) {
+            for (int hoehe = 0; hoehe < height; hoehe++) {
+                isOfColor = isOfColor && image.getRGB(breite, hoehe) == color.getRGB();
+            }
+        }
+        return isOfColor;
     }
 }

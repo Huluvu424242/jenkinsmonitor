@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor;
+package com.github.funthomas424242.jenkinsmonitor.gui;
 
 /*-
  * #%L
@@ -22,6 +22,8 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.JobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusRequester;
 import org.junit.jupiter.api.*;
@@ -31,7 +33,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
-import static com.github.funthomas424242.jenkinsmonitor.TrayImage.isImageOfColor;
+import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImage.isImageOfColor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

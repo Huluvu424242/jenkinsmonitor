@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor;
+package com.github.funthomas424242.jenkinsmonitor.gui;
 
 /*-
  * #%L
@@ -22,6 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.JobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusRequester;
 
@@ -35,7 +36,7 @@ public class JenkinsMonitorTray {
 
     protected JobBeschreibung[] jobStatusBeschreibungen;
 
-    protected JenkinsMonitorTray(final Configuration configuration) {
+    public JenkinsMonitorTray(final Configuration configuration) {
         this(new SystemTrayWrapper(), configuration);
     }
 
@@ -47,7 +48,7 @@ public class JenkinsMonitorTray {
     }
 
 
-    protected TrayIcon getTrayIcon() {
+    public TrayIcon getTrayIcon() {
         return this.tray.getTrayIcon();
     }
 

@@ -23,6 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
+import com.github.funthomas424242.jenkinsmonitor.gui.JenkinsMonitorTray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

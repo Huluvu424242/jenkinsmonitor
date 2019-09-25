@@ -30,7 +30,7 @@ import org.junit.jupiter.api.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static com.github.funthomas424242.jenkinsmonitor.TrayImage.isImageOfColor;
+import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImage.isImageOfColor;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
