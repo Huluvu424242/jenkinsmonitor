@@ -22,6 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
 import org.junit.jupiter.api.*;
 
 import java.awt.*;

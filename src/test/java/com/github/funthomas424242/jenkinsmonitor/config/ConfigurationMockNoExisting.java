@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor;
+package com.github.funthomas424242.jenkinsmonitor.config;
 
 /*-
  * #%L
@@ -21,6 +21,8 @@ package com.github.funthomas424242.jenkinsmonitor;
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
  * #L%
  */
+
+import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
 
 import java.io.File;
 import java.nio.file.Path;

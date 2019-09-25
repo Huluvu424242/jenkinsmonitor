@@ -22,6 +22,8 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
+
 import java.awt.*;
 
 public class JenkinsMonitorTray {

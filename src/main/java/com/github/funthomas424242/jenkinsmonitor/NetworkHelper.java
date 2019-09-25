@@ -10,7 +10,7 @@ public class NetworkHelper {
 
     protected static final Logger LOG = LoggerFactory.getLogger(NetworkHelper.class);
 
-    protected static URL urlOf(final String urlPath) {
+    public static URL urlOf(final String urlPath) {
         try {
             return new URL(urlPath);
         } catch (MalformedURLException e) {

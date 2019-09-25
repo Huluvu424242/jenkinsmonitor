@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor;
+package com.github.funthomas424242.jenkinsmonitor.config;
 
 /*-
  * #%L
@@ -22,21 +22,22 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
+
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ConfigurationMockOneJobFailed extends Configuration {
+public class ConfigurationMockValidTwoJobs extends Configuration {
+    public static final String PATH_VALID_CONFIGURATION_FILE = "src/test/resources/valid_configuration.properties";
 
-    public static final String PATH_ONEJOB_FAILED_CONFIGURATION_FILE = "src/test/resources/onejob-failed-configuration.properties";
 
-
-    public ConfigurationMockOneJobFailed(){
+    public ConfigurationMockValidTwoJobs(){
         super(getConfigFile());
     }
 
     protected static File getConfigFile() {
-        final Path validConfigfilePath = Paths.get(".", PATH_ONEJOB_FAILED_CONFIGURATION_FILE);
+        final Path validConfigfilePath = Paths.get(".", PATH_VALID_CONFIGURATION_FILE);
         return validConfigfilePath.toAbsolutePath().toFile();
     }
 

@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor;
+package com.github.funthomas424242.jenkinsmonitor.config;
 
 /*-
  * #%L
@@ -22,17 +22,17 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.JobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.NetworkHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Properties;
 
 public class Configuration {

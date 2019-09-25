@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor;
+package com.github.funthomas424242.jenkinsmonitor.config;
 
 /*-
  * #%L
@@ -22,6 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.JobBeschreibung;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
