@@ -22,7 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.JenkinsJobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobBeschreibung;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

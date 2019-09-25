@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor;
+package com.github.funthomas424242.jenkinsmonitor.jenkins;
 
 /*-
  * #%L
@@ -22,7 +22,9 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.JobStatus;
 import nl.jqno.equalsverifier.EqualsVerifier;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -58,7 +60,7 @@ class JenkinsJobStatusBeschreibungTest {
         assertNotNull(JenkinsJobStatusBeschreibung);
         assertNull(JenkinsJobStatusBeschreibung.getJobStatus());
         assertNull(JenkinsJobStatusBeschreibung.getJobUrl());
-        assertEquals(JobStatus.OTHER.getColor(), JenkinsJobStatusBeschreibung.getStatusColor());
+        Assertions.assertEquals(JobStatus.OTHER.getColor(), JenkinsJobStatusBeschreibung.getStatusColor());
     }
 
     @Test

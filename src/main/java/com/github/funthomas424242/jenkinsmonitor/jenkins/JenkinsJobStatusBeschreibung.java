@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor;
+package com.github.funthomas424242.jenkinsmonitor.jenkins;
 
 /*-
  * #%L
@@ -21,6 +21,8 @@ package com.github.funthomas424242.jenkinsmonitor;
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
  * #L%
  */
+
+import com.github.funthomas424242.jenkinsmonitor.JobStatus;
 
 import java.awt.*;
 import java.net.URL;

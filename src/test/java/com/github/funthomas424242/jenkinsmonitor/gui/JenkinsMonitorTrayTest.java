@@ -22,8 +22,8 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.JenkinsJobBeschreibung;
-import com.github.funthomas424242.jenkinsmonitor.JenkinsJobStatusBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusRequester;
