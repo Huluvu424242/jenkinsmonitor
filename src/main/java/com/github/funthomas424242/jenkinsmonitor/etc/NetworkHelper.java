@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor;
+package com.github.funthomas424242.jenkinsmonitor.etc;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

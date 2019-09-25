@@ -23,7 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobBeschreibung;
-import com.github.funthomas424242.jenkinsmonitor.NetworkHelper;
+import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
