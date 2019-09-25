@@ -23,6 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusRequester;
 import org.junit.jupiter.api.*;
 
 import java.awt.*;

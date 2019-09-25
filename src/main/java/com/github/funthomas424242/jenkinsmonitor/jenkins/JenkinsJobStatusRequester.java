@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor;
+package com.github.funthomas424242.jenkinsmonitor.jenkins;
 
 /*-
  * #%L
@@ -22,6 +22,8 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.JobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.JobStatus;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;

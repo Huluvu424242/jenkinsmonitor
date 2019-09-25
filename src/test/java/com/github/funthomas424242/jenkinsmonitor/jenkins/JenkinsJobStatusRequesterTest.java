@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor;
+package com.github.funthomas424242.jenkinsmonitor.jenkins;
 
 /*-
  * #%L
@@ -22,6 +22,9 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.JobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.JobStatus;
+import com.github.funthomas424242.jenkinsmonitor.NetworkHelper;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.json.JSONObject;
 import org.junit.jupiter.api.*;
@@ -87,7 +90,7 @@ public class JenkinsJobStatusRequesterTest {
         assertNotNull(jobBeschreibung);
         assertNotNull(jobBeschreibung.getJobStatus());
         assertNotNull(jobBeschreibung.getJobName());
-        assertEquals(JobStatus.FAILURE.getColor(), jobBeschreibung.getJobStatus().getColor());
+        Assertions.assertEquals(JobStatus.FAILURE.getColor(), jobBeschreibung.getJobStatus().getColor());
     }
 
 

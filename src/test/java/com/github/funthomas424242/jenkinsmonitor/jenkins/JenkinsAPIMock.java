@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor;
+package com.github.funthomas424242.jenkinsmonitor.jenkins;
 
 /*-
  * #%L
@@ -25,7 +25,7 @@ package com.github.funthomas424242.jenkinsmonitor;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 
-import static com.github.funthomas424242.jenkinsmonitor.JenkinsAPI.STATUS_PATH;
+import static com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsAPI.STATUS_PATH;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 
