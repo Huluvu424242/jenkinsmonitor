@@ -32,7 +32,7 @@ import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JobBeschreibungTest {
+class JenkinsJobBeschreibungTest {
 
     public static final String NAME_JOB1 = "job1";
     protected static URL LOCALHOST_JOB_TEST_URL;
@@ -45,50 +45,50 @@ class JobBeschreibungTest {
     @Test
     @DisplayName("Prüfe equals und hashCode")
     protected void checkEqualsAndHashCode(){
-        EqualsVerifier.forClass(JobBeschreibung.class).verify();
+        EqualsVerifier.forClass(JenkinsJobBeschreibung.class).verify();
     }
 
 
     @Test
     @DisplayName("Es wird eine gültige Instanz erstellt")
     void valideInitialisierung() {
-        final JobBeschreibung jobBeschreibung = new JobBeschreibung(null
+        final JenkinsJobBeschreibung jenkinsJobBeschreibung = new JenkinsJobBeschreibung(null
             , null
             , null);
-        assertNotNull(jobBeschreibung);
-        assertNull(jobBeschreibung.getJobStatus());
-        assertNull(jobBeschreibung.getJobUrl());
-        assertEquals(JobStatus.OTHER.getColor(), jobBeschreibung.getStatusColor());
+        assertNotNull(jenkinsJobBeschreibung);
+        assertNull(jenkinsJobBeschreibung.getJobStatus());
+        assertNull(jenkinsJobBeschreibung.getJobUrl());
+        assertEquals(JobStatus.OTHER.getColor(), jenkinsJobBeschreibung.getStatusColor());
     }
 
     @Test
     @DisplayName("Statusfarbe eines erfolgreichen Jobs ist grün")
     void erfolgreicheJobsSindGruen() {
-        final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
+        final JenkinsJobBeschreibung jenkinsJobBeschreibung = new JenkinsJobBeschreibung(NAME_JOB1
             , JobStatus.SUCCESS
             , LOCALHOST_JOB_TEST_URL);
-        assertNotNull(jobBeschreibung);
-        assertEquals(JobStatus.SUCCESS.getColor(), jobBeschreibung.getStatusColor());
+        assertNotNull(jenkinsJobBeschreibung);
+        assertEquals(JobStatus.SUCCESS.getColor(), jenkinsJobBeschreibung.getStatusColor());
     }
 
     @Test
     @DisplayName("Statusfarbe eines instabilen Jobs ist gelb")
     void instabileJobsSindGelb() {
-        final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
+        final JenkinsJobBeschreibung jenkinsJobBeschreibung = new JenkinsJobBeschreibung(NAME_JOB1
             , JobStatus.UNSTABLE
             , LOCALHOST_JOB_TEST_URL);
-        assertNotNull(jobBeschreibung);
-        assertEquals(JobStatus.UNSTABLE.getColor(), jobBeschreibung.getStatusColor());
+        assertNotNull(jenkinsJobBeschreibung);
+        assertEquals(JobStatus.UNSTABLE.getColor(), jenkinsJobBeschreibung.getStatusColor());
     }
 
     @Test
     @DisplayName("Statusfarbe eines fehlerhaften Jobs ist rot")
     void fehlerhafteJobsSindRot() {
-        final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
+        final JenkinsJobBeschreibung jenkinsJobBeschreibung = new JenkinsJobBeschreibung(NAME_JOB1
             , JobStatus.FAILURE
             , LOCALHOST_JOB_TEST_URL);
-        assertNotNull(jobBeschreibung);
-        assertEquals(JobStatus.FAILURE.getColor(), jobBeschreibung.getStatusColor());
+        assertNotNull(jenkinsJobBeschreibung);
+        assertEquals(JobStatus.FAILURE.getColor(), jenkinsJobBeschreibung.getStatusColor());
     }
 
 }

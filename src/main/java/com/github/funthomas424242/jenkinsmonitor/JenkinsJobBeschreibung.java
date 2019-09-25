@@ -26,7 +26,7 @@ import java.awt.*;
 import java.net.URL;
 import java.util.Objects;
 
-public final class JobBeschreibung {
+public final class JenkinsJobBeschreibung {
 
 
 
@@ -37,7 +37,7 @@ public final class JobBeschreibung {
     protected final URL jobUrl;
 
 
-    public JobBeschreibung(final String jobName, final JobStatus jobStatus, final URL jobUrl) {
+    public JenkinsJobBeschreibung(final String jobName, final JobStatus jobStatus, final URL jobUrl) {
         this.jobStatus = jobStatus;
         this.jobName = jobName;
         this.jobUrl = jobUrl;
@@ -65,7 +65,7 @@ public final class JobBeschreibung {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        JobBeschreibung that = (JobBeschreibung) o;
+        JenkinsJobBeschreibung that = (JenkinsJobBeschreibung) o;
         return jobStatus == that.jobStatus &&
             Objects.equals(jobName, that.jobName) &&
             Objects.equals(jobUrl, that.jobUrl);

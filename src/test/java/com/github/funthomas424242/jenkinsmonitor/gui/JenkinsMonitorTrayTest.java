@@ -22,7 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.JobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.JenkinsJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusRequester;
@@ -46,8 +46,8 @@ class RequesterMock extends JenkinsJobStatusRequester {
     }
 
     @Override
-    protected JobBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
-        return new JobBeschreibung("xxx", jobStatus, jenkinsJobURL);
+    protected JenkinsJobBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
+        return new JenkinsJobBeschreibung("xxx", jobStatus, jenkinsJobURL);
     }
 }
 
@@ -81,10 +81,10 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei einem erfolreichen Job soll das TrayIcon grün sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master success>>")
     public void shouldShowOneSuccessJobWatching() {
-        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(null, null, null);
+        final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen = new JenkinsJobBeschreibung[1];
+        jenkinsJobBeschreibungen[0] = new JenkinsJobBeschreibung(null, null, null);
         jenkinsMonitorTray.requester = new RequesterMock(JobStatus.SUCCESS);
-        jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
+        jenkinsMonitorTray.updateJobStatus(jenkinsJobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.SUCCESS.getColor()));
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());
@@ -93,10 +93,10 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei einem instabilen Job soll das TrayIcon gelb sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master unstable>>")
     public void shouldShowOneInstabilJobWatching() {
-        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(null, null, null);
+        final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen = new JenkinsJobBeschreibung[1];
+        jenkinsJobBeschreibungen[0] = new JenkinsJobBeschreibung(null, null, null);
         jenkinsMonitorTray.requester = new RequesterMock(JobStatus.UNSTABLE);
-        jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
+        jenkinsMonitorTray.updateJobStatus(jenkinsJobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.UNSTABLE.getColor()));
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());
@@ -105,10 +105,10 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei einem instabilen Job soll das TrayIcon gelb sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master unstable>>")
     public void shouldShowOneFailedJobWatching() {
-        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(null, null, null);
+        final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen = new JenkinsJobBeschreibung[1];
+        jenkinsJobBeschreibungen[0] = new JenkinsJobBeschreibung(null, null, null);
         jenkinsMonitorTray.requester = new RequesterMock(JobStatus.FAILURE);
-        jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
+        jenkinsMonitorTray.updateJobStatus(jenkinsJobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.FAILURE.getColor()));
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());
