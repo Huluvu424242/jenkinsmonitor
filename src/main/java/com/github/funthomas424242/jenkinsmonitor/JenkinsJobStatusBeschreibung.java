@@ -26,20 +26,20 @@ import java.awt.*;
 import java.net.URL;
 import java.util.Objects;
 
-public final class JenkinsJobBeschreibung {
+public final class JenkinsJobStatusBeschreibung {
 
 
 
     protected final JobStatus jobStatus;
 
-    protected final String jobId;
+    protected final String jobName;
 
     protected final URL jobUrl;
 
 
-    public JenkinsJobBeschreibung(final String jobId, final JobStatus jobStatus, final URL jobUrl) {
+    public JenkinsJobStatusBeschreibung(final String jobName, final JobStatus jobStatus, final URL jobUrl) {
         this.jobStatus = jobStatus;
-        this.jobId = jobId;
+        this.jobName = jobName;
         this.jobUrl = jobUrl;
     }
 
@@ -56,8 +56,8 @@ public final class JenkinsJobBeschreibung {
         return this.jobUrl;
     }
 
-    public String getJobId(){
-        return this.jobId;
+    public String getJobName(){
+        return this.jobName;
     }
 
 
@@ -65,14 +65,14 @@ public final class JenkinsJobBeschreibung {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        JenkinsJobBeschreibung that = (JenkinsJobBeschreibung) o;
+        JenkinsJobStatusBeschreibung that = (JenkinsJobStatusBeschreibung) o;
         return jobStatus == that.jobStatus &&
-            Objects.equals(jobId, that.jobId) &&
+            Objects.equals(jobName, that.jobName) &&
             Objects.equals(jobUrl, that.jobUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(jobStatus, jobId, jobUrl);
+        return Objects.hash(jobStatus, jobName, jobUrl);
     }
 }

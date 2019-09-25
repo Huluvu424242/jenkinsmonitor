@@ -96,7 +96,7 @@ public class JenkinsJobStatusRequester {
             JenkinsJobBeschreibung returnValue=null;
             try {
                 final JenkinsJobBeschreibung jobStatus = getJobStatus(beschreibung.getJobUrl());
-                returnValue= new JenkinsJobBeschreibung(jobStatus.getJobName()
+                returnValue= new JenkinsJobBeschreibung(jobStatus.getJobId()
                     , jobStatus.getJobStatus()
                     , beschreibung.getJobUrl());
             } catch (IOException e) {
