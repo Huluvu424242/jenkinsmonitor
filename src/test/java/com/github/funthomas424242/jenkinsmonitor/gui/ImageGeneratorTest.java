@@ -22,7 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.JenkinsJobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.JenkinsJobStatusBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.JobStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -52,7 +52,7 @@ class ImageGeneratorTest {
     @Test
     @DisplayName("Initialisierung ohne Jobs generiert ein graues Icon 100x100")
     void initEmptyCreateGrayIcon100x100() {
-        final JenkinsJobBeschreibung[] jobsStatus = new JenkinsJobBeschreibung[0];
+        final JenkinsJobStatusBeschreibung[] jobsStatus = new JenkinsJobStatusBeschreibung[0];
         final ImageGenerator generator = new ImageGenerator(jobsStatus);
         final BufferedImage image = generator.getImage(100, 100);
         assertEquals(100, image.getHeight());
@@ -64,8 +64,8 @@ class ImageGeneratorTest {
     @Test
     @DisplayName("Initialisierung mit einem erfolgreichen Job generiert ein grünes Icon 100x100")
     void initOneJobGreenIcon100x100() {
-        final JenkinsJobBeschreibung[] jobsStatusBeschreibungen = new JenkinsJobBeschreibung[1];
-        jobsStatusBeschreibungen[0] = new JenkinsJobBeschreibung("Job1/master"
+        final JenkinsJobStatusBeschreibung[] jobsStatusBeschreibungen = new JenkinsJobStatusBeschreibung[1];
+        jobsStatusBeschreibungen[0] = new JenkinsJobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
@@ -79,8 +79,8 @@ class ImageGeneratorTest {
     @Test
     @DisplayName("Initialisierung mit einem instabilen Job generiert ein gelbes Icon 100x100")
     void initOneJobYellowIcon100x100() {
-        final JenkinsJobBeschreibung[] jobsStatusBeschreibungen = new JenkinsJobBeschreibung[1];
-        jobsStatusBeschreibungen[0] = new JenkinsJobBeschreibung("Job1/master"
+        final JenkinsJobStatusBeschreibung[] jobsStatusBeschreibungen = new JenkinsJobStatusBeschreibung[1];
+        jobsStatusBeschreibungen[0] = new JenkinsJobStatusBeschreibung("Job1/master"
             , JobStatus.UNSTABLE
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
@@ -94,8 +94,8 @@ class ImageGeneratorTest {
     @Test
     @DisplayName("Initialisierung mit einem fehlerhaften Job generiert ein rotes Icon 100x100")
     void initOneJobRedIcon100x100() {
-        final JenkinsJobBeschreibung[] jobsStatusBeschreibungen = new JenkinsJobBeschreibung[1];
-        jobsStatusBeschreibungen[0] = new JenkinsJobBeschreibung("Job1/master"
+        final JenkinsJobStatusBeschreibung[] jobsStatusBeschreibungen = new JenkinsJobStatusBeschreibung[1];
+        jobsStatusBeschreibungen[0] = new JenkinsJobStatusBeschreibung("Job1/master"
             , JobStatus.FAILURE
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
@@ -109,11 +109,11 @@ class ImageGeneratorTest {
     @Test
     @DisplayName("Initialisierung mit einem fehlerhaften Job generiert ein Icon 100x100 halb grün halb rot")
     void initTwoJobsOneGreenOneRedIcon50x100() {
-        final JenkinsJobBeschreibung[] jobsStatusBeschreibungen = new JenkinsJobBeschreibung[2];
-        jobsStatusBeschreibungen[0] = new JenkinsJobBeschreibung("Job1/master"
+        final JenkinsJobStatusBeschreibung[] jobsStatusBeschreibungen = new JenkinsJobStatusBeschreibung[2];
+        jobsStatusBeschreibungen[0] = new JenkinsJobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
             , null);
-        jobsStatusBeschreibungen[1] = new JenkinsJobBeschreibung("Job2/master"
+        jobsStatusBeschreibungen[1] = new JenkinsJobStatusBeschreibung("Job2/master"
             , JobStatus.FAILURE
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);

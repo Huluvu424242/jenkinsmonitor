@@ -90,7 +90,7 @@ public class Configuration {
             final String value = (String) v;
             if (key.startsWith(JOBKEY_PREFIX)) {
                 final URL jobURL = NetworkHelper.urlOf(value);
-                final JenkinsJobBeschreibung jenkinsJobBeschreibung = new JenkinsJobBeschreibung(null, null, jobURL);
+                final JenkinsJobBeschreibung jenkinsJobBeschreibung = new JenkinsJobBeschreibung(null,  jobURL);
                 jenkinsJobBeschreibungen.add(jenkinsJobBeschreibung);
             }
         });

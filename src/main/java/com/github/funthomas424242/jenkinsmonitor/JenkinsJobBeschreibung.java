@@ -22,57 +22,44 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
-import java.awt.*;
 import java.net.URL;
 import java.util.Objects;
 
 public final class JenkinsJobBeschreibung {
 
-
-
-    protected final JobStatus jobStatus;
-
-    protected final String jobId;
+    protected String jobId;
 
     protected final URL jobUrl;
 
 
-    public JenkinsJobBeschreibung(final String jobId, final JobStatus jobStatus, final URL jobUrl) {
-        this.jobStatus = jobStatus;
+    public JenkinsJobBeschreibung(final URL jobUrl) {
+        this(null, jobUrl);
+    }
+
+    public JenkinsJobBeschreibung(final String jobId, final URL jobUrl) {
+        if (jobUrl == null) throw new IllegalArgumentException("URL darf nicht null sein.");
         this.jobId = jobId;
         this.jobUrl = jobUrl;
-    }
-
-    public Color getStatusColor() {
-        if (jobStatus == null) return JobStatus.OTHER.getColor();
-        return jobStatus.getColor();
-    }
-
-    public JobStatus getJobStatus() {
-        return jobStatus;
     }
 
     public URL getJobUrl() {
         return this.jobUrl;
     }
 
-    public String getJobId(){
+    public String getJobId() {
         return this.jobId;
     }
-
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JenkinsJobBeschreibung that = (JenkinsJobBeschreibung) o;
-        return jobStatus == that.jobStatus &&
-            Objects.equals(jobId, that.jobId) &&
-            Objects.equals(jobUrl, that.jobUrl);
+        return jobUrl.equals(that.jobUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(jobStatus, jobId, jobUrl);
+        return Objects.hash(jobUrl);
     }
 }

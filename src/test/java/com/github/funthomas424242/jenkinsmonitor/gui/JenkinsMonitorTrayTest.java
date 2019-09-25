@@ -23,6 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.JenkinsJobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.JenkinsJobStatusBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusRequester;
@@ -31,6 +32,7 @@ import org.junit.jupiter.api.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImage.isImageOfColor;
@@ -46,8 +48,8 @@ class RequesterMock extends JenkinsJobStatusRequester {
     }
 
     @Override
-    protected JenkinsJobBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
-        return new JenkinsJobBeschreibung("xxx", jobStatus, jenkinsJobURL);
+    protected JenkinsJobStatusBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
+        return new JenkinsJobStatusBeschreibung("xxx", jobStatus, jenkinsJobURL);
     }
 }
 
@@ -55,8 +57,14 @@ class RequesterMock extends JenkinsJobStatusRequester {
 @Tag("headfull")
 public class JenkinsMonitorTrayTest {
 
+    protected static URL LOCALHOST_JOB_TEST_URL;
 
     JenkinsMonitorTray jenkinsMonitorTray;
+
+    @BeforeAll
+    static void setUpAll() throws MalformedURLException {
+        LOCALHOST_JOB_TEST_URL = new URL("http://localhost:8099/job/test");
+    }
 
     @BeforeEach
     public void setUp() {
@@ -82,7 +90,7 @@ public class JenkinsMonitorTrayTest {
     @DisplayName("Bei einem erfolreichen Job soll das TrayIcon grün sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master success>>")
     public void shouldShowOneSuccessJobWatching() {
         final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen = new JenkinsJobBeschreibung[1];
-        jenkinsJobBeschreibungen[0] = new JenkinsJobBeschreibung(null, null, null);
+        jenkinsJobBeschreibungen[0] = new JenkinsJobBeschreibung(LOCALHOST_JOB_TEST_URL);
         jenkinsMonitorTray.requester = new RequesterMock(JobStatus.SUCCESS);
         jenkinsMonitorTray.updateJobStatus(jenkinsJobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
@@ -94,7 +102,7 @@ public class JenkinsMonitorTrayTest {
     @DisplayName("Bei einem instabilen Job soll das TrayIcon gelb sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master unstable>>")
     public void shouldShowOneInstabilJobWatching() {
         final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen = new JenkinsJobBeschreibung[1];
-        jenkinsJobBeschreibungen[0] = new JenkinsJobBeschreibung(null, null, null);
+        jenkinsJobBeschreibungen[0] = new JenkinsJobBeschreibung(LOCALHOST_JOB_TEST_URL);
         jenkinsMonitorTray.requester = new RequesterMock(JobStatus.UNSTABLE);
         jenkinsMonitorTray.updateJobStatus(jenkinsJobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
@@ -103,10 +111,10 @@ public class JenkinsMonitorTrayTest {
     }
 
     @Test
-    @DisplayName("Bei einem instabilen Job soll das TrayIcon gelb sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master unstable>>")
+    @DisplayName("Bei einem fehlschlagenden Job soll das TrayIcon rot sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master failed>>")
     public void shouldShowOneFailedJobWatching() {
         final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen = new JenkinsJobBeschreibung[1];
-        jenkinsJobBeschreibungen[0] = new JenkinsJobBeschreibung(null, null, null);
+        jenkinsJobBeschreibungen[0] = new JenkinsJobBeschreibung(LOCALHOST_JOB_TEST_URL);
         jenkinsMonitorTray.requester = new RequesterMock(JobStatus.FAILURE);
         jenkinsMonitorTray.updateJobStatus(jenkinsJobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();

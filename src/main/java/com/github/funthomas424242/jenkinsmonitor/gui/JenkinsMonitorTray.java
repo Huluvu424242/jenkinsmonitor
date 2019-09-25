@@ -23,6 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.JenkinsJobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.JenkinsJobStatusBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusRequester;
 
@@ -34,7 +35,7 @@ public class JenkinsMonitorTray {
     protected SystemTrayWrapper tray;
     protected JenkinsJobStatusRequester requester;
 
-    protected JenkinsJobBeschreibung[] jobStatusBeschreibungen;
+    protected JenkinsJobStatusBeschreibung[] jobStatusBeschreibungen;
 
     public JenkinsMonitorTray(final Configuration configuration) {
         this(new SystemTrayWrapper(), configuration);
@@ -76,13 +77,13 @@ public class JenkinsMonitorTray {
         }
     }
 
-    public void updateJobStatus(){
+    public void updateJobStatus() {
         final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen = this.configuration.getJobBeschreibungen();
         updateJobStatus(jenkinsJobBeschreibungen);
     }
 
     protected void updateJobStatus(JenkinsJobBeschreibung[] jenkinsJobBeschreibungen) {
-        this.jobStatusBeschreibungen =  requester.ladeJobsStatus(jenkinsJobBeschreibungen);
+        this.jobStatusBeschreibungen = requester.ladeJobsStatus(jenkinsJobBeschreibungen);
         updateDarstellung();
     }
 
