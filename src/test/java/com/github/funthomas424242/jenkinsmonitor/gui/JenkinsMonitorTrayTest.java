@@ -22,11 +22,14 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTreeJobs;
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTwoJobs;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusBeschreibung;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
-import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusRequester;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import org.junit.jupiter.api.*;
 
 import java.awt.*;
@@ -41,15 +44,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RequesterMock extends JenkinsJobStatusRequester {
 
-    private final JobStatus jobStatus;
+    protected int jobNr = 0;
+    protected final JobStatus[] jobStatus;
 
-    public RequesterMock(JobStatus jobStatus) {
+    public RequesterMock(JobStatus... jobStatus) {
         this.jobStatus = jobStatus;
     }
 
     @Override
     protected JenkinsJobStatusBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
-        return new JenkinsJobStatusBeschreibung("xxx", jobStatus, jenkinsJobURL);
+        return new JenkinsJobStatusBeschreibung("xxx", jobStatus[jobNr++], jenkinsJobURL);
     }
 }
 
@@ -122,16 +126,31 @@ public class JenkinsMonitorTrayTest {
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());
     }
 
-    // TODO  die Tooltipps noch prüfen und das Folgende
-//        assumeTrue(jenkinsMonitor.jobBeschreibungen != null);
-//        assertEquals(0, jenkinsMonitor.jobBeschreibungen.length);
-//
-//        final Path validConfigfilePath = Paths.get(".", PATH_VALID_CONFIGURATION_FILE);
-//        final File configFile = validConfigfilePath.toAbsolutePath().toFile();
-//        jenkinsMonitor.configuration.reloadFromFile(configFile);
-//        assumeTrue(jenkinsMonitor.configuration != null);
-//        assumeTrue(jenkinsMonitor.jobBeschreibungen != null);
-//        assertEquals(2, jenkinsMonitor.jobBeschreibungen.length);
+    @Test
+    @DisplayName("Bei 2 Jobs - einer grün, einer rot erscheinen die Status im Tooltipp.")
+    protected void showStatusAsToolstippsIfJobPresent() {
+        final Configuration configJobs = new ConfigurationMockValidTwoJobs();
+        final JenkinsMonitorTray tray = new JenkinsMonitorTray(configJobs);
+        tray.requester = new RequesterMock(JobStatus.SUCCESS, JobStatus.FAILURE);
+        tray.updateJobStatus();
+        final TrayIcon trayIcon = tray.getTrayIcon();
+        assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
+            , JobStatus.SUCCESS.getColor()
+            , JobStatus.FAILURE.getColor()));
+    }
 
-
+    @Test
+    @DisplayName("Bei 3 Jobs - einer grün, einer rot, einer gelb  erscheinen die Status im Tooltipp.")
+    protected void showStatusAsToolstippsIfJobsPresent() {
+        final Configuration configJobs = new ConfigurationMockValidTreeJobs();
+        final JenkinsMonitorTray tray = new JenkinsMonitorTray(configJobs);
+        tray.requester = new RequesterMock(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE);
+        tray.updateJobStatus();
+        final TrayIcon trayIcon = tray.getTrayIcon();
+        assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
+            , JobStatus.SUCCESS.getColor()
+            , JobStatus.FAILURE.getColor()
+            , JobStatus.UNSTABLE.getColor())
+        );
+    }
 }
