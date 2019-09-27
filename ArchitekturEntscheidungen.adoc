@@ -156,3 +156,4 @@ Bei Color.red gibt es keine Anomalie.
 * https://github.com/RichardLitt/generator-standard-readme/
 * https://github.com/noffle/art-of-readme
 * https://keepachangelog.com/de
+* http://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html#8-colors
