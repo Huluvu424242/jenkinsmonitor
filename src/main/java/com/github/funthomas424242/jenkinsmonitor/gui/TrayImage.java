@@ -28,24 +28,31 @@ import java.util.Arrays;
 
 public interface TrayImage {
 
-    static boolean isImageOfColor(BufferedImage image, Color... color) {
+    static boolean isImageOfColor(BufferedImage image, Color... colors) {
         final boolean[] isOfColor = new boolean[1];
         isOfColor[0] = true;
         final int[] pruefpunktNr = new int[1];
         pruefpunktNr[0] = 0;
 
         final int width = image.getWidth();
-        final int height = image.getHeight();
-        final int jobAnzahl = color.length;
+        final int jobAnzahl = colors.length;
+        final int jobWith = width / jobAnzahl;
 
-        Arrays.stream(color).forEachOrdered((farbe) -> {
-                isOfColor[0] = isOfColor[0]
-                    && (image.getRGB((width / jobAnzahl) * pruefpunktNr[0], 10)
-                    == farbe.getRGB());
+        Arrays.stream(colors).forEachOrdered((color) -> {
+                isOfColor[0] = isOfColor4AllY(image, isOfColor[0], pruefpunktNr[0], jobWith, color);
                 pruefpunktNr[0]++;
             }
         );
 
         return isOfColor[0];
+    }
+
+    static boolean isOfColor4AllY(BufferedImage image, boolean isOfColor, int jobNr, int jobWidth, Color color) {
+        final int height = image.getHeight();
+        boolean isSameColor = isOfColor;
+        for (int i = 0; i < height; i++) {
+            isSameColor = isSameColor && (image.getRGB(jobWidth * jobNr, i) == color.getRGB());
+        }
+        return isSameColor;
     }
 }
