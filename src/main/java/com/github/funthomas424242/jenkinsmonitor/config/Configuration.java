@@ -22,7 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,19 +82,19 @@ public class Configuration {
         return Integer.parseInt(propValue);
     }
 
-    public JenkinsJobBeschreibung[] getJobBeschreibungen() {
+    public JobBeschreibung[] getJobBeschreibungen() {
         loadPropertiesFromFile(configurationFile);
-        final List<JenkinsJobBeschreibung> jenkinsJobBeschreibungen = new ArrayList<>();
+        final List<JobBeschreibung> jobBeschreibungen = new ArrayList<>();
         configurationProperties.forEach((k, v) -> {
             final String key = (String) k;
             final String value = (String) v;
             if (key.startsWith(JOBKEY_PREFIX)) {
                 final URL jobURL = NetworkHelper.urlOf(value);
-                final JenkinsJobBeschreibung jenkinsJobBeschreibung = new JenkinsJobBeschreibung(null,  jobURL);
-                jenkinsJobBeschreibungen.add(jenkinsJobBeschreibung);
+                final JobBeschreibung jobBeschreibung = new JobBeschreibung(null,  jobURL);
+                jobBeschreibungen.add(jobBeschreibung);
             }
         });
-        return jenkinsJobBeschreibungen.toArray(new JenkinsJobBeschreibung[jenkinsJobBeschreibungen.size()]);
+        return jobBeschreibungen.toArray(new JobBeschreibung[jobBeschreibungen.size()]);
     }
 
     public void reload() {

@@ -22,7 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 
 import java.awt.*;
@@ -30,9 +30,9 @@ import java.awt.image.BufferedImage;
 
 public class ImageGenerator {
 
-    protected final JenkinsJobStatusBeschreibung[] jobsStatusBeschreibungen;
+    protected final JobStatusBeschreibung[] jobsStatusBeschreibungen;
 
-    protected ImageGenerator(final JenkinsJobStatusBeschreibung[] jobsStatusBeschreibungen) {
+    protected ImageGenerator(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
         this.jobsStatusBeschreibungen = jobsStatusBeschreibungen;
     }
 
@@ -47,7 +47,7 @@ public class ImageGenerator {
         final int jobCount = jobsStatusBeschreibungen.length;
         final int partImageWidth = width / jobCount;
         int startX = 0;
-        for (JenkinsJobStatusBeschreibung jenkinsJobBeschreibung : jobsStatusBeschreibungen) {
+        for (JobStatusBeschreibung jenkinsJobBeschreibung : jobsStatusBeschreibungen) {
             createPartImage(image, startX, partImageWidth, height, jenkinsJobBeschreibung.getJobStatus());
             startX += partImageWidth;
         }

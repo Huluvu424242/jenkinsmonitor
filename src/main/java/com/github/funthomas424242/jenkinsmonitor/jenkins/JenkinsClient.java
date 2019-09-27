@@ -42,24 +42,24 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 
-public class JenkinsJobStatusRequester {
+public class JenkinsClient {
 
-    final Logger LOG = LoggerFactory.getLogger(JenkinsJobStatusRequester.class);
+    final Logger LOG = LoggerFactory.getLogger(JenkinsClient.class);
 
 
     public static final String JSONKEY_FULL_DISPLAY_NAME = "fullDisplayName";
     public static final String JSONKEY_RESULT = "result";
 
 
-    protected JenkinsJobStatusBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
+    protected JobStatusBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
         final URL abfrageURL = new URL(jenkinsJobURL.toExternalForm() + JenkinsAPI.STATUS_PATH);
         final JSONObject resultJSON = sendGetRequest(abfrageURL);
         try {
             final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
             final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
-            return new JenkinsJobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jenkinsJobURL);
+            return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jenkinsJobURL);
         } catch (JSONException ex) {
-            return new JenkinsJobStatusBeschreibung(jenkinsJobURL.getPath(), JobStatus.OTHER, jenkinsJobURL);
+            return new JobStatusBeschreibung(jenkinsJobURL.getPath(), JobStatus.OTHER, jenkinsJobURL);
         }
     }
 
@@ -89,12 +89,12 @@ public class JenkinsJobStatusRequester {
     }
 
 
-    public JenkinsJobStatusBeschreibung[] ladeJobsStatus(JenkinsJobBeschreibung[] jenkinsJobBeschreibungen) {
-        return Arrays.stream(jenkinsJobBeschreibungen).map((beschreibung) -> {
-            JenkinsJobStatusBeschreibung returnValue = null;
+    public JobStatusBeschreibung[] ladeJobsStatus(JobBeschreibung[] jobBeschreibungen) {
+        return Arrays.stream(jobBeschreibungen).map((beschreibung) -> {
+            JobStatusBeschreibung returnValue = null;
             try {
-                final JenkinsJobStatusBeschreibung jobStatus = getJobStatus(beschreibung.getJobUrl());
-                returnValue = new JenkinsJobStatusBeschreibung(jobStatus.getJobName()
+                final JobStatusBeschreibung jobStatus = getJobStatus(beschreibung.getJobUrl());
+                returnValue = new JobStatusBeschreibung(jobStatus.getJobName()
                     , jobStatus.getJobStatus()
                     , beschreibung.getJobUrl());
             } catch (IOException e) {
@@ -102,7 +102,7 @@ public class JenkinsJobStatusRequester {
                 //TODO grauen Jobstatus erzeugen
             }
             return returnValue;
-        }).toArray(JenkinsJobStatusBeschreibung[]::new);
+        }).toArray(JobStatusBeschreibung[]::new);
 
     }
 

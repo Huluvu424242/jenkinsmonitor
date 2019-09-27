@@ -22,10 +22,10 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobBeschreibung;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusRequester;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
 
 import java.awt.*;
 
@@ -33,9 +33,9 @@ public class JenkinsMonitorTray {
 
     protected final Configuration configuration;
     protected SystemTrayWrapper tray;
-    protected JenkinsJobStatusRequester requester;
+    protected JenkinsClient requester;
 
-    protected JenkinsJobStatusBeschreibung[] jobStatusBeschreibungen;
+    protected JobStatusBeschreibung[] jobStatusBeschreibungen;
 
     public JenkinsMonitorTray(final Configuration configuration) {
         this(new SystemTrayWrapper(), configuration);
@@ -45,7 +45,7 @@ public class JenkinsMonitorTray {
         //Obtain only one instance of the SystemTray object
         this.tray = systemTray;
         this.configuration = configuration;
-        this.requester = new JenkinsJobStatusRequester();
+        this.requester = new JenkinsClient();
     }
 
 
@@ -78,12 +78,12 @@ public class JenkinsMonitorTray {
     }
 
     public void updateJobStatus() {
-        final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen = this.configuration.getJobBeschreibungen();
-        updateJobStatus(jenkinsJobBeschreibungen);
+        final JobBeschreibung[] jobBeschreibungen = this.configuration.getJobBeschreibungen();
+        updateJobStatus(jobBeschreibungen);
     }
 
-    protected void updateJobStatus(JenkinsJobBeschreibung[] jenkinsJobBeschreibungen) {
-        this.jobStatusBeschreibungen = requester.ladeJobsStatus(jenkinsJobBeschreibungen);
+    protected void updateJobStatus(JobBeschreibung[] jobBeschreibungen) {
+        this.jobStatusBeschreibungen = requester.ladeJobsStatus(jobBeschreibungen);
         updateDarstellung();
     }
 

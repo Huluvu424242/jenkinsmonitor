@@ -26,9 +26,9 @@ import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTreeJobs;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTwoJobs;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobBeschreibung;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusBeschreibung;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobStatusRequester;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import org.junit.jupiter.api.*;
 
@@ -42,7 +42,7 @@ import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImage.isImageOfC
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class RequesterMock extends JenkinsJobStatusRequester {
+class RequesterMock extends JenkinsClient {
 
     protected int jobNr = 0;
     protected final JobStatus[] jobStatus;
@@ -52,8 +52,8 @@ class RequesterMock extends JenkinsJobStatusRequester {
     }
 
     @Override
-    protected JenkinsJobStatusBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
-        return new JenkinsJobStatusBeschreibung("xxx", jobStatus[jobNr++], jenkinsJobURL);
+    protected JobStatusBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
+        return new JobStatusBeschreibung("xxx", jobStatus[jobNr++], jenkinsJobURL);
     }
 }
 
@@ -93,10 +93,10 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei einem erfolreichen Job soll das TrayIcon grün sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master success>>")
     public void shouldShowOneSuccessJobWatching() {
-        final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen = new JenkinsJobBeschreibung[1];
-        jenkinsJobBeschreibungen[0] = new JenkinsJobBeschreibung(LOCALHOST_JOB_TEST_URL);
+        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
+        jobBeschreibungen[0] = new JobBeschreibung(LOCALHOST_JOB_TEST_URL);
         jenkinsMonitorTray.requester = new RequesterMock(JobStatus.SUCCESS);
-        jenkinsMonitorTray.updateJobStatus(jenkinsJobBeschreibungen);
+        jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.SUCCESS.getColor()));
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());
@@ -105,10 +105,10 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei einem instabilen Job soll das TrayIcon gelb sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master unstable>>")
     public void shouldShowOneInstabilJobWatching() {
-        final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen = new JenkinsJobBeschreibung[1];
-        jenkinsJobBeschreibungen[0] = new JenkinsJobBeschreibung(LOCALHOST_JOB_TEST_URL);
+        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
+        jobBeschreibungen[0] = new JobBeschreibung(LOCALHOST_JOB_TEST_URL);
         jenkinsMonitorTray.requester = new RequesterMock(JobStatus.UNSTABLE);
-        jenkinsMonitorTray.updateJobStatus(jenkinsJobBeschreibungen);
+        jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.UNSTABLE.getColor()));
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());
@@ -117,10 +117,10 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei einem fehlschlagenden Job soll das TrayIcon rot sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master failed>>")
     public void shouldShowOneFailedJobWatching() {
-        final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen = new JenkinsJobBeschreibung[1];
-        jenkinsJobBeschreibungen[0] = new JenkinsJobBeschreibung(LOCALHOST_JOB_TEST_URL);
+        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
+        jobBeschreibungen[0] = new JobBeschreibung(LOCALHOST_JOB_TEST_URL);
         jenkinsMonitorTray.requester = new RequesterMock(JobStatus.FAILURE);
-        jenkinsMonitorTray.updateJobStatus(jenkinsJobBeschreibungen);
+        jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.FAILURE.getColor()));
 //        assertEquals("MultibranchJob/master s/uccess", trayIcon.getToolTip());

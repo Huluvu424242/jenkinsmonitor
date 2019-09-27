@@ -22,7 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsJobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -112,9 +112,9 @@ class ConfigurationTest {
         final int pollPeriodInSecond = this.notexistingConfigurationfile.getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
 
-        final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen = this.notexistingConfigurationfile.getJobBeschreibungen();
-        assertNotNull(jenkinsJobBeschreibungen);
-        assertEquals(0, jenkinsJobBeschreibungen.length);
+        final JobBeschreibung[] jobBeschreibungen = this.notexistingConfigurationfile.getJobBeschreibungen();
+        assertNotNull(jobBeschreibungen);
+        assertEquals(0, jobBeschreibungen.length);
     }
 
     @Test
@@ -123,9 +123,9 @@ class ConfigurationTest {
         final int pollPeriodInSecond = emptyConfigurationfile.getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
 
-        final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen = this.emptyConfigurationfile.getJobBeschreibungen();
-        assertNotNull(jenkinsJobBeschreibungen);
-        assertEquals(0, jenkinsJobBeschreibungen.length);
+        final JobBeschreibung[] jobBeschreibungen = this.emptyConfigurationfile.getJobBeschreibungen();
+        assertNotNull(jobBeschreibungen);
+        assertEquals(0, jobBeschreibungen.length);
     }
 
     @Test
@@ -134,28 +134,28 @@ class ConfigurationTest {
         final int pollPeriodInSecond = validConfigurationfile.getPollPeriodInSecond();
         assertEquals(6, pollPeriodInSecond);
 
-        final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen = this.validConfigurationfile.getJobBeschreibungen();
-        assertNotNull(jenkinsJobBeschreibungen);
-        assertEquals(2, jenkinsJobBeschreibungen.length);
+        final JobBeschreibung[] jobBeschreibungen = this.validConfigurationfile.getJobBeschreibungen();
+        assertNotNull(jobBeschreibungen);
+        assertEquals(2, jobBeschreibungen.length);
     }
 
     @Test
     @DisplayName("Prüfe auf gleiche Werte bei reload aus Configfile")
     void reloadCurrentConfiguration() {
         final int pollPeriodInSecond1 = validConfigurationfile.getPollPeriodInSecond();
-        final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen1 = this.validConfigurationfile.getJobBeschreibungen();
+        final JobBeschreibung[] jobBeschreibungen1 = this.validConfigurationfile.getJobBeschreibungen();
         assumeTrue(pollPeriodInSecond1 == 6);
-        assumeTrue(jenkinsJobBeschreibungen1 != null);
-        assumeTrue(jenkinsJobBeschreibungen1.length == 2);
+        assumeTrue(jobBeschreibungen1 != null);
+        assumeTrue(jobBeschreibungen1.length == 2);
         validConfigurationfile.reload();
         final int pollPeriodInSecond2 = validConfigurationfile.getPollPeriodInSecond();
-        final JenkinsJobBeschreibung[] jenkinsJobBeschreibungen2 = this.validConfigurationfile.getJobBeschreibungen();
+        final JobBeschreibung[] jobBeschreibungen2 = this.validConfigurationfile.getJobBeschreibungen();
         assumeTrue(pollPeriodInSecond2 == 6);
-        assumeTrue(jenkinsJobBeschreibungen2 != null);
-        assumeTrue(jenkinsJobBeschreibungen2.length == 2);
+        assumeTrue(jobBeschreibungen2 != null);
+        assumeTrue(jobBeschreibungen2.length == 2);
         //
         assertEquals(pollPeriodInSecond1, pollPeriodInSecond2);
-        assertArrayEquals(jenkinsJobBeschreibungen1, jenkinsJobBeschreibungen2);
+        assertArrayEquals(jobBeschreibungen1, jobBeschreibungen2);
     }
 
     @Test
@@ -164,15 +164,15 @@ class ConfigurationTest {
         final File emptyConfigFile = new ConfigurationMockEmpty().getConfigurationfile();
         final Configuration tmpConfiguration = new Configuration(emptyConfigFile);
         assumeTrue(tmpConfiguration != null);
-        final JenkinsJobBeschreibung[] jenkinsJobBeschreibungenenLeer = tmpConfiguration.getJobBeschreibungen();
-        assumeTrue(jenkinsJobBeschreibungenenLeer != null);
-        assumeTrue(jenkinsJobBeschreibungenenLeer.length == 0);
+        final JobBeschreibung[] jobBeschreibungenenLeer = tmpConfiguration.getJobBeschreibungen();
+        assumeTrue(jobBeschreibungenenLeer != null);
+        assumeTrue(jobBeschreibungenenLeer.length == 0);
 
         final File configFile = new ConfigurationMockValidTwoJobs().getConfigurationfile();
         tmpConfiguration.reloadFromFile(configFile);
-        final JenkinsJobBeschreibung[] jenkinsJobBeschreibungenGefuellt = tmpConfiguration.getJobBeschreibungen();
-        assertNotNull(jenkinsJobBeschreibungenGefuellt);
-        assertEquals(2, jenkinsJobBeschreibungenGefuellt.length);
+        final JobBeschreibung[] jobBeschreibungenGefuellt = tmpConfiguration.getJobBeschreibungen();
+        assertNotNull(jobBeschreibungenGefuellt);
+        assertEquals(2, jobBeschreibungenGefuellt.length);
     }
 
 
