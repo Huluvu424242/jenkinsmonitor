@@ -42,12 +42,12 @@ import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImage.isImageOfC
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class RequesterMock extends JenkinsClient {
+class JenkinsClientMock extends JenkinsClient {
 
     protected int jobNr = 0;
     protected final JobStatus[] jobStatus;
 
-    public RequesterMock(JobStatus... jobStatus) {
+    public JenkinsClientMock(JobStatus... jobStatus) {
         this.jobStatus = jobStatus;
     }
 
@@ -73,7 +73,7 @@ public class JenkinsMonitorTrayTest {
     @BeforeEach
     public void setUp() {
         jenkinsMonitorTray = new JenkinsMonitorTray(new ConfigurationMockEmpty());
-        jenkinsMonitorTray.requester = new RequesterMock(JobStatus.OTHER);
+        jenkinsMonitorTray.requester = new JenkinsClientMock(JobStatus.OTHER);
         jenkinsMonitorTray.updateJobStatus();
     }
 
@@ -95,7 +95,7 @@ public class JenkinsMonitorTrayTest {
     public void shouldShowOneSuccessJobWatching() {
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
         jobBeschreibungen[0] = new JobBeschreibung(LOCALHOST_JOB_TEST_URL);
-        jenkinsMonitorTray.requester = new RequesterMock(JobStatus.SUCCESS);
+        jenkinsMonitorTray.requester = new JenkinsClientMock(JobStatus.SUCCESS);
         jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.SUCCESS.getColor()));
@@ -107,7 +107,7 @@ public class JenkinsMonitorTrayTest {
     public void shouldShowOneInstabilJobWatching() {
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
         jobBeschreibungen[0] = new JobBeschreibung(LOCALHOST_JOB_TEST_URL);
-        jenkinsMonitorTray.requester = new RequesterMock(JobStatus.UNSTABLE);
+        jenkinsMonitorTray.requester = new JenkinsClientMock(JobStatus.UNSTABLE);
         jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.UNSTABLE.getColor()));
@@ -119,7 +119,7 @@ public class JenkinsMonitorTrayTest {
     public void shouldShowOneFailedJobWatching() {
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
         jobBeschreibungen[0] = new JobBeschreibung(LOCALHOST_JOB_TEST_URL);
-        jenkinsMonitorTray.requester = new RequesterMock(JobStatus.FAILURE);
+        jenkinsMonitorTray.requester = new JenkinsClientMock(JobStatus.FAILURE);
         jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.FAILURE.getColor()));
@@ -131,7 +131,7 @@ public class JenkinsMonitorTrayTest {
     protected void showStatusAsToolstippsIfJobPresent() {
         final Configuration configJobs = new ConfigurationMockValidTwoJobs();
         final JenkinsMonitorTray tray = new JenkinsMonitorTray(configJobs);
-        tray.requester = new RequesterMock(JobStatus.SUCCESS, JobStatus.FAILURE);
+        tray.requester = new JenkinsClientMock(JobStatus.SUCCESS, JobStatus.FAILURE);
         tray.updateJobStatus();
         final TrayIcon trayIcon = tray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
@@ -144,7 +144,7 @@ public class JenkinsMonitorTrayTest {
     protected void showStatusAsToolstippsIfJobsPresent() {
         final Configuration configJobs = new ConfigurationMockValidTreeJobs();
         final JenkinsMonitorTray tray = new JenkinsMonitorTray(configJobs);
-        tray.requester = new RequesterMock(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE);
+        tray.requester = new JenkinsClientMock(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE);
         tray.updateJobStatus();
         final TrayIcon trayIcon = tray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
