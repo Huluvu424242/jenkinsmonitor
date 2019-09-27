@@ -10,12 +10,12 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * it under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Lesser Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Lesser Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
@@ -30,8 +30,8 @@ public class SystemTrayWrapper {
 
     protected TrayIcon trayIcon;
 
-    public SystemTrayWrapper(){
-        tray=SystemTray.getSystemTray();
+    public SystemTrayWrapper() {
+        tray = SystemTray.getSystemTray();
     }
 
     public TrayIcon[] getTrayIcons() {
@@ -40,15 +40,15 @@ public class SystemTrayWrapper {
 
     public void add(TrayIcon icon) throws AWTException {
         this.tray.add(icon);
-        this.trayIcon=icon;
+        this.trayIcon = icon;
     }
 
-    public void remove(TrayIcon icon){
+    public void remove(TrayIcon icon) {
         this.tray.remove(icon);
-        this.trayIcon=null;
+        this.trayIcon = null;
     }
 
-    protected TrayIcon getTrayIcon(){
+    protected TrayIcon getTrayIcon() {
         return trayIcon;
     }
 }

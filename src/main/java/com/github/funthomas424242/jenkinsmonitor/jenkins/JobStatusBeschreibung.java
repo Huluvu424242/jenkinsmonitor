@@ -29,7 +29,6 @@ import java.util.Objects;
 public final class JobStatusBeschreibung {
 
 
-
     protected final JobStatus jobStatus;
 
     protected final String jobName;
@@ -56,7 +55,7 @@ public final class JobStatusBeschreibung {
         return this.jobUrl;
     }
 
-    public String getJobName(){
+    public String getJobName() {
         return this.jobName;
     }
 

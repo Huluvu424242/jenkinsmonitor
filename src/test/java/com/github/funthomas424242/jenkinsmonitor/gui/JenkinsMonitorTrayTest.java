@@ -26,10 +26,10 @@ import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTreeJobs;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTwoJobs;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import org.junit.jupiter.api.*;
 
 import java.awt.*;
