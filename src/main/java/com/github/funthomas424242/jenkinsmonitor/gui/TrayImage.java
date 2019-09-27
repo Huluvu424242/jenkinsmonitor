@@ -26,32 +26,35 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
+class ValueHolder {
+    int jobNr = 0;
+    boolean isOfColor = true;
+}
+
 public interface TrayImage {
 
     static boolean isImageOfColor(BufferedImage image, Color... colors) {
-        final boolean[] isOfColor = new boolean[1];
-        isOfColor[0] = true;
-        final int[] pruefpunktNr = new int[1];
-        pruefpunktNr[0] = 0;
+        final ValueHolder valueHolder = new ValueHolder();
 
         final int width = image.getWidth();
         final int jobAnzahl = colors.length;
         final int jobWith = width / jobAnzahl;
 
         Arrays.stream(colors).forEachOrdered((color) -> {
-                isOfColor[0] = isOfColor4AllY(image, isOfColor[0], pruefpunktNr[0], jobWith, color);
-                pruefpunktNr[0]++;
+                valueHolder.isOfColor = isOfColor4JobRectangle(image, valueHolder.isOfColor, valueHolder.jobNr, jobWith, color);
+                valueHolder.jobNr++;
             }
         );
-
-        return isOfColor[0];
+        return valueHolder.isOfColor;
     }
 
-    static boolean isOfColor4AllY(BufferedImage image, boolean isOfColor, int jobNr, int jobWidth, Color color) {
-        final int height = image.getHeight();
+    static boolean isOfColor4JobRectangle(BufferedImage image, boolean isOfColor, int jobNr, int jobWidth, Color color) {
+        final int maxHeight = image.getHeight();
         boolean isSameColor = isOfColor;
-        for (int i = 0; i < height; i++) {
-            isSameColor = isSameColor && (image.getRGB(jobWidth * jobNr, i) == color.getRGB());
+        for (int offsetWidth = 0; offsetWidth < jobWidth; offsetWidth++) {
+            for (int height = 0; height < maxHeight; height++) {
+                isSameColor = isSameColor && (image.getRGB((jobWidth * jobNr) + offsetWidth, height) == color.getRGB());
+            }
         }
         return isSameColor;
     }
