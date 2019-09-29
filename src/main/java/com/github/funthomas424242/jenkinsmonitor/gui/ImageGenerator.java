@@ -67,4 +67,8 @@ public class ImageGenerator {
 
         return image;
     }
+
+    public String getTooltip() {
+        return "\u001b[31mNo \u001b[32mjobs \u001b[33mwatching \u001b[0m";
+    }
 }

@@ -27,7 +27,10 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class JenkinsMonitorTray {
 
@@ -56,25 +59,90 @@ public class JenkinsMonitorTray {
     protected void erzeugeDarstellung() {
         try {
             final ImageGenerator imageGenerator = new ImageGenerator(this.jobStatusBeschreibungen);
-            Image grayImage = imageGenerator.getImage(100, 100);
+            final Image trayImage = imageGenerator.getImage(100, 100);
+            final String toolTip = imageGenerator.getTooltip();
 
-            // TODO grayImage -> image
-            TrayIcon trayIcon = new TrayIcon(grayImage, "No jobs watching");
+
+            final TrayIcon trayIcon = new TrayIcon(trayImage, "Keine Jobs überwachend");
             //Let the system resize the image if needed
             trayIcon.setImageAutoSize(true);
+
+
             //Set tooltip text for the tray icon
-            trayIcon.setToolTip("No jobs watching");
+            if (this.jobStatusBeschreibungen.length > 0) {
+                trayIcon.setToolTip("Linksklick: Status, Rechtsklick: Settings");
+            } else {
+                trayIcon.setToolTip("Keine Jobs überwachend");
+            }
+            /////////////////
+
+            final PopupMenu popup = createSettingsMenu();
+
+            trayIcon.setPopupMenu(popup);
+
+
+            /////////////////
+
             tray.add(trayIcon);
 
+            ////////////////////////
+
+            trayIcon.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("###:"+e.toString());
+                    JOptionPane.showMessageDialog(null,
+                        "This dialog box is run from System Tray");
+                }
+            });
+
+            ////////////////////////
+
             // Display info notification:
-            trayIcon.displayMessage("Hello, World", "Java Notification Demo", TrayIcon.MessageType.INFO);
+//            trayIcon.displayMessage("Hello, World", "<html>No <bold>jobs</bold> watching</html>", TrayIcon.MessageType.INFO);
             // Error:
             // trayIcon.displayMessage("Hello, World", "Java Notification Demo", MessageType.ERROR);
             // Warning:
             // trayIcon.displayMessage("Hello, World", "Java Notification Demo", MessageType.WARNING);
-        } catch (Exception ex) {
+        } catch (
+            Exception ex) {
             System.err.print(ex);
         }
+
+    }
+
+    /**
+     * https://stackoverflow.com/questions/13989265/task-tray-notification-balloon-events
+     *
+     * @return
+     */
+    protected PopupMenu createSettingsMenu() {
+        final PopupMenu popup = new PopupMenu();
+
+
+        // Create a popup menu components
+        MenuItem aboutItem = new MenuItem("About");
+        CheckboxMenuItem cb1 = new CheckboxMenuItem("Set auto size");
+        CheckboxMenuItem cb2 = new CheckboxMenuItem("Set tooltip");
+        Menu displayMenu = new Menu("Display");
+        MenuItem errorItem = new MenuItem("Error");
+        MenuItem warningItem = new MenuItem("Warning");
+        MenuItem infoItem = new MenuItem("Info");
+        MenuItem noneItem = new MenuItem("None");
+        MenuItem exitItem = new MenuItem("Exit");
+
+        //Add components to popup menu
+        popup.add(aboutItem);
+        popup.addSeparator();
+        popup.add(cb1);
+        popup.add(cb2);
+        popup.addSeparator();
+        popup.add(displayMenu);
+        displayMenu.add(errorItem);
+        displayMenu.add(warningItem);
+        displayMenu.add(infoItem);
+        displayMenu.add(noneItem);
+        popup.add(exitItem);
+        return popup;
     }
 
     public void updateJobStatus() {

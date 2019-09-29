@@ -86,7 +86,7 @@ public class JenkinsMonitorTrayTest {
     @DisplayName("Initial wird ein graues Icon angezeigt mit Tooltipp <<No jobs watching>>")
     public void shouldShowNoJobsWatching() throws AWTException {
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
-        assertEquals("No jobs watching", trayIcon.getToolTip());
+        assertEquals("Keine Jobs überwachend", trayIcon.getToolTip());
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.OTHER.getColor()));
     }
 
