@@ -78,7 +78,6 @@ public class ImageGenerator {
 
         // Erzeugung eines neuen Dialoges
         JWindow statusWindow = new JWindow();
-        statusWindow.setLocation(point);
 
         final JPanel panel = new JPanel();
         panel.setLayout(new java.awt.GridLayout( this.jobsStatusBeschreibungen.length,1));
@@ -94,6 +93,10 @@ public class ImageGenerator {
 
         statusWindow.add(panel);
         statusWindow.pack();
+        final int width = statusWindow.getWidth();
+        final int height = statusWindow.getHeight();
+        final Point drawPoint = new Point(point.x,point.y-height-100);
+        statusWindow.setLocation(drawPoint);
         statusWindow.setVisible(true);
         return statusWindow;
     }

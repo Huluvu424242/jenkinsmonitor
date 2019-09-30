@@ -33,12 +33,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 
 public class JenkinsMonitorTray {
 
     protected final Configuration configuration;
     protected SystemTrayWrapper tray;
     protected JenkinsClient requester;
+    protected JWindow statusArea;
 
     protected JobStatusBeschreibung[] jobStatusBeschreibungen;
 
@@ -92,9 +95,6 @@ public class JenkinsMonitorTray {
             trayIcon.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("###:" + e.toString());
-
-                    JOptionPane.showMessageDialog(null,
-                        "This dialog box is run from System Tray");
                 }
             });
 
@@ -107,12 +107,16 @@ public class JenkinsMonitorTray {
 
                 @Override
                 public void mouseMoved(MouseEvent e) {
-                    final Point point = e.getPoint();
-                    JOptionPane.showMessageDialog(null,
-                        "Point: X" + point.x + " Y: " + point.y);
+                    final Point point;
+                    if(statusArea!=null) {
+                        point = statusArea.getLocation();
+                        statusArea.setVisible(false);
+                        statusArea.dispose();
+                    }else{
+                        point = e.getPoint();
+                    }
+                    statusArea = imageGenerator.getStatusArea(point);
                 }
-
-                ;
             });
 
             ////////////////////////
