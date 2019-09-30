@@ -27,12 +27,12 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImage.isImageOfColor;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class ImageGeneratorTest {
@@ -124,6 +124,18 @@ class ImageGeneratorTest {
         assertEquals(Color.green.getRGB(), image.getRGB(10, 10));
         assertEquals(JobStatus.FAILURE.getColor().getRGB(), image.getRGB(60, 10));
         assertEquals(Color.red.getRGB(), image.getRGB(60, 10));
+    }
+
+    @Test
+    @DisplayName("Zeige Buildstatusfläche für einen grünen Job an einer bestimmten Position")
+    protected void showBuildStatusAreaOneSuccessJob() {
+        final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
+        jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
+            , JobStatus.SUCCESS
+            , null);
+        final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
+        final JDialog statusArea = generator.getStatusArea(new Point(300, 400));
+        assertNotNull(statusArea);
     }
 
 

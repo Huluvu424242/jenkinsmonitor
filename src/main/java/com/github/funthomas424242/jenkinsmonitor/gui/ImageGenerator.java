@@ -25,6 +25,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -70,5 +71,25 @@ public class ImageGenerator {
 
     public String getTooltip() {
         return "\u001b[31mNo \u001b[32mjobs \u001b[33mwatching \u001b[0m";
+    }
+
+    public JDialog getStatusArea(final Point point) {
+
+        // Erzeugung eines neuen Dialoges
+        JDialog meinJDialog = new JDialog();
+        meinJDialog.setTitle("JPanel Beispiel");
+//        meinJDialog.setSize(450, 300);
+        meinJDialog.setSize(450, 300);
+        meinJDialog.setUndecorated(true);
+        meinJDialog.setLocation(point);
+
+        JPanel panel = new JPanel();
+        // Hier setzen wir die Hintergrundfarbe unseres JPanels auf rot
+        panel.setBackground(Color.red);
+        // Hier fügen wir unserem Dialog unser JPanel hinzu
+        meinJDialog.add(panel);
+        // Wir lassen unseren Dialog anzeigen
+        meinJDialog.setVisible(true);
+        return meinJDialog;
     }
 }

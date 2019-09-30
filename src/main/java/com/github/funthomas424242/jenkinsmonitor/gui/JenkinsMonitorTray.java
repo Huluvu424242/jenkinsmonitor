@@ -108,7 +108,7 @@ public class JenkinsMonitorTray {
                 @Override
                 public void mouseMoved(MouseEvent e) {
                     final Point point = e.getPoint();
-                    JOptionPane.showMessageDialog(showRectangle(point),
+                    JOptionPane.showMessageDialog(null,
                         "Point: X" + point.x + " Y: " + point.y);
                 }
 
@@ -184,21 +184,4 @@ public class JenkinsMonitorTray {
         return this.configuration;
     }
 
-    public JDialog showRectangle(Point point) {
-        // Erzeugung eines neuen Dialoges
-        JDialog meinJDialog = new JDialog();
-        meinJDialog.setTitle("JPanel Beispiel");
-        meinJDialog.setSize(450, 300);
-        meinJDialog.setUndecorated(true);
-        meinJDialog.setLocation(point);
-
-        JPanel panel = new JPanel();
-        // Hier setzen wir die Hintergrundfarbe unseres JPanels auf rot
-        panel.setBackground(Color.red);
-        // Hier fügen wir unserem Dialog unser JPanel hinzu
-        meinJDialog.add(panel);
-        // Wir lassen unseren Dialog anzeigen
-        meinJDialog.setVisible(true);
-        return meinJDialog;
-    }
 }
