@@ -28,6 +28,7 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 
 public class ImageGenerator {
 
@@ -73,23 +74,27 @@ public class ImageGenerator {
         return "\u001b[31mNo \u001b[32mjobs \u001b[33mwatching \u001b[0m";
     }
 
-    public JDialog getStatusArea(final Point point) {
+    public JWindow getStatusArea(final Point point) {
 
         // Erzeugung eines neuen Dialoges
-        JDialog meinJDialog = new JDialog();
-        meinJDialog.setTitle("JPanel Beispiel");
-//        meinJDialog.setSize(450, 300);
-        meinJDialog.setSize(450, 300);
-        meinJDialog.setUndecorated(true);
-        meinJDialog.setLocation(point);
+        JWindow statusWindow = new JWindow();
+        statusWindow.setLocation(point);
 
-        JPanel panel = new JPanel();
-        // Hier setzen wir die Hintergrundfarbe unseres JPanels auf rot
-        panel.setBackground(Color.red);
-        // Hier fügen wir unserem Dialog unser JPanel hinzu
-        meinJDialog.add(panel);
-        // Wir lassen unseren Dialog anzeigen
-        meinJDialog.setVisible(true);
-        return meinJDialog;
+        final JPanel panel = new JPanel();
+        panel.setLayout(new java.awt.GridLayout( this.jobsStatusBeschreibungen.length,1));
+
+        Arrays.stream(this.jobsStatusBeschreibungen).forEach((jobStatus)->{
+            JLabel label = new JLabel(jobStatus.getJobName());
+            label.setOpaque(true);
+            label.setBackground(jobStatus.getStatusColor());
+            panel.add(label);
+        });
+
+
+
+        statusWindow.add(panel);
+        statusWindow.pack();
+        statusWindow.setVisible(true);
+        return statusWindow;
     }
 }
