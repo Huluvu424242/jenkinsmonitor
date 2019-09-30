@@ -29,7 +29,10 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 public class JenkinsMonitorTray {
 
@@ -95,8 +98,7 @@ public class JenkinsMonitorTray {
                 }
             });
 
-            trayIcon.addMouseMotionListener(new  MouseMotionListener()  {
-
+            trayIcon.addMouseMotionListener(new MouseMotionListener() {
 
                 @Override
                 public void mouseDragged(MouseEvent mouseEvent) {
@@ -106,8 +108,8 @@ public class JenkinsMonitorTray {
                 @Override
                 public void mouseMoved(MouseEvent e) {
                     final Point point = e.getPoint();
-                    JOptionPane.showMessageDialog(null,
-                        "Point: X"+point.x + " Y: "+point.y);
+                    JOptionPane.showMessageDialog(showRectangle(point),
+                        "Point: X" + point.x + " Y: " + point.y);
                 }
 
                 ;
@@ -180,5 +182,23 @@ public class JenkinsMonitorTray {
 
     public Configuration getConfiguration() {
         return this.configuration;
+    }
+
+    public JDialog showRectangle(Point point) {
+        // Erzeugung eines neuen Dialoges
+        JDialog meinJDialog = new JDialog();
+        meinJDialog.setTitle("JPanel Beispiel");
+        meinJDialog.setSize(450, 300);
+        meinJDialog.setUndecorated(true);
+        meinJDialog.setLocation(point);
+
+        JPanel panel = new JPanel();
+        // Hier setzen wir die Hintergrundfarbe unseres JPanels auf rot
+        panel.setBackground(Color.red);
+        // Hier fügen wir unserem Dialog unser JPanel hinzu
+        meinJDialog.add(panel);
+        // Wir lassen unseren Dialog anzeigen
+        meinJDialog.setVisible(true);
+        return meinJDialog;
     }
 }
