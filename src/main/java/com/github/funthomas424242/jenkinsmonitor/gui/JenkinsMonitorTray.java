@@ -29,8 +29,7 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class JenkinsMonitorTray {
 
@@ -89,10 +88,29 @@ public class JenkinsMonitorTray {
 
             trayIcon.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("###:"+e.toString());
+                    System.out.println("###:" + e.toString());
+
                     JOptionPane.showMessageDialog(null,
                         "This dialog box is run from System Tray");
                 }
+            });
+
+            trayIcon.addMouseMotionListener(new  MouseMotionListener()  {
+
+
+                @Override
+                public void mouseDragged(MouseEvent mouseEvent) {
+                    System.out.println("Tray icon: Mouse dragged");
+                }
+
+                @Override
+                public void mouseMoved(MouseEvent e) {
+                    final Point point = e.getPoint();
+                    JOptionPane.showMessageDialog(null,
+                        "Point: X"+point.x + " Y: "+point.y);
+                }
+
+                ;
             });
 
             ////////////////////////
