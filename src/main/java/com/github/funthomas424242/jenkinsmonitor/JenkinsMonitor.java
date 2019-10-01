@@ -29,13 +29,14 @@ import org.slf4j.LoggerFactory;
 
 public class JenkinsMonitor {
 
-    protected static final Logger LOG = LoggerFactory.getLogger(JenkinsMonitor.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(JenkinsMonitor.class);
 
     protected JenkinsMonitorTray monitorTray;
 
     public JenkinsMonitor(Configuration configuration) {
         this.monitorTray = new JenkinsMonitorTray(configuration);
         this.monitorTray.updateJobStatus();
+        LOGGER.info("Jenkinsmonitor beendet");
     }
 
     public static void main(final String[] commandlineArgs) {

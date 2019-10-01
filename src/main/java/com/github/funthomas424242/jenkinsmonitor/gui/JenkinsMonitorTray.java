@@ -135,6 +135,14 @@ public class JenkinsMonitorTray {
             }
         });
         MenuItem exitItem = new MenuItem("Beenden");
+        exitItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                statusArea.setVisible(false);
+                statusArea.dispose();
+                tray.removeTrayIcon();
+            }
+        });
 
         //Add components to popup menu
         popup.add(aboutItem);

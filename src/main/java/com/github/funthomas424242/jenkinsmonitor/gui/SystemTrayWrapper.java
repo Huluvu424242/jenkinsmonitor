@@ -23,6 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  */
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class SystemTrayWrapper {
 
@@ -34,16 +35,20 @@ public class SystemTrayWrapper {
         tray = SystemTray.getSystemTray();
     }
 
-    public TrayIcon[] getTrayIcons() {
+    protected TrayIcon[] getTrayIcons() {
         return this.tray.getTrayIcons();
     }
 
-    public void add(TrayIcon icon) throws AWTException {
+    protected void removeTrayIcon() {
+        tray.remove(trayIcon);
+    }
+
+    protected void add(TrayIcon icon) throws AWTException {
         this.tray.add(icon);
         this.trayIcon = icon;
     }
 
-    public void remove(TrayIcon icon) {
+    protected void remove(TrayIcon icon) {
         this.tray.remove(icon);
         this.trayIcon = null;
     }
