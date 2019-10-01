@@ -75,18 +75,18 @@ public class ImageGenerator {
         return image;
     }
 
-    public void updateStatusArea(final JWindow statusWindow, final Point curLocation) {
+    public void updateStatusArea(final JWindow statusArea, final Point curLocation) {
 
         if (curLocation == null || curLocation.getY() == 0 || curLocation.getX() == 0) {
-            statusWindow.setVisible(false);
+            statusArea.setVisible(false);
             return;
         }
 
-        final Point oldLocation = statusWindow.getLocation();
+        final Point oldLocation = statusArea.getLocation();
         final Point newLocation =
             new Point(
-                (int) Math.min(oldLocation.getX(), curLocation.getX()),
-                (int) Math.min(oldLocation.getY(), curLocation.getY()));
+                (int) Math.max(oldLocation.getX(), curLocation.getX()),
+                (int) Math.max(oldLocation.getY(), curLocation.getY()));
 
         final JPanel panel = new JPanel();
         panel.setLayout(new java.awt.GridLayout(this.jobsStatusBeschreibungen.length, 1));
@@ -101,6 +101,7 @@ public class ImageGenerator {
                 public void mouseClicked(MouseEvent e) {
                     try {
                         Desktop.getDesktop().browse(jobStatus.getJobUrl().toURI());
+                        statusArea.setVisible(false);
                     } catch (IOException | URISyntaxException e1) {
                         e1.printStackTrace();
                     }
@@ -109,10 +110,10 @@ public class ImageGenerator {
             panel.add(label);
         });
 
-        statusWindow.setContentPane(panel);
-        statusWindow.pack();
-        final int width = statusWindow.getWidth();
-        final int height = statusWindow.getHeight();
-        statusWindow.setLocation(newLocation);
+        statusArea.setContentPane(panel);
+        statusArea.pack();
+        final int width = statusArea.getWidth();
+        final int height = statusArea.getHeight();
+        statusArea.setLocation(newLocation);
     }
 }
