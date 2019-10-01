@@ -134,19 +134,21 @@ class ImageGeneratorTest {
             , JobStatus.SUCCESS
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
-        final JWindow statusArea = generator.getStatusArea(new Point(300, 400));
+        final JWindow statusArea = new JWindow();
+        generator.updateStatusArea(statusArea, new Point(300, 400));
         assertNotNull(statusArea);
 //        assertEquals("##",statusArea.getRootPane().getComponents()[0].getName());
     }
 
 
-    public static void main (String[] args){
+    protected static void main(String[] args) {
         final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
         jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
-        final JWindow statusArea = generator.getStatusArea(new Point(2100, 100));
+        final JWindow statusArea = new JWindow();
+        generator.updateStatusArea(statusArea, new Point(2100, 100));
     }
 
 }

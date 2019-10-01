@@ -31,31 +31,33 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 
 public class JenkinsMonitorTray {
 
     protected final Configuration configuration;
-    protected SystemTrayWrapper tray;
-    protected JenkinsClient requester;
-    protected JWindow statusArea;
+    protected final SystemTrayWrapper tray;
+    protected final JenkinsClient requester;
+    protected final JWindow statusArea;
 
     protected JobStatusBeschreibung[] jobStatusBeschreibungen;
 
     public JenkinsMonitorTray(final Configuration configuration) {
-        this(new SystemTrayWrapper(), configuration);
+        this(new JenkinsClient(), configuration);
     }
 
-    protected JenkinsMonitorTray(SystemTrayWrapper systemTray, Configuration configuration) {
+    public JenkinsMonitorTray(final JenkinsClient jenkinsClient, final Configuration configuration) {
+        this(new SystemTrayWrapper(), jenkinsClient, configuration);
+    }
+
+    protected JenkinsMonitorTray(final SystemTrayWrapper systemTray, final JenkinsClient requester, final Configuration configuration) {
         //Obtain only one instance of the SystemTray object
         this.tray = systemTray;
         this.configuration = configuration;
-        this.requester = new JenkinsClient();
+        this.requester = requester;
+        this.statusArea = new JWindow();
     }
-
 
     public TrayIcon getTrayIcon() {
         return this.tray.getTrayIcon();
@@ -65,68 +67,34 @@ public class JenkinsMonitorTray {
         try {
             final ImageGenerator imageGenerator = new ImageGenerator(this.jobStatusBeschreibungen);
             final Image trayImage = imageGenerator.getImage(100, 100);
-            final String toolTip = imageGenerator.getTooltip();
-
-
-            final TrayIcon trayIcon = new TrayIcon(trayImage, "Keine Jobs überwachend");
-            //Let the system resize the image if needed
+            final TrayIcon trayIcon = new TrayIcon(trayImage);
             trayIcon.setImageAutoSize(true);
-
-
-            //Set tooltip text for the tray icon
             if (this.jobStatusBeschreibungen.length > 0) {
-                trayIcon.setToolTip("Linksklick: Status, Rechtsklick: Settings");
+                trayIcon.setToolTip("Linksklick: Status ein-/ausblenden, Rechtsklick: Settings");
             } else {
                 trayIcon.setToolTip("Keine Jobs überwachend");
             }
-            /////////////////
-
-            final PopupMenu popup = createSettingsMenu();
-
-            trayIcon.setPopupMenu(popup);
-
-
-            /////////////////
-
+            trayIcon.setPopupMenu(createSettingsMenu());
             tray.add(trayIcon);
 
-            ////////////////////////
+//            trayIcon.addActionListener(new ActionListener() {
+//                public void actionPerformed(ActionEvent e) {
+//                    System.out.println("###:" + e.toString());
+//                    statusArea.setVisible(false);
+//                }
+//            });
 
-            trayIcon.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println("###:" + e.toString());
-                }
-            });
-
-            trayIcon.addMouseMotionListener(new MouseMotionListener() {
-
-                @Override
-                public void mouseDragged(MouseEvent mouseEvent) {
-                    System.out.println("Tray icon: Mouse dragged");
-                }
-
-                @Override
-                public void mouseMoved(MouseEvent e) {
-                    final Point point;
-                    if(statusArea!=null) {
-                        point = statusArea.getLocation();
-                        statusArea.setVisible(false);
-                        statusArea.dispose();
-                    }else{
-                        point = e.getPoint();
+            trayIcon.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    System.out.println("### loc(" + statusArea.getLocation().getX() + ", " + statusArea.getLocation().getY() + ") ##");
+                    final Point showPoint = e.getPoint();
+                    imageGenerator.updateStatusArea(statusArea, showPoint);
+                    if (e.getClickCount() == 1) {
+                        statusArea.setVisible(!statusArea.isVisible());
                     }
-                    statusArea = imageGenerator.getStatusArea(point);
                 }
             });
 
-            ////////////////////////
-
-            // Display info notification:
-//            trayIcon.displayMessage("Hello, World", "<html>No <bold>jobs</bold> watching</html>", TrayIcon.MessageType.INFO);
-            // Error:
-            // trayIcon.displayMessage("Hello, World", "Java Notification Demo", MessageType.ERROR);
-            // Warning:
-            // trayIcon.displayMessage("Hello, World", "Java Notification Demo", MessageType.WARNING);
         } catch (
             Exception ex) {
             System.err.print(ex);

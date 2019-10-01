@@ -70,34 +70,34 @@ public class ImageGenerator {
         return image;
     }
 
-    public String getTooltip() {
-        return "\u001b[31mNo \u001b[32mjobs \u001b[33mwatching \u001b[0m";
-    }
+    public void updateStatusArea(final JWindow statusWindow, final Point curLocation) {
 
-    public JWindow getStatusArea(final Point point) {
+        if(curLocation == null || curLocation.getY()==0 || curLocation.getX()==0){
+            statusWindow.setVisible(false);
+            return;
+        }
 
-        // Erzeugung eines neuen Dialoges
-        JWindow statusWindow = new JWindow();
+        final Point oldLocation = statusWindow.getLocation();
+        final Point newLocation =
+            new Point(
+                (int) Math.min(oldLocation.getX(), curLocation.getX()),
+                (int) Math.min(oldLocation.getY(), curLocation.getY()));
 
         final JPanel panel = new JPanel();
-        panel.setLayout(new java.awt.GridLayout( this.jobsStatusBeschreibungen.length,1));
+        panel.setLayout(new java.awt.GridLayout(this.jobsStatusBeschreibungen.length, 1));
 
-        Arrays.stream(this.jobsStatusBeschreibungen).forEach((jobStatus)->{
-            JLabel label = new JLabel(jobStatus.getJobName());
+        Arrays.stream(this.jobsStatusBeschreibungen).forEach((jobStatus) -> {
+            final String htmlTemplate = "<html><h1>"+jobStatus.getJobName()+"</h1><p>Status: "+jobStatus.getJobStatus().toString()+" <a href=\""+jobStatus.getJobUrl()+"\">"+jobStatus.getJobUrl()+"</a></p></html>";
+            JLabel label = new JLabel(htmlTemplate);
             label.setOpaque(true);
             label.setBackground(jobStatus.getStatusColor());
             panel.add(label);
         });
 
-
-
-        statusWindow.add(panel);
+        statusWindow.setContentPane(panel);
         statusWindow.pack();
         final int width = statusWindow.getWidth();
         final int height = statusWindow.getHeight();
-        final Point drawPoint = new Point(point.x,point.y-height-100);
-        statusWindow.setLocation(drawPoint);
-        statusWindow.setVisible(true);
-        return statusWindow;
+        statusWindow.setLocation(newLocation);
     }
 }
