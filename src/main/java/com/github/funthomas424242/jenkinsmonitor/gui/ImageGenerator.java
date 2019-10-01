@@ -27,7 +27,12 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 
 public class ImageGenerator {
@@ -72,7 +77,7 @@ public class ImageGenerator {
 
     public void updateStatusArea(final JWindow statusWindow, final Point curLocation) {
 
-        if(curLocation == null || curLocation.getY()==0 || curLocation.getX()==0){
+        if (curLocation == null || curLocation.getY() == 0 || curLocation.getX() == 0) {
             statusWindow.setVisible(false);
             return;
         }
@@ -87,10 +92,20 @@ public class ImageGenerator {
         panel.setLayout(new java.awt.GridLayout(this.jobsStatusBeschreibungen.length, 1));
 
         Arrays.stream(this.jobsStatusBeschreibungen).forEach((jobStatus) -> {
-            final String htmlTemplate = "<html><h1>"+jobStatus.getJobName()+"</h1><p>Status: "+jobStatus.getJobStatus().toString()+" <a href=\""+jobStatus.getJobUrl()+"\">"+jobStatus.getJobUrl()+"</a></p></html>";
+            final String htmlTemplate = "<html><h1>" + jobStatus.getJobName() + "</h1><p>Status: " + jobStatus.getJobStatus().toString() + " <a href=\"" + jobStatus.getJobUrl() + "\">" + jobStatus.getJobUrl() + "</a></p></html>";
             JLabel label = new JLabel(htmlTemplate);
             label.setOpaque(true);
             label.setBackground(jobStatus.getStatusColor());
+            label.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    try {
+                        Desktop.getDesktop().browse(jobStatus.getJobUrl().toURI());
+                    } catch (IOException | URISyntaxException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            });
             panel.add(label);
         });
 

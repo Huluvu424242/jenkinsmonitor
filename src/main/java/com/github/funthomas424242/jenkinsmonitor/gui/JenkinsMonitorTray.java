@@ -57,11 +57,6 @@ public class JenkinsMonitorTray {
         this.configuration = configuration;
         this.requester = requester;
         this.statusArea = new JWindow();
-        this.statusArea.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                    statusArea.setVisible(false);
-            }
-        });
     }
 
     public TrayIcon getTrayIcon() {
@@ -82,17 +77,10 @@ public class JenkinsMonitorTray {
             trayIcon.setPopupMenu(createSettingsMenu());
             tray.add(trayIcon);
 
-//            trayIcon.addActionListener(new ActionListener() {
-//                public void actionPerformed(ActionEvent e) {
-//                    System.out.println("###:" + e.toString());
-//                    statusArea.setVisible(false);
-//                }
-//            });
-
             trayIcon.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    System.out.println("### loc(" + statusArea.getLocation().getX() + ", " + statusArea.getLocation().getY() + ") ##");
                     final Point showPoint = e.getPoint();
+                    System.out.println("### loc(" + showPoint.getX() + ", " + showPoint.getY() + ") ##");
                     imageGenerator.updateStatusArea(statusArea, showPoint);
                     if (e.getClickCount() == 1) {
                         statusArea.setVisible(!statusArea.isVisible());
