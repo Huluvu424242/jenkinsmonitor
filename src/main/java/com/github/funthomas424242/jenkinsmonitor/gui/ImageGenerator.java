@@ -24,6 +24,8 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,6 +38,8 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 
 public class ImageGenerator {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(ImageGenerator.class);
 
     protected final JobStatusBeschreibung[] jobsStatusBeschreibungen;
 
@@ -99,21 +103,20 @@ public class ImageGenerator {
             label.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
+                    URI uri = null;
                     try {
-                        Desktop.getDesktop().browse(jobStatus.getJobUrl().toURI());
+                        uri = jobStatus.getJobUrl().toURI();
+                        Desktop.getDesktop().browse(uri);
                         statusArea.setVisible(false);
-                    } catch (IOException | URISyntaxException e1) {
-                        e1.printStackTrace();
+                    } catch (IOException | URISyntaxException ex) {
+                        LOGGER.error("URL " + uri.toString() + " konnte nicht geöffnet werden", ex);
                     }
                 }
             });
             panel.add(label);
         });
-
         statusArea.setContentPane(panel);
         statusArea.pack();
-        final int width = statusArea.getWidth();
-        final int height = statusArea.getHeight();
         statusArea.setLocation(newLocation);
     }
 }
