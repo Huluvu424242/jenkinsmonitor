@@ -33,6 +33,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import static com.github.funthomas424242.jenkinsmonitor.gui.ImageGenerator.LOGGER;
 
 public class JenkinsMonitorTray {
 
@@ -105,27 +110,36 @@ public class JenkinsMonitorTray {
 
 
         // Create a popup menu components
-        MenuItem aboutItem = new MenuItem("About");
-        CheckboxMenuItem cb1 = new CheckboxMenuItem("Set auto size");
-        CheckboxMenuItem cb2 = new CheckboxMenuItem("Set tooltip");
-        Menu displayMenu = new Menu("Display");
-        MenuItem errorItem = new MenuItem("Error");
-        MenuItem warningItem = new MenuItem("Warning");
-        MenuItem infoItem = new MenuItem("Info");
-        MenuItem noneItem = new MenuItem("None");
-        MenuItem exitItem = new MenuItem("Exit");
+        MenuItem aboutItem = new MenuItem("Über");
+        aboutItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    Desktop.getDesktop().browse(new URI("https://github.com/FunThomas424242/jenkinsmonitor"));
+                    statusArea.setVisible(false);
+                } catch (IOException | URISyntaxException ex) {
+                    LOGGER.error("URL https://github.com/FunThomas424242/jenkinsmonitor konnte nicht geöffnet werden", ex);
+                }
+            }
+        });
+        MenuItem bugtracker = new MenuItem("Bugtracker");
+        bugtracker.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    Desktop.getDesktop().browse(new URI("https://github.com/FunThomas424242/jenkinsmonitor/issues"));
+                    statusArea.setVisible(false);
+                } catch (IOException | URISyntaxException ex) {
+                    LOGGER.error("URL https://github.com/FunThomas424242/jenkinsmonitor/issues konnte nicht geöffnet werden", ex);
+                }
+            }
+        });
+        MenuItem exitItem = new MenuItem("Beenden");
 
         //Add components to popup menu
         popup.add(aboutItem);
+        popup.add(bugtracker);
         popup.addSeparator();
-        popup.add(cb1);
-        popup.add(cb2);
-        popup.addSeparator();
-        popup.add(displayMenu);
-        displayMenu.add(errorItem);
-        displayMenu.add(warningItem);
-        displayMenu.add(infoItem);
-        displayMenu.add(noneItem);
         popup.add(exitItem);
         return popup;
     }
