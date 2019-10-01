@@ -57,6 +57,11 @@ public class JenkinsMonitorTray {
         this.configuration = configuration;
         this.requester = requester;
         this.statusArea = new JWindow();
+        this.statusArea.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                    statusArea.setVisible(false);
+            }
+        });
     }
 
     public TrayIcon getTrayIcon() {
