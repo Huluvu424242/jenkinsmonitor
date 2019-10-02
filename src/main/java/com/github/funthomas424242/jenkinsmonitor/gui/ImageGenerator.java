@@ -86,12 +86,6 @@ public class ImageGenerator {
             return;
         }
 
-        final Point oldLocation = statusArea.getLocation();
-        final Point newLocation =
-            new Point(
-                (int) Math.max(oldLocation.getX(), curLocation.getX()),
-                (int) Math.max(oldLocation.getY(), curLocation.getY()));
-
         final JPanel panel = new JPanel();
         panel.setLayout(new java.awt.GridLayout(this.jobsStatusBeschreibungen.length, 1));
 
@@ -117,6 +111,22 @@ public class ImageGenerator {
         });
         statusArea.setContentPane(panel);
         statusArea.pack();
-        statusArea.setLocation(newLocation);
+
+        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        final double screenHeight = (int) screenSize.getHeight();
+        final double screenWidth = (int) screenSize.getWidth();
+        final double areaHeight = statusArea.getHeight();
+        final double areaWidth = statusArea.getWidth();
+        final Point showPoint = new Point(
+            (int) (screenHeight - areaHeight),
+            (int) (screenWidth - areaWidth)
+        );
+
+//        final Point oldLocation = statusArea.getLocation();
+//        final Point newLocation =
+//            new Point(
+//                (int) Math.max(oldLocation.getX(), curLocation.getX()),
+//                (int) Math.max(oldLocation.getY(), curLocation.getY()));
+
     }
 }

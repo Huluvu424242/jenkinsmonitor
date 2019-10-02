@@ -62,6 +62,12 @@ public class JenkinsMonitorTray {
         this.configuration = configuration;
         this.requester = requester;
         this.statusArea = new JWindow();
+        try {
+            this.statusArea.setAlwaysOnTop(true);
+            this.statusArea.setLocationByPlatform(false);
+        }catch(Exception ex){
+            LOGGER.error("Konnte natives Desktopverhalten nicht setzen", ex);
+        }
     }
 
     public TrayIcon getTrayIcon() {
@@ -110,7 +116,7 @@ public class JenkinsMonitorTray {
 
 
         // Create a popup menu components
-        MenuItem aboutItem = new MenuItem("Über");
+        final MenuItem aboutItem = new MenuItem("Über");
         aboutItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
