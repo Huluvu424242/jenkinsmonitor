@@ -42,6 +42,8 @@ import java.util.concurrent.TimeUnit;
 public class JenkinsMonitorTray implements Timer.Listener {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(JenkinsMonitorTray.class);
+    public static final String WEBSITE_JENKINSMONITOR_ISSUES = "https://github.com/FunThomas424242/jenkinsmonitor/issues";
+    public static final String WEBSITE_JENKINSMONITOR = "https://github.com/FunThomas424242/jenkinsmonitor";
 
     protected final Configuration configuration;
     protected final SystemTrayWrapper tray;
@@ -129,19 +131,19 @@ public class JenkinsMonitorTray implements Timer.Listener {
         final MenuItem aboutItem = new MenuItem("Über");
         aboutItem.addActionListener(actionEvent -> {
             try {
-                Desktop.getDesktop().browse(new URI("https://github.com/FunThomas424242/jenkinsmonitor"));
+                Desktop.getDesktop().browse(new URI(WEBSITE_JENKINSMONITOR));
                 statusArea.setVisible(false);
             } catch (IOException | URISyntaxException ex) {
-                LOGGER.error("URL https://github.com/FunThomas424242/jenkinsmonitor konnte nicht geöffnet werden", ex);
+                LOGGER.error(String.format("URL %s konnte nicht geöffnet werden", WEBSITE_JENKINSMONITOR), ex);
             }
         });
         MenuItem bugtracker = new MenuItem("Bugtracker");
         bugtracker.addActionListener(actionEvent -> {
             try {
-                Desktop.getDesktop().browse(new URI("https://github.com/FunThomas424242/jenkinsmonitor/issues"));
+                Desktop.getDesktop().browse(new URI(WEBSITE_JENKINSMONITOR_ISSUES));
                 statusArea.setVisible(false);
             } catch (IOException | URISyntaxException ex) {
-                LOGGER.error("URL https://github.com/FunThomas424242/jenkinsmonitor/issues konnte nicht geöffnet werden", ex);
+                LOGGER.error(String.format("URL %s konnte nicht geöffnet werden", WEBSITE_JENKINSMONITOR_ISSUES), ex);
             }
         });
         MenuItem exitItem = new MenuItem("Beenden");
