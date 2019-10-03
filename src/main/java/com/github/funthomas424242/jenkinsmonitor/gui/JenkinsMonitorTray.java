@@ -104,7 +104,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     final Point showPoint = e.getPoint();
-                    LOGGER.info(String.format("### loc( %d, %d) ##", showPoint.getX(), showPoint.getY()));
+                    LOGGER.info(String.format("### loc( %f, %f) ##", showPoint.getX(), showPoint.getY()));
                     imageGenerator.updateStatusArea(statusArea, showPoint);
                     if (e.getClickCount() == 1) {
                         statusArea.setVisible(!statusArea.isVisible());
@@ -121,7 +121,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     /**
      * https://stackoverflow.com/questions/13989265/task-tray-notification-balloon-events
      *
-     * @return
+     * @return PopuMenu Contextmenü des TrayIcons
      */
     protected PopupMenu createSettingsMenu() {
         final PopupMenu popup = new PopupMenu();
