@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 
 import static com.github.funthomas424242.jenkinsmonitor.gui.ImageGenerator.LOGGER;
 
-public class JenkinsMonitorTray {
+public class JenkinsMonitorTray implements Timer.Listener {
 
     protected final Configuration configuration;
     protected final SystemTrayWrapper tray;
@@ -58,6 +58,7 @@ public class JenkinsMonitorTray {
     public JenkinsMonitorTray(final JenkinsClient jenkinsClient, final Configuration configuration) {
         this(new SystemTrayWrapper(), new RealTimer(configuration.getPollPeriodInSecond(), TimeUnit.SECONDS), jenkinsClient, configuration);
     }
+
     public JenkinsMonitorTray(final Timer timer, final JenkinsClient jenkinsClient, final Configuration configuration) {
         this(new SystemTrayWrapper(), timer, jenkinsClient, configuration);
     }
@@ -66,13 +67,14 @@ public class JenkinsMonitorTray {
         //Obtain only one instance of the SystemTray object
         this.tray = systemTray;
         this.timer = timer;
+        timer.register(this);
         this.configuration = configuration;
         this.requester = requester;
         this.statusArea = new JWindow();
         try {
             this.statusArea.setAlwaysOnTop(true);
             this.statusArea.setLocationByPlatform(false);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             LOGGER.error("Konnte natives Desktopverhalten nicht setzen", ex);
         }
     }
@@ -184,4 +186,8 @@ public class JenkinsMonitorTray {
         return this.configuration;
     }
 
+    @Override
+    public void timeElapsed() {
+        updateJobStatus();
+    }
 }
