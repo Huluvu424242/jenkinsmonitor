@@ -32,8 +32,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -129,37 +127,28 @@ public class JenkinsMonitorTray implements Timer.Listener {
 
         // Create a popup menu components
         final MenuItem aboutItem = new MenuItem("Über");
-        aboutItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    Desktop.getDesktop().browse(new URI("https://github.com/FunThomas424242/jenkinsmonitor"));
-                    statusArea.setVisible(false);
-                } catch (IOException | URISyntaxException ex) {
-                    LOGGER.error("URL https://github.com/FunThomas424242/jenkinsmonitor konnte nicht geöffnet werden", ex);
-                }
+        aboutItem.addActionListener(actionEvent -> {
+            try {
+                Desktop.getDesktop().browse(new URI("https://github.com/FunThomas424242/jenkinsmonitor"));
+                statusArea.setVisible(false);
+            } catch (IOException | URISyntaxException ex) {
+                LOGGER.error("URL https://github.com/FunThomas424242/jenkinsmonitor konnte nicht geöffnet werden", ex);
             }
         });
         MenuItem bugtracker = new MenuItem("Bugtracker");
-        bugtracker.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    Desktop.getDesktop().browse(new URI("https://github.com/FunThomas424242/jenkinsmonitor/issues"));
-                    statusArea.setVisible(false);
-                } catch (IOException | URISyntaxException ex) {
-                    LOGGER.error("URL https://github.com/FunThomas424242/jenkinsmonitor/issues konnte nicht geöffnet werden", ex);
-                }
+        bugtracker.addActionListener(actionEvent -> {
+            try {
+                Desktop.getDesktop().browse(new URI("https://github.com/FunThomas424242/jenkinsmonitor/issues"));
+                statusArea.setVisible(false);
+            } catch (IOException | URISyntaxException ex) {
+                LOGGER.error("URL https://github.com/FunThomas424242/jenkinsmonitor/issues konnte nicht geöffnet werden", ex);
             }
         });
         MenuItem exitItem = new MenuItem("Beenden");
-        exitItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                statusArea.setVisible(false);
-                statusArea.dispose();
-                tray.removeTrayIcon();
-            }
+        exitItem.addActionListener(actionEvent -> {
+            statusArea.setVisible(false);
+            statusArea.dispose();
+            tray.removeTrayIcon();
         });
 
         //Add components to popup menu
