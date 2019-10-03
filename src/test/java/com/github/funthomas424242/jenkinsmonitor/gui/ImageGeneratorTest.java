@@ -25,6 +25,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
@@ -127,6 +128,7 @@ class ImageGeneratorTest {
     }
 
     @Test
+    @Tag("headfull")
     @DisplayName("Zeige Buildstatusfläche für einen grünen Job an einer bestimmten Position")
     protected void showBuildStatusAreaOneSuccessJob() {
         final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
@@ -140,15 +142,5 @@ class ImageGeneratorTest {
 //        assertEquals("##",statusArea.getRootPane().getComponents()[0].getName());
     }
 
-
-    protected static void main(String[] args) {
-        final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
-        jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
-            , JobStatus.SUCCESS
-            , null);
-        final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
-        final JWindow statusArea = new JWindow();
-        generator.updateStatusArea(statusArea, new Point(2100, 100));
-    }
 
 }
