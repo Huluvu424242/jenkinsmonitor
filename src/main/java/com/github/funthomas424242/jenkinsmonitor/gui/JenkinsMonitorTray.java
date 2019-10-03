@@ -23,6 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
+import com.github.funthomas424242.jenkinsmonitor.etc.RealTimer;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
@@ -36,6 +37,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.concurrent.TimeUnit;
 
 import static com.github.funthomas424242.jenkinsmonitor.gui.ImageGenerator.LOGGER;
 
@@ -45,6 +47,7 @@ public class JenkinsMonitorTray {
     protected final SystemTrayWrapper tray;
     protected final JenkinsClient requester;
     protected final JWindow statusArea;
+    protected final Timer timer;
 
     protected JobStatusBeschreibung[] jobStatusBeschreibungen;
 
@@ -53,12 +56,16 @@ public class JenkinsMonitorTray {
     }
 
     public JenkinsMonitorTray(final JenkinsClient jenkinsClient, final Configuration configuration) {
-        this(new SystemTrayWrapper(), jenkinsClient, configuration);
+        this(new SystemTrayWrapper(), new RealTimer(configuration.getPollPeriodInSecond(), TimeUnit.SECONDS), jenkinsClient, configuration);
+    }
+    public JenkinsMonitorTray(final Timer timer, final JenkinsClient jenkinsClient, final Configuration configuration) {
+        this(new SystemTrayWrapper(), timer, jenkinsClient, configuration);
     }
 
-    protected JenkinsMonitorTray(final SystemTrayWrapper systemTray, final JenkinsClient requester, final Configuration configuration) {
+    protected JenkinsMonitorTray(final SystemTrayWrapper systemTray, final Timer timer, final JenkinsClient requester, final Configuration configuration) {
         //Obtain only one instance of the SystemTray object
         this.tray = systemTray;
+        this.timer = timer;
         this.configuration = configuration;
         this.requester = requester;
         this.statusArea = new JWindow();

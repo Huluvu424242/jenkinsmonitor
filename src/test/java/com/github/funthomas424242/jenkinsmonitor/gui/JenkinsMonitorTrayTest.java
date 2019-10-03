@@ -151,7 +151,7 @@ public class JenkinsMonitorTrayTest {
     @DisplayName("Status aktualisiert sich nach Ablauf der Zeitperiode durch Jobs update")
     public void updateJobsAfterTimePeriod() {
 
-        ManualClock clock = new ManualClock();
+        ManualTimer clock = new ManualTimer();
 
 
         final Configuration configJobs = new ConfigurationMockValidTreeJobs();
