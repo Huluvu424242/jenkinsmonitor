@@ -27,6 +27,8 @@ import com.github.funthomas424242.jenkinsmonitor.etc.RealTimer;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,9 +41,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 
-import static com.github.funthomas424242.jenkinsmonitor.gui.ImageGenerator.LOGGER;
-
 public class JenkinsMonitorTray implements Timer.Listener {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(JenkinsMonitorTray.class);
 
     protected final Configuration configuration;
     protected final SystemTrayWrapper tray;
@@ -98,9 +100,11 @@ public class JenkinsMonitorTray implements Timer.Listener {
             tray.add(trayIcon);
 
             trayIcon.addMouseListener(new MouseAdapter() {
+
+                @Override
                 public void mouseClicked(MouseEvent e) {
                     final Point showPoint = e.getPoint();
-                    System.out.println("### loc(" + showPoint.getX() + ", " + showPoint.getY() + ") ##");
+                    LOGGER.info(String.format("### loc( %d, %d) ##", showPoint.getX(), showPoint.getY()));
                     imageGenerator.updateStatusArea(statusArea, showPoint);
                     if (e.getClickCount() == 1) {
                         statusArea.setVisible(!statusArea.isVisible());
@@ -108,9 +112,8 @@ public class JenkinsMonitorTray implements Timer.Listener {
                 }
             });
 
-        } catch (
-            Exception ex) {
-            System.err.print(ex);
+        } catch (Exception ex) {
+            LOGGER.error("Unerwartet wie immer ", ex);
         }
 
     }
