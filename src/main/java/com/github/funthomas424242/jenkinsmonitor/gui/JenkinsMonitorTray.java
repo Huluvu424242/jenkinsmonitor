@@ -184,6 +184,12 @@ public class JenkinsMonitorTray implements Timer.Listener {
 
     @Override
     public void timeElapsed() {
+        LOGGER.debug("Lade Konfiguration");
+        this.configuration.reload();
+        if (this.timer.getPeriod() != this.configuration.getPollPeriodInSecond()) {
+            LOGGER.debug("Setze Timer Period auf "+this.configuration.getPollPeriodInSecond()+ " Sekunden.");
+            this.timer.resetPeriod(this.configuration.getPollPeriodInSecond(), TimeUnit.SECONDS);
+        }
         LOGGER.debug("Aktualisiere Status");
         updateJobStatus();
         LOGGER.debug("Status jetzt aktuell");
