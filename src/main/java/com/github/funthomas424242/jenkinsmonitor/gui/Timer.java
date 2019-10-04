@@ -22,10 +22,15 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
- public interface Timer {
+import java.util.concurrent.TimeUnit;
+
+public interface Timer {
     void register(Listener listener);
     void start();
     void stop();
+    void resetPeriod(long period, TimeUnit periodTimeUnit);
+
+    long getPeriod();
 
     interface Listener {
         void timeElapsed();

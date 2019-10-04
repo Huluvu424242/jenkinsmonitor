@@ -24,23 +24,32 @@ package com.github.funthomas424242.jenkinsmonitor.etc;
 
 
 import com.github.funthomas424242.jenkinsmonitor.gui.Timer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
+
+class Period{
+    public long duration;
+    public TimeUnit durationTimeUnit;
+}
 
 public class RealTimer implements Timer {
-    private final long period;
-    private final TimeUnit periodTimeUnit;
-    private final List<Listener> listeners = Collections.synchronizedList(new ArrayList<>());
-    private final ScheduledExecutorService timerService = Executors.newSingleThreadScheduledExecutor();
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(RealTimer.class);
+
+    protected final Period period;
+    protected final List<Listener> listeners = Collections.synchronizedList(new ArrayList<>());
+    protected final ScheduledExecutorService timerService = Executors.newSingleThreadScheduledExecutor();
+    private ScheduledFuture<?> cancelableFuture;
 
     public RealTimer(long period, TimeUnit periodTimeUnit) {
-        this.period = period;
-        this.periodTimeUnit = periodTimeUnit;
+        this.period = new Period();
+        this.period.duration = period;
+        this.period.durationTimeUnit = periodTimeUnit;
     }
 
     @Override
@@ -50,15 +59,38 @@ public class RealTimer implements Timer {
 
     @Override
     public void start() {
-        timerService.scheduleAtFixedRate(this::reportTimeElapse, period, period, periodTimeUnit);
+       this.cancelableFuture=timerService.scheduleAtFixedRate(this::reportTimeElapse, period.duration, period.duration, period.durationTimeUnit);
     }
 
     private void reportTimeElapse() {
         listeners.forEach(Listener::timeElapsed);
     }
 
+    public void cancel() {
+        cancelableFuture.cancel(false);
+    }
+
     @Override
     public void stop() {
         timerService.shutdown();
     }
+
+    @Override
+    public void resetPeriod(long period, TimeUnit periodTimeUnit) {
+        LOGGER.debug("Stoppe Timer");
+        cancel();
+        LOGGER.debug("Timer gestoppt");
+        this.period.duration=period;
+        this.period.durationTimeUnit=periodTimeUnit;
+        LOGGER.debug("Starte Timer");
+        start();
+        LOGGER.debug("Timer gestartet");
+    }
+
+    @Override
+    public long getPeriod() {
+        return period.duration;
+    }
+
+
 }
