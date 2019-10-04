@@ -32,6 +32,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -85,9 +86,9 @@ public class Configuration {
     public JobBeschreibung[] getJobBeschreibungen() {
         loadPropertiesFromFile(configurationFile);
         final List<JobBeschreibung> jobBeschreibungen = new ArrayList<>();
-        configurationProperties.forEach((k, v) -> {
+        configurationProperties.stringPropertyNames().stream().sorted().forEach((k) -> {
             final String key = (String) k;
-            final String value = (String) v;
+            final String value = configurationProperties.getProperty(k);
             if (key.startsWith(JOBKEY_PREFIX)) {
                 final URL jobURL = NetworkHelper.urlOf(value);
                 final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, jobURL);
