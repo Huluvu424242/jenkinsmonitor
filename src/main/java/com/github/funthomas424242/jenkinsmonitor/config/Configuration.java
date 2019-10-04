@@ -66,7 +66,7 @@ public class Configuration {
         final Properties properties = new Properties();
         try (FileInputStream propStream = new FileInputStream(configFile)) {
             properties.load(propStream);
-//            this.isInitialisiert = true;
+            this.isInitialisiert = true;
         } catch (IOException e) {
             LOG.error(e.getLocalizedMessage(), e);
         }
@@ -77,10 +77,10 @@ public class Configuration {
         return this.configurationFile;
     }
 
-    public int getPollPeriodInSecond() {
+    public long getPollPeriodInSecond() {
         loadPropertiesFromFile(configurationFile);
         final String propValue = this.configurationProperties.getProperty(JENKINSMONITOR_POLLPERIOD, DEFAULT_POLLPERIOD);
-        return Integer.parseInt(propValue);
+        return Long.parseLong(propValue);
     }
 
     public JobBeschreibung[] getJobBeschreibungen() {

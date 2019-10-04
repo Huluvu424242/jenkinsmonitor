@@ -109,7 +109,7 @@ class ConfigurationTest {
     @Test
     @DisplayName("Prüfe Default Konfiguration wenn kein Configfile existiert")
     void validDefaultsWhenNotExistingConfigfile() {
-        final int pollPeriodInSecond = this.notexistingConfigurationfile.getPollPeriodInSecond();
+        final long pollPeriodInSecond = this.notexistingConfigurationfile.getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
 
         final JobBeschreibung[] jobBeschreibungen = this.notexistingConfigurationfile.getJobBeschreibungen();
@@ -120,7 +120,7 @@ class ConfigurationTest {
     @Test
     @DisplayName("Prüfe Default Konfiguration wenn das Configfile leer ist")
     void validDefaultsWithEmptyConfigfile() {
-        final int pollPeriodInSecond = emptyConfigurationfile.getPollPeriodInSecond();
+        final long pollPeriodInSecond = emptyConfigurationfile.getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
 
         final JobBeschreibung[] jobBeschreibungen = this.emptyConfigurationfile.getJobBeschreibungen();
@@ -131,7 +131,7 @@ class ConfigurationTest {
     @Test
     @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
     void useDefaultPollPeriod() {
-        final int pollPeriodInSecond = validConfigurationfile.getPollPeriodInSecond();
+        final long pollPeriodInSecond = validConfigurationfile.getPollPeriodInSecond();
         assertEquals(6, pollPeriodInSecond);
 
         final JobBeschreibung[] jobBeschreibungen = this.validConfigurationfile.getJobBeschreibungen();
@@ -142,13 +142,13 @@ class ConfigurationTest {
     @Test
     @DisplayName("Prüfe auf gleiche Werte bei reload aus Configfile")
     void reloadCurrentConfiguration() {
-        final int pollPeriodInSecond1 = validConfigurationfile.getPollPeriodInSecond();
+        final long pollPeriodInSecond1 = validConfigurationfile.getPollPeriodInSecond();
         final JobBeschreibung[] jobBeschreibungen1 = this.validConfigurationfile.getJobBeschreibungen();
         assumeTrue(pollPeriodInSecond1 == 6);
         assumeTrue(jobBeschreibungen1 != null);
         assumeTrue(jobBeschreibungen1.length == 2);
         validConfigurationfile.reload();
-        final int pollPeriodInSecond2 = validConfigurationfile.getPollPeriodInSecond();
+        final long pollPeriodInSecond2 = validConfigurationfile.getPollPeriodInSecond();
         final JobBeschreibung[] jobBeschreibungen2 = this.validConfigurationfile.getJobBeschreibungen();
         assumeTrue(pollPeriodInSecond2 == 6);
         assumeTrue(jobBeschreibungen2 != null);
