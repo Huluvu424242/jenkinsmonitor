@@ -70,6 +70,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         this.tray = systemTray;
         this.timer = timer;
         timer.register(this);
+        timer.start();
         this.configuration = configuration;
         this.requester = requester;
         this.statusArea = new JWindow();
@@ -182,6 +183,8 @@ public class JenkinsMonitorTray implements Timer.Listener {
 
     @Override
     public void timeElapsed() {
+        LOGGER.debug("Aktualisiere Status");
         updateJobStatus();
+        LOGGER.debug("Status jetzt aktuell");
     }
 }
