@@ -97,9 +97,13 @@ public class JenkinsClient {
                 returnValue = new JobStatusBeschreibung(jobStatus.getJobName()
                     , jobStatus.getJobStatus()
                     , beschreibung.getJobUrl());
+                LOG.debug("JobStatus geladen: "+jobStatus.getJobName() +": "+ jobStatus.getJobStatus()+" at "+jobStatus.getJobUrl() )
             } catch (IOException e) {
                 LOG.error(e.getLocalizedMessage(), e);
-                //TODO grauen Jobstatus erzeugen
+                returnValue = new JobStatusBeschreibung(beschreibung.getJobId(),
+                    JobStatus.OTHER,
+                    beschreibung.getJobUrl());
+                LOG.debug("JobStatus ERR geladen: "+beschreibung.getJobId() +": "+ JobStatus.OTHER +" at "+beschreibung.getJobUrl() );
             }
             return returnValue;
         }).toArray(JobStatusBeschreibung[]::new);
