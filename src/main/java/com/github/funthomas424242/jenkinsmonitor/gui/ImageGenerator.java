@@ -91,7 +91,7 @@ public class ImageGenerator {
 
         Arrays.stream(this.jobsStatusBeschreibungen).forEach((jobStatus) -> {
             final String htmlTemplate = "<html><h1>" + jobStatus.getJobName() + "</h1><p>Status: " + jobStatus.getJobStatus().toString() + " <a href=\"" + jobStatus.getJobUrl() + "\">" + jobStatus.getJobUrl() + "</a></p></html>";
-            JLabel label = new JLabel(htmlTemplate);
+            final JLabel label = new JLabel(htmlTemplate);
             label.setOpaque(true);
             label.setBackground(jobStatus.getStatusColor());
             label.addMouseListener(new MouseAdapter() {
@@ -111,22 +111,5 @@ public class ImageGenerator {
         });
         statusArea.setContentPane(panel);
         statusArea.pack();
-
-        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        final double screenHeight = (int) screenSize.getHeight();
-        final double screenWidth = (int) screenSize.getWidth();
-        final double areaHeight = statusArea.getHeight();
-        final double areaWidth = statusArea.getWidth();
-        final Point showPoint = new Point(
-            (int) (screenHeight - areaHeight),
-            (int) (screenWidth - areaWidth)
-        );
-
-//        final Point oldLocation = statusArea.getLocation();
-//        final Point newLocation =
-//            new Point(
-//                (int) Math.max(oldLocation.getX(), curLocation.getX()),
-//                (int) Math.max(oldLocation.getY(), curLocation.getY()));
-
     }
 }
