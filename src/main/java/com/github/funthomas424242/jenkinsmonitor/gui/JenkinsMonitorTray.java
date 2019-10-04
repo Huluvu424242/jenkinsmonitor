@@ -149,6 +149,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         });
         MenuItem exitItem = new MenuItem("Beenden");
         exitItem.addActionListener(actionEvent -> {
+            timer.stop();
             statusArea.setVisible(false);
             statusArea.dispose();
             tray.removeTrayIcon();
