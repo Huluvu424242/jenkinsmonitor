@@ -92,7 +92,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
             final TrayIcon trayIcon = new TrayIcon(trayImage);
             trayIcon.setImageAutoSize(true);
             if (this.jobStatusBeschreibungen.length > 0) {
-                trayIcon.setToolTip("Linksklick: Status ein-/ausblenden, Rechtsklick: Settings");
+                trayIcon.setToolTip("Linksklick: Statusfenster ein-/aus, Rechtsklick: Status & Settings");
             } else {
                 trayIcon.setToolTip("Keine Jobs überwachend");
             }
