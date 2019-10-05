@@ -106,7 +106,6 @@
     </dependency>
 
 
-
     <!-- Test Abhängigkeiten -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -145,6 +144,15 @@
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources/img/</directory>
+        <includes>
+          <include>1984EmmanuelGoldstein.jpg</include>
+        </includes>
+      </resource>
+    </resources>
+
     <pluginManagement>
       <plugins>
         <plugin>
