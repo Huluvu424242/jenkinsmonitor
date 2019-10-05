@@ -56,7 +56,7 @@ class ConfigurationTest {
     Configuration validConfigurationfile;
 
     @BeforeAll
-    static void setUpAll() {
+    protected static void setUpAll() {
         final Path defaultConfigfilePath = Paths.get(System.getProperty(USER_HOME) + File.separator + Configuration_CONFIGURATIONFILENAME);
         final File defaultConfigfile = defaultConfigfilePath.toFile();
         if (defaultConfigfile != null && defaultConfigfile.exists()) {
@@ -69,7 +69,7 @@ class ConfigurationTest {
     }
 
     @BeforeEach
-    void setUp() {
+    protected void setUp() {
         notexistingConfigurationfile = new ConfigurationMockNoExisting();
         emptyConfigurationfile = new ConfigurationMockEmpty();
         validConfigurationfile = new ConfigurationMockValidTwoJobs();
@@ -77,7 +77,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Nach Lesen der Pollperiod ist die Configuration initialisiert")
-    void initAfterGetPollOK() {
+    protected void initAfterGetPollOK() {
         final Configuration configuration = new ConfigurationMockEmpty();
         assumeFalse(configuration.isInitialisiert);
         configuration.getPollPeriodInSecond();
@@ -86,7 +86,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Nach Lesen der JobBeschreibungen ist die Configuration initialisiert")
-    void initAfterGetJobBeschreibungenOK() {
+    protected void initAfterGetJobBeschreibungenOK() {
         final Configuration configuration = new ConfigurationMockEmpty();
         assumeFalse(configuration.isInitialisiert);
         configuration.getJobBeschreibungen();
@@ -96,7 +96,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Die Default Konfiguration wird aus ~/jenkinsmonitor.properties geladen")
-    void useDefaultConfigfile() {
+    protected void useDefaultConfigfile() {
         assertDoesNotThrow(() -> {
             final File defaultConfigurationsfile = Configuration.getDefaultConfigurationsfile();
             final Configuration configuration = new Configuration(defaultConfigurationsfile);
@@ -112,7 +112,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Prüfe Default Konfiguration wenn kein Configfile existiert")
-    void validDefaultsWhenNotExistingConfigfile() {
+    protected void validDefaultsWhenNotExistingConfigfile() {
         final long pollPeriodInSecond = this.notexistingConfigurationfile.getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
 
@@ -123,7 +123,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Prüfe Default Konfiguration wenn das Configfile leer ist")
-    void validDefaultsWithEmptyConfigfile() {
+    protected void validDefaultsWithEmptyConfigfile() {
         final long pollPeriodInSecond = emptyConfigurationfile.getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
 
@@ -134,7 +134,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
-    void useDefaultPollPeriod() {
+    protected void useDefaultPollPeriod() {
         final long pollPeriodInSecond = validConfigurationfile.getPollPeriodInSecond();
         assertEquals(6, pollPeriodInSecond);
 
@@ -145,7 +145,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Prüfe auf gleiche Werte bei reload aus Configfile")
-    void reloadCurrentConfiguration() {
+    protected void reloadCurrentConfiguration() {
         final long pollPeriodInSecond1 = validConfigurationfile.getPollPeriodInSecond();
         final JobBeschreibung[] jobBeschreibungen1 = this.validConfigurationfile.getJobBeschreibungen();
         assumeTrue(pollPeriodInSecond1 == 6);
@@ -164,7 +164,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Prüfe auf neue Werte bei reload aus anderem Configfile")
-    void reloadOtherConfiguration() {
+    protected void reloadOtherConfiguration() {
         final File emptyConfigFile = new ConfigurationMockEmpty().getConfigurationfile();
         final Configuration tmpConfiguration = new Configuration(emptyConfigFile);
         assumeTrue(tmpConfiguration != null);

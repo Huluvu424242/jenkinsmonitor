@@ -46,6 +46,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     public static final Logger LOGGER = LoggerFactory.getLogger(JenkinsMonitorTray.class);
     public static final String WEBSITE_JENKINSMONITOR_ISSUES = "https://github.com/FunThomas424242/jenkinsmonitor/issues";
     public static final String WEBSITE_JENKINSMONITOR = "https://github.com/FunThomas424242/jenkinsmonitor";
+    public static final String ERR_COULD_NOT_OPEN_URL = "URL %s konnte nicht geöffnet werden";
 
     protected final Configuration configuration;
     protected final SystemTrayWrapper tray;
@@ -154,7 +155,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
                     Desktop.getDesktop().browse(webSite);
                     statusArea.setVisible(false);
                 } catch (IOException | URISyntaxException ex) {
-                    LOGGER.error(String.format("URL %s konnte nicht geöffnet werden", webSite), ex);
+                    LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, webSite), ex);
                 }
             });
             popup.add(item);
@@ -167,7 +168,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
                 Desktop.getDesktop().browse(new URI(WEBSITE_JENKINSMONITOR));
                 statusArea.setVisible(false);
             } catch (IOException | URISyntaxException ex) {
-                LOGGER.error(String.format("URL %s konnte nicht geöffnet werden", WEBSITE_JENKINSMONITOR), ex);
+                LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, WEBSITE_JENKINSMONITOR), ex);
             }
         });
         MenuItem bugtracker = new MenuItem("Bugtracker");
@@ -176,7 +177,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
                 Desktop.getDesktop().browse(new URI(WEBSITE_JENKINSMONITOR_ISSUES));
                 statusArea.setVisible(false);
             } catch (IOException | URISyntaxException ex) {
-                LOGGER.error(String.format("URL %s konnte nicht geöffnet werden", WEBSITE_JENKINSMONITOR_ISSUES), ex);
+                LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, WEBSITE_JENKINSMONITOR_ISSUES), ex);
             }
         });
         MenuItem exitItem = new MenuItem("Beenden");
@@ -218,7 +219,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         LOGGER.debug("Lade Konfiguration");
         this.configuration.reload();
         if (this.timer.getPeriod() != this.configuration.getPollPeriodInSecond()) {
-            LOGGER.debug("Setze Timer Period auf " + this.configuration.getPollPeriodInSecond() + " Sekunden.");
+            LOGGER.debug("Setze Timer Period auf {} Sekunden.", this.configuration.getPollPeriodInSecond());
             this.timer.resetPeriod(this.configuration.getPollPeriodInSecond(), TimeUnit.SECONDS);
         }
         LOGGER.debug("Aktualisiere Status");
