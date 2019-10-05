@@ -96,7 +96,6 @@ public class JenkinsMonitorTray implements Timer.Listener {
             if (trayIcon == null) {
                 final BufferedImage trayImage = imageGenerator.getImage(100, 100);
                 trayIcon = new TrayIcon(trayImage);
-                tray.add(trayIcon);
                 trayIcon.addMouseListener(new MouseAdapter() {
 
                     @Override
@@ -111,6 +110,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
                     LOGGER.debug("Mouseklick links doppelt");
                     statusArea.setVisible(!statusArea.isVisible());
                 });
+                tray.add(trayIcon);
             } else {
                 imageGenerator.getImage((BufferedImage) getTrayIcon().getImage(), 100, 100);
             }
