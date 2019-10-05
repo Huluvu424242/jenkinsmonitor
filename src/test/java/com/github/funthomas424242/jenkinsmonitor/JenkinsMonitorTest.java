@@ -122,7 +122,7 @@ class JenkinsMonitorTest {
 
     @Test
     @DisplayName("Eine leere Konfiguration erzeugt ein graues TrayIcon")
-    protected void TrayIconHasGrayImage() {
+    protected void trayIconHasGrayImage() {
         final Configuration config = new ConfigurationMockEmpty();
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
         final TrayIcon icon = jenkinsMonitor.monitorTray.getTrayIcon();
@@ -133,7 +133,7 @@ class JenkinsMonitorTest {
 
     @Test
     @DisplayName("Eine Konfiguration mit einem erfolgreichen Job erzeugt ein grünes TrayIcon")
-    protected void TrayIconHasGreenImage() {
+    protected void trayIconHasGreenImage() {
         final Configuration config = new ConfigurationMockOneJobSuccess();
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
         final TrayIcon icon = jenkinsMonitor.monitorTray.getTrayIcon();
@@ -145,7 +145,7 @@ class JenkinsMonitorTest {
 
     @Test
     @DisplayName("Eine Konfiguration mit einem erfolgreichen Job erzeugt ein rotes TrayIcon")
-    protected void TrayIconHasRedImage() {
+    protected void trayIconHasRedImage() {
         final Configuration config = new ConfigurationMockOneJobFailed();
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
         final TrayIcon icon = jenkinsMonitor.monitorTray.getTrayIcon();
