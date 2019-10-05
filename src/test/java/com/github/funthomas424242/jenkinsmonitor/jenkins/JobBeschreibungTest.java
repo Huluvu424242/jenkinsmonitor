@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -39,23 +40,25 @@ class JobBeschreibungTest {
     protected static URL LOCALHOST_JOB_TEST_URL;
 
     @BeforeAll
-    static void setUpAll() throws MalformedURLException {
+    protected static void setUpAll() throws MalformedURLException {
         LOCALHOST_JOB_TEST_URL = new URL("http://localhost:8099/job/test");
     }
 
     @Test
     @DisplayName("Prüfe equals und hashCode")
     protected void checkEqualsAndHashCode() {
-        EqualsVerifier.forClass(JobBeschreibung.class)
-            .withIgnoredFields("jobId")
-            .withNonnullFields("jobUrl")
-            .verify();
+        assertDoesNotThrow(() -> {
+            EqualsVerifier.forClass(JobBeschreibung.class)
+                .withIgnoredFields("jobId")
+                .withNonnullFields("jobUrl")
+                .verify();
+        });
     }
 
 
     @Test
     @DisplayName("Es wird eine gültige Instanz erstellt")
-    void valideInitialisierung() {
+    protected void valideInitialisierung() {
         final JobBeschreibung jobBeschreibung
             = new JobBeschreibung(LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobBeschreibung);
@@ -64,7 +67,7 @@ class JobBeschreibungTest {
 
     @Test
     @DisplayName("Statusfarbe eines erfolgreichen Jobs ist grün")
-    void erfolgreicheJobsSindGruen() {
+    protected void erfolgreicheJobsSindGruen() {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
             , LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobBeschreibung);
@@ -72,7 +75,7 @@ class JobBeschreibungTest {
 
     @Test
     @DisplayName("Statusfarbe eines instabilen Jobs ist gelb")
-    void instabileJobsSindGelb() {
+    protected void instabileJobsSindGelb() {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
             , LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobBeschreibung);
@@ -80,7 +83,7 @@ class JobBeschreibungTest {
 
     @Test
     @DisplayName("Statusfarbe eines fehlerhaften Jobs ist rot")
-    void fehlerhafteJobsSindRot() {
+    protected void fehlerhafteJobsSindRot() {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
             , LOCALHOST_JOB_TEST_URL);
         assertNotNull(jobBeschreibung);

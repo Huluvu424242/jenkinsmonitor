@@ -85,7 +85,7 @@ public class ImageGenerator {
     public void updateStatusArea(final JWindow statusArea) {
 
         final JPanel panel = new JPanel();
-        panel.setLayout(new java.awt.GridLayout(this.jobsStatusBeschreibungen.length, 1));
+        panel.setLayout(new GridLayout(this.jobsStatusBeschreibungen.length, 1));
 
         Arrays.stream(this.jobsStatusBeschreibungen).forEach((jobStatus) -> {
             final String htmlTemplate = "<html><h1>" + jobStatus.getJobName() + "</h1><p>Status: " + jobStatus.getJobStatus().toString() + " <a href=\"" + jobStatus.getJobUrl() + "\">" + jobStatus.getJobUrl() + "</a></p></html>";
