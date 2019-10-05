@@ -37,6 +37,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -56,7 +57,7 @@ public class JenkinsClientTest {
     protected static URL STATUS_URL_MULTIBRANCH_JOB1_YELLOW;
     protected static URL STATUS_URL_MULTIBRANCH_JOB1_GRAY;
 
-    WireMockServer wireMockServer;
+    protected WireMockServer wireMockServer;
 
     @BeforeAll
     protected static void setUpAll() throws MalformedURLException, URISyntaxException {
@@ -96,7 +97,7 @@ public class JenkinsClientTest {
         assertNotNull(jobStatusBeschreibung);
         assertNotNull(jobStatusBeschreibung.getJobStatus());
         assertNotNull(jobStatusBeschreibung.getJobName());
-        Assertions.assertEquals(JobStatus.FAILURE.getColor(), jobStatusBeschreibung.getJobStatus().getColor());
+        assertEquals(JobStatus.FAILURE.getColor(), jobStatusBeschreibung.getJobStatus().getColor());
     }
 
 
