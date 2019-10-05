@@ -44,7 +44,7 @@ import java.util.stream.Collectors;
 
 public class JenkinsClient {
 
-    final Logger LOG = LoggerFactory.getLogger(JenkinsClient.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(JenkinsClient.class);
 
 
     public static final String JSONKEY_FULL_DISPLAY_NAME = "fullDisplayName";
@@ -73,7 +73,7 @@ public class JenkinsClient {
             final InputStream inputStream = entity.getContent();
 
             final String requestResult = readStreamIntoString(inputStream);
-            LOG.debug("Empfangen als JSON:\n" + requestResult);
+            LOG.debug("Empfangen als JSON:\n {}", requestResult);
             resultJSON = new JSONObject(requestResult);
 
         }
@@ -90,20 +90,20 @@ public class JenkinsClient {
 
 
     public JobStatusBeschreibung[] ladeJobsStatus(JobBeschreibung[] jobBeschreibungen) {
-        return Arrays.stream(jobBeschreibungen).map((beschreibung) -> {
+        return Arrays.stream(jobBeschreibungen).map(beschreibung -> {
             JobStatusBeschreibung returnValue = null;
             try {
                 final JobStatusBeschreibung jobStatus = getJobStatus(beschreibung.getJobUrl());
                 returnValue = new JobStatusBeschreibung(jobStatus.getJobName()
                     , jobStatus.getJobStatus()
                     , beschreibung.getJobUrl());
-                LOG.debug("JobStatus geladen: " + jobStatus.getJobName() + ": " + jobStatus.getJobStatus() + " at " + jobStatus.getJobUrl());
+                LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
             } catch (IOException e) {
                 LOG.error(e.getLocalizedMessage(), e);
                 returnValue = new JobStatusBeschreibung(beschreibung.getJobId(),
                     JobStatus.OTHER,
                     beschreibung.getJobUrl());
-                LOG.debug("JobStatus ERR geladen: " + beschreibung.getJobId() + ": " + JobStatus.OTHER + " at " + beschreibung.getJobUrl());
+                LOG.debug(String.format("JobStatus ERR geladen: %s : %s at %s ", beschreibung.getJobId(), JobStatus.OTHER.toString(), beschreibung.getJobUrl().toExternalForm()));
             }
             return returnValue;
         }).toArray(JobStatusBeschreibung[]::new);
