@@ -34,6 +34,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -88,9 +89,30 @@ public class JenkinsMonitorTray implements Timer.Listener {
 
     protected void erzeugeDarstellung() {
         try {
-            final ImageGenerator imageGenerator = new ImageGenerator(this.jobStatusBeschreibungen);
-            final Image trayImage = imageGenerator.getImage(100, 100);
-            final TrayIcon trayIcon = new TrayIcon(trayImage);
+            final ImageGenerator imageGenerator = getImageGenerator();
+
+            TrayIcon trayIcon = getTrayIcon();
+            if (trayIcon == null) {
+                final BufferedImage trayImage = imageGenerator.getImage(100, 100);
+                trayIcon = new TrayIcon(trayImage);
+                tray.add(trayIcon);
+                trayIcon.addMouseListener(new MouseAdapter() {
+
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        final Point showPoint = e.getPoint();
+                        LOGGER.info(String.format("### loc( %f, %f) ##", showPoint.getX(), showPoint.getY()));
+                        final ImageGenerator imageGenerator = getImageGenerator();
+                        imageGenerator.updateStatusArea(statusArea, showPoint);
+                        if (e.getClickCount() == 1) {
+                            statusArea.setVisible(!statusArea.isVisible());
+                        }
+                    }
+                });
+            } else {
+                imageGenerator.getImage((BufferedImage) getTrayIcon().getImage(), 100, 100);
+            }
+
             trayIcon.setImageAutoSize(true);
             if (this.jobStatusBeschreibungen.length > 0) {
                 trayIcon.setToolTip("Links: Statusfenster ein-/aus, Rechts: Status & Settings");
@@ -98,25 +120,18 @@ public class JenkinsMonitorTray implements Timer.Listener {
                 trayIcon.setToolTip("Keine Jobs überwachend");
             }
             trayIcon.setPopupMenu(createSettingsMenu());
-            tray.add(trayIcon);
 
-            trayIcon.addMouseListener(new MouseAdapter() {
 
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    final Point showPoint = e.getPoint();
-                    LOGGER.info(String.format("### loc( %f, %f) ##", showPoint.getX(), showPoint.getY()));
-                    imageGenerator.updateStatusArea(statusArea, showPoint);
-                    if (e.getClickCount() == 1) {
-                        statusArea.setVisible(!statusArea.isVisible());
-                    }
-                }
-            });
+
 
         } catch (Exception ex) {
             LOGGER.error("Unerwartet wie immer ", ex);
         }
 
+    }
+
+    protected ImageGenerator getImageGenerator() {
+        return new ImageGenerator(this.jobStatusBeschreibungen);
     }
 
     /**
@@ -174,7 +189,6 @@ public class JenkinsMonitorTray implements Timer.Listener {
     }
 
     protected void updateDarstellung() {
-        tray.remove(getTrayIcon());
         erzeugeDarstellung();
     }
 
@@ -187,7 +201,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         LOGGER.debug("Lade Konfiguration");
         this.configuration.reload();
         if (this.timer.getPeriod() != this.configuration.getPollPeriodInSecond()) {
-            LOGGER.debug("Setze Timer Period auf "+this.configuration.getPollPeriodInSecond()+ " Sekunden.");
+            LOGGER.debug("Setze Timer Period auf " + this.configuration.getPollPeriodInSecond() + " Sekunden.");
             this.timer.resetPeriod(this.configuration.getPollPeriodInSecond(), TimeUnit.SECONDS);
         }
         LOGGER.debug("Aktualisiere Status");
