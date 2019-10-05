@@ -90,6 +90,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected void erzeugeDarstellung() {
         try {
             final ImageGenerator imageGenerator = getImageGenerator();
+            imageGenerator.updateStatusArea(statusArea);
 
             TrayIcon trayIcon = getTrayIcon();
             if (trayIcon == null) {
@@ -101,16 +102,17 @@ public class JenkinsMonitorTray implements Timer.Listener {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         LOGGER.debug("Mouseklick links");
-                        final ImageGenerator imageGenerator = getImageGenerator();
-                        imageGenerator.updateStatusArea(statusArea);
                         if (e.getClickCount() == 1) {
                             statusArea.setVisible(!statusArea.isVisible());
                         }
                     }
                 });
+                trayIcon.addActionListener(e -> {
+                    LOGGER.debug("Mouseklick links doppelt");
+                    statusArea.setVisible(!statusArea.isVisible());
+                });
             } else {
                 imageGenerator.getImage((BufferedImage) getTrayIcon().getImage(), 100, 100);
-                imageGenerator.updateStatusArea(statusArea);
             }
 
             trayIcon.setImageAutoSize(true);
@@ -120,9 +122,6 @@ public class JenkinsMonitorTray implements Timer.Listener {
                 trayIcon.setToolTip("Keine Jobs überwachend");
             }
             trayIcon.setPopupMenu(createSettingsMenu());
-
-
-
 
         } catch (Exception ex) {
             LOGGER.error("Unerwartet wie immer ", ex);
