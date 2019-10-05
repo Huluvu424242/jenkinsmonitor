@@ -1,0 +1,10 @@
+# Jenkins Monitor Projekt
+:author: FunThomas424242 (Thomas Schubert)
+//:toc:
+:icons: font
+:lang: de
+:encoding: iso-8859-1
+
+Dieses Projekt stellt einen Jenkinsmonitor zur Überwachung der laufenden Jenkins Jobs bereit.
+
+link:benutzer.html[Benutzerhandbuch] link:entwickler.html[Entwicklerhandbuch]

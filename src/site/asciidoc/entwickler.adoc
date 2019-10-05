@@ -1,0 +1,7 @@
+# Jenkins Monitor Projekt
+
+include::../../../ArchitekturEntscheidungen.adoc[tabsize=4]
+
+## Deployment ins Maven Central
+
+link:https://blog.bintray.com/2014/02/11/bintray-as-pain-free-gateway-to-maven-central/[Anleitung für Bintray]
