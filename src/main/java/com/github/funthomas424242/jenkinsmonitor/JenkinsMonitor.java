@@ -36,11 +36,11 @@ public class JenkinsMonitor {
     public JenkinsMonitor(Configuration configuration) {
         this.monitorTray = new JenkinsMonitorTray(configuration);
         this.monitorTray.updateJobStatus();
-        LOGGER.info("Jenkinsmonitor initialisiert");
+        LOGGER.info("Jenkinsmonitor gestartet");
     }
 
     public static void main(final String[] commandlineArgs) {
         final Configuration defaultConfiguration = new Configuration(Configuration.getDefaultConfigurationsfile());
-        final JenkinsMonitor monitor = new JenkinsMonitor(defaultConfiguration);
+        new JenkinsMonitor(defaultConfiguration);
     }
 }
