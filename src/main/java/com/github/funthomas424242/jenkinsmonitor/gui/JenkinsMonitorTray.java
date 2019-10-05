@@ -100,10 +100,9 @@ public class JenkinsMonitorTray implements Timer.Listener {
 
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        final Point showPoint = e.getPoint();
-                        LOGGER.info(String.format("### loc( %f, %f) ##", showPoint.getX(), showPoint.getY()));
+                        LOGGER.debug("Mouseklick links");
                         final ImageGenerator imageGenerator = getImageGenerator();
-                        imageGenerator.updateStatusArea(statusArea, showPoint);
+                        imageGenerator.updateStatusArea(statusArea);
                         if (e.getClickCount() == 1) {
                             statusArea.setVisible(!statusArea.isVisible());
                         }
@@ -111,7 +110,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
                 });
             } else {
                 imageGenerator.getImage((BufferedImage) getTrayIcon().getImage(), 100, 100);
-                imageGenerator.updateStatusArea(statusArea,null);
+                imageGenerator.updateStatusArea(statusArea);
             }
 
             trayIcon.setImageAutoSize(true);

@@ -86,12 +86,7 @@ public class ImageGenerator {
         return image;
     }
 
-    public void updateStatusArea(final JWindow statusArea, final Point curLocation) {
-
-        if (curLocation == null || curLocation.getY() == 0 || curLocation.getX() == 0) {
-            statusArea.setVisible(false);
-            return;
-        }
+    public void updateStatusArea(final JWindow statusArea) {
 
         final JPanel panel = new JPanel();
         panel.setLayout(new java.awt.GridLayout(this.jobsStatusBeschreibungen.length, 1));
