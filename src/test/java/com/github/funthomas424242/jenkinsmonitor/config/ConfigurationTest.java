@@ -51,9 +51,9 @@ class ConfigurationTest {
 
     protected static Logger LOG = LoggerFactory.getLogger(ConfigurationTest.class);
 
-    Configuration notexistingConfigurationfile;
-    Configuration emptyConfigurationfile;
-    Configuration validConfigurationfile;
+    protected Configuration notexistingConfigurationfile;
+    protected Configuration emptyConfigurationfile;
+    protected Configuration validConfigurationfile;
 
     @BeforeAll
     protected static void setUpAll() {
@@ -62,7 +62,7 @@ class ConfigurationTest {
         if (defaultConfigfile != null && defaultConfigfile.exists()) {
             final long timeStamp = new Date().getTime();
             final File newFile = new File(defaultConfigfilePath.toAbsolutePath().toString() + "-old-" + timeStamp);
-            final boolean ok = defaultConfigfile.renameTo(newFile);
+            defaultConfigfile.renameTo(newFile);
             LOG.debug("### Bereinige Testumgebung: Configfile renamed from " + defaultConfigfile.getAbsolutePath().toString() + " zu "
                 + newFile.getAbsolutePath().toString());
         }
