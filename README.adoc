@@ -12,7 +12,9 @@ image:https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style
 == jenkinsmonitor
 image:src/main/resources/img/1984EmmanuelGoldstein.jpg[]
 
-Ein Monitor zum Überwachen der Buildstatus ausgewählter JenkinsJobs.
+Ein Monitor zum Überwachen der Buildstatus ausgewählter Jenkins Jobs.
+Fachlichkeit und Architekturentscheidungen lassen sich dieser Readme sowie den link:ArchitekturEntscheidungen.adoc[]
+entnehmen.
 
 == Inhaltsverzeichnis
 
@@ -26,18 +28,79 @@ Ein Monitor zum Überwachen der Buildstatus ausgewählter JenkinsJobs.
 
 [#hintergrund]
 == Hintergrund
-Lange habe ich versucht ein Projekttemplate zu erstellen. Es gibt dazu bereits einige Projekte (beispielsweise https://github.com/FunThomas424242/rades.scaffolding[rades.scaffolding])in meinem persönlichem Account. Doch nun ist mir Github dankenswerter Weise zuvor gekommen und hat einen Mechanismus angeboten ein bestehendes Projekt als Template Projekt zu markieren. Das konnte ich prima nutzen und möchte mich dafür recht herzlich Bedanken. 
-Dieses Projekt stellt ein Template für alle Projekte im RADES Beispiel Projekt Style dar. Wem es gefällt oder wer ein RADES Beispiel Projekt beisteuern möchte, der darf es gerne nutzen - alle anderen natürlich auch ;)
+In der täglichen Arbeit benötigen wir nicht nur ein Auge auf den Build des Features an dem wir aktuell arbeiten.
+In der Regel interessieren wir uns auch für den Build der von der Kollegin gerade live gestellt wird.
+Aber uns interessiert auch der Build vom PullRequest des Kollegen der ein Feature bearbeitet welches möglichst schnell
+in den master soll, damit es dann durch Aktualisierung aus dem master im eigenen Feature Branch genutzt werden kann.
+Die Lösung hieß und heißt Monitoring der Jenkins Builds. Ja dafür gibt es bereits diverse Tools aber egal welches ich
+benutzt habe irgend einen Mangel hatten sie alle:
+
+* Beim Monitoring der master branches diverser Artefakte welche alle eine Multibranch Pipeline im Jenkins nutzen,
+  erscheint bei jedem Job als Bezeichnung nur master :( Damit sind diese für mich nicht unterscheidbar.
+* Einige Monitore zeigen den Status sehr detailliert und super gut aber in einem eigenen Fenster an, welches irgendwo
+  auf dem Desktop öffnet. Das ist zur Info gut aber wenn ich mit der Maus bis dort hin muss um es zu schließen oder
+  zum Job zu springen, dann bringt es mir keinen Performancegewinn.
+
+Dem gegenüber habe ich aber auch gute Features gesehen, allerdings kosteten diese manchmal Geld ;)
+Naja, ich denke in ein paar Iterationen werde ich diese Features mit diesem Projekt auch bieten können und zwar ganz
+nach dem Vorbild von link:https://de.wikipedia.org/wiki/Richard_Stallman[Richard Stallmann] - frei und
+nicht nur kostenlos. Mein Beitrag und meine Hommage zu 20 Jahre Open Source.
+
+Feature die ich mir vom Projekt wünsche und eben auch umsetzen möchte:
+
+* Definition der zu überwachenden Jobs erfolgt per properties Datei
+* Umsortierung der Anzeige der Jobs per properties Datei muss möglich sein
+* Status rot, grün und grau. Letzterer für Sonderfälle wie Connection lost, oder baut gerade
+* Mit einem Klick muss ein extra Fenster auf dem Bildschirm aufgehen und alle Jobs ausführlich anzeigen
+* Ein weiterer Klick schließt selbiges Fenster - Doppelklick simuliert 2x Einzelklick - passiert also viel aber nichts
+  Nützliches -> Optimierungspotential.
+* Das extra Fenster mit den Status der Jobs wird automatisch im Hintergrund aktualisiert
+* Die Properties werden ebenfalls automatisch im Hintergrund immer wieder ausgelesen. Ein manueller Reload ist nicht
+  erforderlich
+* Das extra Fenster lässt sich per Klick schließen. Je nachdem welcher Job dabei angeklickt wurde, wird der Jenkins
+  Job im Standard Browser geöffnet.
+* All die Eigenschaften werden zusätzlich als Kontextmenü angeboten. Damit sind die Jobs per Maus schnell erreichbar.
+* Auch das Tray Icon zeigt bereits eine minifizierte Darstellung der Jobs. Man sieht also sofort wenn es darin rote
+  Linien gibt.
+* Eine Arbeitsunterbrechung durch einfliegende "Balloon Hinweise 'Dieser oder jener Build ist jetzt grün'" wird es
+  nicht geben.
+* Die Aktualisierungsfrequenz lässt sich im Properties File festlegen, ständig ändern und wird in Sekunden angegeben
+* Authentifizierung soll unterstützt werden (nicht gleich in den ersten Iterationen sondern später)
+* Wenn schon Authentifizierung dann auch für verschiedene Server - Wie ? Das werden wir dann sehen :)
+
 
 [#installation]
 == Installation
+Im Idealfall gibt es eine Datei die einfach ausgeführt werden kann. Dazu kenne ich mich auf Windows aber zu wenig aus
+- das wird also dauern.
 
-Installation bedeutet im konkreten Fall Erstellung eines neuen Repositories in Deinem Account mit exakt der selben Verzeichnis- und Dateistruktur wie sie dieses Projekt hier aufweist.
+Bis dahin gibt es ein JAR File welches das Programm enthält, eine properties Datei die ins Home Verzeichnis zu
+speichern und individuell anzupassen ist, ein Shell Skript welches ins gleiche Verzeichnis zusammen mit dem JAR File
+abgelegt wird. Über das Shell Skript lässt sich das Programm dann starten. Es erscheint ein neues Icon im SystemTray.
+
+Systemanforderung: Java 8 muss installiert sein. Sonst geht leider nix.
+
+Die Verteilung der Artefakte erfolgt über Bintray und maven central.
+
 
 [#nutzung]
 == Nutzung
 
-Das Projekt ist ein Template für Projekte im Style von RADES Beispielen. Wem die Projektstruktur gefällt der klickt einfach auf den grünen "Use this Template" Button im oberen Bildschirmbereich.
+Wie unter Installation beschrieben:
+
+1) JAR und Shell Skript in ein Verzeichnis legen und falls notwendig mit Ausführungsrechten versehen (typisch unter Linux).
+2) Properties Datei ins Homeverzeichnis legen und anpassen, vor allem die URLs :)
+3) Doppelklick auf das richtige Shellscript (*.sh Linux und *.bat oder *.cmd unter Windows)
+
+Die weitere Nutzung läuft über Mausklicks auf das neu im Systemtray erschienene Icon:
+
+* Linksklick: Statusfenster ein-/ausschalten
+* Rechtsklick: Statusanzeige & Settings.
+
+Wie im Statusfenster ist auch im Kontextmenü eine Navigation zu den Jenkins Jobs möglich.
+
+(Aktuell ist es notwendig, dass im Jenkins die Option "alle dürfen lesen" aktiviert ist. Das ist notwendig, weil aktuell
+noch keine Authentifizierung untestützt wird.)
 
 [#projektverantwortlicher]
 == Projektverantwortlicher
