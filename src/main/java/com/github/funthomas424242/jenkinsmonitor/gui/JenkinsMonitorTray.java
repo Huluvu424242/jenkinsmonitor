@@ -111,6 +111,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
                 });
             } else {
                 imageGenerator.getImage((BufferedImage) getTrayIcon().getImage(), 100, 100);
+                imageGenerator.updateStatusArea(statusArea,null);
             }
 
             trayIcon.setImageAutoSize(true);
