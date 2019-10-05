@@ -23,7 +23,6 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  */
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class SystemTrayWrapper {
 

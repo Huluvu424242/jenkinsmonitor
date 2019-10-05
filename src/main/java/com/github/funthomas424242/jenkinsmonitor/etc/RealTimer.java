@@ -10,12 +10,12 @@ package com.github.funthomas424242.jenkinsmonitor.etc;
  * it under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Lesser Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Lesser Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
@@ -30,9 +30,12 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
-class Period{
+class Period {
     public long duration;
     public TimeUnit durationTimeUnit;
 }
@@ -59,7 +62,7 @@ public class RealTimer implements Timer {
 
     @Override
     public void start() {
-       this.cancelableFuture=timerService.scheduleAtFixedRate(this::reportTimeElapse, period.duration, period.duration, period.durationTimeUnit);
+        this.cancelableFuture = timerService.scheduleAtFixedRate(this::reportTimeElapse, period.duration, period.duration, period.durationTimeUnit);
     }
 
     private void reportTimeElapse() {
@@ -80,8 +83,8 @@ public class RealTimer implements Timer {
         LOGGER.debug("Stoppe Timer");
         cancel();
         LOGGER.debug("Timer gestoppt");
-        this.period.duration=period;
-        this.period.durationTimeUnit=periodTimeUnit;
+        this.period.duration = period;
+        this.period.durationTimeUnit = periodTimeUnit;
         LOGGER.debug("Starte Timer");
         start();
         LOGGER.debug("Timer gestartet");
