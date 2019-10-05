@@ -46,7 +46,7 @@ Naja, ich denke in ein paar Iterationen werde ich diese Features mit diesem Proj
 nach dem Vorbild von link:https://de.wikipedia.org/wiki/Richard_Stallman[Richard Stallmann] - frei und
 nicht nur kostenlos. Mein Beitrag und meine Hommage zu 20 Jahre Open Source.
 
-Feature die ich mir vom Projekt wünsche und eben auch umsetzen möchte:
+Features die ich mir vom Projekt wünsche und eben auch umsetzen möchte:
 
 * Definition der zu überwachenden Jobs erfolgt per properties Datei
 * Umsortierung der Anzeige der Jobs per properties Datei muss möglich sein
@@ -88,14 +88,14 @@ Die Verteilung der Artefakte erfolgt über Bintray und maven central.
 
 Wie unter Installation beschrieben:
 
-1) JAR und Shell Skript in ein Verzeichnis legen und falls notwendig mit Ausführungsrechten versehen (typisch unter Linux).
-2) Properties Datei ins Homeverzeichnis legen und anpassen, vor allem die URLs :)
-3) Doppelklick auf das richtige Shellscript (*.sh Linux und *.bat oder *.cmd unter Windows)
+. JAR und Shell Skript in ein Verzeichnis legen und falls notwendig mit Ausführungsrechten versehen (typisch unter Linux).
+. Properties Datei ins Homeverzeichnis legen und anpassen, vor allem die URLs :)
+. Doppelklick auf das richtige Shellscript (*.sh Linux und *.bat oder *.cmd unter Windows)
 
 Die weitere Nutzung läuft über Mausklicks auf das neu im Systemtray erschienene Icon:
 
 * Linksklick: Statusfenster ein-/ausschalten
-* Rechtsklick: Statusanzeige & Settings.
+* Rechtsklick: Statusanzeige & Settings als Kontextmenü.
 
 Wie im Statusfenster ist auch im Kontextmenü eine Navigation zu den Jenkins Jobs möglich.
 
