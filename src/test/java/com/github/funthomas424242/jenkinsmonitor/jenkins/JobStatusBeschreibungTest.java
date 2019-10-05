@@ -37,11 +37,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class JobStatusBeschreibungTest {
 
-    public static final String NAME_JOB1 = "job1";
+    protected static final String NAME_JOB1 = "job1";
     protected static URL LOCALHOST_JOB_TEST_URL;
 
     @BeforeAll
-    static void setUp() throws MalformedURLException {
+    public static void setUp() throws MalformedURLException {
         new URL("http://localhost:8099/job/test");
     }
 
@@ -54,19 +54,19 @@ class JobStatusBeschreibungTest {
 
     @Test
     @DisplayName("Es wird eine gültige Instanz erstellt")
-    void valideInitialisierung() {
+    public void valideInitialisierung() {
         final JobStatusBeschreibung JobStatusBeschreibung = new JobStatusBeschreibung(null
             , null
             , null);
         assertNotNull(JobStatusBeschreibung);
         assertNull(JobStatusBeschreibung.getJobStatus());
         assertNull(JobStatusBeschreibung.getJobUrl());
-        Assertions.assertEquals(JobStatus.OTHER.getColor(), JobStatusBeschreibung.getStatusColor());
+        assertEquals(JobStatus.OTHER.getColor(), JobStatusBeschreibung.getStatusColor());
     }
 
     @Test
     @DisplayName("Statusfarbe eines erfolgreichen Jobs ist grün")
-    void erfolgreicheJobsSindGruen() {
+    public void erfolgreicheJobsSindGruen() {
         final JobStatusBeschreibung JobStatusBeschreibung = new JobStatusBeschreibung(NAME_JOB1
             , JobStatus.SUCCESS
             , LOCALHOST_JOB_TEST_URL);
@@ -76,7 +76,7 @@ class JobStatusBeschreibungTest {
 
     @Test
     @DisplayName("Statusfarbe eines instabilen Jobs ist gelb")
-    void instabileJobsSindGelb() {
+    public void instabileJobsSindGelb() {
         final JobStatusBeschreibung JobStatusBeschreibung = new JobStatusBeschreibung(NAME_JOB1
             , JobStatus.UNSTABLE
             , LOCALHOST_JOB_TEST_URL);
@@ -86,7 +86,7 @@ class JobStatusBeschreibungTest {
 
     @Test
     @DisplayName("Statusfarbe eines fehlerhaften Jobs ist rot")
-    void fehlerhafteJobsSindRot() {
+    public void fehlerhafteJobsSindRot() {
         final JobStatusBeschreibung JobStatusBeschreibung = new JobStatusBeschreibung(NAME_JOB1
             , JobStatus.FAILURE
             , LOCALHOST_JOB_TEST_URL);
