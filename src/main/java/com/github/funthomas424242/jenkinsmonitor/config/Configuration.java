@@ -85,9 +85,8 @@ public class Configuration {
     public JobBeschreibung[] getJobBeschreibungen() {
         loadPropertiesFromFile(configurationFile);
         final List<JobBeschreibung> jobBeschreibungen = new ArrayList<>();
-        configurationProperties.stringPropertyNames().stream().sorted().forEach((k) -> {
-            final String key = (String) k;
-            final String value = configurationProperties.getProperty(k);
+        configurationProperties.stringPropertyNames().stream().sorted().forEach(key -> {
+            final String value = configurationProperties.getProperty(key);
             if (key.startsWith(JOBKEY_PREFIX)) {
                 final URL jobURL = NetworkHelper.urlOf(value);
                 final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, jobURL);
