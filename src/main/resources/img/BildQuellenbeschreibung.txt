@@ -1,0 +1,15 @@
+Das Bild wurde mmit dem Bilbearbeitungsprogramm Gimp freihändig abgemalt.
+Das beim Abmalen verwendete Original findet man hier:
+https://upload.wikimedia.org/wikipedia/en/9/9f/1984EmmanuelGoldstein.jpg
+(Das Original ist urheberrechtlich geschützt. Das abgemalte Bild kann wahlweise unter LGPL oder CCby4.0 verwendet werden).
+
+Über folgenden Link lässt sich das Bild in Webseiten einbetten
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/StillImage" property="dct:title" rel="dct:type">Emmanuel Goldstein</span> von <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/FunThomas424242/jenkinsmonitor" property="cc:attributionName" rel="cc:attributionURL">@2019 Huluvu424242 (Thomas Schubert)</a> ist lizenziert unter einer <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Namensnennung 4.0 International Lizenz</a>.<br />Beruht auf dem Werk unter <a xmlns:dct="http://purl.org/dc/terms/" href="https://upload.wikimedia.org/wikipedia/en/9/9f/1984EmmanuelGoldstein.jpg" rel="dct:source">https://upload.wikimedia.org/wikipedia/en/9/9f/1984EmmanuelGoldstein.jpg</a>.
+
+So kann das Bild offline verwendet werden:
+Dieses Material steht unter der Creative-Commons-Lizenz Namensnennung 4.0 International. Um eine Kopie dieser Lizenz zu sehen, besuchen Sie http://creativecommons.org/licenses/by/4.0/.
+
+Mit Hilfe der beigelegten xmp Datei lässt es sich wohl im PDF und ähnlichen Formaten verwenden.
+
+Im Prinzip darf es jeder verwenden wie und wofür er möchte, einzig die Namensnennung ist wie folgt gewünscht:
+@2019 Huluvu424242 (Thomas Schubert)
