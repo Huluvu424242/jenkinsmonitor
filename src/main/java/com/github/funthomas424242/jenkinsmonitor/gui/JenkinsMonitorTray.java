@@ -38,6 +38,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class JenkinsMonitorTray implements Timer.Listener {
@@ -143,6 +144,23 @@ public class JenkinsMonitorTray implements Timer.Listener {
 
 
         // Create a popup menu components
+        Arrays.stream(this.jobStatusBeschreibungen).forEach(statusBeschreibung -> {
+            final String itemText = String.format("[%s] %s", statusBeschreibung.getJobStatus(), statusBeschreibung.getJobName());
+            final MenuItem item = new MenuItem(itemText);
+            item.addActionListener(actionEvent -> {
+                URI webSite = null;
+                try {
+                    webSite = statusBeschreibung.getJobUrl().toURI();
+                    Desktop.getDesktop().browse(webSite);
+                    statusArea.setVisible(false);
+                } catch (IOException | URISyntaxException ex) {
+                    LOGGER.error(String.format("URL %s konnte nicht geöffnet werden", webSite), ex);
+                }
+            });
+            popup.add(item);
+        });
+
+
         final MenuItem aboutItem = new MenuItem("Über");
         aboutItem.addActionListener(actionEvent -> {
             try {
