@@ -32,7 +32,6 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsAPIMock;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -42,6 +41,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImage.isImageOfColor;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -49,9 +49,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @Tag("headfull")
-class JenkinsMonitorTest {
+public class JenkinsMonitorTest {
 
-    WireMockServer wireMockServer;
+    protected WireMockServer wireMockServer;
 
     @BeforeEach
     public void setUp() {
@@ -70,7 +70,7 @@ class JenkinsMonitorTest {
     @DisplayName("JenkinsMonitor ist Hauptklasse und enthält eine main Methode.")
     protected void checkMainMethod() {
         final String[] dummyArgs = {"Hallo", "Du da"};
-        Assertions.assertDoesNotThrow(() -> {
+        assertDoesNotThrow(() -> {
             JenkinsMonitor.main(dummyArgs);
         });
 
@@ -79,7 +79,7 @@ class JenkinsMonitorTest {
     @Test
     @DisplayName("JenkinsMonitor ist Hauptklasse und enthält eine main Methode die auch ohne Argumente aufgerufen werden kann.")
     protected void checkMainEmptyParaMethod() {
-        Assertions.assertDoesNotThrow(() -> {
+        assertDoesNotThrow(() -> {
             JenkinsMonitor.main(null);
         });
 

@@ -68,7 +68,7 @@ public class JenkinsMonitorTrayTest {
 
 
     @BeforeAll
-    static void setUpAll() throws MalformedURLException {
+    protected static void setUpAll() throws MalformedURLException {
         LOCALHOST_JOB_TEST_URL = new URL("http://localhost:8099/job/test");
     }
 

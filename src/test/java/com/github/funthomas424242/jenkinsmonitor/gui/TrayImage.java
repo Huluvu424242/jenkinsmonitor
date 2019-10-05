@@ -27,8 +27,8 @@ import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 class ValueHolder {
-    int jobNr = 0;
-    boolean isOfColor = true;
+    public int jobNr = 0;
+    public boolean isOfColor = true;
 }
 
 public interface TrayImage {
