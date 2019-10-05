@@ -43,7 +43,7 @@ class ImageGeneratorTest {
 
     @Test
     @DisplayName("Initialisierung mit null generiert ein graues Icon 100x100")
-    void initNullCreateGrayIcon100x100() {
+    public void initNullCreateGrayIcon100x100() {
         final ImageGenerator generator = new ImageGenerator(null);
         final BufferedImage image = generator.createImage(100, 100);
         assertEquals(100, image.getHeight());
@@ -54,7 +54,7 @@ class ImageGeneratorTest {
 
     @Test
     @DisplayName("Initialisierung ohne Jobs generiert ein graues Icon 100x100")
-    void initEmptyCreateGrayIcon100x100() {
+    public void initEmptyCreateGrayIcon100x100() {
         final JobStatusBeschreibung[] jobsStatus = new JobStatusBeschreibung[0];
         final ImageGenerator generator = new ImageGenerator(jobsStatus);
         final BufferedImage image = generator.createImage(100, 100);
@@ -66,7 +66,7 @@ class ImageGeneratorTest {
 
     @Test
     @DisplayName("Initialisierung mit einem erfolgreichen Job generiert ein grünes Icon 100x100")
-    void initOneJobGreenIcon100x100() {
+    public void initOneJobGreenIcon100x100() {
         final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
         jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
@@ -81,7 +81,7 @@ class ImageGeneratorTest {
 
     @Test
     @DisplayName("Initialisierung mit einem instabilen Job generiert ein gelbes Icon 100x100")
-    void initOneJobYellowIcon100x100() {
+    public void initOneJobYellowIcon100x100() {
         final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
         jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
             , JobStatus.UNSTABLE
@@ -96,7 +96,7 @@ class ImageGeneratorTest {
 
     @Test
     @DisplayName("Initialisierung mit einem fehlerhaften Job generiert ein rotes Icon 100x100")
-    void initOneJobRedIcon100x100() {
+    public void initOneJobRedIcon100x100() {
         final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
         jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
             , JobStatus.FAILURE
@@ -111,7 +111,7 @@ class ImageGeneratorTest {
 
     @Test
     @DisplayName("Initialisierung mit einem fehlerhaften Job generiert ein Icon 100x100 halb grün halb rot")
-    void initTwoJobsOneGreenOneRedIcon50x100() {
+    public void initTwoJobsOneGreenOneRedIcon50x100() {
         final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[2];
         jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
@@ -132,7 +132,7 @@ class ImageGeneratorTest {
     @Test
     @Tag("headfull")
     @DisplayName("Zeige Buildstatusfläche für einen grünen Job an einer bestimmten Position")
-    protected void showBuildStatusAreaOneSuccessJob() {
+    public void showBuildStatusAreaOneSuccessJob() {
         final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
         jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
