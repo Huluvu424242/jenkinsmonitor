@@ -111,9 +111,9 @@ https://github.com/FunThomas424242[@Huluvu424242]
 == Unterstützung
 
 Unterstützung ist jederzeit erwünscht. Ein gelungener Einstieg sollte sich über Duchlesen, Prüfen/Testen, Korrigieren/Weiterentwickeln und Änderungen als Pull-Request einstellen, ergeben.
-Du kannst aber auch jederzeit gern ein Ticket öffnen unter: https://github.com/PIUGroup/jenkinsmonitor/issues/new/choose[Ticket Erstellen].
+Du kannst aber auch jederzeit gern ein Ticket öffnen unter: https://github.com/FunThomas424242/jenkinsmonitor/issues/new/choose[Ticket Erstellen].
 
-Dieses Projekt folgt den unter https://piugroup.github.io/jenkinsmonitor/code-of-conduct.txt[Verhaltenskodex] abgelegten Verhaltensregeln. Welche auch unter https://www.contributor-covenant.org/de/version/1/4/code-of-conduct/[Verhaltenskodex für Unterstützer] veröffentlicht wurden.
+Dieses Projekt folgt den unter https://funthomas424242.github.io/jenkinsmonitor/code-of-conduct.txt[Verhaltenskodex] abgelegten Verhaltensregeln. Welche auch unter https://www.contributor-covenant.org/de/version/1/4/code-of-conduct/[Verhaltenskodex für Unterstützer] veröffentlicht wurden.
 
 === Unterstützer
 
