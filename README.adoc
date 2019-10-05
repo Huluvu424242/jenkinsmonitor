@@ -10,7 +10,9 @@ image:http://images.webestools.com/buttons.php?frm=2&btn_type=11&txt=Scrum Board
 image:https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square["standard-readme compilant",link="https://github.com/RichardLitt/standard-readme"]
 
 == jenkinsmonitor
-Template zum Aufsetzen eines RADES Beispiel Projektes.
+image:src/main/resources/img/1984EmmanuelGoldstein.jpg[]
+
+Ein Monitor zum Überwachen der Buildstatus ausgewählter JenkinsJobs.
 
 == Inhaltsverzeichnis
 
