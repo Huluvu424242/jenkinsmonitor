@@ -43,7 +43,7 @@ class ImageGeneratorTest {
     @DisplayName("Initialisierung mit null generiert ein graues Icon 100x100")
     void initNullCreateGrayIcon100x100() {
         final ImageGenerator generator = new ImageGenerator(null);
-        final BufferedImage image = generator.getImage(100, 100);
+        final BufferedImage image = generator.createImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
         assertTrue(isImageOfColor(image, JobStatus.OTHER.getColor()));
@@ -55,7 +55,7 @@ class ImageGeneratorTest {
     void initEmptyCreateGrayIcon100x100() {
         final JobStatusBeschreibung[] jobsStatus = new JobStatusBeschreibung[0];
         final ImageGenerator generator = new ImageGenerator(jobsStatus);
-        final BufferedImage image = generator.getImage(100, 100);
+        final BufferedImage image = generator.createImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
         assertTrue(isImageOfColor(image, JobStatus.OTHER.getColor()));
@@ -70,7 +70,7 @@ class ImageGeneratorTest {
             , JobStatus.SUCCESS
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
-        final BufferedImage image = generator.getImage(100, 100);
+        final BufferedImage image = generator.createImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
         assertTrue(isImageOfColor(image, JobStatus.SUCCESS.getColor()));
@@ -85,7 +85,7 @@ class ImageGeneratorTest {
             , JobStatus.UNSTABLE
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
-        final BufferedImage image = generator.getImage(100, 100);
+        final BufferedImage image = generator.createImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
         assertTrue(isImageOfColor(image, JobStatus.UNSTABLE.getColor()));
@@ -100,7 +100,7 @@ class ImageGeneratorTest {
             , JobStatus.FAILURE
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
-        final BufferedImage image = generator.getImage(100, 100);
+        final BufferedImage image = generator.createImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
         assertTrue(isImageOfColor(image, JobStatus.FAILURE.getColor()));
@@ -118,7 +118,7 @@ class ImageGeneratorTest {
             , JobStatus.FAILURE
             , null);
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
-        final BufferedImage image = generator.getImage(100, 100);
+        final BufferedImage image = generator.createImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
         assertEquals(JobStatus.SUCCESS.getColor().getRGB(), image.getRGB(10, 10));

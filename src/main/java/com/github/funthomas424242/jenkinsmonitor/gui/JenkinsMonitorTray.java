@@ -94,7 +94,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
 
             TrayIcon trayIcon = getTrayIcon();
             if (trayIcon == null) {
-                final BufferedImage trayImage = imageGenerator.getImage(100, 100);
+                final BufferedImage trayImage = imageGenerator.createImage(100, 100);
                 trayIcon = new TrayIcon(trayImage);
                 trayIcon.addMouseListener(new MouseAdapter() {
 
@@ -112,7 +112,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
                 });
                 tray.add(trayIcon);
             } else {
-                imageGenerator.getImage((BufferedImage) getTrayIcon().getImage(), 100, 100);
+                imageGenerator.drawImage((BufferedImage) trayIcon.getImage(), 100, 100);
             }
 
             trayIcon.setImageAutoSize(true);

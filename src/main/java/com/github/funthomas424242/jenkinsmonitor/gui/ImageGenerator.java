@@ -47,16 +47,12 @@ public class ImageGenerator {
         this.jobsStatusBeschreibungen = jobsStatusBeschreibungen;
     }
 
-    protected BufferedImage getImage(final int width, final int height) {
-        return getImage(null, width, height);
+    protected BufferedImage createImage(final int width, final int height) {
+        return drawImage(new BufferedImage(width, height, BufferedImage.TYPE_BYTE_INDEXED), width, height);
     }
 
-    protected BufferedImage getImage(final BufferedImage trayIcon, final int width, final int height) {
-        BufferedImage image = trayIcon;
-        if (image == null) {
-            image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_INDEXED);
-        }
-        createPartImage(image, 0, width, height, JobStatus.OTHER);
+    protected BufferedImage drawImage(final BufferedImage image, final int width, final int height) {
+        drawPartImage(image, 0, width, height, JobStatus.OTHER);
 
         if (jobsStatusBeschreibungen == null || jobsStatusBeschreibungen.length < 1) {
             return image;
@@ -66,17 +62,17 @@ public class ImageGenerator {
         final int partImageWidth = width / jobCount;
         int startX = 0;
         for (JobStatusBeschreibung jenkinsJobBeschreibung : jobsStatusBeschreibungen) {
-            createPartImage(image, startX, partImageWidth, height, jenkinsJobBeschreibung.getJobStatus());
+            drawPartImage(image, startX, partImageWidth, height, jenkinsJobBeschreibung.getJobStatus());
             startX += partImageWidth;
         }
         return image;
     }
 
-    protected BufferedImage createPartImage(BufferedImage image,
-                                            final int x,
-                                            final int width,
-                                            final int height,
-                                            final JobStatus jobStatus) {
+    protected BufferedImage drawPartImage(BufferedImage image,
+                                          final int x,
+                                          final int width,
+                                          final int height,
+                                          final JobStatus jobStatus) {
 
         final Graphics g = image.createGraphics();
         g.setColor(jobStatus.getColor());
