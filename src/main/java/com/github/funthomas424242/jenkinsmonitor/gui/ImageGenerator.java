@@ -48,7 +48,14 @@ public class ImageGenerator {
     }
 
     protected BufferedImage getImage(final int width, final int height) {
-        final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_INDEXED);
+        return getImage(null, width, height);
+    }
+
+    protected BufferedImage getImage(final BufferedImage trayIcon, final int width, final int height) {
+        BufferedImage image = trayIcon;
+        if (image == null) {
+            image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_INDEXED);
+        }
         createPartImage(image, 0, width, height, JobStatus.OTHER);
 
         if (jobsStatusBeschreibungen == null || jobsStatusBeschreibungen.length < 1) {
