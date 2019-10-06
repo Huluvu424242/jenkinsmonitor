@@ -102,7 +102,7 @@ Anbei noch ein Beispiel für eine jenkinsmonitor.properties Datei
 .jenkinsmonitor.properties
 [source]
 ----
-include::src/test/resources/jenkinsmonitor.properties[]
+include:src/test/resources/jenkinsmonitor.properties[]
 ----
 
 [#nutzung]
