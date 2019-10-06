@@ -24,7 +24,7 @@ ____
 
 [#summary]
 Ein Monitor zum Überwachen der Buildstatus ausgewählter Jenkins Jobs.
-Fachlichkeit und Architekturentscheidungen lassen sich dieser Readme sowie den link:ArchitekturEntscheidungen.adoc[]
+Fachlichkeit und Architekturentscheidungen lassen sich dieser Readme sowie den link:ArchitekturEntscheidungen.adoc[ArchitekturEntscheidungen]
 entnehmen.
 
 Da die einzige Aufgabe des Programmes in der Überwachung liegt, hielt ich eine Analogie zu Orwells Roman
