@@ -98,8 +98,9 @@ Systemanforderung: Java 8 muss installiert sein. Sonst geht leider nix.
 Die Verteilung der Artefakte erfolgt über Bintray und maven central.
 
 Anbei noch ein Beispiel für eine jenkinsmonitor.properties Datei
+
 .jenkinsmonitor.properties
-[source, properties]
+[source]
 ----
 include::src/test/resources/jenkinsmonitor.properties[]
 ----
