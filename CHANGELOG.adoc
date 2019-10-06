@@ -6,7 +6,7 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 
 // ## [3.1.1] fertiggestellt 2018-05-11
 
-## [0.0.1]
+## [0.0.1] fertiggestellt 2019-10-06
 ### Added
 
 - https://github.com/FunThomas424242/jenkinsmonitor/issues/3[issue #11] Kleines Logo ins JAR gepackt.
