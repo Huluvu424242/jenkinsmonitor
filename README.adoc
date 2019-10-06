@@ -17,6 +17,7 @@ ____
 Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft. Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.
 ____
 
+
 [#summary]
 Ein Monitor zum Überwachen der Buildstatus ausgewählter Jenkins Jobs.
 Fachlichkeit und Architekturentscheidungen lassen sich dieser Readme sowie den link:ArchitekturEntscheidungen.adoc[]
