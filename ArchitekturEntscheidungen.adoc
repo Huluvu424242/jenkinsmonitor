@@ -146,6 +146,7 @@ Bei Color.red gibt es keine Anomalie.
 [##literatur]
 == Literatur und Quellen im Netz
 
+* https://winterbe.com/posts/2018/08/29/migrate-maven-projects-to-java-11-jigsaw/
 * https://medium.com/@adam_carroll/java-packager-with-jdk11-31b3d620f4a8
 * http://discoveration.de/it/javafx-mit-java-runtime-als-exe-ausliefern/636/
 * https://jqno.nl/equalsverifier/
