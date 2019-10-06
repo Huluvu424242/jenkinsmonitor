@@ -111,6 +111,7 @@ jenkinsmonitor.pollperiod=6
 # joburl-id=http://localhost:8090/job/multibranchjob/job/master
 joburl-#1=http://jenkinshost:8099/job/multibranchjob1/job/master
 joburl-#2=http://jenkinshost:8099/job/multibranchjob2/job/master
+joburl-#3=http://jenkinshost:8099/job/singlejob
 ----
 
 [#nutzung]
