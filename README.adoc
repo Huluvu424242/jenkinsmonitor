@@ -16,6 +16,10 @@ Ein Monitor zum Überwachen der Buildstatus ausgewählter Jenkins Jobs.
 Fachlichkeit und Architekturentscheidungen lassen sich dieser Readme sowie den link:ArchitekturEntscheidungen.adoc[]
 entnehmen.
 
+Da die einzige Aufgabe des Programmes in der Überwachung liegt, hielt ich eine Analogie zu Orwells Roman
+link:https://de.wikipedia.org/wiki/1984_(Roman)#Emmanuel_Goldstein["1984"] für gegeben und habe
+versucht Goldstein im Logo zu verewigen :)
+
 == Inhaltsverzeichnis
 
 - link:#hintergrund[Hintergrund]
@@ -44,7 +48,7 @@ benutzt habe irgend einen Mangel hatten sie alle:
 Dem gegenüber habe ich aber auch gute Features gesehen, allerdings kosteten diese manchmal Geld ;)
 Naja, ich denke in ein paar Iterationen werde ich diese Features mit diesem Projekt auch bieten können und zwar ganz
 nach dem Vorbild von link:https://de.wikipedia.org/wiki/Richard_Stallman[Richard Stallmann] - frei und
-nicht nur kostenlos. Mein Beitrag und meine Hommage zu 20 Jahre Open Source.
+nicht nur kostenlos. Mein Beitrag und meine Hommage an 20 Jahre Open Source.
 
 Features die ich mir vom Projekt wünsche und eben auch umsetzen möchte:
 
