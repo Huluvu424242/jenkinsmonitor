@@ -12,9 +12,9 @@ image:https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style
 == jenkinsmonitor
 image:src/main/resources/img/1984EmmanuelGoldstein.jpg[]
 
-[quote]
+[quote, Georg Orwell]
 ____
-Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft. Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.  -Georg Orwell
+Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft. Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.
 ____
 
 [#summary]
