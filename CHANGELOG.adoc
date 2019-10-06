@@ -9,6 +9,7 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 ## [0.0.1]
 ### Added
 
+- https://github.com/FunThomas424242/jenkinsmonitor/issues/3[issue #11] Kleines Logo ins JAR gepackt.
 - https://github.com/FunThomas424242/jenkinsmonitor/issues/3[issue #3] Dokumentation aktualisiert.
 - https://github.com/FunThomas424242/jenkinsmonitor/issues/1[issue #1] Projekt aufgesetzt.
 
