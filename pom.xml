@@ -51,8 +51,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.release>11</maven.compiler.release>
     <junit-jupiter-engine.version>5.5.2</junit-jupiter-engine.version>
     <junit-excluded-groups/>
   </properties>
@@ -242,6 +241,7 @@
         <artifactId>versions-maven-plugin</artifactId>
         <version>2.7</version>
         <configuration>
+          <generateBackupPoms>false</generateBackupPoms>
           <rulesUri>file:///${project.basedir}/etc/version-rules.xml</rulesUri>
         </configuration>
         <executions>
@@ -326,10 +326,8 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>${maven.compiler.source}</source>
-          <target>${maven.compiler.target}</target>
           <encoding>UTF-8</encoding>
-          <!-- Disable annotation processing -->
+          <release>11</release>
           <compilerArgument>-Xlint:all</compilerArgument>
         </configuration>
       </plugin>
