@@ -1,23 +1,35 @@
-# Changelog
+= Changelog
 Alle wichtigen Änderungen am Projekt sind in dieser Datei dokumentiert.
 
 Das Format basiert auf http://keepachangelog.com/de/[Keep a Changelog].
 Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 
-// ## [3.1.1] fertiggestellt 2018-05-11
+// == [3.1.1] fertiggestellt 2018-05-11
 
-## [0.0.1] fertiggestellt 2019-10-06
-### Added
+== [undelivered]
+=== Added
 
-- https://github.com/FunThomas424242/jenkinsmonitor/issues/3[issue #11] Kleines Logo ins JAR gepackt.
-- https://github.com/FunThomas424242/jenkinsmonitor/issues/3[issue #3] Dokumentation aktualisiert.
-- https://github.com/FunThomas424242/jenkinsmonitor/issues/1[issue #1] Projekt aufgesetzt.
+* https://github.com/FunThomas424242/jenkinsmonitor/issues/3[issue #19] Umgestellt auf jdk11
 
+=== Changed
 
-### Changed
-
-- n/a
+* n/a
 
 ### Removed
 
-- n/a
+* n/a
+
+== [0.0.1] fertiggestellt 2019-10-06
+=== Added
+
+* https://github.com/FunThomas424242/jenkinsmonitor/issues/3[issue #11] Kleines Logo ins JAR gepackt.
+* https://github.com/FunThomas424242/jenkinsmonitor/issues/3[issue #3] Dokumentation aktualisiert.
+* https://github.com/FunThomas424242/jenkinsmonitor/issues/1[issue #1] Projekt aufgesetzt.
+
+### Changed
+
+* n/a
+
+### Removed
+
+* n/a
