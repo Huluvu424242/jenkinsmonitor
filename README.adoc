@@ -93,7 +93,7 @@ Bis dahin gibt es ein JAR File welches das Programm enthält, eine properties Da
 speichern und individuell anzupassen ist, ein Shell Skript welches ins gleiche Verzeichnis zusammen mit dem JAR File
 abgelegt wird. Über das Shell Skript lässt sich das Programm dann starten. Es erscheint ein neues Icon im SystemTray.
 
-Systemanforderung: Java 8 muss installiert sein. Sonst geht leider nix.
+Systemanforderung: Java 11 muss installiert sein. Sonst geht leider nix.
 
 Die Verteilung der Artefakte erfolgt über Bintray und maven central.
 
@@ -111,6 +111,7 @@ jenkinsmonitor.pollperiod=6
 # joburl-id=http://localhost:8090/job/multibranchjob/job/master
 joburl-#1=http://jenkinshost:8099/job/multibranchjob1/job/master
 joburl-#2=http://jenkinshost:8099/job/multibranchjob2/job/master
+joburl-#3=http://jenkinshost:8099/job/singlejob
 ----
 
 [#nutzung]
