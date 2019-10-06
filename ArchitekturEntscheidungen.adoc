@@ -146,6 +146,7 @@ Bei Color.red gibt es keine Anomalie.
 [##literatur]
 == Literatur und Quellen im Netz
 
+* https://medium.com/@adam_carroll/java-packager-with-jdk11-31b3d620f4a8
 * http://discoveration.de/it/javafx-mit-java-runtime-als-exe-ausliefern/636/
 * https://jqno.nl/equalsverifier/
 * https://www.petrikainulainen.net/programming/testing/junit-5-tutorial-writing-assertions-with-junit-5-api/
@@ -158,3 +159,14 @@ Bei Color.red gibt es keine Anomalie.
 * https://github.com/noffle/art-of-readme
 * https://keepachangelog.com/de
 * http://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html#8-colors
+
+== Tools
+
+* https://adoptopenjdk.net/
+* http://www.jrsoftware.org/isdl.php
+* https://docs.oracle.com/en/java/javase/11/tools/jlink.html
+* http://download2.gluonhq.com/jpackager/11/jdk.packager-linux.zip
+* http://download2.gluonhq.com/jpackager/11/jdk.packager-osx.zip
+* http://download2.gluonhq.com/jpackager/11/jdk.packager-windows.zip
+* https://github.com/johanvos/openjdk-mobile11/tree/packager
+* https://gluonhq.com/products/javafx/
