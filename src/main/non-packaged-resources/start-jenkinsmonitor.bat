@@ -1,9 +1,9 @@
 # startet den jenkinsmonitor
-#
-# Konfigurationsfile im Home des Nutzers
-# ~\jenkinsmonitor.properties
-#
-# Systemanforderungen: Java 11 muss installiert sein
-#
-#
-start javaw -jar ${project.build.finalName}-jar-with-dependencies.jar
+rem
+rem Konfigurationsfile im Home des Nutzers
+rem ~\jenkinsmonitor.properties
+rem
+rem Systemanforderungen: Java 11 muss installiert sein
+rem
+rem
+start javaw.exe -jar ${project.build.finalName}-jar-with-dependencies.jar

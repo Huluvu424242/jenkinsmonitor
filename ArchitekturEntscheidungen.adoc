@@ -1,18 +1,18 @@
-= Architekturentscheidungen
+== Architekturentscheidungen
 
-== Technische Aspekte der fachlichen Umsetzung
+=== Technische Aspekte der fachlichen Umsetzung
 
 * Der Jenkins wird über einen REST Client abgefragt
 * Die Statusabfragen werden per Polling in einem konfiguriertem Zeitintervall gesendet
 * Die optische Darstellung erfolgt im Window Tray
 
-=== Entscheidung Programmiersprache
+==== Entscheidung Programmiersprache
 
 * Das Programm soll auf möglichst vielen Plattformen laufen
 -> fachliche Anforderung ist der Support von Windows
 17.09.2019: Es wird Java SE verwendet.
 
-=== Entscheidung Jenkins REST API
+==== Entscheidung Jenkins REST API
 
 * Aktuell sind bestimmte URL Pattern bekannt mit denen der Build Status vom Jenkins abgefragt werden kann
 
@@ -32,7 +32,7 @@
   ** fullDisplayName
   ** result
 
-== Enscheidung GUI Technologie
+=== Enscheidung GUI Technologie
 
 * Die Darstellung soll im Systemtray als Icon erscheinen
 
@@ -47,7 +47,7 @@
   Daher erfolgt die Implementierung über AWT Klassen.
   Swing oder JavaFX werden nicht benutzt, um die Abhängigkeiten zu verringern
 
-== Entscheidung Entwicklungsmethode
+=== Entscheidung Entwicklungsmethode
 
 * Das Produkt soll professionelle Qualtiät über einen CI und Test first Ansatz sicherstellen
 
@@ -61,7 +61,7 @@
   Die CI wird über Travis-CI realisiert.
   Das Deployment erfolgt manuell über Bintray bis ins maven central.
 
-== Entscheidung Implementierung
+=== Entscheidung Implementierung
 
 * Jenkins Abfrage
 
@@ -85,7 +85,7 @@
 
 
 
-== Entscheidung Testvorgehen
+=== Entscheidung Testvorgehen
 
 Generell soll möglichst ohne Mock Frameworks ausgekommen werden.
 Hier sollte der test first Ansatz helfen weite Teile der Anwendung möglichst einfach mit eigenen Mocks oder Stubs
@@ -132,7 +132,7 @@ Zur Testausführung wird vorwiegend das Framework JUnit5 genutzt.
   http://abbot.sourceforge.net/doc/overview.shtml
   http://www.cafeaulait.org/slides/sd2006west/guitesting/Testing_GUIs_with_Abbot_and_Costello.html
 
-== Lessons learned
+=== Lessons learned
 
 **Gray Anomalie**
 Wenn man von BufferedImage createGraphics aufruft und ein Rechteck
@@ -144,7 +144,7 @@ Bei Color.red gibt es keine Anomalie.
 
 
 [##literatur]
-== Literatur und Quellen im Netz
+=== Literatur und Quellen im Netz
 
 * https://winterbe.com/posts/2018/08/29/migrate-maven-projects-to-java-11-jigsaw/
 * https://medium.com/@adam_carroll/java-packager-with-jdk11-31b3d620f4a8
@@ -161,7 +161,7 @@ Bei Color.red gibt es keine Anomalie.
 * https://keepachangelog.com/de
 * http://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html#8-colors
 
-== Tools
+=== Tools
 
 * https://adoptopenjdk.net/
 * http://www.jrsoftware.org/isdl.php

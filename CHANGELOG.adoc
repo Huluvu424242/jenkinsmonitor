@@ -9,6 +9,7 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 == [undelivered]
 === Added
 
+* https://github.com/FunThomas424242/jenkinsmonitor/issues/3[issue #22] Windows Skript fixed
 * https://github.com/FunThomas424242/jenkinsmonitor/issues/3[issue #19] Umgestellt auf jdk11
 
 === Changed
