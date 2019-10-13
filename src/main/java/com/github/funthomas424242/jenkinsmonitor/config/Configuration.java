@@ -23,6 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.AbfrageDaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,7 +90,9 @@ public class Configuration {
             final String value = configurationProperties.getProperty(key);
             if (key.startsWith(JOBKEY_PREFIX)) {
                 final URL jobURL = NetworkHelper.urlOf(value);
-                final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, jobURL);
+                // TODO Abfragedaten anreichern
+                final AbfrageDaten abfrageDaten = new AbfrageDaten(jobURL);
+                final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, abfrageDaten);
                 jobBeschreibungen.add(jobBeschreibung);
             }
         });

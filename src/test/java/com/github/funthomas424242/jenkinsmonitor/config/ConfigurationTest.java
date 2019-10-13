@@ -141,8 +141,19 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
+    protected void useUserNameFromConfigfile() {
+        final JobBeschreibung[]  jobBeschreibungen = validConfigurationfile.getJobBeschreibungen();
+        assertNotNull(jobBeschreibungen);
+        assertEquals(2, jobBeschreibungen.length);
+        assertNotNull(jobBeschreibungen[0].getAbfrageDaten());
+        assertEquals("admin", jobBeschreibungen[0].getAbfrageDaten().getUserName());
+        assertEquals("geheinm", jobBeschreibungen[0].getAbfrageDaten().getPassword());
+    }
+
+    @Test
+    @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
     protected void useNullAsDefaultUsername() {
-        final String userName = validConfigurationfile.getUsername();
+        final String userName = emptyConfigurationfile.getUsername();
         assertNull(userName);
 
 //        final JobBeschreibung[] jobBeschreibungen = this.validConfigurationfile.getJobBeschreibungen();

@@ -163,7 +163,7 @@ public class JenkinsClientTest {
     protected void getValidJsonGreen() {
         final JenkinsClient requester = new JenkinsClient();
         final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(new AbfrageDaten(JOB_URL_MULTIBRANCH_JOB1_GREEN,null,null));
+            return requester.sendGetRequest(new AbfrageDaten(JOB_URL_MULTIBRANCH_JOB1_GREEN, null, null));
         });
         assertNotNull(json);
         assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
@@ -175,7 +175,7 @@ public class JenkinsClientTest {
     protected void getValidJsonYellow() {
         final JenkinsClient requester = new JenkinsClient();
         final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(new AbfrageDaten(JOB_URL_MULTIBRANCH_JOB1_YELLOW,null,null));
+            return requester.sendGetRequest(new AbfrageDaten(JOB_URL_MULTIBRANCH_JOB1_YELLOW, null, null));
         });
         assertNotNull(json);
         assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
@@ -187,7 +187,7 @@ public class JenkinsClientTest {
     protected void getValidJsonGray() {
         final JenkinsClient requester = new JenkinsClient();
         final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(new AbfrageDaten(JOB_URL_MULTIBRANCH_JOB1_GRAY,null,null));
+            return requester.sendGetRequest(new AbfrageDaten(JOB_URL_MULTIBRANCH_JOB1_GRAY, null, null));
         });
         assertNotNull(json);
         assertTrue(json.isEmpty());
@@ -205,7 +205,7 @@ public class JenkinsClientTest {
         };
 
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(null, NetworkHelper.urlOf("http://test.org"));
+        jobBeschreibungen[0] = new JobBeschreibung(null, new AbfrageDaten(NetworkHelper.urlOf("http://test.org")));
 
         final JobStatusBeschreibung[] jobStatusBeschreibungen = assertDoesNotThrow(() -> {
             final JobStatusBeschreibung[] statusBeschreibungen = requester.ladeJobsStatus(jobBeschreibungen);
@@ -226,7 +226,7 @@ public class JenkinsClientTest {
             }
         };
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(null, NetworkHelper.urlOf("http://test.org"));
+        jobBeschreibungen[0] = new JobBeschreibung(null, new AbfrageDaten(NetworkHelper.urlOf("http://test.org")));
 
         final JobStatusBeschreibung[] jobStatusBeschreibungen = requester.ladeJobsStatus(jobBeschreibungen);
         assumeTrue(jobBeschreibungen != null);
@@ -255,8 +255,8 @@ public class JenkinsClientTest {
         };
 
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[2];
-        jobBeschreibungen[0] = new JobBeschreibung("the first job", NetworkHelper.urlOf("http://test.org"));
-        jobBeschreibungen[1] = new JobBeschreibung("idname", NetworkHelper.urlOf("http://test1.org"));
+        jobBeschreibungen[0] = new JobBeschreibung("the first job", new AbfrageDaten(NetworkHelper.urlOf("http://test.org")));
+        jobBeschreibungen[1] = new JobBeschreibung("idname", new AbfrageDaten(NetworkHelper.urlOf("http://test1.org")));
 
         /**/
         {
