@@ -35,11 +35,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -141,6 +137,18 @@ class ConfigurationTest {
         final JobBeschreibung[] jobBeschreibungen = this.validConfigurationfile.getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
         assertEquals(2, jobBeschreibungen.length);
+    }
+
+    @Test
+    @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
+    protected void useNullAsDefaultUsername() {
+        final String userName = validConfigurationfile.getUsername();
+        assertNull(userName);
+
+//        final JobBeschreibung[] jobBeschreibungen = this.validConfigurationfile.getJobBeschreibungen();
+//        assertNotNull(jobBeschreibungen);
+//        assertEquals(2, jobBeschreibungen.length);
+
     }
 
     @Test

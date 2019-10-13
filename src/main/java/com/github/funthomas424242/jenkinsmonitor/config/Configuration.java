@@ -106,4 +106,7 @@ public class Configuration {
         loadPropertiesFromFile(configFile);
     }
 
+    public String getUsername() {
+        return null;
+    }
 }
