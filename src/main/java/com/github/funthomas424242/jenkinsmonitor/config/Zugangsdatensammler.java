@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class Zugangsdatensammler {
 
     protected class Zugang {
-        public URL jenkinsJobURL;
+        public String host;
         public String userName;
         public String password;
     }
@@ -22,10 +22,24 @@ public class Zugangsdatensammler {
         zugaenge = new HashMap<>();
     }
 
-    public void addZugangsdatumJenkinsJobUrl(String jenkinsId, URL jenkinsJobUrl) {
-        checkAllParameterUntilFirstNotNull(jenkinsId, jenkinsJobUrl);
+    public void addZugangsdatum(String propertyKey, String propertyWert) {
+        final String sukeyAndId=propertyKey.substring(Configuration.KEY_JENKINSAUTH.length()-1);
+        final String[] values=sukeyAndId.split("-");
+        if( "host".equals(values[0])){
+            addZugangsdatumJenkinsHost(values[1],propertyWert);
+        }
+        if( "username".equals(values[0])){
+            addZugangsdatumJenkinsUserName(values[1],propertyWert);
+        }
+        if( "password".equals(values[0])){
+            addZugangsdatumJenkinsPassword(values[1],propertyWert);
+        }
+    }
+
+    public void addZugangsdatumJenkinsHost(String jenkinsId, String jesnkinsHost) {
+        checkAllParameterUntilFirstNotNull(jenkinsId, jesnkinsHost);
         final Zugang zugang = getOrCreateZugang(jenkinsId);
-        zugang.jenkinsJobURL = jenkinsJobUrl;
+        zugang.host = jesnkinsHost;
     }
 
     public void addZugangsdatumJenkinsUserName(String jenkinsId, String userName) {
@@ -46,7 +60,7 @@ public class Zugangsdatensammler {
             .values()
             .stream()
             .map((zugang) -> {
-                return new JenkinsZugangsdaten(zugang.jenkinsJobURL, zugang.userName, zugang.password);
+                return new JenkinsZugangsdaten(zugang.userName, zugang.password);
             })
             .toArray(JenkinsZugangsdaten[]::new);
     }

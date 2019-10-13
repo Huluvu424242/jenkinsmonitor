@@ -45,6 +45,7 @@ public class Configuration {
     public static final String JENKINSMONITOR_POLLPERIOD = "jenkinsmonitor.pollperiod";
     public static final String DEFAULT_POLLPERIOD = "5";
     public static final String JOBKEY_PREFIX = "joburl-";
+    public static final String KEY_JENKINSAUTH = "jenkinsauth.";
 
     protected File configurationFile;
 
@@ -83,15 +84,17 @@ public class Configuration {
         return Long.parseLong(propValue);
     }
 
-    public String getAllAbfragedaten() {
+    public JenkinsZugangsdaten[] getAllAbfragedaten() {
         loadPropertiesFromFile(configurationFile);
+        final Zugangsdatensammler zugangsdatensammler = new Zugangsdatensammler();
         configurationProperties
             .stringPropertyNames()
             .stream()
-            .filter( (key)->key.startsWith("jenkinsauth"))
+            .filter( (key)->key.startsWith(KEY_JENKINSAUTH))
             .forEach(key -> {
+                zugangsdatensammler.addZugangsdatum(key,configurationProperties.getProperty(key));
             });
-        return null;
+        return zugangsdatensammler.getJenkinsZugangsdaten();
     }
 
     protected JenkinsZugangsdaten getAbfragedatenOf(final URL jobUrl){
