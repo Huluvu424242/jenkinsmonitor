@@ -50,10 +50,10 @@ public class JenkinsClientTest {
     protected static URL JOB_URL_MULTIBRANCH_JOB1_YELLOW;
     protected static URL JOB_URL_MULTIBRANCH_JOB1_GRAY;
 
-    protected static URL STATUS_URL_MULTIBRANCH_JOB1_RED;
-    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GREEN;
-    protected static URL STATUS_URL_MULTIBRANCH_JOB1_YELLOW;
-    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GRAY;
+//    protected static URL STATUS_URL_MULTIBRANCH_JOB1_RED;
+//    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GREEN;
+//    protected static URL STATUS_URL_MULTIBRANCH_JOB1_YELLOW;
+//    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GRAY;
 
     protected WireMockServer wireMockServer;
 
@@ -64,10 +64,10 @@ public class JenkinsClientTest {
         JOB_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_YELLOW);
         JOB_URL_MULTIBRANCH_JOB1_GRAY = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_GRAY);
 
-        STATUS_URL_MULTIBRANCH_JOB1_RED = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_RED);
-        STATUS_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GREEN);
-        STATUS_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_YELLOW);
-        STATUS_URL_MULTIBRANCH_JOB1_GRAY = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GRAY);
+//        STATUS_URL_MULTIBRANCH_JOB1_RED = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_RED);
+//        STATUS_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GREEN);
+//        STATUS_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_YELLOW);
+//        STATUS_URL_MULTIBRANCH_JOB1_GRAY = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GRAY);
     }
 
     @BeforeEach
@@ -151,7 +151,7 @@ public class JenkinsClientTest {
     protected void getValidJsonRed() {
         final JenkinsClient requester = new JenkinsClient();
         final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(new StatusAbfrageInformationen(STATUS_URL_MULTIBRANCH_JOB1_RED));
+            return requester.sendGetRequest(new StatusAbfrageInformationen(JOB_URL_MULTIBRANCH_JOB1_RED));
         });
         assertNotNull(json);
         assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
@@ -163,7 +163,7 @@ public class JenkinsClientTest {
     protected void getValidJsonGreen() {
         final JenkinsClient requester = new JenkinsClient();
         final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(new StatusAbfrageInformationen(STATUS_URL_MULTIBRANCH_JOB1_GREEN,null,null));
+            return requester.sendGetRequest(new StatusAbfrageInformationen(JOB_URL_MULTIBRANCH_JOB1_GREEN,null,null));
         });
         assertNotNull(json);
         assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
@@ -175,7 +175,7 @@ public class JenkinsClientTest {
     protected void getValidJsonYellow() {
         final JenkinsClient requester = new JenkinsClient();
         final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(new StatusAbfrageInformationen(STATUS_URL_MULTIBRANCH_JOB1_YELLOW,null,null));
+            return requester.sendGetRequest(new StatusAbfrageInformationen(JOB_URL_MULTIBRANCH_JOB1_YELLOW,null,null));
         });
         assertNotNull(json);
         assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
@@ -187,7 +187,7 @@ public class JenkinsClientTest {
     protected void getValidJsonGray() {
         final JenkinsClient requester = new JenkinsClient();
         final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(new StatusAbfrageInformationen(STATUS_URL_MULTIBRANCH_JOB1_GRAY,null,null));
+            return requester.sendGetRequest(new StatusAbfrageInformationen(JOB_URL_MULTIBRANCH_JOB1_GRAY,null,null));
         });
         assertNotNull(json);
         assertTrue(json.isEmpty());
