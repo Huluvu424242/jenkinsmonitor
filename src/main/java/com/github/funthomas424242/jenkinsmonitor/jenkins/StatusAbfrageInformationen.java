@@ -34,11 +34,14 @@ public class StatusAbfrageInformationen {
     }
 
     public String getBasicAuthToken(String password) {
+        String encodedToken = null;
         try {
-            return Base64.getEncoder().encodeToString(String.format("%s:%s", userName, password).getBytes("utf-8"));
+            if (password != null && password.equals(this.password)) {
+                encodedToken = Base64.getEncoder().encodeToString(String.format("%s:%s", this.userName, password).getBytes("utf-8"));
+            }
         } catch (UnsupportedEncodingException e) {
-            LOGGER.error("Nichtunterstütztes Encoding für das Verschlüsseln der Zugangsdaten angefordert");
+            LOGGER.error("Nichtunterstütztes Encoding utf-8 für das Verschlüsseln der Zugangsdaten angefordert");
         }
-        return null;
+        return encodedToken;
     }
 }
