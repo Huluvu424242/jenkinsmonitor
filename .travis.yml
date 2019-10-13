@@ -4,7 +4,7 @@ language: java
 jdk:
   - openjdk11
 
-script: ./mvnw -Ptravis-ci clean site install
+script: ./mvnw -Pheadless clean site install
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

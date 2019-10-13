@@ -455,7 +455,7 @@
 
   <profiles>
     <profile>
-      <id>travis-ci</id>
+      <id>headless</id>
       <properties>
         <junit-excluded-groups>headfull</junit-excluded-groups>
       </properties>
