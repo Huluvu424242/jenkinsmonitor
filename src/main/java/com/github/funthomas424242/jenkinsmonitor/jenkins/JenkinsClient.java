@@ -54,7 +54,8 @@ public class JenkinsClient {
 
     protected JobStatusBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
         final URL abfrageURL = new URL(jenkinsJobURL.toExternalForm() + JenkinsAPI.STATUS_PATH);
-        final JSONObject resultJSON = sendGetRequest(abfrageURL);
+        final StatusAbfrageInformationen statusAbfrageInformationen = new StatusAbfrageInformationen(abfrageURL);
+        final JSONObject resultJSON = sendGetRequest(statusAbfrageInformationen);
         try {
             final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
             final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
@@ -64,13 +65,15 @@ public class JenkinsClient {
         }
     }
 
-    protected JSONObject sendGetRequest(final URL statusAbfrageUrl) throws IOException {
+    protected JSONObject sendGetRequest(final StatusAbfrageInformationen statusabfrageInformationen) throws IOException {
+        final URL statusAbfrageUrl = statusabfrageInformationen.statusAbfrageUrl;
 
         // TODO auslagern in Configuration
         final String user = "huluvu"; // username
         final String pass = "huluvu"; // password or API token
         final String authStr = user + ":" + pass;
         final String encodedAuth = Base64.getEncoder().encodeToString(authStr.getBytes("utf-8"));
+
 
         JSONObject resultJSON = null;
         try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
