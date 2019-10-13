@@ -49,8 +49,7 @@ class JobBeschreibungTest {
     protected void checkEqualsAndHashCode() {
         assertDoesNotThrow(() -> {
             EqualsVerifier.forClass(JobBeschreibung.class)
-                .withIgnoredFields("jobId")
-                .withNonnullFields("abfrageDaten")
+                .withNonnullFields("jenkinsZugangsdaten")
                 .verify();
         });
     }
@@ -60,7 +59,7 @@ class JobBeschreibungTest {
     @DisplayName("Es wird eine gültige Instanz erstellt")
     protected void valideInitialisierung() {
         final JobBeschreibung jobBeschreibung
-            = new JobBeschreibung(new AbfrageDaten(LOCALHOST_JOB_TEST_URL));
+            = new JobBeschreibung(new JenkinsZugangsdaten(LOCALHOST_JOB_TEST_URL));
         assertNotNull(jobBeschreibung);
         assertEquals(LOCALHOST_JOB_TEST_URL, jobBeschreibung.getJobUrl());
     }
@@ -69,7 +68,7 @@ class JobBeschreibungTest {
     @DisplayName("Statusfarbe eines erfolgreichen Jobs ist grün")
     protected void erfolgreicheJobsSindGruen() {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
-            , new AbfrageDaten(LOCALHOST_JOB_TEST_URL));
+            , new JenkinsZugangsdaten(LOCALHOST_JOB_TEST_URL));
         assertNotNull(jobBeschreibung);
     }
 
@@ -77,7 +76,7 @@ class JobBeschreibungTest {
     @DisplayName("Statusfarbe eines instabilen Jobs ist gelb")
     protected void instabileJobsSindGelb() {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
-            , new AbfrageDaten(LOCALHOST_JOB_TEST_URL));
+            , new JenkinsZugangsdaten(LOCALHOST_JOB_TEST_URL));
         assertNotNull(jobBeschreibung);
     }
 
@@ -85,7 +84,7 @@ class JobBeschreibungTest {
     @DisplayName("Statusfarbe eines fehlerhaften Jobs ist rot")
     protected void fehlerhafteJobsSindRot() {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
-            , new AbfrageDaten(LOCALHOST_JOB_TEST_URL));
+            , new JenkinsZugangsdaten(LOCALHOST_JOB_TEST_URL));
         assertNotNull(jobBeschreibung);
     }
 

@@ -31,19 +31,19 @@ import java.net.URL;
 import java.util.Base64;
 import java.util.Objects;
 
-public class AbfrageDaten {
+public class JenkinsZugangsdaten {
 
-    transient protected final Logger LOGGER = LoggerFactory.getLogger(AbfrageDaten.class);
+    transient protected final Logger LOGGER = LoggerFactory.getLogger(JenkinsZugangsdaten.class);
 
     protected final URL jenkinsJobUrl;
     protected final String userName;
     protected final String password;
 
-    public AbfrageDaten(final URL jenkinsJobUrl) {
+    public JenkinsZugangsdaten(final URL jenkinsJobUrl) {
         this(jenkinsJobUrl, null, null);
     }
 
-    public AbfrageDaten(final URL jenkinsJobUrl, final String userName, String password) {
+    public JenkinsZugangsdaten(final URL jenkinsJobUrl, final String userName, String password) {
         this.jenkinsJobUrl = jenkinsJobUrl;
         this.userName = userName;
         this.password = password;
@@ -86,7 +86,7 @@ public class AbfrageDaten {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AbfrageDaten that = (AbfrageDaten) o;
+        JenkinsZugangsdaten that = (JenkinsZugangsdaten) o;
         return jenkinsJobUrl.equals(that.jenkinsJobUrl) &&
             Objects.equals(userName, that.userName) &&
             Objects.equals(password, that.password);

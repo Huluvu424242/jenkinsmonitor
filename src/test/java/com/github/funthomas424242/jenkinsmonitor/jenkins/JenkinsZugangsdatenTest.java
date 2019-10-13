@@ -32,23 +32,23 @@ import java.util.Base64;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AbfrageDatenTest {
+class JenkinsZugangsdatenTest {
 
     @Test
     @DisplayName("Prüfe das alle Daten als Properties enthalten sind")
     public void containsAllProperties() {
-        final AbfrageDaten abfrageDaten = assertDoesNotThrow(() -> {
-            return new AbfrageDaten(
+        final JenkinsZugangsdaten jenkinsZugangsdaten = assertDoesNotThrow(() -> {
+            return new JenkinsZugangsdaten(
                 new URL("http://localhost:8080/"),
                 "Nutzername",
                 "Passwort"
 
             );
         });
-        assertNotNull(abfrageDaten.getStatusAbfrageUrl());
-        assertEquals("Nutzername", abfrageDaten.getUserName());
-        assertEquals("Passwort", abfrageDaten.getPassword());
-        assertNotNull(abfrageDaten.getBasicAuthToken(abfrageDaten.getPassword()));
+        assertNotNull(jenkinsZugangsdaten.getStatusAbfrageUrl());
+        assertEquals("Nutzername", jenkinsZugangsdaten.getUserName());
+        assertEquals("Passwort", jenkinsZugangsdaten.getPassword());
+        assertNotNull(jenkinsZugangsdaten.getBasicAuthToken(jenkinsZugangsdaten.getPassword()));
     }
 
     @Test
@@ -56,8 +56,8 @@ class AbfrageDatenTest {
     @DisplayName("Das BasicAuth Token wird korrekt mit base64 kodiert")
     public void getBase64CodedToken() {
 
-        final AbfrageDaten abfrageDaten = assertDoesNotThrow(() -> {
-            return new AbfrageDaten(
+        final JenkinsZugangsdaten jenkinsZugangsdaten = assertDoesNotThrow(() -> {
+            return new JenkinsZugangsdaten(
                 new URL("http://localhost:8080/"),
                 "Nutzername",
                 "Passwort"
@@ -65,7 +65,7 @@ class AbfrageDatenTest {
         });
         try {
             final String expectedToken = Base64.getEncoder().encodeToString("Nutzername:Passwort".getBytes("utf-8"));
-            assertNotNull(abfrageDaten.getBasicAuthToken(abfrageDaten.getPassword()));
+            assertNotNull(jenkinsZugangsdaten.getBasicAuthToken(jenkinsZugangsdaten.getPassword()));
         } catch (UnsupportedEncodingException e) {
             fail();
         }
@@ -75,31 +75,31 @@ class AbfrageDatenTest {
     @DisplayName("Das BasicAuth Token wird bei gültigem Passwort zurückgegeben")
     public void getTokenWithValidPassword() {
 
-        final AbfrageDaten abfrageDaten = assertDoesNotThrow(() -> {
-            return new AbfrageDaten(
+        final JenkinsZugangsdaten jenkinsZugangsdaten = assertDoesNotThrow(() -> {
+            return new JenkinsZugangsdaten(
                 new URL("http://localhost:8080/"),
                 "Nutzername",
                 "Passwort"
             );
         });
-        assertNotNull(abfrageDaten.getStatusAbfrageUrl());
-        assertEquals("Nutzername", abfrageDaten.getUserName());
-        assertEquals("Passwort", abfrageDaten.getPassword());
-        assertNotNull(abfrageDaten.getBasicAuthToken(abfrageDaten.getPassword()));
+        assertNotNull(jenkinsZugangsdaten.getStatusAbfrageUrl());
+        assertEquals("Nutzername", jenkinsZugangsdaten.getUserName());
+        assertEquals("Passwort", jenkinsZugangsdaten.getPassword());
+        assertNotNull(jenkinsZugangsdaten.getBasicAuthToken(jenkinsZugangsdaten.getPassword()));
     }
 
     @Test
     @DisplayName("Als BasicAuth Token wird null bei ungültigem Passwort zurückgegeben")
     public void getNullWithInValidPassword() {
 
-        final AbfrageDaten abfrageDaten = assertDoesNotThrow(() -> {
-            return new AbfrageDaten(
+        final JenkinsZugangsdaten jenkinsZugangsdaten = assertDoesNotThrow(() -> {
+            return new JenkinsZugangsdaten(
                 new URL("http://localhost:8080/"),
                 "Nutzername",
                 "Passwort"
             );
         });
-        assertNull(abfrageDaten.getBasicAuthToken("blah blup falsch"));
+        assertNull(jenkinsZugangsdaten.getBasicAuthToken("blah blup falsch"));
     }
 
 }

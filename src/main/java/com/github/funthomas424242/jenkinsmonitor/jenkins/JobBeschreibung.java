@@ -29,21 +29,21 @@ public final class JobBeschreibung {
 
     protected final String jobId;
 
-    protected final AbfrageDaten abfrageDaten;
+    protected final JenkinsZugangsdaten jenkinsZugangsdaten;
 
 
-    public JobBeschreibung(final AbfrageDaten abfrageDaten) {
-        this(null, abfrageDaten);
+    public JobBeschreibung(final JenkinsZugangsdaten jenkinsZugangsdaten) {
+        this(null, jenkinsZugangsdaten);
     }
 
-    public JobBeschreibung(final String jobId, final AbfrageDaten abfrageDaten) {
-        if (abfrageDaten == null || abfrageDaten.getJenkinsJobUrl() == null) throw new IllegalArgumentException("URL darf nicht null sein.");
+    public JobBeschreibung(final String jobId, final JenkinsZugangsdaten jenkinsZugangsdaten) {
+        if (jenkinsZugangsdaten == null || jenkinsZugangsdaten.getJenkinsJobUrl() == null) throw new IllegalArgumentException("URL darf nicht null sein.");
         this.jobId = jobId;
-        this.abfrageDaten = abfrageDaten;
+        this.jenkinsZugangsdaten = jenkinsZugangsdaten;
     }
 
     public URL getJobUrl() {
-        return this.abfrageDaten.getJenkinsJobUrl();
+        return this.jenkinsZugangsdaten.getJenkinsJobUrl();
     }
 
     public String getJobId() {
@@ -51,8 +51,8 @@ public final class JobBeschreibung {
     }
 
 
-    public AbfrageDaten getAbfrageDaten() {
-        return this.abfrageDaten;
+    public JenkinsZugangsdaten getJenkinsZugangsdaten() {
+        return this.jenkinsZugangsdaten;
     }
 
     @Override
@@ -60,12 +60,13 @@ public final class JobBeschreibung {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JobBeschreibung that = (JobBeschreibung) o;
-        return abfrageDaten.equals(that.abfrageDaten);
+        return Objects.equals(jobId, that.jobId) &&
+            jenkinsZugangsdaten.equals(that.jenkinsZugangsdaten);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(abfrageDaten);
+        return Objects.hash(jobId, jenkinsZugangsdaten);
     }
 }
 

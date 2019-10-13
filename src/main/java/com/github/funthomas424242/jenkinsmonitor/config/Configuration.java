@@ -23,7 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.AbfrageDaten;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsZugangsdaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,6 +83,21 @@ public class Configuration {
         return Long.parseLong(propValue);
     }
 
+//    public String getAllAbfragedaten() {
+//        loadPropertiesFromFile(configurationFile);
+//        configurationProperties
+//            .stringPropertyNames()
+//            .stream()
+//            .filter( (key)->key.startsWith("jenkinsauth"))
+//            .forEach(key -> {
+//            });
+//        return null;
+//    }
+
+    protected JenkinsZugangsdaten getAbfragedatenOf(final URL jobUrl){
+        return new JenkinsZugangsdaten(jobUrl,"admin","geheim");
+    }
+
     public JobBeschreibung[] getJobBeschreibungen() {
         loadPropertiesFromFile(configurationFile);
         final List<JobBeschreibung> jobBeschreibungen = new ArrayList<>();
@@ -90,9 +105,8 @@ public class Configuration {
             final String value = configurationProperties.getProperty(key);
             if (key.startsWith(JOBKEY_PREFIX)) {
                 final URL jobURL = NetworkHelper.urlOf(value);
-                // TODO Abfragedaten anreichern
-                final AbfrageDaten abfrageDaten = new AbfrageDaten(jobURL);
-                final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, abfrageDaten);
+                final JenkinsZugangsdaten jenkinsZugangsdaten = getAbfragedatenOf(jobURL);
+                final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, jenkinsZugangsdaten);
                 jobBeschreibungen.add(jobBeschreibung);
             }
         });

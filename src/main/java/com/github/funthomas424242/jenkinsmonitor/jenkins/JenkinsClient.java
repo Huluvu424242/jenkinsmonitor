@@ -51,19 +51,19 @@ public class JenkinsClient {
     public static final String JSONKEY_RESULT = "result";
 
 
-    protected JobStatusBeschreibung getJobStatus(final AbfrageDaten abfrageDaten) throws IOException {
+    protected JobStatusBeschreibung getJobStatus(final JenkinsZugangsdaten jenkinsZugangsdaten) throws IOException {
 
-        final JSONObject resultJSON = sendGetRequest(abfrageDaten);
+        final JSONObject resultJSON = sendGetRequest(jenkinsZugangsdaten);
         try {
             final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
             final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
-            return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), abfrageDaten.getJenkinsJobUrl());
+            return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jenkinsZugangsdaten.getJenkinsJobUrl());
         } catch (JSONException ex) {
-            return new JobStatusBeschreibung(abfrageDaten.getJenkinsJobUrl().getPath(), JobStatus.OTHER, abfrageDaten.getJenkinsJobUrl());
+            return new JobStatusBeschreibung(jenkinsZugangsdaten.getJenkinsJobUrl().getPath(), JobStatus.OTHER, jenkinsZugangsdaten.getJenkinsJobUrl());
         }
     }
 
-    protected JSONObject sendGetRequest(final AbfrageDaten statusabfrageDaten) throws IOException {
+    protected JSONObject sendGetRequest(final JenkinsZugangsdaten statusabfrageDaten) throws IOException {
         final URL statusAbfrageUrl = statusabfrageDaten.getStatusAbfrageUrl();
 
         JSONObject resultJSON = null;
@@ -99,8 +99,8 @@ public class JenkinsClient {
             JobStatusBeschreibung returnValue = null;
             try {
                 // TODO zugangsdaten
-                final AbfrageDaten abfrageDaten = new AbfrageDaten(beschreibung.getJobUrl(),null,null);
-                final JobStatusBeschreibung jobStatus = getJobStatus(abfrageDaten);
+                final JenkinsZugangsdaten jenkinsZugangsdaten = new JenkinsZugangsdaten(beschreibung.getJobUrl(),null,null);
+                final JobStatusBeschreibung jobStatus = getJobStatus(jenkinsZugangsdaten);
                 returnValue = new JobStatusBeschreibung(jobStatus.getJobName()
                     , jobStatus.getJobStatus()
                     , beschreibung.getJobUrl());
