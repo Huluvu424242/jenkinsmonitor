@@ -67,7 +67,6 @@ class StatusAbfrageInformationenTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Als BasicAuth Token wird null bei ungültigem Passwort zurückgegeben")
     public void getNullWithInValidPassword() {
 
