@@ -54,7 +54,7 @@ public class JenkinsClient {
 
     protected JobStatusBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
         final URL abfrageURL = new URL(jenkinsJobURL.toExternalForm() + JenkinsAPI.STATUS_PATH);
-        final StatusAbfrageInformationen statusAbfrageInformationen = new StatusAbfrageInformationen(abfrageURL);
+        final StatusAbfrageInformationen statusAbfrageInformationen = new StatusAbfrageInformationen(abfrageURL,null,null);
         final JSONObject resultJSON = sendGetRequest(statusAbfrageInformationen);
         try {
             final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
