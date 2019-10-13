@@ -10,12 +10,12 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * it under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Lesser Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Lesser Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
@@ -29,10 +29,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Base64;
+import java.util.Objects;
 
 public class AbfrageDaten {
 
-    protected final Logger LOGGER = LoggerFactory.getLogger(AbfrageDaten.class);
+    transient protected final Logger LOGGER = LoggerFactory.getLogger(AbfrageDaten.class);
 
     protected final URL jenkinsJobUrl;
     protected final String userName;
@@ -79,5 +80,20 @@ public class AbfrageDaten {
 
     public URL getJenkinsJobUrl() {
         return jenkinsJobUrl;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbfrageDaten that = (AbfrageDaten) o;
+        return jenkinsJobUrl.equals(that.jenkinsJobUrl) &&
+            Objects.equals(userName, that.userName) &&
+            Objects.equals(password, that.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(jenkinsJobUrl, userName, password);
     }
 }
