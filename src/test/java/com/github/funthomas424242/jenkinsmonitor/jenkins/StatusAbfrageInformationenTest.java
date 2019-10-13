@@ -50,7 +50,6 @@ class StatusAbfrageInformationenTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Das BasicAuth Token wird bei gültigem Passwort zurückgegeben")
     public void getTokenWithValidPassword() {
 
