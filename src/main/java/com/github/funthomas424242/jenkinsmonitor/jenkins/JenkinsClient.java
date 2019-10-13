@@ -39,6 +39,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.stream.Collectors;
 
 
@@ -64,10 +65,18 @@ public class JenkinsClient {
     }
 
     protected JSONObject sendGetRequest(final URL statusAbfrageUrl) throws IOException {
+
+        // TODO auslagern in Configuration
+        final String user = "huluvu"; // username
+        final String pass = "huluvu"; // password or API token
+        final String authStr = user + ":" + pass;
+        final String encodedAuth = Base64.getEncoder().encodeToString(authStr.getBytes("utf-8"));
+
         JSONObject resultJSON = null;
         try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             final HttpHost target = new HttpHost(statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort(), statusAbfrageUrl.getProtocol());
             final HttpGet httpGetRequest = new HttpGet(statusAbfrageUrl.getPath());
+            httpGetRequest.setHeader("Authorization","Basic " + encodedAuth);
             final HttpResponse httpResponse = httpClient.execute(target, httpGetRequest);
             final HttpEntity entity = httpResponse.getEntity();
             final InputStream inputStream = entity.getContent();
@@ -75,7 +84,6 @@ public class JenkinsClient {
             final String requestResult = readStreamIntoString(inputStream);
             LOG.debug("Empfangen als JSON:\n {}", requestResult);
             resultJSON = new JSONObject(requestResult);
-
         }
         return resultJSON;
     }
