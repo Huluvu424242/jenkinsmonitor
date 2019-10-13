@@ -83,16 +83,16 @@ public class Configuration {
         return Long.parseLong(propValue);
     }
 
-//    public String getAllAbfragedaten() {
-//        loadPropertiesFromFile(configurationFile);
-//        configurationProperties
-//            .stringPropertyNames()
-//            .stream()
-//            .filter( (key)->key.startsWith("jenkinsauth"))
-//            .forEach(key -> {
-//            });
-//        return null;
-//    }
+    public String getAllAbfragedaten() {
+        loadPropertiesFromFile(configurationFile);
+        configurationProperties
+            .stringPropertyNames()
+            .stream()
+            .filter( (key)->key.startsWith("jenkinsauth"))
+            .forEach(key -> {
+            });
+        return null;
+    }
 
     protected JenkinsZugangsdaten getAbfragedatenOf(final URL jobUrl){
         return new JenkinsZugangsdaten(jobUrl,"admin","geheim");
