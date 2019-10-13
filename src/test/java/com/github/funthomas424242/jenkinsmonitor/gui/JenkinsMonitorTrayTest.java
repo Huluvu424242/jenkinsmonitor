@@ -26,10 +26,7 @@ import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTreeJobs;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTwoJobs;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -55,8 +52,8 @@ class JenkinsClientMock extends JenkinsClient {
     }
 
     @Override
-    protected JobStatusBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
-        return new JobStatusBeschreibung("xxx", jobStatus[jobNr++], jenkinsJobURL);
+    protected JobStatusBeschreibung getJobStatus(final StatusAbfrageInformationen statusAbfrageInformationen) throws IOException {
+        return new JobStatusBeschreibung("xxx", jobStatus[jobNr++], statusAbfrageInformationen.getJenkinsJobUrl());
     }
 }
 

@@ -16,6 +16,10 @@ public class StatusAbfrageInformationen {
     protected final String userName;
     protected final String password;
 
+    public StatusAbfrageInformationen(final URL jenkinsJobUrl) {
+        this(jenkinsJobUrl, null, null);
+    }
+
     public StatusAbfrageInformationen(final URL jenkinsJobUrl, final String userName, String password) {
         this.jenkinsJobUrl = jenkinsJobUrl;
         this.userName = userName;
@@ -49,5 +53,9 @@ public class StatusAbfrageInformationen {
             LOGGER.error("Nichtunterstütztes Encoding utf-8 für das Verschlüsseln der Zugangsdaten angefordert");
         }
         return encodedToken;
+    }
+
+    public URL getJenkinsJobUrl() {
+        return jenkinsJobUrl;
     }
 }

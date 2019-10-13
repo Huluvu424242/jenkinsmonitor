@@ -52,34 +52,29 @@ public class JenkinsClient {
     public static final String JSONKEY_RESULT = "result";
 
 
-    protected JobStatusBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
-        final URL abfrageURL = new URL(jenkinsJobURL.toExternalForm() + JenkinsAPI.STATUS_PATH);
-        final StatusAbfrageInformationen statusAbfrageInformationen = new StatusAbfrageInformationen(abfrageURL,null,null);
+    protected JobStatusBeschreibung getJobStatus(final StatusAbfrageInformationen statusAbfrageInformationen) throws IOException {
+
         final JSONObject resultJSON = sendGetRequest(statusAbfrageInformationen);
         try {
             final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
             final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
-            return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jenkinsJobURL);
+            return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), statusAbfrageInformationen.getJenkinsJobUrl());
         } catch (JSONException ex) {
-            return new JobStatusBeschreibung(jenkinsJobURL.getPath(), JobStatus.OTHER, jenkinsJobURL);
+            return new JobStatusBeschreibung(statusAbfrageInformationen.getJenkinsJobUrl().getPath(), JobStatus.OTHER, statusAbfrageInformationen.getJenkinsJobUrl());
         }
     }
 
     protected JSONObject sendGetRequest(final StatusAbfrageInformationen statusabfrageInformationen) throws IOException {
-        final URL statusAbfrageUrl = statusabfrageInformationen.statusAbfrageUrl;
-
-        // TODO auslagern in Configuration
-        final String user = "huluvu"; // username
-        final String pass = "huluvu"; // password or API token
-        final String authStr = user + ":" + pass;
-        final String encodedAuth = Base64.getEncoder().encodeToString(authStr.getBytes("utf-8"));
-
+        final URL statusAbfrageUrl = statusabfrageInformationen.getStatusAbfrageUrl();
 
         JSONObject resultJSON = null;
         try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             final HttpHost target = new HttpHost(statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort(), statusAbfrageUrl.getProtocol());
             final HttpGet httpGetRequest = new HttpGet(statusAbfrageUrl.getPath());
-            httpGetRequest.setHeader("Authorization","Basic " + encodedAuth);
+            final String basicAuthToken =  statusabfrageInformationen.getBasicAuthToken(statusabfrageInformationen.getPassword());
+            if( basicAuthToken != null && basicAuthToken.length() >1) {
+                httpGetRequest.setHeader("Authorization", "Basic " +basicAuthToken);
+            }
             final HttpResponse httpResponse = httpClient.execute(target, httpGetRequest);
             final HttpEntity entity = httpResponse.getEntity();
             final InputStream inputStream = entity.getContent();
@@ -104,7 +99,9 @@ public class JenkinsClient {
         return Arrays.stream(jobBeschreibungen).map(beschreibung -> {
             JobStatusBeschreibung returnValue = null;
             try {
-                final JobStatusBeschreibung jobStatus = getJobStatus(beschreibung.getJobUrl());
+                // TODO zugangsdaten
+                final StatusAbfrageInformationen statusAbfrageInformationen = new StatusAbfrageInformationen(beschreibung.getJobUrl(),null,null);
+                final JobStatusBeschreibung jobStatus = getJobStatus(statusAbfrageInformationen);
                 returnValue = new JobStatusBeschreibung(jobStatus.getJobName()
                     , jobStatus.getJobStatus()
                     , beschreibung.getJobUrl());
