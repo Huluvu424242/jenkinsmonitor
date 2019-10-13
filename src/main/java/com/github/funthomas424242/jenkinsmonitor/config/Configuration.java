@@ -72,7 +72,7 @@ public class Configuration {
         this.configurationProperties = properties;
     }
 
-    public File getConfigurationfile() {
+    protected File getConfigurationfile() {
         return this.configurationFile;
     }
 

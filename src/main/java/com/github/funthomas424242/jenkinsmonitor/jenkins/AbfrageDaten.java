@@ -1,5 +1,27 @@
 package com.github.funthomas424242.jenkinsmonitor.jenkins;
 
+/*-
+ * #%L
+ * Jenkins Monitor
+ * %%
+ * Copyright (C) 2019 PIUG
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/lgpl-3.0.html>.
+ * #L%
+ */
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,19 +30,19 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Base64;
 
-public class StatusAbfrageInformationen {
+public class AbfrageDaten {
 
-    protected final Logger LOGGER = LoggerFactory.getLogger(StatusAbfrageInformationen.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(AbfrageDaten.class);
 
     protected final URL jenkinsJobUrl;
     protected final String userName;
     protected final String password;
 
-    public StatusAbfrageInformationen(final URL jenkinsJobUrl) {
+    public AbfrageDaten(final URL jenkinsJobUrl) {
         this(jenkinsJobUrl, null, null);
     }
 
-    public StatusAbfrageInformationen(final URL jenkinsJobUrl, final String userName, String password) {
+    public AbfrageDaten(final URL jenkinsJobUrl, final String userName, String password) {
         this.jenkinsJobUrl = jenkinsJobUrl;
         this.userName = userName;
         this.password = password;

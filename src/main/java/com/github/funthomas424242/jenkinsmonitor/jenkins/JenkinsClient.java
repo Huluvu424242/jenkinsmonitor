@@ -39,7 +39,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.stream.Collectors;
 
 
@@ -52,26 +51,26 @@ public class JenkinsClient {
     public static final String JSONKEY_RESULT = "result";
 
 
-    protected JobStatusBeschreibung getJobStatus(final StatusAbfrageInformationen statusAbfrageInformationen) throws IOException {
+    protected JobStatusBeschreibung getJobStatus(final AbfrageDaten abfrageDaten) throws IOException {
 
-        final JSONObject resultJSON = sendGetRequest(statusAbfrageInformationen);
+        final JSONObject resultJSON = sendGetRequest(abfrageDaten);
         try {
             final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
             final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
-            return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), statusAbfrageInformationen.getJenkinsJobUrl());
+            return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), abfrageDaten.getJenkinsJobUrl());
         } catch (JSONException ex) {
-            return new JobStatusBeschreibung(statusAbfrageInformationen.getJenkinsJobUrl().getPath(), JobStatus.OTHER, statusAbfrageInformationen.getJenkinsJobUrl());
+            return new JobStatusBeschreibung(abfrageDaten.getJenkinsJobUrl().getPath(), JobStatus.OTHER, abfrageDaten.getJenkinsJobUrl());
         }
     }
 
-    protected JSONObject sendGetRequest(final StatusAbfrageInformationen statusabfrageInformationen) throws IOException {
-        final URL statusAbfrageUrl = statusabfrageInformationen.getStatusAbfrageUrl();
+    protected JSONObject sendGetRequest(final AbfrageDaten statusabfrageDaten) throws IOException {
+        final URL statusAbfrageUrl = statusabfrageDaten.getStatusAbfrageUrl();
 
         JSONObject resultJSON = null;
         try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             final HttpHost target = new HttpHost(statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort(), statusAbfrageUrl.getProtocol());
             final HttpGet httpGetRequest = new HttpGet(statusAbfrageUrl.getPath());
-            final String basicAuthToken =  statusabfrageInformationen.getBasicAuthToken(statusabfrageInformationen.getPassword());
+            final String basicAuthToken =  statusabfrageDaten.getBasicAuthToken(statusabfrageDaten.getPassword());
             if( basicAuthToken != null && basicAuthToken.length() >1) {
                 httpGetRequest.setHeader("Authorization", "Basic " +basicAuthToken);
             }
@@ -100,8 +99,8 @@ public class JenkinsClient {
             JobStatusBeschreibung returnValue = null;
             try {
                 // TODO zugangsdaten
-                final StatusAbfrageInformationen statusAbfrageInformationen = new StatusAbfrageInformationen(beschreibung.getJobUrl(),null,null);
-                final JobStatusBeschreibung jobStatus = getJobStatus(statusAbfrageInformationen);
+                final AbfrageDaten abfrageDaten = new AbfrageDaten(beschreibung.getJobUrl(),null,null);
+                final JobStatusBeschreibung jobStatus = getJobStatus(abfrageDaten);
                 returnValue = new JobStatusBeschreibung(jobStatus.getJobName()
                     , jobStatus.getJobStatus()
                     , beschreibung.getJobUrl());
