@@ -33,6 +33,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -90,15 +91,24 @@ public class Configuration {
         configurationProperties
             .stringPropertyNames()
             .stream()
-            .filter( (key)->key.startsWith(KEY_JENKINSAUTH))
+            .filter((key) -> key.startsWith(KEY_JENKINSAUTH))
             .forEach(key -> {
-                zugangsdatensammler.addZugangsdatum(key,configurationProperties.getProperty(key));
+                zugangsdatensammler.addZugangsdatum(key, configurationProperties.getProperty(key));
             });
         return zugangsdatensammler.getJenkinsZugangsdaten();
     }
 
-    protected JenkinsZugangsdaten getAbfragedatenOf(final URL jobUrl){
-        return new JenkinsZugangsdaten(jobUrl,"admin","geheim");
+    protected JenkinsZugangsdaten getAbfragedatenOf(final URL jobUrl) {
+        final JenkinsZugangsdaten[] alleZugaenge = getAllAbfragedaten();
+        return Arrays.stream(alleZugaenge)
+            .filter((zugang) -> {
+                return jobUrl.toExternalForm().startsWith(zugang.getJenkinsJobUrl().toExternalForm());
+            })
+            .map((zugang) -> {
+                return new JenkinsZugangsdaten(jobUrl, zugang);
+            })
+            .findFirst()
+            .get();
     }
 
     public JobBeschreibung[] getJobBeschreibungen() {

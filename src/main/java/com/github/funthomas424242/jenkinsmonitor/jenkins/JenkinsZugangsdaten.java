@@ -54,7 +54,7 @@ public class JenkinsZugangsdaten {
     }
 
     // TODO protected
-    public JenkinsZugangsdaten(final URL jenkinsJobUrl, final String userName, String password) {
+    protected JenkinsZugangsdaten(final URL jenkinsJobUrl, final String userName, String password) {
         this.jenkinsJobUrl = jenkinsJobUrl;
         this.userName = userName;
         this.password = password;
