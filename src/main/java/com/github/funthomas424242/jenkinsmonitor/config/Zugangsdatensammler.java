@@ -62,7 +62,9 @@ public class Zugangsdatensammler {
             .map((zugang) -> {
                 return new JenkinsZugangsdaten(zugang.userName, zugang.password);
             })
-            .toArray(JenkinsZugangsdaten[]::new);
+            .toArray(JenkinsZugangsdaten[]::new)
+            // TODO
+//            .orElse();
     }
 
     protected void checkAllParameterUntilFirstNotNull(Object... parameter) {
