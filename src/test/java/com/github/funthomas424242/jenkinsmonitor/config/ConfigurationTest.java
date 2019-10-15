@@ -158,18 +158,6 @@ class ConfigurationTest {
     }
 
     @Test
-    @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
-    protected void useNullAsDefaultUsername() {
-        final String userName = emptyConfigurationfile.getUsername();
-        assertNull(userName);
-
-//        final JobBeschreibung[] jobBeschreibungen = this.validConfigurationfile.getJobBeschreibungen();
-//        assertNotNull(jobBeschreibungen);
-//        assertEquals(2, jobBeschreibungen.length);
-
-    }
-
-    @Test
     @DisplayName("Prüfe auf gleiche Werte bei reload aus Configfile")
     protected void reloadCurrentConfiguration() {
         final long pollPeriodInSecond1 = validConfigurationfile.getPollPeriodInSecond();

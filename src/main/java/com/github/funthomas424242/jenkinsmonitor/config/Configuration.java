@@ -22,8 +22,8 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.jenkins.BasicAuthDaten;
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.BasicAuthDaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import org.slf4j.Logger;
@@ -79,13 +79,7 @@ public class Configuration {
         return this.configurationFile;
     }
 
-    public long getPollPeriodInSecond() {
-        loadPropertiesFromFile(configurationFile);
-        final String propValue = this.configurationProperties.getProperty(JENKINSMONITOR_POLLPERIOD, DEFAULT_POLLPERIOD);
-        return Long.parseLong(propValue);
-    }
-
-    public Jenkinszugangskonfiguration[] getAllJenkinszugangskonfigurationen() {
+    protected Jenkinszugangskonfiguration[] getAllJenkinszugangskonfigurationen() {
         loadPropertiesFromFile(configurationFile);
         final Zugangsdatensammler zugangsdatensammler = new Zugangsdatensammler();
         configurationProperties
@@ -99,6 +93,7 @@ public class Configuration {
     }
 
     protected JobAbfragedaten getAbfragedatenOf(final URL jobUrl) {
+        loadPropertiesFromFile(configurationFile);
         final Jenkinszugangskonfiguration[] alleJenkinsZugaenge = getAllJenkinszugangskonfigurationen();
         final Optional<BasicAuthDaten> jenkinsZugangsdaten = Arrays.stream(alleJenkinsZugaenge)
             .filter((zugang) -> {
@@ -111,6 +106,23 @@ public class Configuration {
         } else {
             return new JobAbfragedaten(jobUrl, null);
         }
+    }
+
+
+    public void reload() {
+        reloadFromFile(this.configurationFile);
+    }
+
+    public void reloadFromFile(final File configFile) {
+        this.isInitialisiert = false;
+        this.configurationFile = configFile;
+        loadPropertiesFromFile(configFile);
+    }
+
+    public long getPollPeriodInSecond() {
+        loadPropertiesFromFile(configurationFile);
+        final String propValue = this.configurationProperties.getProperty(JENKINSMONITOR_POLLPERIOD, DEFAULT_POLLPERIOD);
+        return Long.parseLong(propValue);
     }
 
     public JobBeschreibung[] getJobBeschreibungen() {
@@ -128,17 +140,4 @@ public class Configuration {
             }).toArray(JobBeschreibung[]::new);
     }
 
-    public void reload() {
-        reloadFromFile(this.configurationFile);
-    }
-
-    public void reloadFromFile(final File configFile) {
-        this.isInitialisiert = false;
-        this.configurationFile = configFile;
-        loadPropertiesFromFile(configFile);
-    }
-
-    public String getUsername() {
-        return null;
-    }
 }
