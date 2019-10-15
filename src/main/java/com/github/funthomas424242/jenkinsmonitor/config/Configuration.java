@@ -22,6 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.jenkins.BasicAuthDaten;
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
@@ -84,7 +85,7 @@ public class Configuration {
         return Long.parseLong(propValue);
     }
 
-    public JobAbfragedaten[] getAllAbfragedaten() {
+    public Jenkinszugangskonfiguration[] getAllJenkinszugangskonfigurationen() {
         loadPropertiesFromFile(configurationFile);
         final Zugangsdatensammler zugangsdatensammler = new Zugangsdatensammler();
         configurationProperties
@@ -98,19 +99,17 @@ public class Configuration {
     }
 
     protected JobAbfragedaten getAbfragedatenOf(final URL jobUrl) {
-        final JobAbfragedaten[] alleZugaenge = getAllAbfragedaten();
-        Optional<JobAbfragedaten> zugangsdaten=  Arrays.stream(alleZugaenge)
+        final Jenkinszugangskonfiguration[] alleJenkinsZugaenge = getAllJenkinszugangskonfigurationen();
+        final Optional<BasicAuthDaten> jenkinsZugangsdaten = Arrays.stream(alleJenkinsZugaenge)
             .filter((zugang) -> {
-                return jobUrl.toExternalForm().startsWith(zugang.getJenkinsJobUrl().toExternalForm());
+                return jobUrl.toExternalForm().startsWith(zugang.getJenkinsUrl().toExternalForm());
             })
-            .map((zugang) -> {
-                return new JobAbfragedaten(jobUrl, zugang);
-            })
+            .map((zugang) -> zugang.getAuthDaten())
             .findFirst();
-        if(zugangsdaten.isPresent()){
-            return zugangsdaten.get();
-        }else{
-            return null;
+        if (jenkinsZugangsdaten.isPresent()) {
+            return new JobAbfragedaten(jobUrl, jenkinsZugangsdaten.get());
+        } else {
+            return new JobAbfragedaten(jobUrl, null);
         }
     }
 

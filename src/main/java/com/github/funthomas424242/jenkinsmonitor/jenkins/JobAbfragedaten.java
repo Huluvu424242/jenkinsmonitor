@@ -25,10 +25,8 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Base64;
 import java.util.Objects;
 
 public class JobAbfragedaten {
@@ -36,28 +34,23 @@ public class JobAbfragedaten {
     transient protected final Logger LOGGER = LoggerFactory.getLogger(JobAbfragedaten.class);
 
     protected final URL jenkinsJobUrl;
-    protected final String userName;
-    protected final String password;
+    protected final BasicAuthDaten authDaten;
 
 
-    // TODO protected
     public JobAbfragedaten(final URL jenkinsJobUrl) {
-        this(jenkinsJobUrl, null, null);
+        this(jenkinsJobUrl, (BasicAuthDaten) null);
     }
 
-    public JobAbfragedaten(final String userName, String password) {
-        this(null,userName,password);
-    }
-
-    public JobAbfragedaten(final URL jenkinsJobUrl, final JobAbfragedaten jobAbfragedaten) {
-        this(jenkinsJobUrl, jobAbfragedaten.userName, jobAbfragedaten.password);
-    }
-
-    // TODO protected
-    protected JobAbfragedaten(final URL jenkinsJobUrl, final String userName, String password) {
+    public JobAbfragedaten(final URL jenkinsJobUrl, final BasicAuthDaten authDaten) {
+        if (jenkinsJobUrl == null) {
+            throw new IllegalArgumentException("job url kann nicht leer sein");
+        }
         this.jenkinsJobUrl = jenkinsJobUrl;
-        this.userName = userName;
-        this.password = password;
+        this.authDaten = authDaten;
+    }
+
+    public String getBasicAuthToken() {
+        return authDaten.getBasicAuthToken(authDaten.password);
     }
 
     public URL getStatusAbfrageUrl() {
@@ -69,16 +62,6 @@ public class JobAbfragedaten {
         return null;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-
-
     public URL getJenkinsJobUrl() {
         return jenkinsJobUrl;
     }
@@ -89,12 +72,13 @@ public class JobAbfragedaten {
         if (o == null || getClass() != o.getClass()) return false;
         JobAbfragedaten that = (JobAbfragedaten) o;
         return jenkinsJobUrl.equals(that.jenkinsJobUrl) &&
-            Objects.equals(userName, that.userName) &&
-            Objects.equals(password, that.password);
+            Objects.equals(authDaten, that.authDaten);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(jenkinsJobUrl, userName, password);
+        return Objects.hash(jenkinsJobUrl, authDaten);
     }
+
+
 }

@@ -163,7 +163,7 @@ public class JenkinsClientTest {
     protected void getValidJsonGreen() {
         final JenkinsClient requester = new JenkinsClient();
         final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GREEN, null, null));
+            return requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GREEN, null));
         });
         assertNotNull(json);
         assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
@@ -175,7 +175,7 @@ public class JenkinsClientTest {
     protected void getValidJsonYellow() {
         final JenkinsClient requester = new JenkinsClient();
         final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_YELLOW, null, null));
+            return requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_YELLOW, null));
         });
         assertNotNull(json);
         assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
@@ -187,7 +187,7 @@ public class JenkinsClientTest {
     protected void getValidJsonGray() {
         final JenkinsClient requester = new JenkinsClient();
         final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY, null, null));
+            return requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY, null));
         });
         assertNotNull(json);
         assertTrue(json.isEmpty());

@@ -1,10 +1,11 @@
-package com.github.funthomas424242.jenkinsmonitor.etc;
+package com.github.funthomas424242.jenkinsmonitor.jenkins;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
+import java.util.Objects;
 
 public class BasicAuthDaten {
 
@@ -34,4 +35,17 @@ public class BasicAuthDaten {
         return encodedToken;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BasicAuthDaten that = (BasicAuthDaten) o;
+        return userName.equals(that.userName) &&
+            password.equals(that.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userName, password);
+    }
 }

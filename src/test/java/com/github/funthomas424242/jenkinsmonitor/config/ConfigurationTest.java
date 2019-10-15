@@ -22,6 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.jenkins.BasicAuthDaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +36,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -142,12 +148,13 @@ class ConfigurationTest {
     @Test
     @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
     protected void useUserNameFromConfigfile() {
-        final JobBeschreibung[]  jobBeschreibungen = validConfigurationfile.getJobBeschreibungen();
+        final JobBeschreibung[] jobBeschreibungen = validConfigurationfile.getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
         assertEquals(2, jobBeschreibungen.length);
         assertNotNull(jobBeschreibungen[0].getJobAbfragedaten());
-        assertEquals("admin", jobBeschreibungen[0].getJobAbfragedaten().getUserName());
-        assertEquals("geheim", jobBeschreibungen[0].getJobAbfragedaten().getPassword());
+        assertEquals(
+            new BasicAuthDaten("admin", "geheim").getBasicAuthToken("geheim"),
+            jobBeschreibungen[0].getJobAbfragedaten().getBasicAuthToken());
     }
 
     @Test

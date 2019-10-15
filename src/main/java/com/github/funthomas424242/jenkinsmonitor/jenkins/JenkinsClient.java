@@ -70,9 +70,9 @@ public class JenkinsClient {
         try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             final HttpHost target = new HttpHost(statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort(), statusAbfrageUrl.getProtocol());
             final HttpGet httpGetRequest = new HttpGet(statusAbfrageUrl.getPath());
-            final String basicAuthToken =  statusabfrageDaten.getBasicAuthToken(statusabfrageDaten.getPassword());
-            if( basicAuthToken != null && basicAuthToken.length() >1) {
-                httpGetRequest.setHeader("Authorization", "Basic " +basicAuthToken);
+            final String basicAuthToken = statusabfrageDaten.getBasicAuthToken();
+            if (basicAuthToken != null && basicAuthToken.length() > 1) {
+                httpGetRequest.setHeader("Authorization", "Basic " + basicAuthToken);
             }
             final HttpResponse httpResponse = httpClient.execute(target, httpGetRequest);
             final HttpEntity entity = httpResponse.getEntity();
@@ -95,25 +95,27 @@ public class JenkinsClient {
 
 
     public JobStatusBeschreibung[] ladeJobsStatus(JobBeschreibung[] jobBeschreibungen) {
-        return Arrays.stream(jobBeschreibungen).map(beschreibung -> {
-            JobStatusBeschreibung returnValue = null;
-            try {
-                // TODO zugangsdaten
-                final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(beschreibung.getJobUrl(),null,null);
-                final JobStatusBeschreibung jobStatus = getJobStatus(jobAbfragedaten);
-                returnValue = new JobStatusBeschreibung(jobStatus.getJobName()
-                    , jobStatus.getJobStatus()
-                    , beschreibung.getJobUrl());
-                LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
-            } catch (IOException e) {
-                LOG.error(e.getLocalizedMessage(), e);
-                returnValue = new JobStatusBeschreibung(beschreibung.getJobId(),
-                    JobStatus.OTHER,
-                    beschreibung.getJobUrl());
-                LOG.debug(String.format("JobStatus ERR geladen: %s : %s at %s ", beschreibung.getJobId(), JobStatus.OTHER.toString(), beschreibung.getJobUrl().toExternalForm()));
-            }
-            return returnValue;
-        }).toArray(JobStatusBeschreibung[]::new);
+        return Arrays.stream(jobBeschreibungen)
+            .map(beschreibung -> {
+                JobStatusBeschreibung returnValue = null;
+                try {
+                    // TODO prüfen ob schon vorhanden sind bei zunächst leerer Konfig
+//                    final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(beschreibung.getJobUrl(), beschreibung.g);
+                    final JobAbfragedaten jobAbfragedaten = beschreibung.getJobAbfragedaten();
+                    final JobStatusBeschreibung jobStatus = getJobStatus(jobAbfragedaten);
+                    returnValue = new JobStatusBeschreibung(jobStatus.getJobName()
+                        , jobStatus.getJobStatus()
+                        , beschreibung.getJobUrl());
+                    LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
+                } catch (IOException e) {
+                    LOG.error(e.getLocalizedMessage(), e);
+                    returnValue = new JobStatusBeschreibung(beschreibung.getJobId(),
+                        JobStatus.OTHER,
+                        beschreibung.getJobUrl());
+                    LOG.debug(String.format("JobStatus ERR geladen: %s : %s at %s ", beschreibung.getJobId(), JobStatus.OTHER.toString(), beschreibung.getJobUrl().toExternalForm()));
+                }
+                return returnValue;
+            }).toArray(JobStatusBeschreibung[]::new);
 
     }
 

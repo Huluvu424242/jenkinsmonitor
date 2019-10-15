@@ -1,12 +1,20 @@
 package com.github.funthomas424242.jenkinsmonitor.config;
 
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.BasicAuthDaten;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class Zugangsdatensammler {
+
+    transient protected final Logger LOGGER = LoggerFactory.getLogger(Zugangsdatensammler.class);
 
     protected class Zugang {
         public String host;
@@ -22,16 +30,16 @@ public class Zugangsdatensammler {
     }
 
     public void addZugangsdatum(String propertyKey, String propertyWert) {
-        final String sukeyAndId=propertyKey.substring(Configuration.KEY_JENKINSAUTH.length()-1);
-        final String[] values=sukeyAndId.split("-");
-        if( "host".equals(values[0])){
-            addZugangsdatumJenkinsHost(values[1],propertyWert);
+        final String sukeyAndId = propertyKey.substring(Configuration.KEY_JENKINSAUTH.length() - 1);
+        final String[] values = sukeyAndId.split("-");
+        if ("host".equals(values[0])) {
+            addZugangsdatumJenkinsHost(values[1], propertyWert);
         }
-        if( "username".equals(values[0])){
-            addZugangsdatumJenkinsUserName(values[1],propertyWert);
+        if ("username".equals(values[0])) {
+            addZugangsdatumJenkinsUserName(values[1], propertyWert);
         }
-        if( "password".equals(values[0])){
-            addZugangsdatumJenkinsPassword(values[1],propertyWert);
+        if ("password".equals(values[0])) {
+            addZugangsdatumJenkinsPassword(values[1], propertyWert);
         }
     }
 
@@ -54,19 +62,23 @@ public class Zugangsdatensammler {
         zugang.userName = password;
     }
 
-    public JobAbfragedaten[] getJenkinsZugangsdaten() {
-        try {
-            return zugaenge
-                .values()
-                .stream()
-                .map((zugang) -> {
-                    return new JobAbfragedaten(zugang.userName, zugang.password);
-                })
-                .toArray(JobAbfragedaten[]::new);
-        }catch(Exception ex){
-            return new JobAbfragedaten[0];
-        }
-
+    public Jenkinszugangskonfiguration[] getJenkinsZugangsdaten() {
+        final List<Jenkinszugangskonfiguration> jobabfragedaten = new ArrayList<>();
+        zugaenge
+            .values()
+            .stream()
+            .forEach((zugang) -> {
+                try {
+                    final Jenkinszugangskonfiguration jenkinszugangskonfiguration
+                        = new Jenkinszugangskonfiguration(
+                        new URL(zugang.host),
+                        new BasicAuthDaten(zugang.userName, zugang.password));
+                    jobabfragedaten.add(jenkinszugangskonfiguration);
+                } catch (MalformedURLException e) {
+                    LOGGER.error("URL ist ungültig: {}", zugang.host);
+                }
+            });
+        return jobabfragedaten.toArray(Jenkinszugangskonfiguration[]::new);
     }
 
     protected void checkAllParameterUntilFirstNotNull(Object... parameter) {
@@ -90,7 +102,6 @@ public class Zugangsdatensammler {
         }
         return zugang;
     }
-
 
 
 }
