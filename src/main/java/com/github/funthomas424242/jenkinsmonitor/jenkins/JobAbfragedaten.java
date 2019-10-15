@@ -50,7 +50,11 @@ public class JobAbfragedaten {
     }
 
     public String getBasicAuthToken() {
-        return authDaten.getBasicAuthToken(authDaten.password);
+        if (authDaten == null) {
+            return null;
+        } else {
+            return authDaten.getBasicAuthToken(authDaten.password);
+        }
     }
 
     public URL getStatusAbfrageUrl() {
