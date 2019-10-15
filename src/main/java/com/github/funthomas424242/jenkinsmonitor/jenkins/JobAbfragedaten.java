@@ -31,9 +31,9 @@ import java.net.URL;
 import java.util.Base64;
 import java.util.Objects;
 
-public class JenkinsZugangsdaten {
+public class JobAbfragedaten {
 
-    transient protected final Logger LOGGER = LoggerFactory.getLogger(JenkinsZugangsdaten.class);
+    transient protected final Logger LOGGER = LoggerFactory.getLogger(JobAbfragedaten.class);
 
     protected final URL jenkinsJobUrl;
     protected final String userName;
@@ -41,20 +41,20 @@ public class JenkinsZugangsdaten {
 
 
     // TODO protected
-    public JenkinsZugangsdaten(final URL jenkinsJobUrl) {
+    public JobAbfragedaten(final URL jenkinsJobUrl) {
         this(jenkinsJobUrl, null, null);
     }
 
-    public JenkinsZugangsdaten(final String userName, String password) {
+    public JobAbfragedaten(final String userName, String password) {
         this(null,userName,password);
     }
 
-    public JenkinsZugangsdaten(final URL jenkinsJobUrl, final JenkinsZugangsdaten jenkinsZugangsdaten) {
-        this(jenkinsJobUrl, jenkinsZugangsdaten.userName, jenkinsZugangsdaten.password);
+    public JobAbfragedaten(final URL jenkinsJobUrl, final JobAbfragedaten jobAbfragedaten) {
+        this(jenkinsJobUrl, jobAbfragedaten.userName, jobAbfragedaten.password);
     }
 
     // TODO protected
-    protected JenkinsZugangsdaten(final URL jenkinsJobUrl, final String userName, String password) {
+    protected JobAbfragedaten(final URL jenkinsJobUrl, final String userName, String password) {
         this.jenkinsJobUrl = jenkinsJobUrl;
         this.userName = userName;
         this.password = password;
@@ -77,17 +77,7 @@ public class JenkinsZugangsdaten {
         return password;
     }
 
-    public String getBasicAuthToken(String password) {
-        String encodedToken = null;
-        try {
-            if (password != null && password.equals(this.password)) {
-                encodedToken = Base64.getEncoder().encodeToString(String.format("%s:%s", this.userName, password).getBytes("utf-8"));
-            }
-        } catch (UnsupportedEncodingException e) {
-            LOGGER.error("Nichtunterstütztes Encoding utf-8 für das Verschlüsseln der Zugangsdaten angefordert");
-        }
-        return encodedToken;
-    }
+
 
     public URL getJenkinsJobUrl() {
         return jenkinsJobUrl;
@@ -97,7 +87,7 @@ public class JenkinsZugangsdaten {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        JenkinsZugangsdaten that = (JenkinsZugangsdaten) o;
+        JobAbfragedaten that = (JobAbfragedaten) o;
         return jenkinsJobUrl.equals(that.jenkinsJobUrl) &&
             Objects.equals(userName, that.userName) &&
             Objects.equals(password, that.password);

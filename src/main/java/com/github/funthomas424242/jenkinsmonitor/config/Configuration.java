@@ -23,7 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsZugangsdaten;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,9 +32,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 
 public class Configuration {
@@ -85,7 +84,7 @@ public class Configuration {
         return Long.parseLong(propValue);
     }
 
-    public JenkinsZugangsdaten[] getAllAbfragedaten() {
+    public JobAbfragedaten[] getAllAbfragedaten() {
         loadPropertiesFromFile(configurationFile);
         final Zugangsdatensammler zugangsdatensammler = new Zugangsdatensammler();
         configurationProperties
@@ -98,32 +97,36 @@ public class Configuration {
         return zugangsdatensammler.getJenkinsZugangsdaten();
     }
 
-    protected JenkinsZugangsdaten getAbfragedatenOf(final URL jobUrl) {
-        final JenkinsZugangsdaten[] alleZugaenge = getAllAbfragedaten();
-        return Arrays.stream(alleZugaenge)
+    protected JobAbfragedaten getAbfragedatenOf(final URL jobUrl) {
+        final JobAbfragedaten[] alleZugaenge = getAllAbfragedaten();
+        Optional<JobAbfragedaten> zugangsdaten=  Arrays.stream(alleZugaenge)
             .filter((zugang) -> {
                 return jobUrl.toExternalForm().startsWith(zugang.getJenkinsJobUrl().toExternalForm());
             })
             .map((zugang) -> {
-                return new JenkinsZugangsdaten(jobUrl, zugang);
+                return new JobAbfragedaten(jobUrl, zugang);
             })
-            .findFirst()
-            .get();
+            .findFirst();
+        if(zugangsdaten.isPresent()){
+            return zugangsdaten.get();
+        }else{
+            return null;
+        }
     }
 
     public JobBeschreibung[] getJobBeschreibungen() {
         loadPropertiesFromFile(configurationFile);
-        final List<JobBeschreibung> jobBeschreibungen = new ArrayList<>();
-        configurationProperties.stringPropertyNames().stream().sorted().forEach(key -> {
-            final String value = configurationProperties.getProperty(key);
-            if (key.startsWith(JOBKEY_PREFIX)) {
+        return configurationProperties
+            .stringPropertyNames()
+            .stream()
+            .sorted()
+            .filter((key) -> key.startsWith(JOBKEY_PREFIX))
+            .map(key -> {
+                final String value = configurationProperties.getProperty(key);
                 final URL jobURL = NetworkHelper.urlOf(value);
-                final JenkinsZugangsdaten jenkinsZugangsdaten = getAbfragedatenOf(jobURL);
-                final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, jenkinsZugangsdaten);
-                jobBeschreibungen.add(jobBeschreibung);
-            }
-        });
-        return jobBeschreibungen.toArray(new JobBeschreibung[jobBeschreibungen.size()]);
+                final JobAbfragedaten jobAbfragedaten = getAbfragedatenOf(jobURL);
+                return new JobBeschreibung(null, jobAbfragedaten);
+            }).toArray(JobBeschreibung[]::new);
     }
 
     public void reload() {

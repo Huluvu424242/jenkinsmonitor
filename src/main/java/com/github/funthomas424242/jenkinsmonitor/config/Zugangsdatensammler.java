@@ -1,8 +1,7 @@
 package com.github.funthomas424242.jenkinsmonitor.config;
 
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsZugangsdaten;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
 
-import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -55,16 +54,19 @@ public class Zugangsdatensammler {
         zugang.userName = password;
     }
 
-    public JenkinsZugangsdaten[] getJenkinsZugangsdaten() {
-        return zugaenge
-            .values()
-            .stream()
-            .map((zugang) -> {
-                return new JenkinsZugangsdaten(zugang.userName, zugang.password);
-            })
-            .toArray(JenkinsZugangsdaten[]::new)
-            // TODO
-//            .orElse();
+    public JobAbfragedaten[] getJenkinsZugangsdaten() {
+        try {
+            return zugaenge
+                .values()
+                .stream()
+                .map((zugang) -> {
+                    return new JobAbfragedaten(zugang.userName, zugang.password);
+                })
+                .toArray(JobAbfragedaten[]::new);
+        }catch(Exception ex){
+            return new JobAbfragedaten[0];
+        }
+
     }
 
     protected void checkAllParameterUntilFirstNotNull(Object... parameter) {

@@ -32,23 +32,23 @@ import java.util.Base64;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JenkinsZugangsdatenTest {
+class JobAbfragedatenTest {
 
     @Test
     @DisplayName("Prüfe das alle Daten als Properties enthalten sind")
     public void containsAllProperties() {
-        final JenkinsZugangsdaten jenkinsZugangsdaten = assertDoesNotThrow(() -> {
-            return new JenkinsZugangsdaten(
+        final JobAbfragedaten jobAbfragedaten = assertDoesNotThrow(() -> {
+            return new JobAbfragedaten(
                 new URL("http://localhost:8080/"),
                 "Nutzername",
                 "Passwort"
 
             );
         });
-        assertNotNull(jenkinsZugangsdaten.getStatusAbfrageUrl());
-        assertEquals("Nutzername", jenkinsZugangsdaten.getUserName());
-        assertEquals("Passwort", jenkinsZugangsdaten.getPassword());
-        assertNotNull(jenkinsZugangsdaten.getBasicAuthToken(jenkinsZugangsdaten.getPassword()));
+        assertNotNull(jobAbfragedaten.getStatusAbfrageUrl());
+        assertEquals("Nutzername", jobAbfragedaten.getUserName());
+        assertEquals("Passwort", jobAbfragedaten.getPassword());
+        assertNotNull(jobAbfragedaten.getBasicAuthToken(jobAbfragedaten.getPassword()));
     }
 
     @Test
@@ -56,8 +56,8 @@ class JenkinsZugangsdatenTest {
     @DisplayName("Das BasicAuth Token wird korrekt mit base64 kodiert")
     public void getBase64CodedToken() {
 
-        final JenkinsZugangsdaten jenkinsZugangsdaten = assertDoesNotThrow(() -> {
-            return new JenkinsZugangsdaten(
+        final JobAbfragedaten jobAbfragedaten = assertDoesNotThrow(() -> {
+            return new JobAbfragedaten(
                 new URL("http://localhost:8080/"),
                 "Nutzername",
                 "Passwort"
@@ -65,7 +65,7 @@ class JenkinsZugangsdatenTest {
         });
         try {
             final String expectedToken = Base64.getEncoder().encodeToString("Nutzername:Passwort".getBytes("utf-8"));
-            assertNotNull(jenkinsZugangsdaten.getBasicAuthToken(jenkinsZugangsdaten.getPassword()));
+            assertNotNull(jobAbfragedaten.getBasicAuthToken(jobAbfragedaten.getPassword()));
         } catch (UnsupportedEncodingException e) {
             fail();
         }
@@ -75,31 +75,31 @@ class JenkinsZugangsdatenTest {
     @DisplayName("Das BasicAuth Token wird bei gültigem Passwort zurückgegeben")
     public void getTokenWithValidPassword() {
 
-        final JenkinsZugangsdaten jenkinsZugangsdaten = assertDoesNotThrow(() -> {
-            return new JenkinsZugangsdaten(
+        final JobAbfragedaten jobAbfragedaten = assertDoesNotThrow(() -> {
+            return new JobAbfragedaten(
                 new URL("http://localhost:8080/"),
                 "Nutzername",
                 "Passwort"
             );
         });
-        assertNotNull(jenkinsZugangsdaten.getStatusAbfrageUrl());
-        assertEquals("Nutzername", jenkinsZugangsdaten.getUserName());
-        assertEquals("Passwort", jenkinsZugangsdaten.getPassword());
-        assertNotNull(jenkinsZugangsdaten.getBasicAuthToken(jenkinsZugangsdaten.getPassword()));
+        assertNotNull(jobAbfragedaten.getStatusAbfrageUrl());
+        assertEquals("Nutzername", jobAbfragedaten.getUserName());
+        assertEquals("Passwort", jobAbfragedaten.getPassword());
+        assertNotNull(jobAbfragedaten.getBasicAuthToken(jobAbfragedaten.getPassword()));
     }
 
     @Test
     @DisplayName("Als BasicAuth Token wird null bei ungültigem Passwort zurückgegeben")
     public void getNullWithInValidPassword() {
 
-        final JenkinsZugangsdaten jenkinsZugangsdaten = assertDoesNotThrow(() -> {
-            return new JenkinsZugangsdaten(
+        final JobAbfragedaten jobAbfragedaten = assertDoesNotThrow(() -> {
+            return new JobAbfragedaten(
                 new URL("http://localhost:8080/"),
                 "Nutzername",
                 "Passwort"
             );
         });
-        assertNull(jenkinsZugangsdaten.getBasicAuthToken("blah blup falsch"));
+        assertNull(jobAbfragedaten.getBasicAuthToken("blah blup falsch"));
     }
 
 }

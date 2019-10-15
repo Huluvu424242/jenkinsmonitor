@@ -29,21 +29,21 @@ public final class JobBeschreibung {
 
     protected final String jobId;
 
-    protected final JenkinsZugangsdaten jenkinsZugangsdaten;
+    protected final JobAbfragedaten jobAbfragedaten;
 
 
-    public JobBeschreibung(final JenkinsZugangsdaten jenkinsZugangsdaten) {
-        this(null, jenkinsZugangsdaten);
+    public JobBeschreibung(final JobAbfragedaten jobAbfragedaten) {
+        this(null, jobAbfragedaten);
     }
 
-    public JobBeschreibung(final String jobId, final JenkinsZugangsdaten jenkinsZugangsdaten) {
-        if (jenkinsZugangsdaten == null || jenkinsZugangsdaten.getJenkinsJobUrl() == null) throw new IllegalArgumentException("URL darf nicht null sein.");
+    public JobBeschreibung(final String jobId, final JobAbfragedaten jobAbfragedaten) {
+        if (jobAbfragedaten == null || jobAbfragedaten.getJenkinsJobUrl() == null) throw new IllegalArgumentException("URL darf nicht null sein.");
         this.jobId = jobId;
-        this.jenkinsZugangsdaten = jenkinsZugangsdaten;
+        this.jobAbfragedaten = jobAbfragedaten;
     }
 
     public URL getJobUrl() {
-        return this.jenkinsZugangsdaten.getJenkinsJobUrl();
+        return this.jobAbfragedaten.getJenkinsJobUrl();
     }
 
     public String getJobId() {
@@ -51,8 +51,8 @@ public final class JobBeschreibung {
     }
 
 
-    public JenkinsZugangsdaten getJenkinsZugangsdaten() {
-        return this.jenkinsZugangsdaten;
+    public JobAbfragedaten getJobAbfragedaten() {
+        return this.jobAbfragedaten;
     }
 
     @Override
@@ -61,12 +61,12 @@ public final class JobBeschreibung {
         if (o == null || getClass() != o.getClass()) return false;
         JobBeschreibung that = (JobBeschreibung) o;
         return Objects.equals(jobId, that.jobId) &&
-            jenkinsZugangsdaten.equals(that.jenkinsZugangsdaten);
+            jobAbfragedaten.equals(that.jobAbfragedaten);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(jobId, jenkinsZugangsdaten);
+        return Objects.hash(jobId, jobAbfragedaten);
     }
 }
 

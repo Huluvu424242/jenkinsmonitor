@@ -145,9 +145,9 @@ class ConfigurationTest {
         final JobBeschreibung[]  jobBeschreibungen = validConfigurationfile.getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
         assertEquals(2, jobBeschreibungen.length);
-        assertNotNull(jobBeschreibungen[0].getJenkinsZugangsdaten());
-        assertEquals("admin", jobBeschreibungen[0].getJenkinsZugangsdaten().getUserName());
-        assertEquals("geheim", jobBeschreibungen[0].getJenkinsZugangsdaten().getPassword());
+        assertNotNull(jobBeschreibungen[0].getJobAbfragedaten());
+        assertEquals("admin", jobBeschreibungen[0].getJobAbfragedaten().getUserName());
+        assertEquals("geheim", jobBeschreibungen[0].getJobAbfragedaten().getPassword());
     }
 
     @Test
