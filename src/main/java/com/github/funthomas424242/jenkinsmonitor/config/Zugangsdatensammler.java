@@ -52,7 +52,7 @@ public class Zugangsdatensammler {
     }
 
     public void addZugangsdatum(String propertyKey, String propertyWert) {
-        final String sukeyAndId = propertyKey.substring(Configuration.KEY_JENKINSAUTH.length() - 1);
+        final String sukeyAndId = propertyKey.substring(Configuration.KEY_JENKINSAUTH.length());
         final String[] values = sukeyAndId.split("-");
         if ("host".equals(values[0])) {
             addZugangsdatumJenkinsHost(values[1], propertyWert);
