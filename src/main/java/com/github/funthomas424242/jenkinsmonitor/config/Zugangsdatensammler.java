@@ -81,7 +81,7 @@ public class Zugangsdatensammler {
     public void addZugangsdatumJenkinsPassword(String jenkinsId, String password) {
         checkAllParameterUntilFirstNotNull(jenkinsId, password);
         final Zugang zugang = getOrCreateZugang(jenkinsId);
-        zugang.userName = password;
+        zugang.password = password;
     }
 
     public Jenkinszugangskonfiguration[] getJenkinsZugangsdaten() {
@@ -90,14 +90,18 @@ public class Zugangsdatensammler {
             .values()
             .stream()
             .forEach((zugang) -> {
-                try {
-                    final Jenkinszugangskonfiguration jenkinszugangskonfiguration
-                        = new Jenkinszugangskonfiguration(
-                        new URL(zugang.host),
-                        new BasicAuthDaten(zugang.userName, zugang.password));
-                    jobabfragedaten.add(jenkinszugangskonfiguration);
-                } catch (MalformedURLException e) {
-                    LOGGER.error("URL ist ungültig: {}", zugang.host);
+                if( zugang.userName != null && zugang.password != null) {
+                    try {
+                        final Jenkinszugangskonfiguration jenkinszugangskonfiguration
+                            = new Jenkinszugangskonfiguration(
+                            new URL(zugang.host),
+                            new BasicAuthDaten(zugang.userName, zugang.password));
+                        jobabfragedaten.add(jenkinszugangskonfiguration);
+                    } catch (MalformedURLException e) {
+                        LOGGER.error("URL ist ungültig: {}", zugang.host);
+                    }
+                }else{
+                    LOGGER.info("Für {} existieren keine Zugangsdaten", zugang.host);
                 }
             });
         return jobabfragedaten.toArray(Jenkinszugangskonfiguration[]::new);
