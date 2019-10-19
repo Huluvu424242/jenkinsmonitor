@@ -153,7 +153,7 @@ class ConfigurationTest {
         assertEquals(2, jobBeschreibungen.length);
         assertNotNull(jobBeschreibungen[0].getJobAbfragedaten());
         assertEquals(
-            new BasicAuthDaten("admin", "geheim").getBasicAuthToken("geheim"),
+            new BasicAuthDaten("admin", "streng geheim").getBasicAuthToken("streng geheim"),
             jobBeschreibungen[0].getJobAbfragedaten().getBasicAuthToken());
     }
 
