@@ -27,27 +27,32 @@ import java.util.Objects;
 
 public final class JobBeschreibung {
 
-    protected String jobId;
+    protected final String jobId;
 
-    protected final URL jobUrl;
+    protected final JobAbfragedaten jobAbfragedaten;
 
 
-    public JobBeschreibung(final URL jobUrl) {
-        this(null, jobUrl);
+    public JobBeschreibung(final JobAbfragedaten jobAbfragedaten) {
+        this(null, jobAbfragedaten);
     }
 
-    public JobBeschreibung(final String jobId, final URL jobUrl) {
-        if (jobUrl == null) throw new IllegalArgumentException("URL darf nicht null sein.");
+    public JobBeschreibung(final String jobId, final JobAbfragedaten jobAbfragedaten) {
+        if (jobAbfragedaten == null || jobAbfragedaten.getJenkinsJobUrl() == null) throw new IllegalArgumentException("URL darf nicht null sein.");
         this.jobId = jobId;
-        this.jobUrl = jobUrl;
+        this.jobAbfragedaten = jobAbfragedaten;
     }
 
     public URL getJobUrl() {
-        return this.jobUrl;
+        return this.jobAbfragedaten.getJenkinsJobUrl();
     }
 
     public String getJobId() {
         return this.jobId;
+    }
+
+
+    public JobAbfragedaten getJobAbfragedaten() {
+        return this.jobAbfragedaten;
     }
 
     @Override
@@ -55,11 +60,13 @@ public final class JobBeschreibung {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JobBeschreibung that = (JobBeschreibung) o;
-        return jobUrl.equals(that.jobUrl);
+        return Objects.equals(jobId, that.jobId) &&
+            jobAbfragedaten.equals(that.jobAbfragedaten);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(jobUrl);
+        return Objects.hash(jobId, jobAbfragedaten);
     }
 }
+

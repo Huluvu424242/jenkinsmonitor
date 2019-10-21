@@ -27,6 +27,7 @@ import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTreeJobs;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTwoJobs;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
@@ -55,8 +56,8 @@ class JenkinsClientMock extends JenkinsClient {
     }
 
     @Override
-    protected JobStatusBeschreibung getJobStatus(final URL jenkinsJobURL) throws IOException {
-        return new JobStatusBeschreibung("xxx", jobStatus[jobNr++], jenkinsJobURL);
+    protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten) throws IOException {
+        return new JobStatusBeschreibung("xxx", jobStatus[jobNr++], jobAbfragedaten.getJenkinsJobUrl());
     }
 }
 
@@ -88,7 +89,7 @@ public class JenkinsMonitorTrayTest {
         final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.SUCCESS), new ConfigurationMockEmpty());
         jenkinsMonitorTray.updateJobStatus();
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(LOCALHOST_JOB_TEST_URL);
+        jobBeschreibungen[0] = new JobBeschreibung(new JobAbfragedaten(LOCALHOST_JOB_TEST_URL));
         jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.SUCCESS.getColor()));
@@ -101,7 +102,7 @@ public class JenkinsMonitorTrayTest {
         final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.UNSTABLE), new ConfigurationMockEmpty());
         jenkinsMonitorTray.updateJobStatus();
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(LOCALHOST_JOB_TEST_URL);
+        jobBeschreibungen[0] = new JobBeschreibung(new JobAbfragedaten(LOCALHOST_JOB_TEST_URL));
         jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.UNSTABLE.getColor()));
@@ -114,7 +115,7 @@ public class JenkinsMonitorTrayTest {
         final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.FAILURE), new ConfigurationMockEmpty());
         jenkinsMonitorTray.updateJobStatus();
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(LOCALHOST_JOB_TEST_URL);
+        jobBeschreibungen[0] = new JobBeschreibung(new JobAbfragedaten(LOCALHOST_JOB_TEST_URL));
         jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.FAILURE.getColor()));
