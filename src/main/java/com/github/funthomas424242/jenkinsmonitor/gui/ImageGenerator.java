@@ -109,5 +109,6 @@ public class ImageGenerator {
         });
         statusArea.setContentPane(panel);
         statusArea.pack();
+        statusArea.repaint();
     }
 }
