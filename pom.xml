@@ -143,6 +143,7 @@
   </dependencies>
 
   <build>
+    <sourceDirectory>src/main/java/com.github.funthomas424242.jenkinsmonitor</sourceDirectory>
     <resources>
       <resource>
         <directory>src/main/resources/img/</directory>
@@ -329,6 +330,11 @@
           <encoding>UTF-8</encoding>
           <release>11</release>
           <compilerArgument>-Xlint:all</compilerArgument>
+          <!--          <compilerArgs>-->
+          <!--            <arg>&#45;&#45;add-modules=java.base</arg>-->
+          <!--            <arg>&#45;&#45;add-modules=org.slf4j</arg>-->
+          <!--          </compilerArgs>-->
+                    <fork>false</fork>
         </configuration>
       </plugin>
       <plugin>
@@ -336,6 +342,10 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M2</version>
         <configuration>
+          <forkMode>never</forkMode>
+          <argLine>
+            --illegal-access=deny
+          </argLine>
           <excludedGroups>
             ${junit-excluded-groups}
           </excludedGroups>

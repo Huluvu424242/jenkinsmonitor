@@ -1,5 +1,3 @@
-package com.github.funthomas424242.jenkinsmonitor.gui;
-
 /*-
  * #%L
  * Jenkins Monitor
@@ -10,32 +8,29 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * it under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Lesser Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Lesser Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
  * #L%
  */
-
-import java.util.concurrent.TimeUnit;
-
-public interface Timer {
-    void register(Listener listener);
-
-    void start();
-
-    void stop();
-
-    void resetPeriod(long period, TimeUnit periodTimeUnit);
-
-    long getPeriod();
-
-    interface Listener {
-        void timeElapsed();
-    }
+module com.github.funthomas424242.jenkinsmonitor {
+    requires java.base;
+    requires java.desktop;
+    requires java.net.http;
+    requires org.slf4j;
+    requires org.json;
+    requires org.apache.httpcomponents.httpclient;
+    requires org.apache.httpcomponents.httpcore;
+    exports com.github.funthomas424242.jenkinsmonitor;
+    opens com.github.funthomas424242.jenkinsmonitor;
+    opens com.github.funthomas424242.jenkinsmonitor.config;
+    opens com.github.funthomas424242.jenkinsmonitor.gui;
+    opens com.github.funthomas424242.jenkinsmonitor.jenkins;
+    opens com.github.funthomas424242.jenkinsmonitor.etc;
 }
