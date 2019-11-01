@@ -7,7 +7,7 @@
   <groupId>com.github.funthomas424242</groupId>
   <version>0.0.2-SNAPSHOT</version>
   <artifactId>jenkinsmonitor</artifactId>
-  <packaging>jar</packaging>
+  <packaging>${mypackaging}</packaging>
   <name>Jenkins Monitor</name>
   <description>Ein Jenkinsmonitor für den Systemtray</description>
   <inceptionYear>2019</inceptionYear>
@@ -49,6 +49,7 @@
   </distributionManagement>
 
   <properties>
+    <mypackaging>jar</mypackaging>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <maven.compiler.release>11</maven.compiler.release>
@@ -143,7 +144,7 @@
   </dependencies>
 
   <build>
-<!--    <sourceDirectory>src/main/java/com.github.funthomas424242.jenkinsmonitor</sourceDirectory>-->
+    <!--    <sourceDirectory>src/main/java/com.github.funthomas424242.jenkinsmonitor</sourceDirectory>-->
     <resources>
       <resource>
         <directory>src/main/resources/img/</directory>
@@ -330,11 +331,7 @@
           <encoding>UTF-8</encoding>
           <release>11</release>
           <compilerArgument>-Xlint:all</compilerArgument>
-          <!--          <compilerArgs>-->
-          <!--            <arg>&#45;&#45;add-modules=java.base</arg>-->
-          <!--            <arg>&#45;&#45;add-modules=org.slf4j</arg>-->
-          <!--          </compilerArgs>-->
-                    <fork>false</fork>
+          <fork>false</fork>
         </configuration>
       </plugin>
       <plugin>
@@ -378,6 +375,14 @@
               <mainClass>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor</mainClass>
             </manifest>
           </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jlink-plugin</artifactId>
+        <version>3.0.0-alpha-1</version>
+        <extensions>true</extensions>
+        <configuration>
+          <!-- configuration elements goes here -->
         </configuration>
       </plugin>
       <plugin>
@@ -468,6 +473,12 @@
       <id>headless</id>
       <properties>
         <junit-excluded-groups>headfull</junit-excluded-groups>
+      </properties>
+    </profile>
+    <profile>
+      <id>binary</id>
+      <properties>
+        <mypackaging>jlink</mypackaging>
       </properties>
     </profile>
 
