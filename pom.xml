@@ -474,12 +474,21 @@
         <maven.test.skip>true</maven.test.skip>
       </properties>
       <build>
-        <defaultGoal>jmod:create</defaultGoal>
+        <defaultGoal>package</defaultGoal>
         <plugins>
           <plugin>
             <artifactId>maven-jmod-plugin</artifactId>
             <version>3.0.0-alpha-1</version>
             <extensions>true</extensions>
+            <executions>
+              <execution>
+                <id>jmod</id>
+                <goals>
+                  <goal>create</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
@@ -491,9 +500,7 @@
         <maven.test.skip>true</maven.test.skip>
       </properties>
       <build>
-        <defaultGoal>
-          install
-        </defaultGoal>
+        <defaultGoal>install</defaultGoal>
         <plugins>
           <plugin>
             <artifactId>maven-jlink-plugin</artifactId>
