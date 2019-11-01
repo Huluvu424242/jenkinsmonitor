@@ -378,14 +378,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <artifactId>maven-jlink-plugin</artifactId>
-        <version>3.0.0-alpha-1</version>
-        <extensions>true</extensions>
-        <configuration>
-          <!-- configuration elements goes here -->
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
         <version>3.8.2</version>
@@ -476,10 +468,45 @@
       </properties>
     </profile>
     <profile>
-      <id>binary</id>
+      <id>jmod</id>
+      <properties>
+        <mypackaging>jar</mypackaging>
+        <maven.test.skip>true</maven.test.skip>
+      </properties>
+      <build>
+        <defaultGoal>jmod:create</defaultGoal>
+        <plugins>
+          <plugin>
+            <artifactId>maven-jmod-plugin</artifactId>
+            <version>3.0.0-alpha-1</version>
+            <extensions>true</extensions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>jlink</id>
       <properties>
         <mypackaging>jlink</mypackaging>
+        <maven.test.skip>true</maven.test.skip>
       </properties>
+      <build>
+        <defaultGoal>
+          install
+        </defaultGoal>
+        <plugins>
+          <plugin>
+            <artifactId>maven-jlink-plugin</artifactId>
+            <version>3.0.0-alpha-1</version>
+            <extensions>true</extensions>
+            <configuration>
+              <verbose>true</verbose>
+              <noHeaderFiles>true</noHeaderFiles>
+              <noManPages>true</noManPages>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
 
   </profiles>
