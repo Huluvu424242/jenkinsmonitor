@@ -144,7 +144,6 @@
   </dependencies>
 
   <build>
-    <!--    <sourceDirectory>src/main/java/com.github.funthomas424242.jenkinsmonitor</sourceDirectory>-->
     <resources>
       <resource>
         <directory>src/main/resources/img/</directory>
@@ -254,14 +253,6 @@
             </phase>
             <goals>
               <goal>display-dependency-updates</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>show-plugin-updates</id>
-            <phase>
-              validate
-            </phase>
-            <goals>
               <goal>display-plugin-updates</goal>
             </goals>
           </execution>
@@ -377,6 +368,16 @@
           </archive>
         </configuration>
       </plugin>
+	  <plugin>
+	    <artifactId>maven-jlink-plugin</artifactId>
+	    <version>3.0.0-alpha-1</version>
+	    <extensions>true</extensions>
+	    <configuration>
+	      <verbose>false</verbose>
+	      <noHeaderFiles>true</noHeaderFiles>
+	      <noManPages>true</noManPages>
+	    </configuration>
+	  </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
@@ -497,23 +498,8 @@
       <id>jlink</id>
       <properties>
         <mypackaging>jlink</mypackaging>
-        <maven.test.skip>true</maven.test.skip>
+        <maven.test.skip>false</maven.test.skip>
       </properties>
-      <build>
-        <defaultGoal>install</defaultGoal>
-        <plugins>
-          <plugin>
-            <artifactId>maven-jlink-plugin</artifactId>
-            <version>3.0.0-alpha-1</version>
-            <extensions>true</extensions>
-            <configuration>
-              <verbose>true</verbose>
-              <noHeaderFiles>true</noHeaderFiles>
-              <noManPages>true</noManPages>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
 
   </profiles>
