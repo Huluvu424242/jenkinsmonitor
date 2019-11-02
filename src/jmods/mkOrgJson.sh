@@ -9,7 +9,7 @@ export MODULE_ID="org.json"
 export VERSION="20190722"
 # bereinige jdeps
 rm -rf ./jdeps/*
-rm ./${MODULE_ID}.jmod
+rm ./${MODULE_ID}-${VERSION}.jmod
 # generiere Module Definition
 jdeps --generate-open-module ./jdeps ~/.m2/repository/${GROUP_ID}/${ARTIFACT_ID}/${VERSION}/${ARTIFACT_ID}-${VERSION}.jar
 jdeps --generate-module-info ./jdeps ~/.m2/repository/${GROUP_ID}/${ARTIFACT_ID}/${VERSION}/${ARTIFACT_ID}-${VERSION}.jar
