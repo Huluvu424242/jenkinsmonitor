@@ -29,5 +29,5 @@ hs_err_pid*
 # build
 /target
 /generated
-/jdeps
+/src/jmods/jdeps
 
