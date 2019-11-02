@@ -1,9 +1,20 @@
+#!/bin/bash
 # Herstellung der jmod Dateien für auto module
 #
 # Gezeigt am Beispiel von commons-lang
 #
-jdeps --generate-open-module ./jdeps ~/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar
-jdeps --generate-module-info ./jdeps ~/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar
-unzip  ~/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar -d ./jdeps/commons.lang/classes
-javac -d ./jdeps/commons.lang/classes target/jdeps/commons.lang/module-info.java
-jmod create --class-path ./jdeps/commons.lang/classes src/jmods/commons-lang-2.6.jmod
+export GROUP_ID="commons-lang"
+export ARTIFACT_ID="commons-lang"
+export ARTIFACT_ID_DOT="commons.lang"
+export VERSION="2.6"
+# bereinige jdeps
+rm -rf ./jdeps/*
+# generiere Module Definition
+jdeps --generate-open-module ./jdeps ~/.m2/repository/${GROUP_ID}/${ARTIFACT_ID}/${VERSION}/${ARTIFACT_ID}-${VERSION}.jar
+jdeps --generate-module-info ./jdeps ~/.m2/repository/${GROUP_ID}/${ARTIFACT_ID}/${VERSION}/${ARTIFACT_ID}-${VERSION}.jar
+# compiliere module-info
+unzip  ~/.m2/repository/${GROUP_ID}/${ARTIFACT_ID}/${VERSION}/${ARTIFACT_ID}-${VERSION}.jar -d ./jdeps/${ARTIFACT_ID_DOT}/classes
+javac -d ./jdeps/commons.lang/classes ./jdeps/${ARTIFACT_ID_DOT}/module-info.java
+# erzeuge jmod module
+jmod create --class-path ./jdeps/${ARTIFACT_ID_DOT}/classes src/jmods/${ARTIFACT_ID}-${VERSION}.jmod
+
