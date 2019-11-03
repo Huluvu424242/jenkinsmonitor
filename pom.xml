@@ -201,26 +201,6 @@
     </pluginManagement>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-toolchains-plugin</artifactId>
-        <version>3.0.0</version>
-        <configuration>
-          <toolchains>
-            <jdk>
-              <version>13</version>
-              <vendor>openjdk</vendor>
-            </jdk>
-          </toolchains>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>toolchain</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
@@ -343,8 +323,8 @@
           <release>11</release>
           <compilerArgs>
             <arg>-Xlint:all</arg>
-<!--            <arg>&#45;&#45;add-modules=java.xml.bind</arg>-->
-            <arg>--add-opens=java.base/java.lang/java.net=ALL-UNNAMED</arg>
+            <arg>--add-opens=java.base/java.lang=ALL-UNNAMED</arg>
+            <arg>--add-opens=java.base/java.net=ALL-UNNAMED</arg>
           </compilerArgs>
           <fork>true</fork>
         </configuration>
@@ -392,16 +372,16 @@
           </archive>
         </configuration>
       </plugin>
-<!--      <plugin>-->
-<!--        <artifactId>maven-jlink-plugin</artifactId>-->
-<!--        <version>3.0.0-alpha-1</version>-->
-<!--        <extensions>true</extensions>-->
-<!--        <configuration>-->
-<!--          <verbose>false</verbose>-->
-<!--          <noHeaderFiles>true</noHeaderFiles>-->
-<!--          <noManPages>true</noManPages>-->
-<!--        </configuration>-->
-<!--      </plugin>-->
+      <!--      <plugin>-->
+      <!--        <artifactId>maven-jlink-plugin</artifactId>-->
+      <!--        <version>3.0.0-alpha-1</version>-->
+      <!--        <extensions>true</extensions>-->
+      <!--        <configuration>-->
+      <!--          <verbose>false</verbose>-->
+      <!--          <noHeaderFiles>true</noHeaderFiles>-->
+      <!--          <noManPages>true</noManPages>-->
+      <!--        </configuration>-->
+      <!--      </plugin>-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
@@ -487,44 +467,75 @@
 
   <profiles>
     <profile>
+      <id>local</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-toolchains-plugin</artifactId>
+            <version>3.0.0</version>
+            <configuration>
+              <toolchains>
+                <jdk>
+                  <version>13</version>
+                  <vendor>openjdk</vendor>
+                </jdk>
+              </toolchains>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>toolchain</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <activation>
+        <!-- nur aktive wenn noch kein anderes aktiv ist -->
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+    <profile>
       <id>headless</id>
       <properties>
         <junit-excluded-groups>headfull</junit-excluded-groups>
       </properties>
     </profile>
-<!--    <profile>-->
-<!--      <id>jmod</id>-->
-<!--      <properties>-->
-<!--        <mypackaging>jar</mypackaging>-->
-<!--        <maven.test.skip>true</maven.test.skip>-->
-<!--      </properties>-->
-<!--      <build>-->
-<!--        <defaultGoal>package</defaultGoal>-->
-<!--        <plugins>-->
-<!--          <plugin>-->
-<!--            <artifactId>maven-jmod-plugin</artifactId>-->
-<!--            <version>3.0.0-alpha-1</version>-->
-<!--            <extensions>true</extensions>-->
-<!--            <executions>-->
-<!--              <execution>-->
-<!--                <id>jmod</id>-->
-<!--                <goals>-->
-<!--                  <goal>create</goal>-->
-<!--                </goals>-->
-<!--                <phase>package</phase>-->
-<!--              </execution>-->
-<!--            </executions>-->
-<!--          </plugin>-->
-<!--        </plugins>-->
-<!--      </build>-->
-<!--    </profile>-->
-<!--    <profile>-->
-<!--      <id>jlink</id>-->
-<!--      <properties>-->
-<!--        <mypackaging>jlink</mypackaging>-->
-<!--        <maven.test.skip>false</maven.test.skip>-->
-<!--      </properties>-->
-<!--    </profile>-->
+    <!--    <profile>-->
+    <!--      <id>jmod</id>-->
+    <!--      <properties>-->
+    <!--        <mypackaging>jar</mypackaging>-->
+    <!--        <maven.test.skip>true</maven.test.skip>-->
+    <!--      </properties>-->
+    <!--      <build>-->
+    <!--        <defaultGoal>package</defaultGoal>-->
+    <!--        <plugins>-->
+    <!--          <plugin>-->
+    <!--            <artifactId>maven-jmod-plugin</artifactId>-->
+    <!--            <version>3.0.0-alpha-1</version>-->
+    <!--            <extensions>true</extensions>-->
+    <!--            <executions>-->
+    <!--              <execution>-->
+    <!--                <id>jmod</id>-->
+    <!--                <goals>-->
+    <!--                  <goal>create</goal>-->
+    <!--                </goals>-->
+    <!--                <phase>package</phase>-->
+    <!--              </execution>-->
+    <!--            </executions>-->
+    <!--          </plugin>-->
+    <!--        </plugins>-->
+    <!--      </build>-->
+    <!--    </profile>-->
+    <!--    <profile>-->
+    <!--      <id>jlink</id>-->
+    <!--      <properties>-->
+    <!--        <mypackaging>jlink</mypackaging>-->
+    <!--        <maven.test.skip>false</maven.test.skip>-->
+    <!--      </properties>-->
+    <!--    </profile>-->
 
   </profiles>
 
