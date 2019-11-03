@@ -23,6 +23,7 @@ module com.github.funthomas424242.jenkinsmonitor {
     requires java.base;
     requires java.desktop;
     requires java.net.http;
+    opens java.net.http;
     requires org.slf4j;
     requires org.json;
     requires org.apache.httpcomponents.httpclient;
