@@ -4,7 +4,7 @@ language: java
 jdk:
   - openjdk13
 
-script: ./mvnw -Pheadless clean site install
+script: ./mvnw -U -Pheadless clean site install
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
