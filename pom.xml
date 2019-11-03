@@ -338,7 +338,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M2</version>
         <configuration>
-<!--          <forkMode>never</forkMode>-->
+          <forkMode>never</forkMode>
           <argLine>
             --illegal-access=deny
           </argLine>
@@ -497,7 +497,7 @@
       </build>
       <activation>
         <!-- nur aktive wenn noch kein anderes aktiv ist -->
-        <activeByDefault>true</activeByDefault>
+        <activeByDefault>false</activeByDefault>
       </activation>
     </profile>
     <profile>
