@@ -9,5 +9,6 @@ else
 fi
 
 # start the app
-./usr/bin/java -jar ./usr/share/jenkinsmonitor/jenkinsmonitor-0.0.2-SNAPSHOT-jar-with-dependencies.jar
+ls ./usr/
+./usr/bin/java -jar ./usr/share/jenkinsmonitor/jenkinsmonitor-jar-with-dependencies.jar
 
