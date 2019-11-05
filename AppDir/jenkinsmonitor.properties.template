@@ -1,0 +1,16 @@
+# config file of jenkinsmonitor
+
+
+jenkinsauth.host-#1=http://192.168.178.54:8080
+jenkinsauth.username-#1=admin
+jenkinsauth.password-#1=admin
+
+# valid valid >4 (value in seconds)
+jenkinsmonitor.pollperiod=10
+
+# id = [a-zA-Z0-9]+ (Zahlen und Buchstaben)
+# joburl-id=http://localhost:8090/job/multibranchjob/job/master
+joburl-#1=http://192.168.178.54:8080/job/jenkinsmonitor-single/
+joburl-#3=http://192.168.178.54:8080/job/test/
+joburl-#5=http://localhost:8090/job/localmod/
+
