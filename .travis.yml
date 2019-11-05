@@ -4,6 +4,8 @@ language: java
 jdk:
   - openjdk13
 
+install: skip
+
 script: ./mvnw -U -Pheadless clean site install
 
 after_success:
