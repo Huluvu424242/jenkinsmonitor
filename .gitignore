@@ -31,3 +31,9 @@ hs_err_pid*
 /generated
 /src/jmods/jdeps
 
+# AppImage build
+/OpenJDK*.gz
+/usr
+/jdk*
+/AppDir/usr
+
