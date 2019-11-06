@@ -38,7 +38,7 @@ ln -s ./usr/share/icons/theme/320x235/1984EmmanuelGoldstein.png ./usr/share/icon
 ln -s ./usr/share/icons/theme/320x235/1984EmmanuelGoldstein.png ./1984EmmanuelGoldstein.png
 cd ${CUR_DIR}
 
-read -p "Press [Enter] Resourcenprüfung jetzt möglich ..."
+#read -p "Press [Enter] Resourcenprüfung jetzt möglich ..."
 
 # loesche altes Image und erstelle neu
 rm Jenkins_Monitor*.AppImage
