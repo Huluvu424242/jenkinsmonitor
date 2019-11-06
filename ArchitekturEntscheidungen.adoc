@@ -146,6 +146,11 @@ Bei Color.red gibt es keine Anomalie.
 [##literatur]
 === Literatur und Quellen im Netz
 
+*
+* https://maven.apache.org/plugins/maven-jlink-plugin/usage.html
+* https://www.youtube.com/watch?v=a8xnnR3Bz6w&feature=youtu.be&t=2570
+* https://stackoverflow.com/questions/47727869/creating-module-info-for-automatic-modules-with-jdeps-in-java-9
+* https://github.com/codetojoy/easter_eggs_for_java_9/blob/master/egg_34_stack_overflow_47727869/run.sh
 * https://winterbe.com/posts/2018/08/29/migrate-maven-projects-to-java-11-jigsaw/
 * https://medium.com/@adam_carroll/java-packager-with-jdk11-31b3d620f4a8
 * http://discoveration.de/it/javafx-mit-java-runtime-als-exe-ausliefern/636/
