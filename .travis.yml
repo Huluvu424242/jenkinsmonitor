@@ -6,9 +6,8 @@ jdk:
 
 install: skip
 
-script: ./mvnw -U -Pheadless clean site install
-
-after_script:
+script:
+  - ./mvnw -U -Pheadless clean site install
   - ./buildAppImage.sh
 
 after_success:
