@@ -11,3 +11,13 @@ fi
 # start the app
 $APPDIR/usr/bin/java -jar $APPDIR/usr/bin/jenkinsmonitor-jar-with-dependencies.jar
 
+#
+#cp -a $APPDIR/usr/share/applications/JenkinsMonitor.desktop ~/$XDG_DESKTOP_DIR/
+#
+#if [ -f $XDG_DESKTOP_DIR/JenkinsMonitor.desktop ]
+#then
+#  echo "JenkinsMonitor.desktop created or exists"
+#else
+#  cp -a $APPDIR/usr/share/applications/JenkinsMonitor.desktop ~/Schreibtisch/
+#  cp -a $APPDIR/usr/share/applications/JenkinsMonitor.desktop ~/desktop/
+#fi
