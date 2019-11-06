@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+env
+
+# here copy the jenkinsmonitor.properties.template to ~/jenkinsmonitor.properties if not exists
+if [ -f ~/jenkinsmonitor.properties ]
+then
+  echo "~/jenkinsmonitor.properties exists"
+else
+  cp jenkinsmonitor.properties.template ~/jenkinsmonitor.properties
+fi
+
+# start the app
+echo "### AppRun"
+ls $APPDIR
+$APPDIR/usr/bin/java -jar $APPDIR/usr/bin/jenkinsmonitor-jar-with-dependencies.jar
+

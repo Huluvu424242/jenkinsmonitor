@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/sh
 
 # here copy the jenkinsmonitor.properties.template to ~/jenkinsmonitor.properties if not exists
 if [ -f ~/jenkinsmonitor.properties ]
@@ -9,6 +9,6 @@ else
 fi
 
 # start the app
-ls -Flarc
+echo "### wrapper"
 java -jar jenkinsmonitor-jar-with-dependencies.jar
 
