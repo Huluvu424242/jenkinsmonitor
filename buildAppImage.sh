@@ -38,7 +38,7 @@ ln -s ./usr/share/metainfo/com.github.funthomas424242.jenkinsmonitor.metainfo.xm
 ln -s ./usr/share/applications/jenkinsmonitor.desktop ./jenkinsmonitor.desktop
 ln -s ./usr/share/icons/theme/320x235/1984EmmanuelGoldstein.png ./usr/share/icons/theme/256x256/1984EmmanuelGoldstein.png
 ln -s ./usr/share/icons/theme/320x235/1984EmmanuelGoldstein.png ./1984EmmanuelGoldstein.png
-cd ${CUR_DIR}
+cd "${CUR_DIR}"
 
 #read -p "Press [Enter] Resourcenprüfung jetzt möglich ..."
 
