@@ -36,4 +36,5 @@ hs_err_pid*
 /usr
 /jdk*
 /AppDir/usr
+/*.AppImage
 
