@@ -1,4 +1,4 @@
-```
+```shell
 # Herstellung der jmod Dateien für auto module
 #
 # Gezeigt am Beispiel von commons-lang
