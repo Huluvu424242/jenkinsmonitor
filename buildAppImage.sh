@@ -31,7 +31,7 @@ chmod +x ${BUILD_DIR}appimagetool-x86_64.AppImage
 # copy resources at final place and create sym links
 cp -a ./target/jenkinsmonitor-*-jar-with-dependencies.jar ${APP_DIR}usr/bin/jenkinsmonitor-jar-with-dependencies.jar
 cp -Rf ${RESOURCE_DIR}* ${APP_DIR}
-cd ${APP_DIR}
+cd "${APP_DIR}"
 ln -s ./usr/bin/jenkinsmonitor.wrapper ./AppRun
 usr/share/metainfo/jenkinsmonitor.appdata.xml
 ln -s ./usr/share/metainfo/com.github.funthomas424242.jenkinsmonitor.metainfo.xml ./usr/share/metainfo/jenkinsmonitor.appdata.xml
