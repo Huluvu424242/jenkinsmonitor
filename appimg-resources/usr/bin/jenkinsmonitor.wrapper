@@ -5,10 +5,10 @@ if [ -f ~/jenkinsmonitor.properties ]
 then
   echo "~/jenkinsmonitor.properties exists"
 else
-  cp jenkinsmonitor.properties.template ~/jenkinsmonitor.properties
+  cp $APPDIR/jenkinsmonitor.properties.template ~/jenkinsmonitor.properties
 fi
 
 # start the app
-echo "### wrapper"
-java -jar jenkinsmonitor-jar-with-dependencies.jar
+echo "### jenkinsmonitor.wrapper"
+$APPDIR/usr/bin/java -jar $APPDIR/usr/bin/jenkinsmonitor-jar-with-dependencies.jar
 
