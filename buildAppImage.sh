@@ -33,6 +33,8 @@ cp -a ./target/jenkinsmonitor-*-jar-with-dependencies.jar ${APP_DIR}usr/bin/jenk
 cp -Rf ${RESOURCE_DIR}* ${APP_DIR}
 cd ${APP_DIR}
 ln -s ./usr/bin/jenkinsmonitor.wrapper ./AppRun
+usr/share/metainfo/jenkinsmonitor.appdata.xml
+ln -s ./usr/share/metainfo/com.github.funthomas424242.jenkinsmonitor.metainfo.xml ./usr/share/metainfo/jenkinsmonitor.appdata.xml
 ln -s ./usr/share/applications/jenkinsmonitor.desktop ./jenkinsmonitor.desktop
 ln -s ./usr/share/icons/theme/320x235/1984EmmanuelGoldstein.png ./usr/share/icons/theme/256x256/1984EmmanuelGoldstein.png
 ln -s ./usr/share/icons/theme/320x235/1984EmmanuelGoldstein.png ./1984EmmanuelGoldstein.png
