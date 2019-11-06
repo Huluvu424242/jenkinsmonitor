@@ -24,7 +24,7 @@ chmod +x appimagetool-x86_64.AppImage
 
 # copy resources at final place and create sym links
 cp -a ./target/jenkinsmonitor-*-jar-with-dependencies.jar AppDir/usr/bin/jenkinsmonitor-jar-with-dependencies.jar
-cp -Rf appimg-resources/* AppDir/
+cp -Rf src/appimage-resources/* AppDir/
 cd AppDir
 ln -s ./usr/bin/jenkinsmonitor.wrapper ./AppRun
 ln -s ./usr/share/applications/jenkinsmonitor.desktop ./jenkinsmonitor.desktop
@@ -37,7 +37,7 @@ cd ..
 # loesche altes Image und erstelle neu
 rm Jenkins_Monitor*.AppImage
 ./appimagetool-x86_64.AppImage AppDir/
-#./linuxdeploy-x86_64.AppImage --appdir AppDir -e appimg-resources/launch.sh -i appimg-resources/1984EmmanuelGoldstein.png -d appimg-resources/myapp.desktop  --output appimage
+#./linuxdeploy-x86_64.AppImage --appdir AppDir -e src/appimage-resources/launch.sh -i src/appimage-resources/1984EmmanuelGoldstein.png -d src/appimage-resources/myapp.desktop  --output appimage
 
 #read -p "Press [Enter] to start remove waste files ..."
 #rm ./linuxdeploy*.AppImage
