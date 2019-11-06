@@ -15,35 +15,32 @@ tar xf OpenJDK11U-jdk_x64_linux_openj9_11.0.3_7_openj9-0.14.3.tar.gz
 # copy binary
 cp -Rf usr AppDir/
 
-#read -p "Press [Enter] jre gebaut ..."
-
 # download AppImageKit and give permissions und run it
 wget -c https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage
 chmod +x appimagetool-x86_64.AppImage
-wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-chmod +x linuxdeploy-x86_64.AppImage
+#wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+#chmod +x linuxdeploy-x86_64.AppImage
 
-#echo "Starte Workarounds"
-# worarounds for missing deps
-#cp -a ./usr/lib/j9vm/libjvm.so AppDir/usr/lib/libjvm.so
-#cp -a ./usr/lib/compressedrefs/libj9thr29.so AppDir/usr/lib/libj9thr29.so
-#read -p "Press [Enter] Workarounds erledigt ..."
 
-# copy resources at final place
+# copy resources at final place and create sym links
 cp -a ./target/jenkinsmonitor-*-jar-with-dependencies.jar AppDir/usr/bin/jenkinsmonitor-jar-with-dependencies.jar
 cp -Rf appimg-resources/* AppDir/
-ln -s AppDir/AppRun AppDir/usr/bin/jenkinsmonitor.wrapper
+cd AppDir
+ln -s ./usr/bin/jenkinsmonitor.wrapper ./AppRun
+ln -s ./usr/share/applications/jenkinsmonitor.desktop ./jenkinsmonitor.desktop
+ln -s ./usr/share/icons/theme/320x235/1984EmmanuelGoldstein.png ./usr/share/icons/theme/256x256/1984EmmanuelGoldstein.png
+ln -s ./usr/share/icons/theme/320x235/1984EmmanuelGoldstein.png ./1984EmmanuelGoldstein.png
+cd ..
 
+read -p "Press [Enter] Resourcenprüfung jetzt möglich ..."
 
 # loesche altes Image und erstelle neu
 rm Jenkins_Monitor*.AppImage
 ./appimagetool-x86_64.AppImage AppDir/
-#./linuxdeploy-x86_64.AppImage --appdir AppDir --output appimage
-#./linuxdeploy-x86_64.AppImage --appdir AppDir -e target/jenkinsmonitor-0.0.2-SNAPSHOT-jar-with-dependencies.jar -i appimg-resources/1984EmmanuelGoldstein.png -d appimg-resources/myapp.desktop  --output appimage
 #./linuxdeploy-x86_64.AppImage --appdir AppDir -e appimg-resources/launch.sh -i appimg-resources/1984EmmanuelGoldstein.png -d appimg-resources/myapp.desktop  --output appimage
 
 #read -p "Press [Enter] to start remove waste files ..."
-rm ./linuxdeploy*.AppImage
+#rm ./linuxdeploy*.AppImage
 rm -rf ./AppDir/*
 rm -rf ./AppDir/.DirIcon
 rm -rf ./usr

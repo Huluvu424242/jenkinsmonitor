@@ -9,6 +9,5 @@ else
 fi
 
 # start the app
-echo "### jenkinsmonitor.wrapper"
 $APPDIR/usr/bin/java -jar $APPDIR/usr/bin/jenkinsmonitor-jar-with-dependencies.jar
 
