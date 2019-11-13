@@ -6,4 +6,9 @@ rem
 rem Systemanforderungen: Java 11 muss installiert sein
 rem
 rem
-start javaw.exe -jar ${project.build.finalName}-jar-with-dependencies.jar
+IF EXIST %userprofile%\jenkinsmonitor.properties (
+    echo "%userprofile%\jenkinsmonitor.properties exists"
+) else (
+    copy jenkinsmonitor.properties.template %userprofile%\jenkinsmonitor.properties
+)
+start usr\bin\javaw.exe -jar usr\bin\jenkinsmonitor-jar-with-dependencies.jar
