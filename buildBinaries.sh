@@ -7,6 +7,11 @@ export TOOLS_DIR=target/tools/
 export RESOURCE_DIR=src/appimage-resources/
 export JDK_ARCHIVE_NAME=OpenJDK11U-jdk_x64_linux_openj9_11.0.3_7_openj9-0.14.3.tar.gz
 
+# clear folders
+rm -rf ${BUNDLE_DIR}*
+rm -rf ${TOOLS_DIR}usr
+
+
 # download jre 11
 wget -P ${TOOLS_DIR} -c https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.3%2B7_openj9-0.14.3/${JDK_ARCHIVE_NAME}
 tar  -C ${TOOLS_DIR} -xf ${TOOLS_DIR}${JDK_ARCHIVE_NAME}
@@ -60,8 +65,6 @@ fi
 
 #read -p "Press [Enter] to start remove waste files ..."
 #rm ${TOOLS_DIR}linuxdeploy*.AppImage
-rm -rf ${BUNDLE_DIR}*
-rm -rf ${TOOLS_DIR}usr
 
 
 
