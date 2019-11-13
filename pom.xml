@@ -303,12 +303,12 @@
         <executions>
           <execution>
             <id>copy-resources</id>
-            <phase>process-sources</phase>
+            <phase>generate-sources</phase>
             <goals>
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${basedir}/target/</outputDirectory>
+              <outputDirectory>${basedir}/src/appimage-resources</outputDirectory>
               <resources>
                 <resource>
                   <directory>src/main/non-packaged-resources</directory>
