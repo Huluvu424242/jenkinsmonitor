@@ -32,7 +32,7 @@
 ​  <project_group>RADeS</project_group>
 ​
 ​  <provides>
-​    <binary>Jenkins_Monitor_0.0.2-preview-x86_64.AppImage</binary>
+​    <binary>Jenkins_Monitor_0.0.2-SNAPSHOTx86_64.AppImage</binary>
 ​  </provides>
 ​
 ​  <releases>

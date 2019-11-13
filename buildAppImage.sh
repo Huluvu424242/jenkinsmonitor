@@ -42,9 +42,10 @@ cd "${CUR_DIR}"
 #read -p "Press [Enter] Resourcenprüfung jetzt möglich ..."
 
 # loesche altes Image und erstelle neu
-rm Jenkins_Monitor*.AppImage
+rm ${CUR_DIR}target/Jenkins_Monitor*.AppImage
 ${BUILD_DIR}appimagetool-x86_64.AppImage ${APP_DIR}
 #${BUILD_DIR}/linuxdeploy-x86_64.AppImage --appdir ${APP_DIR} -e src/appimage-resources/launch.sh -i src/appimage-resources/1984EmmanuelGoldstein.png -d src/appimage-resources/myapp.desktop  --output appimage
+mv Jenkins_Monitor*.AppImage ${CUR_DIR}target
 
 #read -p "Press [Enter] to start remove waste files ..."
 #rm ${BUILD_DIR}linuxdeploy*.AppImage
