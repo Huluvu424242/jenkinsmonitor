@@ -78,12 +78,12 @@
       <scope>compile</scope>
     </dependency>
     <!-- APIs von denen die Generate abhängen -->
-<!--    <dependency>-->
-<!--      <groupId>javax.validation</groupId>-->
-<!--      <artifactId>validation-api</artifactId>-->
-<!--      <version>2.0.1.Final</version>-->
-<!--      <scope>compile</scope>-->
-<!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>javax.validation</groupId>-->
+    <!--      <artifactId>validation-api</artifactId>-->
+    <!--      <version>2.0.1.Final</version>-->
+    <!--      <scope>compile</scope>-->
+    <!--    </dependency>-->
 
     <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
     <dependency>
@@ -282,6 +282,23 @@
             </configuration>
           </execution>
           <execution>
+            <id>clean-appimage</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+            <configuration>
+              <filesets>
+                <fileset>
+                  <directory>${basedir}/src/appimage-resources</directory>
+                  <includes>
+                    <include>start-jenkinsmonitor.*</include>
+                  </includes>
+                </fileset>
+              </filesets>
+            </configuration>
+          </execution>
+          <execution>
             <id>clean-test</id>
             <phase>initialize</phase>
             <goals>
@@ -303,12 +320,12 @@
         <executions>
           <execution>
             <id>copy-resources</id>
-            <phase>process-sources</phase>
+            <phase>generate-sources</phase>
             <goals>
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${basedir}/target/</outputDirectory>
+              <outputDirectory>${basedir}/src/appimage-resources</outputDirectory>
               <resources>
                 <resource>
                   <directory>src/main/non-packaged-resources</directory>

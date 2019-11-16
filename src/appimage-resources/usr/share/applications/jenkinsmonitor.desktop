@@ -2,7 +2,7 @@
 Version=1.0
 Encoding=UTF-8
 Type=Application
-Name=Jenkins Monitor 0.0.2-preview
+Name=Jenkins Monitor 0.0.2-SNAPSHOT
 GenericName=Jenkins Monitor
 Comment=Ein Monitor für Jenkins Jobs.
 Icon=1984EmmanuelGoldstein

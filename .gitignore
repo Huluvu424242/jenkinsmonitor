@@ -29,12 +29,7 @@ hs_err_pid*
 # build
 /target
 /generated
-/src/jmods/jdeps
+/src/appimage-resources/start-jenkinsmonitor.*
 
-# AppImage build
-/OpenJDK*.gz
-/usr
-/jdk*
-/AppDir/usr
-/*.AppImage
+# backup files
 *~
