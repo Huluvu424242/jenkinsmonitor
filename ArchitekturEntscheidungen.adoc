@@ -146,7 +146,9 @@ Bei Color.red gibt es keine Anomalie.
 [##literatur]
 === Literatur und Quellen im Netz
 
-*
+* https://www.nuget.org/
+* https://chocolatey.org/courses/getting-started
+* https://chocolatey.org/blog/create-chocolatey-packages
 * https://maven.apache.org/plugins/maven-jlink-plugin/usage.html
 * https://www.youtube.com/watch?v=a8xnnR3Bz6w&feature=youtu.be&t=2570
 * https://stackoverflow.com/questions/47727869/creating-module-info-for-automatic-modules-with-jdeps-in-java-9
