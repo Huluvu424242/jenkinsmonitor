@@ -23,6 +23,8 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.BasicAuthDaten;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +33,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.Properties;
 
 public class Configuration {
@@ -44,6 +46,7 @@ public class Configuration {
     public static final String JENKINSMONITOR_POLLPERIOD = "jenkinsmonitor.pollperiod";
     public static final String DEFAULT_POLLPERIOD = "5";
     public static final String JOBKEY_PREFIX = "joburl-";
+    public static final String KEY_JENKINSAUTH = "jenkinsauth.";
 
     protected File configurationFile;
 
@@ -72,8 +75,48 @@ public class Configuration {
         this.configurationProperties = properties;
     }
 
-    public File getConfigurationfile() {
+    protected File getConfigurationfile() {
         return this.configurationFile;
+    }
+
+    protected Jenkinszugangskonfiguration[] getAllJenkinszugangskonfigurationen() {
+        loadPropertiesFromFile(configurationFile);
+        final Zugangsdatensammler zugangsdatensammler = new Zugangsdatensammler();
+        configurationProperties
+            .stringPropertyNames()
+            .stream()
+            .filter((key) -> key.startsWith(KEY_JENKINSAUTH))
+            .forEach(key -> {
+                zugangsdatensammler.addZugangsdatum(key, configurationProperties.getProperty(key));
+            });
+        return zugangsdatensammler.getJenkinsZugangsdaten();
+    }
+
+    protected JobAbfragedaten getAbfragedatenOf(final URL jobUrl) {
+        loadPropertiesFromFile(configurationFile);
+        final Jenkinszugangskonfiguration[] alleJenkinsZugaenge = getAllJenkinszugangskonfigurationen();
+        final Optional<BasicAuthDaten> jenkinsZugangsdaten = Arrays.stream(alleJenkinsZugaenge)
+            .filter((zugang) -> {
+                return jobUrl.toExternalForm().startsWith(zugang.getJenkinsUrl().toExternalForm());
+            })
+            .map((zugang) -> zugang.getAuthDaten())
+            .findFirst();
+        if (jenkinsZugangsdaten.isPresent()) {
+            return new JobAbfragedaten(jobUrl, jenkinsZugangsdaten.get());
+        } else {
+            return new JobAbfragedaten(jobUrl, null);
+        }
+    }
+
+
+    public void reload() {
+        reloadFromFile(this.configurationFile);
+    }
+
+    public void reloadFromFile(final File configFile) {
+        this.isInitialisiert = false;
+        this.configurationFile = configFile;
+        loadPropertiesFromFile(configFile);
     }
 
     public long getPollPeriodInSecond() {
@@ -84,26 +127,17 @@ public class Configuration {
 
     public JobBeschreibung[] getJobBeschreibungen() {
         loadPropertiesFromFile(configurationFile);
-        final List<JobBeschreibung> jobBeschreibungen = new ArrayList<>();
-        configurationProperties.stringPropertyNames().stream().sorted().forEach(key -> {
-            final String value = configurationProperties.getProperty(key);
-            if (key.startsWith(JOBKEY_PREFIX)) {
+        return configurationProperties
+            .stringPropertyNames()
+            .stream()
+            .sorted()
+            .filter((key) -> key.startsWith(JOBKEY_PREFIX))
+            .map(key -> {
+                final String value = configurationProperties.getProperty(key);
                 final URL jobURL = NetworkHelper.urlOf(value);
-                final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, jobURL);
-                jobBeschreibungen.add(jobBeschreibung);
-            }
-        });
-        return jobBeschreibungen.toArray(new JobBeschreibung[jobBeschreibungen.size()]);
-    }
-
-    public void reload() {
-        reloadFromFile(this.configurationFile);
-    }
-
-    public void reloadFromFile(final File configFile) {
-        this.isInitialisiert = false;
-        this.configurationFile = configFile;
-        loadPropertiesFromFile(configFile);
+                final JobAbfragedaten jobAbfragedaten = getAbfragedatenOf(jobURL);
+                return new JobBeschreibung(null, jobAbfragedaten);
+            }).toArray(JobBeschreibung[]::new);
     }
 
 }

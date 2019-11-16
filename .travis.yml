@@ -2,9 +2,13 @@ language: java
 
 
 jdk:
-  - openjdk11
+  - openjdk13
 
-script: ./mvnw -Ptravis-ci clean site install
+install: skip
+
+script:
+  - ./mvnw -U -Pheadless clean site install
+  - ./buildAppImage.sh
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

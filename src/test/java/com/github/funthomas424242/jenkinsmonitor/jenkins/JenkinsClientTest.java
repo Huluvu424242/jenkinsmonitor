@@ -50,10 +50,10 @@ public class JenkinsClientTest {
     protected static URL JOB_URL_MULTIBRANCH_JOB1_YELLOW;
     protected static URL JOB_URL_MULTIBRANCH_JOB1_GRAY;
 
-    protected static URL STATUS_URL_MULTIBRANCH_JOB1_RED;
-    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GREEN;
-    protected static URL STATUS_URL_MULTIBRANCH_JOB1_YELLOW;
-    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GRAY;
+//    protected static URL STATUS_URL_MULTIBRANCH_JOB1_RED;
+//    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GREEN;
+//    protected static URL STATUS_URL_MULTIBRANCH_JOB1_YELLOW;
+//    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GRAY;
 
     protected WireMockServer wireMockServer;
 
@@ -64,10 +64,10 @@ public class JenkinsClientTest {
         JOB_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_YELLOW);
         JOB_URL_MULTIBRANCH_JOB1_GRAY = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_GRAY);
 
-        STATUS_URL_MULTIBRANCH_JOB1_RED = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_RED);
-        STATUS_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GREEN);
-        STATUS_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_YELLOW);
-        STATUS_URL_MULTIBRANCH_JOB1_GRAY = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GRAY);
+//        STATUS_URL_MULTIBRANCH_JOB1_RED = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_RED);
+//        STATUS_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GREEN);
+//        STATUS_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_YELLOW);
+//        STATUS_URL_MULTIBRANCH_JOB1_GRAY = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GRAY);
     }
 
     @BeforeEach
@@ -90,7 +90,8 @@ public class JenkinsClientTest {
         final JenkinsClient requester = new JenkinsClient();
         assumeTrue(requester != null);
         final JobStatusBeschreibung jobStatusBeschreibung = assertDoesNotThrow(() -> {
-            return requester.getJobStatus(JOB_URL_MULTIBRANCH_JOB1_RED);
+            final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_RED);
+            return requester.getJobStatus(jobAbfragedaten);
         });
         assertNotNull(jobStatusBeschreibung);
         assertNotNull(jobStatusBeschreibung.getJobStatus());
@@ -105,7 +106,8 @@ public class JenkinsClientTest {
         final JenkinsClient requester = new JenkinsClient();
         assumeTrue(requester != null);
         final JobStatusBeschreibung jobStatusBeschreibung = assertDoesNotThrow(() -> {
-            return requester.getJobStatus(JOB_URL_MULTIBRANCH_JOB1_GREEN);
+            final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GREEN);
+            return requester.getJobStatus(jobAbfragedaten);
         });
         assertNotNull(jobStatusBeschreibung);
         assertNotNull(jobStatusBeschreibung.getJobStatus());
@@ -119,7 +121,8 @@ public class JenkinsClientTest {
         final JenkinsClient requester = new JenkinsClient();
         assumeTrue(requester != null);
         final JobStatusBeschreibung jobStatusBeschreibung = assertDoesNotThrow(() -> {
-            return requester.getJobStatus(JOB_URL_MULTIBRANCH_JOB1_YELLOW);
+            final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_YELLOW);
+            return requester.getJobStatus(jobAbfragedaten);
         });
         assertNotNull(jobStatusBeschreibung);
         assertNotNull(jobStatusBeschreibung.getJobStatus());
@@ -133,7 +136,8 @@ public class JenkinsClientTest {
         final JenkinsClient requester = new JenkinsClient();
         assumeTrue(requester != null);
         final JobStatusBeschreibung jobStatusBeschreibung = assertDoesNotThrow(() -> {
-            return requester.getJobStatus(JOB_URL_MULTIBRANCH_JOB1_GRAY);
+            final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY);
+            return requester.getJobStatus(jobAbfragedaten);
         });
         assertNotNull(jobStatusBeschreibung);
         assertNotNull(jobStatusBeschreibung.getJobStatus());
@@ -147,7 +151,7 @@ public class JenkinsClientTest {
     protected void getValidJsonRed() {
         final JenkinsClient requester = new JenkinsClient();
         final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_RED);
+            return requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_RED));
         });
         assertNotNull(json);
         assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
@@ -159,7 +163,7 @@ public class JenkinsClientTest {
     protected void getValidJsonGreen() {
         final JenkinsClient requester = new JenkinsClient();
         final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_GREEN);
+            return requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GREEN, null));
         });
         assertNotNull(json);
         assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
@@ -171,7 +175,7 @@ public class JenkinsClientTest {
     protected void getValidJsonYellow() {
         final JenkinsClient requester = new JenkinsClient();
         final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_YELLOW);
+            return requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_YELLOW, null));
         });
         assertNotNull(json);
         assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
@@ -183,7 +187,7 @@ public class JenkinsClientTest {
     protected void getValidJsonGray() {
         final JenkinsClient requester = new JenkinsClient();
         final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(STATUS_URL_MULTIBRANCH_JOB1_GRAY);
+            return requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY, null));
         });
         assertNotNull(json);
         assertTrue(json.isEmpty());
@@ -195,13 +199,13 @@ public class JenkinsClientTest {
 
         final JenkinsClient requester = new JenkinsClient() {
             @Override
-            protected JobStatusBeschreibung getJobStatus(URL url) throws IOException {
+            protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten statusAbfrageInformationen) throws IOException {
                 throw new IOException();
             }
         };
 
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(null, NetworkHelper.urlOf("http://test.org"));
+        jobBeschreibungen[0] = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
 
         final JobStatusBeschreibung[] jobStatusBeschreibungen = assertDoesNotThrow(() -> {
             final JobStatusBeschreibung[] statusBeschreibungen = requester.ladeJobsStatus(jobBeschreibungen);
@@ -217,12 +221,12 @@ public class JenkinsClientTest {
 
         final JenkinsClient requester = new JenkinsClient() {
             @Override
-            protected JobStatusBeschreibung getJobStatus(URL url) throws IOException {
-                return new JobStatusBeschreibung("hallo", JobStatus.FAILURE, url);
+            protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten statusAbfrageInformationen) throws IOException {
+                return new JobStatusBeschreibung("hallo", JobStatus.FAILURE, statusAbfrageInformationen.getJenkinsJobUrl());
             }
         };
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(null, NetworkHelper.urlOf("http://test.org"));
+        jobBeschreibungen[0] = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
 
         final JobStatusBeschreibung[] jobStatusBeschreibungen = requester.ladeJobsStatus(jobBeschreibungen);
         assumeTrue(jobBeschreibungen != null);
@@ -239,20 +243,20 @@ public class JenkinsClientTest {
             int counter = 0;
 
             @Override
-            protected JobStatusBeschreibung getJobStatus(URL url) throws IOException {
+            protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten statusAbfrageInformationen) throws IOException {
                 if (counter == 0) {
                     counter++;
-                    return new JobStatusBeschreibung("hallo", JobStatus.FAILURE, url);
+                    return new JobStatusBeschreibung("hallo", JobStatus.FAILURE, statusAbfrageInformationen.getJenkinsJobUrl());
                 } else {
                     counter++;
-                    return new JobStatusBeschreibung("hallo", JobStatus.SUCCESS, url);
+                    return new JobStatusBeschreibung("hallo", JobStatus.SUCCESS, statusAbfrageInformationen.getJenkinsJobUrl());
                 }
             }
         };
 
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[2];
-        jobBeschreibungen[0] = new JobBeschreibung("the first job", NetworkHelper.urlOf("http://test.org"));
-        jobBeschreibungen[1] = new JobBeschreibung("idname", NetworkHelper.urlOf("http://test1.org"));
+        jobBeschreibungen[0] = new JobBeschreibung("the first job", new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
+        jobBeschreibungen[1] = new JobBeschreibung("idname", new JobAbfragedaten(NetworkHelper.urlOf("http://test1.org")));
 
         /**/
         {

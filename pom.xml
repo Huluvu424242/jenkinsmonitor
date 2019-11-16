@@ -7,7 +7,7 @@
   <groupId>com.github.funthomas424242</groupId>
   <version>0.0.2-SNAPSHOT</version>
   <artifactId>jenkinsmonitor</artifactId>
-  <packaging>jar</packaging>
+  <packaging>${mypackaging}</packaging>
   <name>Jenkins Monitor</name>
   <description>Ein Jenkinsmonitor für den Systemtray</description>
   <inceptionYear>2019</inceptionYear>
@@ -49,6 +49,7 @@
   </distributionManagement>
 
   <properties>
+    <mypackaging>jar</mypackaging>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <maven.compiler.release>11</maven.compiler.release>
@@ -73,22 +74,17 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.28</version>
+      <version>2.0.0-alpha1</version>
       <scope>compile</scope>
     </dependency>
     <!-- APIs von denen die Generate abhängen -->
-    <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
-      <version>2.0.1.Final</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>nl.jqno.equalsverifier</groupId>
-      <artifactId>equalsverifier</artifactId>
-      <version>3.1.10</version>
-      <scope>test</scope>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>javax.validation</groupId>-->
+<!--      <artifactId>validation-api</artifactId>-->
+<!--      <version>2.0.1.Final</version>-->
+<!--      <scope>compile</scope>-->
+<!--    </dependency>-->
+
     <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
@@ -118,7 +114,12 @@
       <version>${junit-jupiter-engine.version}</version>
       <scope>test</scope>
     </dependency>
-
+    <dependency>
+      <groupId>nl.jqno.equalsverifier</groupId>
+      <artifactId>equalsverifier</artifactId>
+      <version>3.1.10</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.apache.bval</groupId>
       <artifactId>bval-jsr</artifactId>
@@ -130,7 +131,7 @@
     <dependency>
       <groupId>com.github.tomakehurst</groupId>
       <artifactId>wiremock-standalone</artifactId>
-      <version>2.25.0</version>
+      <version>2.25.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -160,7 +161,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-source-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>3.2.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
@@ -180,7 +181,11 @@
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>3.1.2</version>
+          <version>3.2.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>3.2.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-javadoc-plugin</artifactId>
@@ -194,7 +199,7 @@
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.4</version>
+          <version>0.8.5</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -252,14 +257,6 @@
             </phase>
             <goals>
               <goal>display-dependency-updates</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>show-plugin-updates</id>
-            <phase>
-              validate
-            </phase>
-            <goals>
               <goal>display-plugin-updates</goal>
             </goals>
           </execution>
@@ -328,7 +325,12 @@
         <configuration>
           <encoding>UTF-8</encoding>
           <release>11</release>
-          <compilerArgument>-Xlint:all</compilerArgument>
+          <compilerArgs>
+            <arg>-Xlint:all</arg>
+            <arg>--add-opens=java.base/java.lang=ALL-UNNAMED</arg>
+            <arg>--add-opens=java.base/java.net=ALL-UNNAMED</arg>
+          </compilerArgs>
+          <fork>true</fork>
         </configuration>
       </plugin>
       <plugin>
@@ -336,6 +338,10 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M2</version>
         <configuration>
+          <forkMode>never</forkMode>
+          <argLine>
+            --illegal-access=deny
+          </argLine>
           <excludedGroups>
             ${junit-excluded-groups}
           </excludedGroups>
@@ -370,6 +376,16 @@
           </archive>
         </configuration>
       </plugin>
+      <!--      <plugin>-->
+      <!--        <artifactId>maven-jlink-plugin</artifactId>-->
+      <!--        <version>3.0.0-alpha-1</version>-->
+      <!--        <extensions>true</extensions>-->
+      <!--        <configuration>-->
+      <!--          <verbose>false</verbose>-->
+      <!--          <noHeaderFiles>true</noHeaderFiles>-->
+      <!--          <noManPages>true</noManPages>-->
+      <!--        </configuration>-->
+      <!--      </plugin>-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
@@ -404,7 +420,6 @@
         <!-- NOTE: We don't need a groupId specification because the group is
             org.apache.maven.plugins ...which is assumed by default. -->
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.1.1</version>
         <executions>
           <execution>
             <id>package-assemblies</id>
@@ -455,11 +470,75 @@
 
   <profiles>
     <profile>
-      <id>travis-ci</id>
+      <id>local</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-toolchains-plugin</artifactId>
+            <version>3.0.0</version>
+            <configuration>
+              <toolchains>
+                <jdk>
+                  <version>13</version>
+                  <vendor>openjdk</vendor>
+                </jdk>
+              </toolchains>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>toolchain</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <activation>
+        <!-- nur aktive wenn noch kein anderes aktiv ist -->
+        <activeByDefault>false</activeByDefault>
+      </activation>
+    </profile>
+    <profile>
+      <id>headless</id>
       <properties>
         <junit-excluded-groups>headfull</junit-excluded-groups>
       </properties>
     </profile>
+    <!--    <profile>-->
+    <!--      <id>jmod</id>-->
+    <!--      <properties>-->
+    <!--        <mypackaging>jar</mypackaging>-->
+    <!--        <maven.test.skip>true</maven.test.skip>-->
+    <!--      </properties>-->
+    <!--      <build>-->
+    <!--        <defaultGoal>package</defaultGoal>-->
+    <!--        <plugins>-->
+    <!--          <plugin>-->
+    <!--            <artifactId>maven-jmod-plugin</artifactId>-->
+    <!--            <version>3.0.0-alpha-1</version>-->
+    <!--            <extensions>true</extensions>-->
+    <!--            <executions>-->
+    <!--              <execution>-->
+    <!--                <id>jmod</id>-->
+    <!--                <goals>-->
+    <!--                  <goal>create</goal>-->
+    <!--                </goals>-->
+    <!--                <phase>package</phase>-->
+    <!--              </execution>-->
+    <!--            </executions>-->
+    <!--          </plugin>-->
+    <!--        </plugins>-->
+    <!--      </build>-->
+    <!--    </profile>-->
+    <!--    <profile>-->
+    <!--      <id>jlink</id>-->
+    <!--      <properties>-->
+    <!--        <mypackaging>jlink</mypackaging>-->
+    <!--        <maven.test.skip>false</maven.test.skip>-->
+    <!--      </properties>-->
+    <!--    </profile>-->
 
   </profiles>
 

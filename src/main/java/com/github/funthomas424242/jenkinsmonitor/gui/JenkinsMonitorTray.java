@@ -108,10 +108,10 @@ public class JenkinsMonitorTray implements Timer.Listener {
                         }
                     }
                 });
-                trayIcon.addActionListener(e -> {
-                    LOGGER.debug("Mouseklick links doppelt");
-                    statusArea.setVisible(!statusArea.isVisible());
-                });
+//                trayIcon.addActionListener(e -> {
+//                    LOGGER.debug("Mouseklick links doppelt");
+//                    statusArea.setVisible(!statusArea.isVisible());
+//                });
                 tray.add(trayIcon);
             } else {
                 imageGenerator.drawImage((BufferedImage) trayIcon.getImage(), 100, 100);
