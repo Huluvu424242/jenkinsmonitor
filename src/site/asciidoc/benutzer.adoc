@@ -2,3 +2,30 @@
 
 Dieses Projekt stellt einen Jenkins Monitor zur Überwachung der laufenden Builds bereit.
 
+Der Monitor wird als kleines farbiges Quadrat im Systemtray angezeigt. Es lassen sich grob
+folgende Aussagen aus der Farbe des Quadrates ableiten:
+
+1. Ist das Quadrat vollständig grau gefüllt, dann kann dies bedeuten, dass alle beobachteten Jobs gerade bauen oder
+aber, dass ein Problem vorliegt. Letzteres kann eine falsche Konfiguration, eine fehlgeschlagene Anmeldung am Jenkins
+oder generell eine fehlende Verbindung zum Jenkins sein.
+2. Ist das Quadrat vollständig grün gefüllt, dann wurden alle beobachteten Jobs beim letzten Lauf auf
+dem Jenkins erfolgreich gebaut.
+3. Ist das Quadrat vollständig rot gefüllt, dann sind alle beobachteten Jobs beim letzten Lauf fehlgeschlagen.
+Das heißt jeder der Build ist gebrochen.
+4. Ein rotes Quadrat mit einzelnen, grünen, senkrechten Linie oder ein grünes Quadrat mit einzelnen,
+roten, senkrechten Linien zeigt an, dass einige Builds gebrochen sind, andere aber nicht. Hier empfielt
+sich ein genauerer Blick auf die Details welcher durch Linksklick bzw. Rechtsklick auf das Icon
+erhalten werden kann.
+
+Das nächste Bild zeigt ein Beispiel wie der Jenkinsmonitor im Systemtray dargestellt werden kann:
+
+image::images/Windowleiste.png[]
+
+Im Folgenden ist zu sehen wie die verschiedenen Status der Jenkinsjobs
+angezeigt werden können:
+
+image::images/JenkinsmonitorÜbersicht.png[]
+
+
+
+
