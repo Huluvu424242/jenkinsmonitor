@@ -1,6 +1,7 @@
 @echo off
 set ARCH=x86_64
 set CUR_DIR=%~dp0
+set BUNDLE_VERSION=0.0.2-SNAPSHOT
 set BUNDLE_DIR=target\AppDir\
 set TOOLS_DIR=target\tools\
 set RESOURCE_DIR=src\appimage-resources\
@@ -21,7 +22,7 @@ mkdir "%BUNDLE_DIR%usr"
 xcopy /Y /E  "%TOOLS_DIR%usr" "%BUNDLE_DIR%usr"
 
  @rem  copy resources at final place
-copy  target\jenkinsmonitor-*-jar-with-dependencies.jar %BUNDLE_DIR%usr\bin\jenkinsmonitor-jar-with-dependencies.jar
+copy  "target\jenkinsmonitor-%BUNDLE_VERSION%-jar-with-dependencies.jar" "%BUNDLE_DIR%usr\bin\jenkinsmonitor-jar-with-dependencies.jar"
 xcopy /Y /E  "%RESOURCE_DIR%"*.* "%BUNDLE_DIR%"
 
   @rem  create sym links
