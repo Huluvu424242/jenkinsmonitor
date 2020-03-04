@@ -9,6 +9,7 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 == [undelivered]
 === Added
 
+* https://github.com/FunThomas424242/jenkinsmonitor/issues/35[issue #35] Zustand Abgebrochen aufgenommen
 * https://github.com/FunThomas424242/jenkinsmonitor/issues/32[issue #32] Datei mit Verhaltensregeln steht bereit
 * https://github.com/FunThomas424242/jenkinsmonitor/issues/25[issue #25] Basic Authentification wird unterstützt
 * https://github.com/FunThomas424242/jenkinsmonitor/issues/22[issue #22] Windows Skripte korrigiert
