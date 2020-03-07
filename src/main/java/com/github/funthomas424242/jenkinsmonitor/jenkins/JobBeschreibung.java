@@ -22,13 +22,16 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
+import org.jetbrains.annotations.NotNull;
+
 import java.net.URL;
 import java.util.Objects;
 
-public final class JobBeschreibung {
+public final class JobBeschreibung implements Comparable<JobBeschreibung>{
 
     protected final String jobId;
 
+    @NotNull
     protected final JobAbfragedaten jobAbfragedaten;
 
 
@@ -67,6 +70,15 @@ public final class JobBeschreibung {
     @Override
     public int hashCode() {
         return Objects.hash(jobId, jobAbfragedaten);
+    }
+
+    @Override
+    public int compareTo(@NotNull JobBeschreibung jobBeschreibung) {
+        if( this.jobId == null && jobBeschreibung.getJobId() == null) return 0;
+        if( this.jobId != null && jobBeschreibung.getJobId() == null) return 1;
+        if( this.jobId == null && jobBeschreibung.getJobId() != null) return -1;
+
+        return this.jobId.compareTo(jobBeschreibung.getJobId());
     }
 }
 

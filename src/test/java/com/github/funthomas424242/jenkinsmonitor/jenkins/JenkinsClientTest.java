@@ -255,8 +255,8 @@ public class JenkinsClientTest {
         };
 
         final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[2];
-        jobBeschreibungen[0] = new JobBeschreibung("the first job", new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
-        jobBeschreibungen[1] = new JobBeschreibung("idname", new JobAbfragedaten(NetworkHelper.urlOf("http://test1.org")));
+        jobBeschreibungen[0] = new JobBeschreibung("the first job", new JobAbfragedaten(NetworkHelper.urlOf("http://test1.org")));
+        jobBeschreibungen[1] = new JobBeschreibung("idname", new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
 
         /**/
         {

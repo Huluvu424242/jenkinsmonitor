@@ -95,7 +95,7 @@ public class JenkinsClient {
 
 
     public JobStatusBeschreibung[] ladeJobsStatus(JobBeschreibung[] jobBeschreibungen) {
-        return Arrays.stream(jobBeschreibungen)
+        return Arrays.stream(jobBeschreibungen).sorted()
             .map(beschreibung -> {
                 JobStatusBeschreibung returnValue = null;
                 try {
