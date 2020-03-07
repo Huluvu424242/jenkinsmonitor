@@ -154,6 +154,13 @@
   <build>
     <resources>
       <resource>
+        <directory>src/main/resources/</directory>
+        <includes>
+          <include>logback.xml</include>
+          <include>filelogging.xml</include>
+        </includes>
+      </resource>
+      <resource>
         <directory>src/main/resources/img/</directory>
         <includes>
           <include>1984EmmanuelGoldstein.jpg</include>
@@ -348,7 +355,7 @@
         <configuration>
           <forkMode>never</forkMode>
           <argLine>
-            --illegal-access=deny
+            --illegal-access=warn
           </argLine>
           <excludedGroups>
             ${junit-excluded-groups}
