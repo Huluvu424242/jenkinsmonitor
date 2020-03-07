@@ -5,7 +5,10 @@ rem ~\jenkinsmonitor.properties
 rem
 rem Systemanforderungen: Java 11 muss installiert sein
 rem
-rem
+
+rem start javaw.exe^
+rem        -Dlogback.configurationFile=filelogging.xml
+rem         -jar ${project.build.finalName}-jar-with-dependencies.jar
+
 start javaw.exe^
-        -Dlogback.configurationFile=filelogging.xml
         -jar ${project.build.finalName}-jar-with-dependencies.jar
