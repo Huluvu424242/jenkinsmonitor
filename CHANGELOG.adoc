@@ -13,13 +13,13 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 * https://github.com/FunThomas424242/jenkinsmonitor/issues/32[issue #32] Datei mit Verhaltensregeln steht bereit
 * https://github.com/FunThomas424242/jenkinsmonitor/issues/25[issue #25] Basic Authentification wird unterstützt
 * https://github.com/FunThomas424242/jenkinsmonitor/issues/22[issue #22] Windows Skripte korrigiert
-* https://github.com/FunThomas424242/jenkinsmonitor/issues/19[issue #19] Umgestellt auf jdk11
-* file logging supported via -Dlogback.configurationFile=filelogging.xml
-* natural sort of jobident supported
 
 === Changed
 
-* n/a
+* https://github.com/FunThomas424242/jenkinsmonitor/issues/19[issue #19] Umgestellt auf jdk11
+* file logging supported via -Dlogback.configurationFile=filelogging.xml
+* natural sort of jobident supported
+* hard system.exit(0) added to avoid zoombie http get requests
 
 ### Removed
 

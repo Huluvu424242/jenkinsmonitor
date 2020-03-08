@@ -58,7 +58,7 @@ public class JenkinsClient {
             final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
             final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
             return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jobAbfragedaten.getJenkinsJobUrl(), jobId);
-        } catch (JSONException ex) {
+        } catch (NullPointerException | JSONException ex) {
             return new JobStatusBeschreibung(jobAbfragedaten.getJenkinsJobUrl().getPath(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobId);
         }
     }
@@ -66,7 +66,6 @@ public class JenkinsClient {
     protected JSONObject sendGetRequest(final JobAbfragedaten statusabfrageDaten) throws IOException {
         final URL statusAbfrageUrl = statusabfrageDaten.getStatusAbfrageUrl();
 
-        JSONObject resultJSON = null;
         try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             final HttpHost target = new HttpHost(statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort(), statusAbfrageUrl.getProtocol());
             final HttpGet httpGetRequest = new HttpGet(statusAbfrageUrl.getPath());
@@ -80,9 +79,11 @@ public class JenkinsClient {
 
             final String requestResult = readStreamIntoString(inputStream);
             LOG.debug("Empfangen als JSON:\n {}", requestResult);
-            resultJSON = new JSONObject(requestResult);
+            return new JSONObject(requestResult);
+        }catch(IOException ex){
+            LOG.warn("Could not retrieve data from jenkins: "+ex);
         }
-        return resultJSON;
+        return null;
     }
 
     protected String readStreamIntoString(InputStream inputStream) throws IOException {
