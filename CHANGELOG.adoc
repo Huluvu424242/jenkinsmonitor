@@ -15,6 +15,7 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 * https://github.com/FunThomas424242/jenkinsmonitor/issues/22[issue #22] Windows Skripte korrigiert
 * https://github.com/FunThomas424242/jenkinsmonitor/issues/19[issue #19] Umgestellt auf jdk11
 * file logging supported via -Dlogback.configurationFile=filelogging.xml
+* natural sort of jobident supported
 
 === Changed
 
