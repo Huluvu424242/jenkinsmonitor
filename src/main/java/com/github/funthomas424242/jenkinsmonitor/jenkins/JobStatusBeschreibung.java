@@ -22,13 +22,17 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
+import net.greypanther.natsort.SimpleNaturalComparator;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.Objects;
 
 public final class JobStatusBeschreibung implements Comparable<JobStatusBeschreibung> {
+
+    private static final Comparator<String> NATURAL_COMPARATOR = SimpleNaturalComparator.getInstance();
 
     protected final String orderId;
 
@@ -86,6 +90,6 @@ public final class JobStatusBeschreibung implements Comparable<JobStatusBeschrei
 
     @Override
     public int compareTo(@NotNull JobStatusBeschreibung jobStatusBeschreibung) {
-        return 0;
+        return NATURAL_COMPARATOR.compare(this.orderId, jobStatusBeschreibung.getOrderId());
     }
 }
