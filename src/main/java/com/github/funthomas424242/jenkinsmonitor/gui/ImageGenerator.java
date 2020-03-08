@@ -37,6 +37,11 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 
+import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS;
+import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED;
+import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
+import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
+
 public class ImageGenerator {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(ImageGenerator.class);
@@ -109,7 +114,13 @@ public class ImageGenerator {
             });
             panel.add(label);
         });
-        statusArea.setContentPane(panel);
+
+
+        final JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_ALWAYS);
+
+        statusArea.setContentPane(scrollPane);
         statusArea.pack();
         statusArea.repaint();
     }
