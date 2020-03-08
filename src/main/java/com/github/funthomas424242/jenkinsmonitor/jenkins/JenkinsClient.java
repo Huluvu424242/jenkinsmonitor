@@ -51,15 +51,15 @@ public class JenkinsClient {
     public static final String JSONKEY_RESULT = "result";
 
 
-    protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten) throws IOException {
+    protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten, final String jobId) throws IOException {
 
         final JSONObject resultJSON = sendGetRequest(jobAbfragedaten);
         try {
             final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
             final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
-            return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jobAbfragedaten.getJenkinsJobUrl());
+            return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jobAbfragedaten.getJenkinsJobUrl(), jobId);
         } catch (JSONException ex) {
-            return new JobStatusBeschreibung(jobAbfragedaten.getJenkinsJobUrl().getPath(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl());
+            return new JobStatusBeschreibung(jobAbfragedaten.getJenkinsJobUrl().getPath(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobId);
         }
     }
 
@@ -102,16 +102,18 @@ public class JenkinsClient {
                     // TODO prüfen ob schon vorhanden sind bei zunächst leerer Konfig
 //                    final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(beschreibung.getJobUrl(), beschreibung.g);
                     final JobAbfragedaten jobAbfragedaten = beschreibung.getJobAbfragedaten();
-                    final JobStatusBeschreibung jobStatus = getJobStatus(jobAbfragedaten);
+                    final JobStatusBeschreibung jobStatus = getJobStatus(jobAbfragedaten, beschreibung.getJobId());
                     returnValue = new JobStatusBeschreibung(jobStatus.getJobName()
                         , jobStatus.getJobStatus()
-                        , beschreibung.getJobUrl());
+                        , beschreibung.getJobUrl()
+                        , beschreibung.getJobId());
                     LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
                 } catch (IOException e) {
                     LOG.error(e.getLocalizedMessage(), e);
                     returnValue = new JobStatusBeschreibung(beschreibung.getJobId(),
                         JobStatus.OTHER,
-                        beschreibung.getJobUrl());
+                        beschreibung.getJobUrl()
+                        , beschreibung.getJobId());
                     LOG.debug(String.format("JobStatus ERR geladen: %s : %s at %s ", beschreibung.getJobId(), JobStatus.OTHER.toString(), beschreibung.getJobUrl().toExternalForm()));
                 }
                 return returnValue;

@@ -22,12 +22,15 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.*;
 import java.net.URL;
 import java.util.Objects;
 
-public final class JobStatusBeschreibung {
+public final class JobStatusBeschreibung implements Comparable<JobStatusBeschreibung> {
 
+    protected final String orderId;
 
     protected final JobStatus jobStatus;
 
@@ -36,10 +39,11 @@ public final class JobStatusBeschreibung {
     protected final URL jobUrl;
 
 
-    public JobStatusBeschreibung(final String jobName, final JobStatus jobStatus, final URL jobUrl) {
+    public JobStatusBeschreibung(final String jobName, final JobStatus jobStatus, final URL jobUrl, final String orderId) {
         this.jobStatus = jobStatus;
         this.jobName = jobName;
         this.jobUrl = jobUrl;
+        this.orderId = orderId;
     }
 
     public Color getStatusColor() {
@@ -59,19 +63,29 @@ public final class JobStatusBeschreibung {
         return this.jobName;
     }
 
+    public String getOrderId() {
+        return this.orderId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof JobStatusBeschreibung)) return false;
         JobStatusBeschreibung that = (JobStatusBeschreibung) o;
-        return jobStatus == that.jobStatus &&
+        return Objects.equals(orderId, that.orderId) &&
+            jobStatus == that.jobStatus &&
             Objects.equals(jobName, that.jobName) &&
             Objects.equals(jobUrl, that.jobUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(jobStatus, jobName, jobUrl);
+        return Objects.hash(orderId, jobStatus, jobName, jobUrl);
+    }
+
+    @Override
+    public int compareTo(@NotNull JobStatusBeschreibung jobStatusBeschreibung) {
+        return 0;
     }
 }
