@@ -192,6 +192,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         popup.add(bugtracker);
         popup.addSeparator();
         popup.add(exitItem);
+//        MenuScroller.setScrollerFor(popup);
         return popup;
     }
 
