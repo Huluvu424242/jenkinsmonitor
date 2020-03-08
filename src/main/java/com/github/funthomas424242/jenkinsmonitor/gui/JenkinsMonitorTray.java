@@ -143,10 +143,9 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected PopupMenu createSettingsMenu() {
         final PopupMenu popup = new PopupMenu();
 
-
         // Create a popup menu components
-        Arrays.stream(this.jobStatusBeschreibungen).forEach(statusBeschreibung -> {
-            final String itemText = String.format("[%s] %s", statusBeschreibung.getJobStatus(), statusBeschreibung.getJobName());
+        Arrays.stream(this.jobStatusBeschreibungen).sorted().forEach(statusBeschreibung -> {
+            final String itemText = String.format("[%s] <%s> %s", statusBeschreibung.getOrderId(), statusBeschreibung.getJobStatus(), statusBeschreibung.getJobName());
             final MenuItem item = new MenuItem(itemText);
             item.addActionListener(actionEvent -> {
                 URI webSite = null;
