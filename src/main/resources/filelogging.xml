@@ -49,12 +49,12 @@
     </layout>
   </appender>
 
-  <logger name="com.github.funthomas424242" level="info" additivity="true">
-    <appender-ref ref="CONSOLE"/>
+  <logger name="com.github.funthomas424242" level="debug" additivity="true">
+    <appender-ref ref="FILE"/>
   </logger>
 
   <root level="error">
-    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
   </root>
 
 </configuration>

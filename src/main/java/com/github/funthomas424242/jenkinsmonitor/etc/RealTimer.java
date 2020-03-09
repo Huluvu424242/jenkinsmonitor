@@ -76,6 +76,9 @@ public class RealTimer implements Timer {
     @Override
     public void stop() {
         timerService.shutdown();
+//        listeners.clear();
+        // TODO das sollte besser gehen - beseitigt erstmal die Http Zoombies
+        System.exit(0);
     }
 
     @Override

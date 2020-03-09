@@ -70,7 +70,7 @@ class ImageGeneratorTest {
         final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
         jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
-            , null);
+            , null,"#1");
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final BufferedImage image = generator.createImage(100, 100);
         assertEquals(100, image.getHeight());
@@ -85,7 +85,7 @@ class ImageGeneratorTest {
         final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
         jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
             , JobStatus.UNSTABLE
-            , null);
+            , null,"#1");
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final BufferedImage image = generator.createImage(100, 100);
         assertEquals(100, image.getHeight());
@@ -100,7 +100,7 @@ class ImageGeneratorTest {
         final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
         jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
             , JobStatus.FAILURE
-            , null);
+            , null,"#1");
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final BufferedImage image = generator.createImage(100, 100);
         assertEquals(100, image.getHeight());
@@ -115,10 +115,10 @@ class ImageGeneratorTest {
         final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[2];
         jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
-            , null);
+            , null,"#1");
         jobsStatusBeschreibungen[1] = new JobStatusBeschreibung("Job2/master"
             , JobStatus.FAILURE
-            , null);
+            , null,"#2");
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final BufferedImage image = generator.createImage(100, 100);
         assertEquals(100, image.getHeight());
@@ -136,7 +136,7 @@ class ImageGeneratorTest {
         final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
         jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
-            , null);
+            , null,"#1");
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final JWindow statusArea = new JWindow();
         generator.updateStatusArea(statusArea);

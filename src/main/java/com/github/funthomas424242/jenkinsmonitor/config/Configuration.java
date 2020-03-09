@@ -36,6 +36,8 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Configuration {
 
@@ -133,10 +135,18 @@ public class Configuration {
             .sorted()
             .filter((key) -> key.startsWith(JOBKEY_PREFIX))
             .map(key -> {
+                final Pattern pattern = Pattern.compile("joburl-(.+)");
+                final Matcher matcher = pattern.matcher(key);
                 final String value = configurationProperties.getProperty(key);
                 final URL jobURL = NetworkHelper.urlOf(value);
                 final JobAbfragedaten jobAbfragedaten = getAbfragedatenOf(jobURL);
-                return new JobBeschreibung(null, jobAbfragedaten);
+                if (matcher.find()) {
+                    final String id = matcher.group(1);
+                    return new JobBeschreibung(id, jobAbfragedaten);
+                } else {
+                    LOG.debug("Config Key not matched: " + key);
+                    return new JobBeschreibung(jobAbfragedaten);
+                }
             }).toArray(JobBeschreibung[]::new);
     }
 

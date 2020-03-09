@@ -22,6 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.etc.Counter;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import org.slf4j.Logger;
@@ -36,6 +37,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+
+import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS;
+import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
 
 public class ImageGenerator {
 
@@ -87,8 +91,12 @@ public class ImageGenerator {
         final JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(this.jobsStatusBeschreibungen.length, 1));
 
-        Arrays.stream(this.jobsStatusBeschreibungen).forEach((jobStatus) -> {
-            final String htmlTemplate = "<html><h1>" + jobStatus.getJobName() + "</h1><p>Status: " + jobStatus.getJobStatus().toString() + " <a href=\"" + jobStatus.getJobUrl() + "\">" + jobStatus.getJobUrl() + "</a></p></html>";
+        final Counter counter = new Counter();
+        Arrays.stream(this.jobsStatusBeschreibungen).sorted().forEach((jobStatus) -> {
+            counter.value++;
+            final String htmlTemplate = "<html><body style=\"display:inline-block;\"><h1>[" + jobStatus.getOrderId() + "] " + jobStatus.getJobName() + "</h1>"
+                + "<p>(" + counter.value + ") Status: " + jobStatus.getJobStatus().toString()
+                + " <a href=\"" + jobStatus.getJobUrl() + "\">" + jobStatus.getJobUrl() + "</a></p></body></html>";
             final JLabel label = new JLabel(htmlTemplate);
             label.setOpaque(true);
             label.setBackground(jobStatus.getStatusColor());
@@ -107,7 +115,13 @@ public class ImageGenerator {
             });
             panel.add(label);
         });
-        statusArea.setContentPane(panel);
+
+
+        final JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_ALWAYS);
+
+        statusArea.setContentPane(scrollPane);
         statusArea.pack();
         statusArea.repaint();
     }

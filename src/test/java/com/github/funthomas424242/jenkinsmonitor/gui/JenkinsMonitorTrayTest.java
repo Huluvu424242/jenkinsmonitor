@@ -56,8 +56,8 @@ class JenkinsClientMock extends JenkinsClient {
     }
 
     @Override
-    protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten) throws IOException {
-        return new JobStatusBeschreibung("xxx", jobStatus[jobNr++], jobAbfragedaten.getJenkinsJobUrl());
+    protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten, String jobId) throws IOException {
+        return new JobStatusBeschreibung("xxx", jobStatus[jobNr++], jobAbfragedaten.getJenkinsJobUrl(), jobId);
     }
 }
 
