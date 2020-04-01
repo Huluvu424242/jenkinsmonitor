@@ -54,7 +54,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <maven.compiler.release>11</maven.compiler.release>
-    <junit-jupiter-engine.version>5.6.0</junit-jupiter-engine.version>
+    <junit-jupiter-engine.version>5.6.1</junit-jupiter-engine.version>
     <junit-excluded-groups/>
   </properties>
 
@@ -121,7 +121,7 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>5.6.0</version>
+      <version>5.6.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -133,7 +133,7 @@
     <dependency>
       <groupId>nl.jqno.equalsverifier</groupId>
       <artifactId>equalsverifier</artifactId>
-      <version>3.1.12</version>
+      <version>3.1.13</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -153,7 +153,7 @@
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
-      <version>4.2.0</version>
+      <version>4.3.0</version>
       <scope>test</scope>
     </dependency>
 
@@ -212,7 +212,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.1.1</version>
+          <version>3.2.0</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -412,7 +412,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>3.8.2</version>
+        <version>3.9.0</version>
         <configuration>
           <outputDirectory>${basedir}/docs</outputDirectory>
           <locales>de</locales>
