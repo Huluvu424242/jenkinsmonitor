@@ -165,7 +165,7 @@ public class JenkinsClientTest {
             return requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GREEN, null));
         });
         assertNotNull(json);
-        assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
+        assertEquals("mypocketmod \u00bb master #2", json.get("fullDisplayName"));
         assertEquals("SUCCESS", json.get("result"));
     }
 

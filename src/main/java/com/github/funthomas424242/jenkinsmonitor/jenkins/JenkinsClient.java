@@ -88,7 +88,8 @@ public class JenkinsClient {
 
     protected String readStreamIntoString(InputStream inputStream) throws IOException {
         String requestResult;
-        try (BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream))) {
+        // wegen json gehen wir von utf-8 aus
+        try (BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream, "utf-8"))) {
             requestResult = buffer.lines().collect(Collectors.joining("\n"));
         }
         return requestResult;
