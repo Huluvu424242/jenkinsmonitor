@@ -44,6 +44,7 @@ public class JenkinsAPICompatibillityTest {
     protected static URL STATUS_URL_MULTIBRANCH_JOB1_RED;
     protected static URL STATUS_URL_MULTIBRANCH_JOB1_GREEN;
     protected static URL STATUS_URL_MULTIBRANCH_JOB1_YELLOW;
+    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GRAY_BUILDING;
     protected static URL STATUS_URL_MULTIBRANCH_JOB1_GRAY;
 
     protected WireMockServer wireMockServer;
@@ -53,6 +54,7 @@ public class JenkinsAPICompatibillityTest {
         STATUS_URL_MULTIBRANCH_JOB1_RED = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_RED);
         STATUS_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GREEN);
         STATUS_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_YELLOW);
+        STATUS_URL_MULTIBRANCH_JOB1_GRAY_BUILDING = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GRAY_BUILDING);
         STATUS_URL_MULTIBRANCH_JOB1_GRAY = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GRAY);
     }
 
@@ -106,15 +108,13 @@ public class JenkinsAPICompatibillityTest {
     }
 
     @Test
-    @Disabled
-    @Tag("testbacklog")
     @DisplayName("Jenkins API Compatibillity: Statusabfrage unbekannter Multibranch Job")
     public void statusMultibranchJobGrau() {
         when().
-            get(STATUS_URL_MULTIBRANCH_JOB1_GRAY).
+            get(STATUS_URL_MULTIBRANCH_JOB1_GRAY_BUILDING).
             then().
             statusCode(200).
-            body(Matchers.anEmptyMap());
+            body("building", Matchers.equalTo(true));
 
     }
 

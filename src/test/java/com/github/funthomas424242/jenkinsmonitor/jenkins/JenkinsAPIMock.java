@@ -45,6 +45,10 @@ public class JenkinsAPIMock {
     public static String STATUSPATH_MULTIBRANCH_JOB1_YELLOW = JOBPATH_MULTIBRANCH_JOB1_YELLOW + STATUS_PATH;
     public static String STATUS_URL_MULTIBRANCH_JOB1_YELLOW = JENKINS_ROOT + STATUSPATH_MULTIBRANCH_JOB1_YELLOW;
     public static String JOB_URL_MULTIBRANCH_JOB1_YELLOW = JENKINS_ROOT + JOBPATH_MULTIBRANCH_JOB1_YELLOW;
+    public static String JOBPATH_MULTIBRANCH_JOB1_GRAY_BUILDING = "/job/multibranchjobgray/job/master-building";
+    public static String STATUSPATH_MULTIBRANCH_JOB1_GRAY_BUILDING = JOBPATH_MULTIBRANCH_JOB1_GRAY_BUILDING + STATUS_PATH;
+    public static String STATUS_URL_MULTIBRANCH_JOB1_GRAY_BUILDING = JENKINS_ROOT + STATUSPATH_MULTIBRANCH_JOB1_GRAY_BUILDING;
+    public static String JOB_URL_MULTIBRANCH_JOB1_GRAY_BUILDING = JENKINS_ROOT + JOBPATH_MULTIBRANCH_JOB1_GRAY_BUILDING;
     public static String JOBPATH_MULTIBRANCH_JOB1_GRAY = "/job/multibranchjobgray/job/master";
     public static String STATUSPATH_MULTIBRANCH_JOB1_GRAY = JOBPATH_MULTIBRANCH_JOB1_GRAY + STATUS_PATH;
     public static String STATUS_URL_MULTIBRANCH_JOB1_GRAY = JENKINS_ROOT + STATUSPATH_MULTIBRANCH_JOB1_GRAY;
@@ -64,10 +68,18 @@ public class JenkinsAPIMock {
             .willReturn(aResponse().withHeader("Content-Type", "application/json")
                 .withStatus(200)
                 .withBodyFile("json/multibranch-job1-yellow.json")));
+        jenkins.stubFor(get(WireMock.urlEqualTo(STATUSPATH_MULTIBRANCH_JOB1_GRAY_BUILDING))
+            .willReturn(aResponse().withHeader("Content-Type", "application/json")
+                .withStatus(200)
+                .withBodyFile("json/multibranch-job1-building.json")));
         jenkins.stubFor(get(WireMock.urlEqualTo(STATUSPATH_MULTIBRANCH_JOB1_GRAY))
             .willReturn(aResponse().withHeader("Content-Type", "application/json")
                 .withStatus(200)
                 .withBodyFile("json/multibranch-job1-gray.json")));
+
+        // 404 status falls job nicht existiert
+        // oder baut gerade
+
     }
 
 
