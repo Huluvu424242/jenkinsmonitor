@@ -6,7 +6,9 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 
 // == [3.1.1] fertiggestellt 2018-05-11
 
-== [undelivered]
+//== [undelivered]
+
+== [0.0.2] fertiggestellt 
 === Added
 
 * https://github.com/FunThomas424242/jenkinsmonitor/issues/35[issue #35] Zustand Abgebrochen aufgenommen
