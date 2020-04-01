@@ -36,10 +36,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 
@@ -185,14 +182,11 @@ public class JenkinsClientTest {
     }
 
     @Test
-    @DisplayName("Die Statusabfrage eines grauen Build Jobs gibt KEIN valides JSON zurück")
+    @DisplayName("Die Statusabfrage eines unbekannten Build Jobs gibt KEIN valides JSON zurück")
     protected void getValidJsonGray() {
         final JenkinsClient requester = new JenkinsClient();
-        final JSONObject json = assertDoesNotThrow(() -> {
-            return requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY, null));
-        });
-        assertNotNull(json);
-        assertTrue(json.isEmpty());
+        final JSONObject json = assertDoesNotThrow(() -> requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY, null)));
+        assertNull(json);
     }
 
     @Test

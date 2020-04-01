@@ -74,8 +74,8 @@ public class JenkinsAPIMock {
                 .withBodyFile("json/multibranch-job1-building.json")));
         jenkins.stubFor(get(WireMock.urlEqualTo(STATUSPATH_MULTIBRANCH_JOB1_GRAY))
             .willReturn(aResponse().withHeader("Content-Type", "application/json")
-                .withStatus(200)
-                .withBodyFile("json/multibranch-job1-gray.json")));
+                .withStatus(404)
+            ));
 
         // 404 status falls job nicht existiert
         // oder baut gerade

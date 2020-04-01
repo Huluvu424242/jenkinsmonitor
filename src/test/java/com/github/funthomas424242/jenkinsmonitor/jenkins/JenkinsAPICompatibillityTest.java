@@ -108,14 +108,23 @@ public class JenkinsAPICompatibillityTest {
     }
 
     @Test
-    @DisplayName("Jenkins API Compatibillity: Statusabfrage unbekannter Multibranch Job")
-    public void statusMultibranchJobGrau() {
+    @DisplayName("Jenkins API Compatibillity: Statusabfrage im Build befindlicher Multibranch Job")
+    public void statusMultibranchJobGrauBuildend() {
         when().
             get(STATUS_URL_MULTIBRANCH_JOB1_GRAY_BUILDING).
             then().
             statusCode(200).
             body("building", Matchers.equalTo(true));
 
+    }
+
+    @Test
+    @DisplayName("Jenkins API Compatibillity: Statusabfrage unbekannter Multibranch Job")
+    public void statusMultibranchJobGrauUnbekannt() {
+        when().
+            get(STATUS_URL_MULTIBRANCH_JOB1_GRAY).
+            then().
+            statusCode(404);
     }
 
 

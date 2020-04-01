@@ -80,7 +80,7 @@ public class JenkinsClient {
             final String requestResult = readStreamIntoString(inputStream);
             LOG.debug("Empfangen als JSON:\n {}", requestResult);
             return new JSONObject(requestResult);
-        }catch(IOException ex){
+        }catch(Exception ex){
             LOG.warn("Could not retrieve data from jenkins: "+ex);
         }
         return null;
