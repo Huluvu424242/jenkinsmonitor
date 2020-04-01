@@ -1,0 +1,61 @@
+{
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+    "actions": [
+        {
+            "_class": "hudson.model.CauseAction",
+            "causes": [
+                {
+                    "_class": "hudson.model.Cause$UserIdCause",
+                    "shortDescription": "Gestartet durch Benutzer admin",
+                    "userId": "admin",
+                    "userName": "admin"
+                }
+            ]
+        },
+        {
+            "_class": "jenkins.scm.api.SCMRevisionAction"
+        },
+        {},
+        {},
+        {},
+        {},
+        {},
+        {
+            "_class": "org.jenkinsci.plugins.pipeline.modeldefinition.actions.RestartDeclarativePipelineAction"
+        },
+        {},
+        {},
+        {},
+        {
+            "_class": "org.jenkinsci.plugins.workflow.job.views.FlowGraphAction"
+        },
+        {},
+        {},
+        {},
+        {}
+    ],
+    "artifacts": [],
+    "building": true,
+    "description": null,
+    "displayName": "#3",
+    "duration": 0,
+    "estimatedDuration": 201478,
+    "executor": {
+        "_class": "hudson.model.OneOffExecutor"
+    },
+    "fullDisplayName": "rezeptsammlung-allbranches » master #3",
+    "id": "3",
+    "keepLog": false,
+    "number": 3,
+    "queueId": 2337,
+    "result": null,
+    "timestamp": 1585769052802,
+    "url": "http://jenkins:8080/job/rezeptsammlung-allbranches/job/master/3/",
+    "changeSets": [],
+    "culprits": [],
+    "nextBuild": null,
+    "previousBuild": {
+        "number": 2,
+        "url": "http://jenkins:8080/job/rezeptsammlung-allbranches/job/master/2/"
+    }
+}
