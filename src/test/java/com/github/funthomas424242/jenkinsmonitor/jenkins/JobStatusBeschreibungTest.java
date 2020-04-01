@@ -41,7 +41,9 @@ class JobStatusBeschreibungTest {
 
     @BeforeAll
     public static void setUp() throws MalformedURLException {
-        new URL("http://localhost:8099/job/test");
+         new URL("http://localhost:8099/job/test");
+         // TODO prüfen - tut nix
+        // LOCALHOST_JOB_TEST_URL = new URL("http://localhost:8099/job/test");
     }
 
     @Test
