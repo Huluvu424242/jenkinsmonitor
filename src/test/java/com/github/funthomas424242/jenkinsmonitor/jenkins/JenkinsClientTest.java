@@ -46,7 +46,7 @@ public class JenkinsClientTest {
     protected static URL JOB_URL_MULTIBRANCH_JOB1_GREEN;
     protected static URL JOB_URL_MULTIBRANCH_JOB1_YELLOW;
     protected static URL JOB_URL_MULTIBRANCH_JOB1_GRAY_BUILDING;
-    protected static URL JOB_URL_MULTIBRANCH_JOB1_GRAY;
+    protected static URL JOB_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW;
 
 //    protected static URL STATUS_URL_MULTIBRANCH_JOB1_RED;
 //    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GREEN;
@@ -61,7 +61,7 @@ public class JenkinsClientTest {
         JOB_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_GREEN);
         JOB_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_YELLOW);
         JOB_URL_MULTIBRANCH_JOB1_GRAY_BUILDING = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_GRAY_BUILDING);
-        JOB_URL_MULTIBRANCH_JOB1_GRAY = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_GRAY);
+        JOB_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW);
 
 //        STATUS_URL_MULTIBRANCH_JOB1_RED = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_RED);
 //        STATUS_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GREEN);
@@ -135,7 +135,7 @@ public class JenkinsClientTest {
         final JenkinsClient requester = new JenkinsClient();
         assumeTrue(requester != null);
         final JobStatusBeschreibung jobStatusBeschreibung = assertDoesNotThrow(() -> {
-            final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY);
+            final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW);
             return requester.getJobStatus(jobAbfragedaten, "#1");
         });
         assertNotNull(jobStatusBeschreibung);
@@ -185,7 +185,7 @@ public class JenkinsClientTest {
     @DisplayName("Die Statusabfrage eines unbekannten Build Jobs gibt KEIN valides JSON zurück")
     protected void getValidJsonGray() {
         final JenkinsClient requester = new JenkinsClient();
-        final JSONObject json = assertDoesNotThrow(() -> requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY, null)));
+        final JSONObject json = assertDoesNotThrow(() -> requester.sendGetRequest(new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW, null)));
         assertNull(json);
     }
 

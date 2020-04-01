@@ -49,10 +49,10 @@ public class JenkinsAPIMock {
     public static String STATUSPATH_MULTIBRANCH_JOB1_GRAY_BUILDING = JOBPATH_MULTIBRANCH_JOB1_GRAY_BUILDING + STATUS_PATH;
     public static String STATUS_URL_MULTIBRANCH_JOB1_GRAY_BUILDING = JENKINS_ROOT + STATUSPATH_MULTIBRANCH_JOB1_GRAY_BUILDING;
     public static String JOB_URL_MULTIBRANCH_JOB1_GRAY_BUILDING = JENKINS_ROOT + JOBPATH_MULTIBRANCH_JOB1_GRAY_BUILDING;
-    public static String JOBPATH_MULTIBRANCH_JOB1_GRAY = "/job/multibranchjobgray/job/master";
-    public static String STATUSPATH_MULTIBRANCH_JOB1_GRAY = JOBPATH_MULTIBRANCH_JOB1_GRAY + STATUS_PATH;
-    public static String STATUS_URL_MULTIBRANCH_JOB1_GRAY = JENKINS_ROOT + STATUSPATH_MULTIBRANCH_JOB1_GRAY;
-    public static String JOB_URL_MULTIBRANCH_JOB1_GRAY = JENKINS_ROOT + JOBPATH_MULTIBRANCH_JOB1_GRAY;
+    public static String JOBPATH_MULTIBRANCH_JOB1_GRAY_UNKNOW = "/job/multibranchjobgray/job/master-unknow";
+    public static String STATUSPATH_MULTIBRANCH_JOB1_GRAY_UNKNOW = JOBPATH_MULTIBRANCH_JOB1_GRAY_UNKNOW + STATUS_PATH;
+    public static String STATUS_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW = JENKINS_ROOT + STATUSPATH_MULTIBRANCH_JOB1_GRAY_UNKNOW;
+    public static String JOB_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW = JENKINS_ROOT + JOBPATH_MULTIBRANCH_JOB1_GRAY_UNKNOW;
 
 
     public static void definiereAnnahmen(WireMockServer jenkins) {
@@ -71,16 +71,13 @@ public class JenkinsAPIMock {
         jenkins.stubFor(get(WireMock.urlEqualTo(STATUSPATH_MULTIBRANCH_JOB1_GRAY_BUILDING))
             .willReturn(aResponse().withHeader("Content-Type", "application/json")
                 .withStatus(200)
+                // job baut gerade
                 .withBodyFile("json/multibranch-job1-building.json")));
-        jenkins.stubFor(get(WireMock.urlEqualTo(STATUSPATH_MULTIBRANCH_JOB1_GRAY))
+        jenkins.stubFor(get(WireMock.urlEqualTo(STATUSPATH_MULTIBRANCH_JOB1_GRAY_UNKNOW))
             .willReturn(aResponse().withHeader("Content-Type", "application/json")
+                // 404 status falls job nicht existiert
                 .withStatus(404)
             ));
-
-        // 404 status falls job nicht existiert
-        // oder baut gerade
-
     }
-
 
 }

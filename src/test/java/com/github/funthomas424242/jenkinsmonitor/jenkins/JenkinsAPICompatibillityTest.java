@@ -27,7 +27,6 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -45,7 +44,7 @@ public class JenkinsAPICompatibillityTest {
     protected static URL STATUS_URL_MULTIBRANCH_JOB1_GREEN;
     protected static URL STATUS_URL_MULTIBRANCH_JOB1_YELLOW;
     protected static URL STATUS_URL_MULTIBRANCH_JOB1_GRAY_BUILDING;
-    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GRAY;
+    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW;
 
     protected WireMockServer wireMockServer;
 
@@ -55,7 +54,7 @@ public class JenkinsAPICompatibillityTest {
         STATUS_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GREEN);
         STATUS_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_YELLOW);
         STATUS_URL_MULTIBRANCH_JOB1_GRAY_BUILDING = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GRAY_BUILDING);
-        STATUS_URL_MULTIBRANCH_JOB1_GRAY = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GRAY);
+        STATUS_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW);
     }
 
     @BeforeEach
@@ -122,7 +121,7 @@ public class JenkinsAPICompatibillityTest {
     @DisplayName("Jenkins API Compatibillity: Statusabfrage unbekannter Multibranch Job")
     public void statusMultibranchJobGrauUnbekannt() {
         when().
-            get(STATUS_URL_MULTIBRANCH_JOB1_GRAY).
+            get(STATUS_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW).
             then().
             statusCode(404);
     }
