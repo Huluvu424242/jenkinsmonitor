@@ -88,14 +88,7 @@ public class ImageGenerator {
     }
 
     public void updateStatusArea(final JWindow statusArea) {
-
-        final JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(this.jobsStatusBeschreibungen.length, 1));
-
-        createContent(statusArea, panel);
-
-
-        final JScrollPane scrollPane = new JScrollPane(panel);
+        final JScrollPane scrollPane = new JScrollPane(createContent(statusArea));
         scrollPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -104,7 +97,9 @@ public class ImageGenerator {
         statusArea.repaint();
     }
 
-    private void createContent(JWindow statusArea, JPanel panel) {
+    private JPanel createContent(JWindow statusArea) {
+        final JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(this.jobsStatusBeschreibungen.length, 1));
         final Counter counter = new Counter();
         Arrays.stream(this.jobsStatusBeschreibungen).sorted().forEach((jobStatus) -> {
             counter.value++;
@@ -112,6 +107,7 @@ public class ImageGenerator {
             final JLabel label = createLabel(statusArea, counter, jobStatus);
             panel.add(label);
         });
+        return panel;
     }
 
     @NotNull

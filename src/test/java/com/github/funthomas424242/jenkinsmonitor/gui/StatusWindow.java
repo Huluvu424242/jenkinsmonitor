@@ -1,5 +1,6 @@
 package com.github.funthomas424242.jenkinsmonitor.gui;
 
+
 import com.github.funthomas424242.jenkinsmonitor.etc.Counter;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 
 public class StatusWindow extends JWindow {
     public static final Logger LOGGER = LoggerFactory.getLogger(StatusWindow.class);
@@ -22,7 +24,7 @@ public class StatusWindow extends JWindow {
 //        super("JScrollPane Demonstration");
 //        setSize(300, 200);
 //        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        aktualisiereContentPane();
+//        aktualisiereContentPane();
     }
 
 
@@ -50,21 +52,35 @@ public class StatusWindow extends JWindow {
     }
 
 
-    private JScrollPane createContent() {
-        String categories[] = {"Household", "Office", "Extended Family",
-            "Company (US)", "Company (World)", "Team", "Will",
-            "Birthday Card List", "High School", "Country", "Continent",
-            "Planet"};
-        JList list = new JList(categories);
-        return new JScrollPane(list);
+//    private JScrollPane createContent() {
+//        String categories[] = {"Household", "Office", "Extended Family",
+//            "Company (US)", "Company (World)", "Team", "Will",
+//            "Birthday Card List", "High School", "Country", "Continent",
+//            "Planet"};
+//        JList list = new JList(categories);
+//        return new JScrollPane(list);
+//    }
+
+    private JPanel createContent(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
+        final JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(jobsStatusBeschreibungen.length, 1));
+        final Counter counter = new Counter();
+        Arrays.stream(jobsStatusBeschreibungen).sorted().forEach((jobStatus) -> {
+            counter.value++;
+
+            final JLabel label = createLabel(counter, jobStatus);
+            panel.add(label);
+        });
+        return panel;
     }
 
-    public void aktualisiereContentPane() {
-        getContentPane().add(createContent(), BorderLayout.CENTER);
+    public void aktualisiereContentPane(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
+        getContentPane().add(createContent(jobsStatusBeschreibungen), BorderLayout.CENTER);
     }
 
     public static void main(String args[]) {
         StatusWindow window = new StatusWindow();
+//        window.aktualisiereContentPane();
         window.pack();
         window.setAlwaysOnTop(true);
         window.setLocationByPlatform(false);
