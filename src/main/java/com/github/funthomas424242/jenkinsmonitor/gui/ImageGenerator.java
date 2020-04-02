@@ -25,6 +25,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 import com.github.funthomas424242.jenkinsmonitor.etc.Counter;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,25 +95,8 @@ public class ImageGenerator {
         final Counter counter = new Counter();
         Arrays.stream(this.jobsStatusBeschreibungen).sorted().forEach((jobStatus) -> {
             counter.value++;
-            final String htmlTemplate = "<html><body style=\"display:inline-block;\"><h1>[" + jobStatus.getOrderId() + "] " + jobStatus.getJobName() + "</h1>"
-                + "<p>(" + counter.value + ") Status: " + jobStatus.getJobStatus().toString()
-                + " <a href=\"" + jobStatus.getJobUrl() + "\">" + jobStatus.getJobUrl() + "</a></p></body></html>";
-            final JLabel label = new JLabel(htmlTemplate);
-            label.setOpaque(true);
-            label.setBackground(jobStatus.getStatusColor());
-            label.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    URI uri = null;
-                    try {
-                        uri = jobStatus.getJobUrl().toURI();
-                        Desktop.getDesktop().browse(uri);
-                        statusArea.setVisible(false);
-                    } catch (IOException | URISyntaxException ex) {
-                        LOGGER.error("URL " + uri.toString() + " konnte nicht geöffnet werden", ex);
-                    }
-                }
-            });
+
+            final JLabel label = createLabel(statusArea, counter, jobStatus);
             panel.add(label);
         });
 
@@ -124,5 +108,29 @@ public class ImageGenerator {
         statusArea.setContentPane(scrollPane);
         statusArea.pack();
         statusArea.repaint();
+    }
+
+    @NotNull
+    private JLabel createLabel(JWindow statusArea, Counter counter, JobStatusBeschreibung jobStatus) {
+        final String htmlTemplate = "<html><body style=\"display:inline-block;\"><h1>[" + jobStatus.getOrderId() + "] " + jobStatus.getJobName() + "</h1>"
+            + "<p>(" + counter.value + ") Status: " + jobStatus.getJobStatus().toString()
+            + " <a href=\"" + jobStatus.getJobUrl() + "\">" + jobStatus.getJobUrl() + "</a></p></body></html>";
+        final JLabel label = new JLabel(htmlTemplate);
+        label.setOpaque(true);
+        label.setBackground(jobStatus.getStatusColor());
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                URI uri = null;
+                try {
+                    uri = jobStatus.getJobUrl().toURI();
+                    Desktop.getDesktop().browse(uri);
+                    statusArea.setVisible(false);
+                } catch (IOException | URISyntaxException ex) {
+                    LOGGER.error("URL " + uri.toString() + " konnte nicht geöffnet werden", ex);
+                }
+            }
+        });
+        return label;
     }
 }
