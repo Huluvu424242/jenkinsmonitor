@@ -92,13 +92,7 @@ public class ImageGenerator {
         final JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(this.jobsStatusBeschreibungen.length, 1));
 
-        final Counter counter = new Counter();
-        Arrays.stream(this.jobsStatusBeschreibungen).sorted().forEach((jobStatus) -> {
-            counter.value++;
-
-            final JLabel label = createLabel(statusArea, counter, jobStatus);
-            panel.add(label);
-        });
+        createContent(statusArea, panel);
 
 
         final JScrollPane scrollPane = new JScrollPane(panel);
@@ -108,6 +102,16 @@ public class ImageGenerator {
         statusArea.setContentPane(scrollPane);
         statusArea.pack();
         statusArea.repaint();
+    }
+
+    private void createContent(JWindow statusArea, JPanel panel) {
+        final Counter counter = new Counter();
+        Arrays.stream(this.jobsStatusBeschreibungen).sorted().forEach((jobStatus) -> {
+            counter.value++;
+
+            final JLabel label = createLabel(statusArea, counter, jobStatus);
+            panel.add(label);
+        });
     }
 
     @NotNull
