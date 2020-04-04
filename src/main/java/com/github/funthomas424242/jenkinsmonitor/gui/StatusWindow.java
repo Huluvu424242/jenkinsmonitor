@@ -63,18 +63,37 @@ public class StatusWindow extends JWindow {
 
 
     private JScrollPane createContentTmp(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
+        final JList<StatusItem> list = new JList();
+
+        // Model füllen
         final List<StatusItem> statusItems = new ArrayList<StatusItem>();
         final Counter counter = new Counter();
         Arrays.stream(jobsStatusBeschreibungen).sorted().forEach((jobStatus) -> {
             statusItems.add(createStatusItem(counter.value + 1, jobStatus));
             counter.value++;
         });
-        final StatusItem[] listModel = statusItems.toArray(new StatusItem[statusItems.size()]);
-        final JList<StatusItem> list = new JList(listModel);
+
+        // Layoutvorgaben
+        final GridBagLayout layout = new GridBagLayout();
+        list.setLayout(layout);
+        final GridBagConstraints layoutVorgaben = new GridBagConstraints();
+        layoutVorgaben.weightx = 1;
+        layoutVorgaben.fill = GridBagConstraints.HORIZONTAL;
+        layoutVorgaben.gridwidth = GridBagConstraints.REMAINDER;
+        layout.setConstraints(list,layoutVorgaben);
+
+        // Daten setzen
+        final DefaultListModel<StatusItem> listModel = new DefaultListModel<>();
+        listModel.addAll(statusItems);
+        list.setModel(listModel);
+
+        // Selektion Modus
         list.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
         final ListSelectionModel listSelectionModel = list.getSelectionModel();
         listSelectionModel.addListSelectionListener(
-            new SharedListSelectionHandler(listModel, this));
+            new SharedListSelectionHandler(statusItems, this));
+
+        // Scrollpane erzeugen
         final JScrollPane pane = new JScrollPane(list);
         return pane;
     }
@@ -117,10 +136,10 @@ class SharedListSelectionHandler implements ListSelectionListener {
     public static final Logger LOGGER = LoggerFactory.getLogger(SharedListSelectionHandler.class);
 
     protected final StatusWindow statusArea;
-    protected final StatusItem[] listModel;
+    protected final List<StatusItem> statusItems;
 
-    public SharedListSelectionHandler(final StatusItem[] listModel, final StatusWindow statusArea) {
-        this.listModel = listModel;
+    public SharedListSelectionHandler(List<StatusItem> statusItems, final StatusWindow statusArea) {
+        this.statusItems = statusItems;
         this.statusArea = statusArea;
     }
 
@@ -137,7 +156,7 @@ class SharedListSelectionHandler implements ListSelectionListener {
 
             final URI navigationURI;
             try {
-                navigationURI = this.listModel[minIndex].getNavigationURL().toURI();
+                navigationURI = this.statusItems.get(minIndex).getNavigationURL().toURI();
                 Desktop.getDesktop().browse(navigationURI);
                 statusArea.setVisible(false);
             } catch (URISyntaxException | IOException e) {
