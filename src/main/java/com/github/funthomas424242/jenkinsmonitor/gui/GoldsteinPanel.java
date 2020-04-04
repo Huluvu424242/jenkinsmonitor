@@ -35,11 +35,14 @@ import java.nio.file.Paths;
 public class GoldsteinPanel extends JPanel {
     public static final Logger LOGGER = LoggerFactory.getLogger(GoldsteinPanel.class);
 
+    String imgPath;
 
     public GoldsteinPanel() {
         Path path = Paths.get("1984EmmanuelGoldstein.jpg");
+        imgPath = "1984EmmanuelGoldstein.jpg";
         if (!path.toFile().exists()) {
             path = Paths.get("src/main/resources/img/1984EmmanuelGoldstein.jpg");
+            imgPath = "src/main/resources/img/1984EmmanuelGoldstein.jpg";
         }
 
         try {
@@ -51,5 +54,7 @@ public class GoldsteinPanel extends JPanel {
         }
     }
 
-
+    public String getImgPath() {
+        return imgPath;
+    }
 }
