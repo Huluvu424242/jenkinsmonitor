@@ -51,7 +51,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected final Configuration configuration;
     protected final SystemTrayWrapper tray;
     protected final JenkinsClient requester;
-    protected final JWindow statusArea;
+    protected final StatusWindow statusArea;
     protected final Timer timer;
 
     protected JobStatusBeschreibung[] jobStatusBeschreibungen;
@@ -76,7 +76,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         timer.start();
         this.configuration = configuration;
         this.requester = requester;
-        this.statusArea = new JWindow();
+        this.statusArea = new StatusWindow();
         try {
             this.statusArea.setAlwaysOnTop(true);
             this.statusArea.setLocationByPlatform(false);

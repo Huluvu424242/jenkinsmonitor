@@ -22,25 +22,13 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.etc.Counter;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Arrays;
-
-import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS;
-import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
 
 public class ImageGenerator {
 
@@ -87,50 +75,10 @@ public class ImageGenerator {
         return image;
     }
 
-    public void updateStatusArea(final JWindow statusArea) {
-        final JScrollPane scrollPane = new JScrollPane(createContent(statusArea));
-        scrollPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPane.setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_ALWAYS);
-
-        statusArea.setContentPane(scrollPane);
-        statusArea.pack();
-        statusArea.repaint();
+    public void updateStatusArea(final StatusWindow statusArea) {
+        if( this.jobsStatusBeschreibungen !=null ) {
+            statusArea.aktualisiereContentPane(this.jobsStatusBeschreibungen);
+        }
     }
 
-    private JPanel createContent(JWindow statusArea) {
-        final JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(this.jobsStatusBeschreibungen.length, 1));
-        final Counter counter = new Counter();
-        Arrays.stream(this.jobsStatusBeschreibungen).sorted().forEach((jobStatus) -> {
-            counter.value++;
-
-            final JLabel label = createLabel(statusArea, counter, jobStatus);
-            panel.add(label);
-        });
-        return panel;
-    }
-
-    @NotNull
-    private JLabel createLabel(JWindow statusArea, Counter counter, JobStatusBeschreibung jobStatus) {
-        final String htmlTemplate = "<html><body style=\"display:inline-block;\"><h1>[" + jobStatus.getOrderId() + "] " + jobStatus.getJobName() + "</h1>"
-            + "<p>(" + counter.value + ") Status: " + jobStatus.getJobStatus().toString()
-            + " <a href=\"" + jobStatus.getJobUrl() + "\">" + jobStatus.getJobUrl() + "</a></p></body></html>";
-        final JLabel label = new JLabel(htmlTemplate);
-        label.setOpaque(true);
-        label.setBackground(jobStatus.getStatusColor());
-        label.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                URI uri = null;
-                try {
-                    uri = jobStatus.getJobUrl().toURI();
-                    Desktop.getDesktop().browse(uri);
-                    statusArea.setVisible(false);
-                } catch (IOException | URISyntaxException ex) {
-                    LOGGER.error("URL " + uri.toString() + " konnte nicht geöffnet werden", ex);
-                }
-            }
-        });
-        return label;
-    }
 }

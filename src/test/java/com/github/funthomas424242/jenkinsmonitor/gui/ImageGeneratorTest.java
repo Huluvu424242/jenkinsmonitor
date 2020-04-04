@@ -138,7 +138,7 @@ class ImageGeneratorTest {
             , JobStatus.SUCCESS
             , null,"#1");
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
-        final JWindow statusArea = new JWindow();
+        final StatusWindow statusArea = new StatusWindow();
         generator.updateStatusArea(statusArea);
         assertNotNull(statusArea);
 //        assertEquals("##",statusArea.getRootPane().getComponents()[0].getName());
