@@ -10,12 +10,12 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * it under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Lesser Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Lesser Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
@@ -55,9 +55,17 @@ public class StatusWindow extends JWindow {
 
 
     private StatusItem createStatusItem(final int counter, JobStatusBeschreibung jobStatus) {
-        final String htmlTemplate = "<html><body style=\"display:inline-block;background-color:"+jobStatus.getJobStatus().getColorValueHEX()+";\"><h1>[" + jobStatus.getOrderId() + "] " + jobStatus.getJobName() + "</h1>"
-            + "<p>(" + counter + ") Status: " + jobStatus.getJobStatus().toString()
-            + " <a href=\"" + jobStatus.getJobUrl() + "\">" + jobStatus.getJobUrl() + "</a></p></body></html>";
+        final String colorValueHEX = jobStatus.getJobStatus().getColorValueHEX() != null ? jobStatus.getJobStatus().getColorValueHEX() : JobStatus.OTHER.getColorValueHEX();
+        final String orderId = jobStatus.getOrderId() != null ? jobStatus.getOrderId() : "###";
+        final String jobName = jobStatus.getJobName() != null ? jobStatus.getJobName() : "unbenannt";
+        final String counterValue = counter + "";
+        final String status = jobStatus.getJobStatus().toString() != null ? jobStatus.getJobStatus().toString() : "unbekannt";
+        final String url = jobStatus.getJobUrl() != null ? jobStatus.getJobUrl().toString() : "<no url>";
+
+
+        final String htmlTemplate = "<html><body style=\"display:inline-block;background-color:" + colorValueHEX + ";\"><h1>[" + orderId + "] " + jobName + "</h1>"
+            + "<p>(" + counterValue + ") Status: " + status
+            + " <a href=\"" + url + "\">" + url + "</a></p></body></html>";
         return new StatusItem(htmlTemplate, jobStatus.getJobUrl());
     }
 
@@ -80,7 +88,7 @@ public class StatusWindow extends JWindow {
         layoutVorgaben.weightx = 1;
         layoutVorgaben.fill = GridBagConstraints.HORIZONTAL;
         layoutVorgaben.gridwidth = GridBagConstraints.REMAINDER;
-        layout.setConstraints(list,layoutVorgaben);
+        layout.setConstraints(list, layoutVorgaben);
 
         // Daten setzen
         final DefaultListModel<StatusItem> listModel = new DefaultListModel<>();
