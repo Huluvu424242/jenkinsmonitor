@@ -25,6 +25,7 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -74,9 +75,12 @@ public class JenkinsClient {
                 httpGetRequest.setHeader("Authorization", "Basic " + basicAuthToken);
             }
             final HttpResponse httpResponse = httpClient.execute(target, httpGetRequest);
+            final int statusCode = httpResponse.getStatusLine().getStatusCode();
+            if( statusCode != 200 ){
+                throw new HttpResponseException(statusCode, httpResponse.getStatusLine().getReasonPhrase());
+            }
             final HttpEntity entity = httpResponse.getEntity();
             final InputStream inputStream = entity.getContent();
-
             final String requestResult = readStreamIntoString(inputStream);
             LOG.debug("Empfangen als JSON:\n {}", requestResult);
             return new JSONObject(requestResult);
