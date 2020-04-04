@@ -25,20 +25,26 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
 import java.awt.*;
 
 public enum JobStatus {
-    SUCCESS(Color.green),
-    FAILURE(Color.red),
-    UNSTABLE(Color.yellow),
-    ABORTED(Color.lightGray),
+    SUCCESS(Color.green, "#7FFFD4"),
+    FAILURE(Color.red, "#FF7F50"),
+    UNSTABLE(Color.yellow, "#FFFF00"),
+    ABORTED(Color.lightGray, "#C0C0C0"),
     // lightGray statt gray wegen gray Anomalie!;
-    OTHER(Color.lightGray);
+    OTHER(Color.lightGray, "#C0C0C0");
 
-    protected Color color;
+    protected final Color color;
+    protected final String colorValueHEX;
 
-    JobStatus(Color color) {
+    JobStatus(Color color, String colorValueHEX) {
         this.color = color;
+        this.colorValueHEX = colorValueHEX;
     }
 
     public Color getColor() {
         return this.color;
+    }
+
+    public String getColorValueHEX() {
+        return this.colorValueHEX;
     }
 }

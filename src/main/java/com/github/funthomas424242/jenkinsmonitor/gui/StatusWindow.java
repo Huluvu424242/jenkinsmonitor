@@ -55,7 +55,7 @@ public class StatusWindow extends JWindow {
 
 
     private StatusItem createStatusItem(final int counter, JobStatusBeschreibung jobStatus) {
-        final String htmlTemplate = "<html><body style=\"display:inline-block;\"><h1>[" + jobStatus.getOrderId() + "] " + jobStatus.getJobName() + "</h1>"
+        final String htmlTemplate = "<html><body style=\"display:inline-block;background-color:"+jobStatus.getJobStatus().getColorValueHEX()+";\"><h1>[" + jobStatus.getOrderId() + "] " + jobStatus.getJobName() + "</h1>"
             + "<p>(" + counter + ") Status: " + jobStatus.getJobStatus().toString()
             + " <a href=\"" + jobStatus.getJobUrl() + "\">" + jobStatus.getJobUrl() + "</a></p></body></html>";
         return new StatusItem(htmlTemplate, jobStatus.getJobUrl());
@@ -89,8 +89,8 @@ public class StatusWindow extends JWindow {
         final JobStatusBeschreibung[] jobstatusBeschreibungen = new JobStatusBeschreibung[3];
         try {
             jobstatusBeschreibungen[0] = new JobStatusBeschreibung("job0", JobStatus.FAILURE, new URL("http://localhost/job0"), "0");
-            jobstatusBeschreibungen[1] = new JobStatusBeschreibung("job1", JobStatus.FAILURE, new URL("http://localhost/job1"), "1");
-            jobstatusBeschreibungen[2] = new JobStatusBeschreibung("job2", JobStatus.FAILURE, new URL("http://localhost/job2"), "2");
+            jobstatusBeschreibungen[1] = new JobStatusBeschreibung("job1", JobStatus.SUCCESS, new URL("http://localhost/job1"), "1");
+            jobstatusBeschreibungen[2] = new JobStatusBeschreibung("job2", JobStatus.UNSTABLE, new URL("http://localhost/job2"), "2");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -103,7 +103,7 @@ public class StatusWindow extends JWindow {
 
         try {
             Thread.sleep(4000);
-            jobstatusBeschreibungen[2] = new JobStatusBeschreibung("job3", JobStatus.FAILURE, new URL("http://localhost/job3"), "2");
+            jobstatusBeschreibungen[2] = new JobStatusBeschreibung("job3", JobStatus.OTHER, new URL("http://localhost/job3"), "2");
         } catch (MalformedURLException | InterruptedException e) {
             e.printStackTrace();
         }
