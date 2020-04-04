@@ -29,10 +29,13 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -70,11 +73,11 @@ public class StatusWindow extends JWindow {
     }
 
 
-    private JScrollPane createContentTmp(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
+    private Container createContentTmp(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
         final JList<StatusItem> list = new JList();
 
         // Model füllen
-        final List<StatusItem> statusItems = new ArrayList<StatusItem>();
+        final List<StatusItem> statusItems = new ArrayList<>();
         final Counter counter = new Counter();
         Arrays.stream(jobsStatusBeschreibungen).sorted().forEach((jobStatus) -> {
             statusItems.add(createStatusItem(counter.value + 1, jobStatus));
@@ -103,20 +106,28 @@ public class StatusWindow extends JWindow {
 
         // Scrollpane erzeugen
         final JScrollPane pane = new JScrollPane(list);
-        return pane;
+        final GoldsteinPanel panel = new GoldsteinPanel();
+        final JPanel splitPane = new JPanel();
+        splitPane.setLayout(new GridLayout(2,1));
+        splitPane.setOpaque(true);
+        splitPane.add(pane);
+        splitPane.add(panel);
+        return splitPane;
     }
 
     public void aktualisiereContentPane(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
-        setContentPane(createContentTmp(jobsStatusBeschreibungen));
-        pack();
-        repaint();
+        if (jobsStatusBeschreibungen != null && jobsStatusBeschreibungen.length > 0) {
+            setContentPane(createContentTmp(jobsStatusBeschreibungen));
+            pack();
+            repaint();
+        }
     }
 
     public static void main(String args[]) {
         final JobStatusBeschreibung[] jobstatusBeschreibungen = new JobStatusBeschreibung[3];
         try {
             jobstatusBeschreibungen[0] = new JobStatusBeschreibung("job0", JobStatus.FAILURE, new URL("http://localhost/job0"), "0");
-            jobstatusBeschreibungen[1] = new JobStatusBeschreibung("job1", JobStatus.SUCCESS, new URL("http://localhost/job1"), "1");
+            jobstatusBeschreibungen[1] = new JobStatusBeschreibung("job1", JobStatus.SUCCESS, new URL("http://localhost/sdfdfdfdfdffdfdff/hdjdjddjdjddhddhdhd/job1"), "1");
             jobstatusBeschreibungen[2] = new JobStatusBeschreibung("job2", JobStatus.UNSTABLE, new URL("http://localhost/job2"), "2");
         } catch (MalformedURLException e) {
             e.printStackTrace();
