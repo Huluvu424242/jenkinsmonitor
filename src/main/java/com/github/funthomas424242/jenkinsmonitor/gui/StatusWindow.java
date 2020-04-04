@@ -33,8 +33,6 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -48,42 +46,13 @@ import java.util.List;
 public class StatusWindow extends JWindow {
     public static final Logger LOGGER = LoggerFactory.getLogger(StatusWindow.class);
 
-//    JScrollPane scrollpane;
-
     public StatusWindow() {
-//        super("JScrollPane Demonstration");
-//        setSize(300, 200);
-//        setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        aktualisiereContentPane();
     }
 
     public StatusWindow(final JobStatusBeschreibung[] jobStatusBeschreibungen) {
         aktualisiereContentPane(jobStatusBeschreibungen);
     }
 
-
-    private JLabel createLabel(final int counter, JobStatusBeschreibung jobStatus) {
-        final String htmlTemplate = "<html><body style=\"display:inline-block;\"><h1>[" + jobStatus.getOrderId() + "] " + jobStatus.getJobName() + "</h1>"
-            + "<p>(" + counter + ") Status: " + jobStatus.getJobStatus().toString()
-            + " <a href=\"" + jobStatus.getJobUrl() + "\">" + jobStatus.getJobUrl() + "</a></p></body></html>";
-        final JLabel label = new JLabel(htmlTemplate);
-        label.setOpaque(true);
-        label.setBackground(jobStatus.getStatusColor());
-        label.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                URI uri = null;
-                try {
-                    uri = jobStatus.getJobUrl().toURI();
-                    Desktop.getDesktop().browse(uri);
-                    setVisible(false);
-                } catch (IOException | URISyntaxException ex) {
-                    LOGGER.error("URL " + uri.toString() + " konnte nicht geöffnet werden", ex);
-                }
-            }
-        });
-        return label;
-    }
 
     private StatusItem createStatusItem(final int counter, JobStatusBeschreibung jobStatus) {
         final String htmlTemplate = "<html><body style=\"display:inline-block;\"><h1>[" + jobStatus.getOrderId() + "] " + jobStatus.getJobName() + "</h1>"
@@ -93,20 +62,6 @@ public class StatusWindow extends JWindow {
     }
 
 
-    private JScrollPane createContent(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
-
-//        list.setLayout(new GridLayout(jobsStatusBeschreibungen.length, 1));
-        final JLabel[] eintraege = new JLabel[jobsStatusBeschreibungen.length];
-        final Counter counter = new Counter();
-        Arrays.stream(jobsStatusBeschreibungen).sorted().forEach((jobStatus) -> {
-            eintraege[counter.value] = createLabel(counter.value + 1, jobStatus);
-            counter.value++;
-        });
-        final JList<JLabel> list = new JList(eintraege);
-        final JScrollPane pane = new JScrollPane(list);
-        return pane;
-    }
-
     private JScrollPane createContentTmp(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
         final List<StatusItem> statusItems = new ArrayList<StatusItem>();
         final Counter counter = new Counter();
@@ -115,19 +70,16 @@ public class StatusWindow extends JWindow {
             counter.value++;
         });
         final StatusItem[] listModel = statusItems.toArray(new StatusItem[statusItems.size()]);
-        final JList<String> list = new JList(listModel);
+        final JList<StatusItem> list = new JList(listModel);
         list.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
         final ListSelectionModel listSelectionModel = list.getSelectionModel();
         listSelectionModel.addListSelectionListener(
-            new SharedListSelectionHandler(listModel,this));
+            new SharedListSelectionHandler(listModel, this));
         final JScrollPane pane = new JScrollPane(list);
         return pane;
     }
 
     public void aktualisiereContentPane(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
-//        this.add(createContentTmp(jobsStatusBeschreibungen),BorderLayout.CENTER);
-//        getContentPane().add(createContentTmp(), BorderLayout.CENTER);
-//        setContentPane(createContent(jobsStatusBeschreibungen));
         setContentPane(createContentTmp(jobsStatusBeschreibungen));
         pack();
         repaint();
@@ -144,10 +96,9 @@ public class StatusWindow extends JWindow {
         }
 
         StatusWindow window = new StatusWindow();
-        window.aktualisiereContentPane(jobstatusBeschreibungen);
-        window.pack();
         window.setAlwaysOnTop(true);
         window.setLocationByPlatform(false);
+        window.aktualisiereContentPane(jobstatusBeschreibungen);
         window.setVisible(true);
 
         try {
@@ -170,7 +121,7 @@ class SharedListSelectionHandler implements ListSelectionListener {
 
     public SharedListSelectionHandler(final StatusItem[] listModel, final StatusWindow statusArea) {
         this.listModel = listModel;
-        this.statusArea=statusArea;
+        this.statusArea = statusArea;
     }
 
     public void valueChanged(ListSelectionEvent event) {
