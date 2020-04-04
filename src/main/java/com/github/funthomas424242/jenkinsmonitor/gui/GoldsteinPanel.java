@@ -27,6 +27,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -45,6 +47,8 @@ public class GoldsteinPanel extends JPanel {
             imgPath = "src/main/resources/img/1984EmmanuelGoldstein.jpg";
         }
 
+        this.setLayout( new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        this.add( new JLabel("Wer den Jenkins kontrolliert, kontrolliert die Gegenwart !!!"));
         try {
             final BufferedImage myPicture = ImageIO.read(path.toFile());
             final JLabel picLabel = new JLabel(new ImageIcon(myPicture));
@@ -52,6 +56,11 @@ public class GoldsteinPanel extends JPanel {
         } catch (IOException e) {
             LOGGER.error("Goldstein Panel nicht erzeugt: " + e);
         }
+
+        this.add( new JLabel("Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft."));
+        this.add( new JLabel("Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit."));
+        this.add( new JLabel("— Georg Orwell (Author des Buches \"1984\")"));
+
     }
 
     public String getImgPath() {
