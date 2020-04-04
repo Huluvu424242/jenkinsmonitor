@@ -30,7 +30,6 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -51,7 +50,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected final Configuration configuration;
     protected final SystemTrayWrapper tray;
     protected final JenkinsClient requester;
-    protected final StatusWindow statusArea;
+    protected final Statusfenster statusArea;
     protected final Timer timer;
 
     protected JobStatusBeschreibung[] jobStatusBeschreibungen;
@@ -76,7 +75,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         timer.start();
         this.configuration = configuration;
         this.requester = requester;
-        this.statusArea = new StatusWindow();
+        this.statusArea = new Statusfenster();
         try {
             this.statusArea.setAlwaysOnTop(true);
             this.statusArea.setLocationByPlatform(false);

@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-class StatusWindowTest {
+class StatusfensterTest {
 
 
     @Test
@@ -39,7 +39,7 @@ class StatusWindowTest {
         jobstatusBeschreibungen[1] = new JobStatusBeschreibung("job1", JobStatus.FAILURE, new URL("http://localhost/job1"), "1");
         jobstatusBeschreibungen[2] = new JobStatusBeschreibung("job2", JobStatus.FAILURE, new URL("http://localhost/job2"), "2");
 
-        StatusWindow window = new StatusWindow();
+        Statusfenster window = new Statusfenster();
         window.aktualisiereContentPane(jobstatusBeschreibungen);
         window.pack();
         window.setAlwaysOnTop(true);

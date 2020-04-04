@@ -29,13 +29,10 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -46,13 +43,13 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class StatusWindow extends JWindow {
-    public static final Logger LOGGER = LoggerFactory.getLogger(StatusWindow.class);
+public class Statusfenster extends JWindow {
+    public static final Logger LOGGER = LoggerFactory.getLogger(Statusfenster.class);
 
-    public StatusWindow() {
+    public Statusfenster() {
     }
 
-    public StatusWindow(final JobStatusBeschreibung[] jobStatusBeschreibungen) {
+    public Statusfenster(final JobStatusBeschreibung[] jobStatusBeschreibungen) {
         aktualisiereContentPane(jobStatusBeschreibungen);
     }
 
@@ -133,7 +130,7 @@ public class StatusWindow extends JWindow {
             e.printStackTrace();
         }
 
-        StatusWindow window = new StatusWindow();
+        Statusfenster window = new Statusfenster();
         window.setAlwaysOnTop(true);
         window.setLocationByPlatform(false);
         window.aktualisiereContentPane(jobstatusBeschreibungen);
@@ -154,10 +151,10 @@ public class StatusWindow extends JWindow {
 class SharedListSelectionHandler implements ListSelectionListener {
     public static final Logger LOGGER = LoggerFactory.getLogger(SharedListSelectionHandler.class);
 
-    protected final StatusWindow statusArea;
+    protected final Statusfenster statusArea;
     protected final List<StatusItem> statusItems;
 
-    public SharedListSelectionHandler(List<StatusItem> statusItems, final StatusWindow statusArea) {
+    public SharedListSelectionHandler(List<StatusItem> statusItems, final Statusfenster statusArea) {
         this.statusItems = statusItems;
         this.statusArea = statusArea;
     }

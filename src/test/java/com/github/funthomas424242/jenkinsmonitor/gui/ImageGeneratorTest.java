@@ -28,7 +28,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -138,7 +137,7 @@ class ImageGeneratorTest {
             , JobStatus.SUCCESS
             , null,"#1");
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
-        final StatusWindow statusArea = new StatusWindow();
+        final Statusfenster statusArea = new Statusfenster();
         generator.updateStatusArea(statusArea);
         assertNotNull(statusArea);
 //        assertEquals("##",statusArea.getRootPane().getComponents()[0].getName());
