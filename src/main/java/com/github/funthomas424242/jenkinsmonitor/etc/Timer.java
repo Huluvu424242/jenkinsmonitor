@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor.gui;
+package com.github.funthomas424242.jenkinsmonitor.etc;
 
 /*-
  * #%L

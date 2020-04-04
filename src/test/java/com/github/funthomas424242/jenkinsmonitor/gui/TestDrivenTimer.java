@@ -22,11 +22,13 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.etc.Timer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-class ManualTimer implements Timer {
+class TestDrivenTimer implements Timer {
     private final List<Listener> listeners = new ArrayList<>();
 
     @Override

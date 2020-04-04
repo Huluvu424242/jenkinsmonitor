@@ -23,7 +23,6 @@ package com.github.funthomas424242.jenkinsmonitor.etc;
  */
 
 
-import com.github.funthomas424242.jenkinsmonitor.gui.Timer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
