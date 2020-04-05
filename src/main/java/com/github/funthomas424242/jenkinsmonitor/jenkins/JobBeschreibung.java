@@ -25,14 +25,16 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
 import net.greypanther.natsort.SimpleNaturalComparator;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.Objects;
 
 public final class JobBeschreibung implements Comparable<JobBeschreibung>{
 
-    private static final Comparator<String> NATURAL_COMPARATOR = SimpleNaturalComparator.getInstance();
+   transient private static final Comparator<String> NATURAL_COMPARATOR = SimpleNaturalComparator.getInstance();
 
+    @Nullable
     protected final String jobId;
 
     @NotNull

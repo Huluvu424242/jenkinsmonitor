@@ -31,7 +31,7 @@ import java.util.Objects;
 
 public class JobAbfragedaten {
 
-    transient protected final Logger LOGGER = LoggerFactory.getLogger(JobAbfragedaten.class);
+    transient protected static final Logger LOGGER = LoggerFactory.getLogger(JobAbfragedaten.class);
 
     protected final URL jenkinsJobUrl;
     protected final BasicAuthDaten authDaten;
@@ -75,14 +75,11 @@ public class JobAbfragedaten {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JobAbfragedaten that = (JobAbfragedaten) o;
-        return jenkinsJobUrl.equals(that.jenkinsJobUrl) &&
-            Objects.equals(authDaten, that.authDaten);
+        return Objects.equals(jenkinsJobUrl, that.jenkinsJobUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(jenkinsJobUrl, authDaten);
+        return Objects.hash(jenkinsJobUrl);
     }
-
-
 }
