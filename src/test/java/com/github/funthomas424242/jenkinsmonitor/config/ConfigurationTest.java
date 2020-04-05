@@ -49,7 +49,7 @@ class ConfigurationTest {
 
     protected static final String USER_HOME = "user.home";
     protected static final String Configuration_CONFIGURATIONFILENAME = "jenkinsmonitor.properties";
-    protected static final int DEFAULT_POLLPERIOD = 5;
+    protected static final int DEFAULT_POLLPERIOD = 20;
 
     protected static Logger LOG = LoggerFactory.getLogger(ConfigurationTest.class);
 

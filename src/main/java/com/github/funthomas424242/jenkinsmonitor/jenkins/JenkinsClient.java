@@ -101,12 +101,12 @@ public class JenkinsClient {
 
 
     public JobStatusBeschreibung[] ladeJobsStatus(JobBeschreibung[] jobBeschreibungen) {
-        return Arrays.stream(jobBeschreibungen).sorted()
+        return Arrays.stream(jobBeschreibungen)
+            .parallel()
             .map(beschreibung -> {
                 JobStatusBeschreibung returnValue = null;
                 try {
-                    // TODO prüfen ob schon vorhanden sind bei zunächst leerer Konfig
-//                    final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(beschreibung.getJobUrl(), beschreibung.g);
+                    // TODO prüfen ob schon Beschreibungen vorhanden sind bei zunächst leerer Konfig
                     final JobAbfragedaten jobAbfragedaten = beschreibung.getJobAbfragedaten();
                     final JobStatusBeschreibung jobStatus = getJobStatus(jobAbfragedaten, beschreibung.getJobId());
                     returnValue = new JobStatusBeschreibung(jobStatus.getJobName()
@@ -123,7 +123,9 @@ public class JenkinsClient {
                     LOG.debug(String.format("JobStatus ERR geladen: %s : %s at %s ", beschreibung.getJobId(), JobStatus.OTHER.toString(), beschreibung.getJobUrl().toExternalForm()));
                 }
                 return returnValue;
-            }).toArray(JobStatusBeschreibung[]::new);
+            })
+            .sorted()
+            .toArray(JobStatusBeschreibung[]::new);
 
     }
 

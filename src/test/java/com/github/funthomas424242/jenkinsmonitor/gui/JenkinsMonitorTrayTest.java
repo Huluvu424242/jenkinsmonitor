@@ -26,11 +26,7 @@ import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTreeJobs;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTwoJobs;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -129,9 +125,10 @@ public class JenkinsMonitorTrayTest {
         final JenkinsMonitorTray tray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.SUCCESS, JobStatus.FAILURE), configJobs);
         tray.updateJobStatus();
         final TrayIcon trayIcon = tray.getTrayIcon();
+        // Die Reihefolge kann zu Mock geändert sein (parallel Streaming) aber dennoch immer gleich, da zum Schluss sortiert.
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
-            , JobStatus.SUCCESS.getColor()
-            , JobStatus.FAILURE.getColor()));
+            , JobStatus.FAILURE.getColor()
+            , JobStatus.SUCCESS.getColor()));
     }
 
     @Test
@@ -141,10 +138,11 @@ public class JenkinsMonitorTrayTest {
         final JenkinsMonitorTray tray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE), configJobs);
         tray.updateJobStatus();
         final TrayIcon trayIcon = tray.getTrayIcon();
+        // Die Reihefolge kann zu Mock geändert sein (parallel Streaming) aber dennoch immer gleich, da zum Schluss sortiert.
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
-            , JobStatus.SUCCESS.getColor()
+            , JobStatus.UNSTABLE.getColor()
             , JobStatus.FAILURE.getColor()
-            , JobStatus.UNSTABLE.getColor())
+            , JobStatus.SUCCESS.getColor())
         );
     }
 
@@ -159,10 +157,11 @@ public class JenkinsMonitorTrayTest {
         final JenkinsMonitorTray tray = new JenkinsMonitorTray(clock, new JenkinsClientMock(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE, JobStatus.SUCCESS, JobStatus.SUCCESS, JobStatus.SUCCESS), configJobs);
         tray.updateJobStatus();
         final TrayIcon trayIcon = tray.getTrayIcon();
+        // Die Reihefolge kann zu Mock geändert sein (parallel Streaming) aber dennoch immer gleich, da zum Schluss sortiert.
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
-            , JobStatus.SUCCESS.getColor()
+            , JobStatus.UNSTABLE.getColor()
             , JobStatus.FAILURE.getColor()
-            , JobStatus.UNSTABLE.getColor())
+            , JobStatus.SUCCESS.getColor())
         );
 
         clock.elapseTime();

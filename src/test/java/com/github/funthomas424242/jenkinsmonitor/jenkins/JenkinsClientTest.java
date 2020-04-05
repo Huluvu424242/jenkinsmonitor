@@ -25,11 +25,7 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.json.JSONObject;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -232,7 +228,7 @@ public class JenkinsClientTest {
     }
 
     @Test
-    @DisplayName("prüfe ladeJobStatutus für zwei Jobs einer rot und einer gelb")
+    @DisplayName("prüfe ladeJobStatus für zwei Jobs einer rot und einer grün")
     void checkLadeTwoJobStatusSUCCESS_UNSTABLE() {
 
         final JenkinsClient requester = new JenkinsClient() {
@@ -254,22 +250,15 @@ public class JenkinsClientTest {
         jobBeschreibungen[0] = new JobBeschreibung("the first job", new JobAbfragedaten(NetworkHelper.urlOf("http://test1.org")));
         jobBeschreibungen[1] = new JobBeschreibung("idname", new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
 
-        /**/
-        {
-            final JobStatusBeschreibung[] jobStatusBeschreibungen = requester.ladeJobsStatus(jobBeschreibungen);
-            assumeTrue(jobBeschreibungen != null);
-            assertEquals("hallo", jobStatusBeschreibungen[0].getJobName());
-            assertEquals(JobStatus.FAILURE, jobStatusBeschreibungen[0].getJobStatus());
-            assertEquals("http://test.org", jobStatusBeschreibungen[0].getJobUrl().toExternalForm());
-        }
-        /**/
-        {
-            final JobStatusBeschreibung[] jobStatusBeschreibungen = requester.ladeJobsStatus(jobBeschreibungen);
-            assumeTrue(jobBeschreibungen != null);
-            assertEquals("hallo", jobStatusBeschreibungen[1].getJobName());
-            assertEquals(JobStatus.SUCCESS, jobStatusBeschreibungen[1].getJobStatus());
-            assertEquals("http://test1.org", jobStatusBeschreibungen[1].getJobUrl().toExternalForm());
-        }
+        // Die Reihefolge kann zu Mock geändert sein (parallel Streaming) aber dennoch immer gleich, da zum Schluss sortiert.
+        final JobStatusBeschreibung[] jobStatusBeschreibungen = requester.ladeJobsStatus(jobBeschreibungen);
+        assumeTrue(jobBeschreibungen != null);
+        assertEquals("hallo", jobStatusBeschreibungen[0].getJobName());
+        assertEquals(JobStatus.FAILURE, jobStatusBeschreibungen[0].getJobStatus());
+        assertEquals("http://test.org", jobStatusBeschreibungen[0].getJobUrl().toExternalForm());
+        assertEquals("hallo", jobStatusBeschreibungen[1].getJobName());
+        assertEquals(JobStatus.SUCCESS, jobStatusBeschreibungen[1].getJobStatus());
+        assertEquals("http://test1.org", jobStatusBeschreibungen[1].getJobUrl().toExternalForm());
     }
 
 }

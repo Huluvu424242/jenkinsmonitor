@@ -46,7 +46,7 @@ public class Configuration {
     public static final String JENKINSMONITOR_CONFIGURATIONFILENAME = "jenkinsmonitor.properties";
     public static final String PROPERTY_USER_HOME = "user.home";
     public static final String JENKINSMONITOR_POLLPERIOD = "jenkinsmonitor.pollperiod";
-    public static final String DEFAULT_POLLPERIOD = "5";
+    public static final String DEFAULT_POLLPERIOD = "20";
     public static final String JOBKEY_PREFIX = "joburl-";
     public static final String KEY_JENKINSAUTH = "jenkinsauth.";
 
