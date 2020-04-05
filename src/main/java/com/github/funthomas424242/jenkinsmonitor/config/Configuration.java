@@ -132,7 +132,6 @@ public class Configuration {
         return configurationProperties
             .stringPropertyNames()
             .stream()
-            .sorted()
             .filter((key) -> key.startsWith(JOBKEY_PREFIX))
             .map(key -> {
                 final Pattern pattern = Pattern.compile("joburl-(.+)");
@@ -147,7 +146,9 @@ public class Configuration {
                     LOG.debug("Config Key not matched: " + key);
                     return new JobBeschreibung(jobAbfragedaten);
                 }
-            }).toArray(JobBeschreibung[]::new);
+            })
+            .sorted()
+            .toArray(JobBeschreibung[]::new);
     }
 
 }
