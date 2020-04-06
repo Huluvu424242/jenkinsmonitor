@@ -31,6 +31,7 @@ import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -40,19 +41,15 @@ public class GoldsteinPanel extends JPanel {
     String imgPath;
 
     public GoldsteinPanel() {
-        Path path = Paths.get("1984EmmanuelGoldstein.jpg");
-        imgPath = "1984EmmanuelGoldstein.jpg";
-        if (!path.toFile().exists()) {
-            path = Paths.get("src/main/resources/img/1984EmmanuelGoldstein.jpg");
-            imgPath = "src/main/resources/img/1984EmmanuelGoldstein.jpg";
-        }
 
         this.setLayout( new BoxLayout(this, BoxLayout.PAGE_AXIS));
         this.add( new JLabel("Wer den Jenkins kontrolliert, kontrolliert die Gegenwart !!!"));
         try {
-            final BufferedImage myPicture = ImageIO.read(path.toFile());
+            final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("1984EmmanuelGoldstein.jpg");
+            final BufferedImage myPicture = ImageIO.read(inputStream);
             final JLabel picLabel = new JLabel(new ImageIcon(myPicture));
             this.add(picLabel);
+            inputStream.close();
         } catch (IOException e) {
             LOGGER.error("Goldstein Panel nicht erzeugt: " + e);
         }
