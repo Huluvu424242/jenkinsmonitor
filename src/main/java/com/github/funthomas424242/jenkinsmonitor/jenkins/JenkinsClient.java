@@ -40,6 +40,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -76,7 +77,7 @@ public class JenkinsClient {
             }
             final HttpResponse httpResponse = httpClient.execute(target, httpGetRequest);
             final int statusCode = httpResponse.getStatusLine().getStatusCode();
-            if( statusCode != 200 ){
+            if (statusCode != 200) {
                 throw new HttpResponseException(statusCode, httpResponse.getStatusLine().getReasonPhrase());
             }
             final HttpEntity entity = httpResponse.getEntity();
@@ -84,8 +85,8 @@ public class JenkinsClient {
             final String requestResult = readStreamIntoString(inputStream);
             LOG.debug("Empfangen als JSON:\n {}", requestResult);
             return new JSONObject(requestResult);
-        }catch(Exception ex){
-            LOG.warn("Could not retrieve data from jenkins: "+ex);
+        } catch (Exception ex) {
+            LOG.warn("Could not retrieve data from jenkins: " + ex);
         }
         return null;
     }
@@ -100,33 +101,38 @@ public class JenkinsClient {
     }
 
 
-    public JobStatusBeschreibung[] ladeJobsStatus( JobBeschreibung[] jobBeschreibungen) {
+    public void ladeJobsStatus(final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen, final JobBeschreibung[] jobBeschreibungen) {
         LOG.debug("Frage Jobstatus ab");
-        return Arrays.stream(jobBeschreibungen).sorted()
-            .map(beschreibung -> {
+        // TODO alte Jobsstatusbeschreibungen löschen wenn sie nicht mehr in den jobBeschreibungen vorkommen
+
+        // Jobstatus neu abfragen und Ergebnis in Map eintragen
+        Arrays.stream(jobBeschreibungen)
+            .sorted()
+            .forEach(beschreibung -> {
                 JobStatusBeschreibung returnValue = null;
                 try {
                     // TODO prüfen ob schon vorhanden sind bei zunächst leerer Konfig
-//                    final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(beschreibung.getJobUrl(), beschreibung.g);
+                    //final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(beschreibung.getJobUrl(), beschreibung.g);
                     final JobAbfragedaten jobAbfragedaten = beschreibung.getJobAbfragedaten();
                     // primär schlüssel nutzen um in Map einzutragen.
-                    final JobStatusBeschreibung jobStatus = getJobStatus(jobAbfragedaten, beschreibung.getJobId());
-                    returnValue = new JobStatusBeschreibung(jobStatus.getJobName()
-                        , jobStatus.getJobStatus()
+                    final JobStatusBeschreibung jobStatusEmpfangen = getJobStatus(jobAbfragedaten, beschreibung.getJobId());
+                    // Nutzung des empfangen JobStatus ohne Ummappen
+                    final JobStatusBeschreibung jobStatus = new JobStatusBeschreibung(jobStatusEmpfangen.getJobName()
+                        , jobStatusEmpfangen.getJobStatus()
                         , beschreibung.getJobUrl()
                         , beschreibung.getJobId());
+                    jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(),jobStatus);
                     LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
                 } catch (IOException e) {
                     LOG.error(e.getLocalizedMessage(), e);
-                    returnValue = new JobStatusBeschreibung(beschreibung.getJobId(),
+                    final JobStatusBeschreibung jobStatus  = new JobStatusBeschreibung(beschreibung.getJobId(),
                         JobStatus.OTHER,
                         beschreibung.getJobUrl()
                         , beschreibung.getJobId());
+                    jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(),jobStatus);
                     LOG.debug(String.format("JobStatus ERR geladen: %s : %s at %s ", beschreibung.getJobId(), JobStatus.OTHER.toString(), beschreibung.getJobUrl().toExternalForm()));
                 }
-                return returnValue;
-            }).toArray(JobStatusBeschreibung[]::new);
-
+            });
     }
 
 }

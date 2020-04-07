@@ -39,7 +39,11 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import static com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung.NATURAL_COMPARATOR;
 
 public class JenkinsMonitorTray implements Timer.Listener {
 
@@ -54,7 +58,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected final Statusfenster statusArea;
     protected final Timer timer;
 
-    protected JobStatusBeschreibung[] jobStatusBeschreibungen;
+    protected final Map<String,JobStatusBeschreibung> jobStatusBeschreibungen;
 
     public JenkinsMonitorTray(final Configuration configuration) {
         this(new JenkinsClient(), configuration);
@@ -71,6 +75,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected JenkinsMonitorTray(final SystemTrayWrapper systemTray, final Timer timer, final JenkinsClient requester, final Configuration configuration) {
         //Obtain only one instance of the SystemTray object
         this.tray = systemTray;
+        this.jobStatusBeschreibungen = new HashMap<>();
         this.timer = timer;
         timer.register(this);
         timer.start();
@@ -83,6 +88,15 @@ public class JenkinsMonitorTray implements Timer.Listener {
         } catch (Exception ex) {
             LOGGER.error("Konnte natives Desktopverhalten nicht setzen", ex);
         }
+    }
+
+    protected JobStatusBeschreibung[] getJobStatusbeschreibungen(){
+        return this.jobStatusBeschreibungen
+            .keySet()
+            .stream()
+            .sorted(NATURAL_COMPARATOR)
+            .map( primaryKey -> this.jobStatusBeschreibungen.get(primaryKey))
+            .toArray(JobStatusBeschreibung[]::new);
     }
 
     public TrayIcon getTrayIcon() {
@@ -119,7 +133,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
             }
 
             trayIcon.setImageAutoSize(true);
-            if (this.jobStatusBeschreibungen.length > 0) {
+            if (this.jobStatusBeschreibungen.size() > 0) {
                 trayIcon.setToolTip("Links: Statusfenster ein-/aus, Rechts: Status & Settings");
             } else {
                 trayIcon.setToolTip("Keine Jobs überwachend");
@@ -133,7 +147,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     }
 
     protected ImageGenerator getImageGenerator() {
-        return new ImageGenerator(this.jobStatusBeschreibungen);
+        return new ImageGenerator(getJobStatusbeschreibungen());
     }
 
     /**
@@ -145,7 +159,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         final PopupMenu popup = new PopupMenu();
 
         // Create a popup menu components
-        Arrays.stream(this.jobStatusBeschreibungen).sorted().forEach(statusBeschreibung -> {
+        Arrays.stream(getJobStatusbeschreibungen()).sorted().forEach(statusBeschreibung -> {
             final String itemText = String.format("[%s] <%s> %s", statusBeschreibung.getOrderId(), statusBeschreibung.getJobStatus(), statusBeschreibung.getJobName());
             final MenuItem item = new MenuItem(itemText);
             item.addActionListener(actionEvent -> {
@@ -203,7 +217,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     }
 
     protected void updateJobStatus(JobBeschreibung[] jobBeschreibungen) {
-        this.jobStatusBeschreibungen = requester.ladeJobsStatus(jobBeschreibungen);
+        requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
         updateDarstellung();
     }
 

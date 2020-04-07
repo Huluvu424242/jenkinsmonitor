@@ -32,7 +32,7 @@ import java.util.Objects;
 
 public final class JobStatusBeschreibung implements Comparable<JobStatusBeschreibung> {
 
-    private static final Comparator<String> NATURAL_COMPARATOR = SimpleNaturalComparator.getInstance();
+    public static final Comparator<String> NATURAL_COMPARATOR = SimpleNaturalComparator.getInstance();
 
     // nicht eindeutig, da in der Config leer sein kann
     protected final String orderId;
