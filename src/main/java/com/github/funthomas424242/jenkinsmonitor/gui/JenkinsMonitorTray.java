@@ -90,6 +90,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     }
 
     protected void erzeugeDarstellung() {
+        LOGGER.debug("Erzeuge Darstellung TrayIcon");
         try {
             final ImageGenerator imageGenerator = getImageGenerator();
             imageGenerator.updateStatusArea(statusArea);

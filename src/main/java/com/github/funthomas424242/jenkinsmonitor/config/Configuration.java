@@ -67,6 +67,7 @@ public class Configuration {
 
     protected void loadPropertiesFromFile(final File configFile) {
         if (this.isInitialisiert) return;
+        LOG.debug("load properties from file "+configFile);
         final Properties properties = new Properties();
         try (FileInputStream propStream = new FileInputStream(configFile)) {
             properties.load(propStream);
