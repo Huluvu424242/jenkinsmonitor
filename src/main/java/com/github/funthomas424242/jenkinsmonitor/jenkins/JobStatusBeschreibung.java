@@ -34,13 +34,20 @@ public final class JobStatusBeschreibung implements Comparable<JobStatusBeschrei
 
     private static final Comparator<String> NATURAL_COMPARATOR = SimpleNaturalComparator.getInstance();
 
+    // nicht eindeutig, da in der Config leer sein kann
     protected final String orderId;
 
     protected final JobStatus jobStatus;
 
+    // eigentlich unique aber durch Sonderzeichenverarbeitung evtl. merhdeutig
     protected final String jobName;
 
+    // eindeutig aber wenn mehrmals konfiguriert, werden alle auf einen abgebildet.
     protected final URL jobUrl;
+
+    public String getPrimaryKey(){
+        return jobUrl.toExternalForm()+"#"+orderId;
+    }
 
 
     public JobStatusBeschreibung(final String jobName, final JobStatus jobStatus, final URL jobUrl, final String orderId) {

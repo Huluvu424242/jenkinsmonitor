@@ -100,7 +100,7 @@ public class JenkinsClient {
     }
 
 
-    public JobStatusBeschreibung[] ladeJobsStatus(JobBeschreibung[] jobBeschreibungen) {
+    public JobStatusBeschreibung[] ladeJobsStatus( JobBeschreibung[] jobBeschreibungen) {
         LOG.debug("Frage Jobstatus ab");
         return Arrays.stream(jobBeschreibungen).sorted()
             .map(beschreibung -> {
@@ -109,6 +109,7 @@ public class JenkinsClient {
                     // TODO prüfen ob schon vorhanden sind bei zunächst leerer Konfig
 //                    final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(beschreibung.getJobUrl(), beschreibung.g);
                     final JobAbfragedaten jobAbfragedaten = beschreibung.getJobAbfragedaten();
+                    // primär schlüssel nutzen um in Map einzutragen.
                     final JobStatusBeschreibung jobStatus = getJobStatus(jobAbfragedaten, beschreibung.getJobId());
                     returnValue = new JobStatusBeschreibung(jobStatus.getJobName()
                         , jobStatus.getJobStatus()
