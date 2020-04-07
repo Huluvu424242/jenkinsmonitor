@@ -40,7 +40,7 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImage.isImageOfColor;
+import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImageTestHelper.isImageOfColor;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

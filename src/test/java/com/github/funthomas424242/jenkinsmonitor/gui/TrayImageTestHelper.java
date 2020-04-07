@@ -31,7 +31,7 @@ class ValueHolder {
     public boolean isOfColor = true;
 }
 
-public interface TrayImage {
+public interface TrayImageTestHelper {
 
     static boolean isImageOfColor(BufferedImage image, Color... colors) {
         final ValueHolder valueHolder = new ValueHolder();
