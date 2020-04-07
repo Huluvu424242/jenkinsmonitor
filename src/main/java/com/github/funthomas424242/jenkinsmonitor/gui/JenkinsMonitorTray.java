@@ -31,17 +31,18 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.print.attribute.standard.MediaSize;
 import java.awt.*;
+import java.awt.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung.NATURAL_COMPARATOR;
 
@@ -58,7 +59,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected final Statusfenster statusArea;
     protected final Timer timer;
 
-    protected final Map<String,JobStatusBeschreibung> jobStatusBeschreibungen;
+    protected final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen;
 
     public JenkinsMonitorTray(final Configuration configuration) {
         this(new JenkinsClient(), configuration);
@@ -90,12 +91,12 @@ public class JenkinsMonitorTray implements Timer.Listener {
         }
     }
 
-    protected JobStatusBeschreibung[] getJobStatusbeschreibungen(){
+    protected JobStatusBeschreibung[] getJobStatusbeschreibungen() {
         return this.jobStatusBeschreibungen
             .keySet()
             .stream()
             .sorted(NATURAL_COMPARATOR)
-            .map( primaryKey -> this.jobStatusBeschreibungen.get(primaryKey))
+            .map(primaryKey -> this.jobStatusBeschreibungen.get(primaryKey))
             .toArray(JobStatusBeschreibung[]::new);
     }
 
@@ -217,6 +218,18 @@ public class JenkinsMonitorTray implements Timer.Listener {
     }
 
     protected void updateJobStatus(JobBeschreibung[] jobBeschreibungen) {
+        // entferne alte Jobs aus Modell und Darstellung (z.B. wenn Config sich ändert)
+        final Set<String> descriptionKeys = Arrays.stream(jobBeschreibungen)
+            .map(jobBeschreibung -> jobBeschreibung.getJobId() + "#" + jobBeschreibung.getJobUrl())
+            .collect(Collectors.toSet());
+        final java.util.List<String> entriesToDelete = jobStatusBeschreibungen
+            .keySet()
+            .stream()
+            .filter(primaryKey -> !descriptionKeys.contains(primaryKey))
+            .collect(Collectors.toList());
+        entriesToDelete.stream().forEach(entry -> jobStatusBeschreibungen.remove(entry));
+
+        // aktualisiere den Status der Jobs durch Jenkinsabfragen
         requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
         updateDarstellung();
     }
