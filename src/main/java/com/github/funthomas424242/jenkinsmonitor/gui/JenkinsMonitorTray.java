@@ -219,7 +219,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
 
     protected void updateJobStatus(JobBeschreibung[] jobBeschreibungen) {
         // entferne alte Jobs aus Modell und Darstellung (z.B. wenn Config sich ändert)
-        final Set<String> descriptionKeys = Arrays.stream(jobBeschreibungen)
+        final Set<String> descriptionKeys = Arrays.stream(jobBeschreibungen).parallel()
             .map(jobBeschreibung -> jobBeschreibung.getJobId() + "#" + jobBeschreibung.getJobUrl())
             .collect(Collectors.toSet());
         final java.util.List<String> entriesToDelete = jobStatusBeschreibungen
