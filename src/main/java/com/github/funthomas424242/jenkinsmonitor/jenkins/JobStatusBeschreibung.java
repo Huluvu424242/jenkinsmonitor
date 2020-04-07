@@ -46,7 +46,7 @@ public final class JobStatusBeschreibung implements Comparable<JobStatusBeschrei
     protected final URL jobUrl;
 
     public String getPrimaryKey(){
-        return jobUrl.toExternalForm()+"#"+orderId;
+        return orderId + "#" + jobUrl.toExternalForm();
     }
 
 
