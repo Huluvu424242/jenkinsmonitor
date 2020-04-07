@@ -29,6 +29,15 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung.NATURAL_COMPARATOR;
+
+class StartXHolder {
+    public int startX = 0;
+}
 
 public class ImageGenerator {
 
@@ -45,6 +54,7 @@ public class ImageGenerator {
     }
 
     protected BufferedImage drawImage(final BufferedImage image, final int width, final int height) {
+        // rename in fillAndDrawPartImage
         drawPartImage(image, 0, width, height, JobStatus.OTHER);
 
         if (jobsStatusBeschreibungen == null || jobsStatusBeschreibungen.length < 1) {
@@ -53,11 +63,17 @@ public class ImageGenerator {
 
         final int jobCount = jobsStatusBeschreibungen.length;
         final int partImageWidth = width / jobCount;
-        int startX = 0;
-        for (JobStatusBeschreibung jenkinsJobBeschreibung : jobsStatusBeschreibungen) {
-            drawPartImage(image, startX, partImageWidth, height, jenkinsJobBeschreibung.getJobStatus());
-            startX += partImageWidth;
-        }
+        final StartXHolder startXHolder = new StartXHolder();
+        final Map<String, JobStatus> statusBeschreibungen
+            = Arrays.stream(jobsStatusBeschreibungen).collect(Collectors.toMap(JobStatusBeschreibung::getPrimaryKey, JobStatusBeschreibung::getJobStatus));
+        statusBeschreibungen
+            .keySet()
+            .stream()
+            .sorted(NATURAL_COMPARATOR)
+            .forEach(primaryKey -> {
+                drawPartImage(image, startXHolder.startX, partImageWidth, height, statusBeschreibungen.get(primaryKey));
+                startXHolder.startX += partImageWidth;
+            });
         return image;
     }
 
@@ -76,7 +92,7 @@ public class ImageGenerator {
     }
 
     public void updateStatusArea(final Statusfenster statusArea) {
-        if( this.jobsStatusBeschreibungen !=null ) {
+        if (this.jobsStatusBeschreibungen != null) {
             statusArea.aktualisiereContentPane(this.jobsStatusBeschreibungen);
         }
     }
