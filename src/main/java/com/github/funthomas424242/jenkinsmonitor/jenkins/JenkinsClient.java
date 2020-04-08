@@ -123,9 +123,12 @@ public class JenkinsClient {
     public void ladeJobsStatus(final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen, final Map<String, JobBeschreibung> jobBeschreibungen) {
         LOG.debug("Frage Jobstatus ab");
         AbstractJobBeschreibung.sortedStreamOf(jobBeschreibungen)
-            .forEach(beschreibung -> {
+            .map(beschreibung -> {
                 final JobAbfragedaten jobAbfragedaten = beschreibung.getJobAbfragedaten();
                 final JobStatusBeschreibung jobStatus = getJobStatus(jobAbfragedaten, beschreibung.getJobOrderId());
+                return jobStatus;
+            })
+            .forEach(jobStatus -> {
                 jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
                 LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
             });
