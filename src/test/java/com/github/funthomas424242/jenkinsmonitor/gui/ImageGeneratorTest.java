@@ -30,6 +30,8 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImageTestHelper.isImageOfColor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -54,7 +56,7 @@ class ImageGeneratorTest {
     @Test
     @DisplayName("Initialisierung ohne Jobs generiert ein graues Icon 100x100")
     public void initEmptyCreateGrayIcon100x100() {
-        final JobStatusBeschreibung[] jobsStatus = new JobStatusBeschreibung[0];
+        final Map<String,JobStatusBeschreibung> jobsStatus = new HashMap<>();
         final ImageGenerator generator = new ImageGenerator(jobsStatus);
         final BufferedImage image = generator.createImage(100, 100);
         assertEquals(100, image.getHeight());
@@ -66,12 +68,15 @@ class ImageGeneratorTest {
     @Test
     @DisplayName("Initialisierung mit einem erfolgreichen Job generiert ein grünes Icon 100x100")
     public void initOneJobGreenIcon100x100() {
-        final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
-        jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
+        final Map<String,JobStatusBeschreibung> jobsStatusBeschreibungen = new HashMap<>();
+        final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
             , null,"#1");
+        jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(),jobsStatusBeschreibungen0);
+
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final BufferedImage image = generator.createImage(100, 100);
+
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
         assertTrue(isImageOfColor(image, JobStatus.SUCCESS.getColor()));
@@ -81,12 +86,15 @@ class ImageGeneratorTest {
     @Test
     @DisplayName("Initialisierung mit einem instabilen Job generiert ein gelbes Icon 100x100")
     public void initOneJobYellowIcon100x100() {
-        final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
-        jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
+        final Map<String,JobStatusBeschreibung> jobsStatusBeschreibungen = new HashMap<>();
+        final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
             , JobStatus.UNSTABLE
             , null,"#1");
+        jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(),jobsStatusBeschreibungen0);
+
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final BufferedImage image = generator.createImage(100, 100);
+
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
         assertTrue(isImageOfColor(image, JobStatus.UNSTABLE.getColor()));
@@ -96,12 +104,15 @@ class ImageGeneratorTest {
     @Test
     @DisplayName("Initialisierung mit einem fehlerhaften Job generiert ein rotes Icon 100x100")
     public void initOneJobRedIcon100x100() {
-        final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
-        jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
+        final Map<String,JobStatusBeschreibung> jobsStatusBeschreibungen = new HashMap<>();
+        final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
             , JobStatus.FAILURE
             , null,"#1");
+        jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(),jobsStatusBeschreibungen0);
+
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final BufferedImage image = generator.createImage(100, 100);
+
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
         assertTrue(isImageOfColor(image, JobStatus.FAILURE.getColor()));
@@ -111,15 +122,19 @@ class ImageGeneratorTest {
     @Test
     @DisplayName("Initialisierung mit einem fehlerhaften Job generiert ein Icon 100x100 halb grün halb rot")
     public void initTwoJobsOneGreenOneRedIcon50x100() {
-        final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[2];
-        jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
+        final Map<String,JobStatusBeschreibung> jobsStatusBeschreibungen = new HashMap<>();
+        final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
             , null,"#1");
-        jobsStatusBeschreibungen[1] = new JobStatusBeschreibung("Job2/master"
+        jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(),jobsStatusBeschreibungen0);
+        final JobStatusBeschreibung jobsStatusBeschreibungen1 = new JobStatusBeschreibung("Job2/master"
             , JobStatus.FAILURE
             , null,"#2");
+        jobsStatusBeschreibungen.put(jobsStatusBeschreibungen1.getPrimaryKey(),jobsStatusBeschreibungen1);
+
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final BufferedImage image = generator.createImage(100, 100);
+
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
         assertEquals(JobStatus.SUCCESS.getColor().getRGB(), image.getRGB(10, 10));
@@ -132,13 +147,16 @@ class ImageGeneratorTest {
     @Tag("headfull")
     @DisplayName("Zeige Buildstatusfläche für einen grünen Job an einer bestimmten Position")
     public void showBuildStatusAreaOneSuccessJob() {
-        final JobStatusBeschreibung[] jobsStatusBeschreibungen = new JobStatusBeschreibung[1];
-        jobsStatusBeschreibungen[0] = new JobStatusBeschreibung("Job1/master"
+        final Map<String,JobStatusBeschreibung> jobsStatusBeschreibungen = new HashMap<>();
+        final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
             , null,"#1");
+        jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(),jobsStatusBeschreibungen0);
+
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
         final Statusfenster statusArea = new Statusfenster();
         generator.updateStatusArea(statusArea);
+
         assertNotNull(statusArea);
 //        assertEquals("##",statusArea.getRootPane().getComponents()[0].getName());
     }

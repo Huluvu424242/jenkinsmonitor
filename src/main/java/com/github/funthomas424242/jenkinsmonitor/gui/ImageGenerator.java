@@ -29,11 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import static com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung.NATURAL_COMPARATOR;
 
 class StartXHolder {
     public int startX = 0;
@@ -43,9 +39,9 @@ public class ImageGenerator {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(ImageGenerator.class);
 
-    protected final JobStatusBeschreibung[] jobsStatusBeschreibungen;
+    protected final Map<String, JobStatusBeschreibung> jobsStatusBeschreibungen;
 
-    protected ImageGenerator(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
+    protected ImageGenerator(final Map<String, JobStatusBeschreibung> jobsStatusBeschreibungen) {
         this.jobsStatusBeschreibungen = jobsStatusBeschreibungen;
     }
 
@@ -57,21 +53,19 @@ public class ImageGenerator {
         // rename in fillAndDrawPartImage
         drawPartImage(image, 0, width, height, JobStatus.OTHER);
 
-        if (jobsStatusBeschreibungen == null || jobsStatusBeschreibungen.length < 1) {
+        if (jobsStatusBeschreibungen == null || jobsStatusBeschreibungen.size() < 1) {
             return image;
         }
 
-        final int jobCount = jobsStatusBeschreibungen.length;
+        final int jobCount = jobsStatusBeschreibungen.size();
         final int partImageWidth = width / jobCount;
         final StartXHolder startXHolder = new StartXHolder();
-        final Map<String, JobStatus> statusBeschreibungen
-            = Arrays.stream(jobsStatusBeschreibungen).collect(Collectors.toMap(JobStatusBeschreibung::getPrimaryKey, JobStatusBeschreibung::getJobStatus));
-        statusBeschreibungen
-            .keySet()
-            .stream()
-            .sorted(NATURAL_COMPARATOR)
+//        final Map<String, JobStatus> statusBeschreibungen
+//            = Arrays.stream(jobsStatusBeschreibungen).collect(Collectors.toMap(JobStatusBeschreibung::getPrimaryKey, JobStatusBeschreibung::getJobStatus));
+        this.jobsStatusBeschreibungen
+            .keySet().stream().sorted()
             .forEach(primaryKey -> {
-                drawPartImage(image, startXHolder.startX, partImageWidth, height, statusBeschreibungen.get(primaryKey));
+                drawPartImage(image, startXHolder.startX, partImageWidth, height, this.jobsStatusBeschreibungen.get(primaryKey).getJobStatus());
                 startXHolder.startX += partImageWidth;
             });
         return image;

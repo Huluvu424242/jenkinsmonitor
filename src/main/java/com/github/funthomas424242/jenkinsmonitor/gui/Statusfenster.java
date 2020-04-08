@@ -39,8 +39,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Statusfenster extends JWindow {
@@ -49,7 +50,7 @@ public class Statusfenster extends JWindow {
     public Statusfenster() {
     }
 
-    public Statusfenster(final JobStatusBeschreibung[] jobStatusBeschreibungen) {
+    public Statusfenster(final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen) {
         aktualisiereContentPane(jobStatusBeschreibungen);
     }
 
@@ -70,16 +71,18 @@ public class Statusfenster extends JWindow {
     }
 
 
-    private Container createContentTmp(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
+    private Container createContentTmp(final Map<String, JobStatusBeschreibung> jobsStatusBeschreibungen) {
         final JList<StatusItem> list = new JList();
 
         // Model füllen
         final List<StatusItem> statusItems = new ArrayList<>();
         final Counter counter = new Counter();
-        Arrays.stream(jobsStatusBeschreibungen).sorted().forEach((jobStatus) -> {
-            statusItems.add(createStatusItem(counter.value + 1, jobStatus));
-            counter.value++;
-        });
+        jobsStatusBeschreibungen.keySet().stream().sorted()
+            .map(jobsStatusBeschreibungen::get)
+            .forEach((jobStatus) -> {
+                statusItems.add(createStatusItem(counter.value + 1, jobStatus));
+                counter.value++;
+            });
 
         // Layoutvorgaben
         final GridBagLayout layout = new GridBagLayout();
@@ -105,15 +108,15 @@ public class Statusfenster extends JWindow {
         final JScrollPane pane = new JScrollPane(list);
         final GoldsteinPanel panel = new GoldsteinPanel();
         final JPanel splitPane = new JPanel();
-        splitPane.setLayout(new GridLayout(2,1));
+        splitPane.setLayout(new GridLayout(2, 1));
         splitPane.setOpaque(true);
         splitPane.add(pane);
         splitPane.add(panel);
         return splitPane;
     }
 
-    public void aktualisiereContentPane(final JobStatusBeschreibung[] jobsStatusBeschreibungen) {
-        if (jobsStatusBeschreibungen != null && jobsStatusBeschreibungen.length > 0) {
+    public void aktualisiereContentPane(final Map<String, JobStatusBeschreibung> jobsStatusBeschreibungen) {
+        if (jobsStatusBeschreibungen != null && jobsStatusBeschreibungen.size() > 0) {
             setContentPane(createContentTmp(jobsStatusBeschreibungen));
             pack();
             repaint();
@@ -121,11 +124,14 @@ public class Statusfenster extends JWindow {
     }
 
     public static void main(String args[]) {
-        final JobStatusBeschreibung[] jobstatusBeschreibungen = new JobStatusBeschreibung[3];
+        final Map<String, JobStatusBeschreibung> jobstatusBeschreibungen = new HashMap<>();
         try {
-            jobstatusBeschreibungen[0] = new JobStatusBeschreibung("job0", JobStatus.FAILURE, new URL("http://localhost/job0"), "0");
-            jobstatusBeschreibungen[1] = new JobStatusBeschreibung("job1", JobStatus.SUCCESS, new URL("http://localhost/sdfdfdfdfdffdfdff/hdjdjddjdjddhddhdhd/job1"), "1");
-            jobstatusBeschreibungen[2] = new JobStatusBeschreibung("job2", JobStatus.UNSTABLE, new URL("http://localhost/job2"), "2");
+            JobStatusBeschreibung jobstatusBeschreibungen0 = new JobStatusBeschreibung("job0", JobStatus.FAILURE, new URL("http://localhost/job0"), "0");
+            jobstatusBeschreibungen.put(jobstatusBeschreibungen0.getPrimaryKey(), jobstatusBeschreibungen0);
+            JobStatusBeschreibung jobstatusBeschreibungen1 = new JobStatusBeschreibung("job1", JobStatus.SUCCESS, new URL("http://localhost/sdfdfdfdfdffdfdff/hdjdjddjdjddhddhdhd/job1"), "1");
+            jobstatusBeschreibungen.put(jobstatusBeschreibungen1.getPrimaryKey(), jobstatusBeschreibungen1);
+            JobStatusBeschreibung jobstatusBeschreibungen2 = new JobStatusBeschreibung("job2", JobStatus.UNSTABLE, new URL("http://localhost/job2"), "2");
+            jobstatusBeschreibungen.put(jobstatusBeschreibungen2.getPrimaryKey(), jobstatusBeschreibungen2);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -138,7 +144,8 @@ public class Statusfenster extends JWindow {
 
         try {
             Thread.sleep(4000);
-            jobstatusBeschreibungen[2] = new JobStatusBeschreibung("job3", JobStatus.OTHER, new URL("http://localhost/job3"), "2");
+            JobStatusBeschreibung jobstatusBeschreibungen2a = new JobStatusBeschreibung("job2", JobStatus.OTHER, new URL("http://localhost/job2"), "2");
+            jobstatusBeschreibungen.put(jobstatusBeschreibungen2a.getPrimaryKey(), jobstatusBeschreibungen2a);
         } catch (MalformedURLException | InterruptedException e) {
             e.printStackTrace();
         }

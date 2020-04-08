@@ -89,15 +89,6 @@ public class JenkinsMonitorTray implements Timer.Listener {
         }
     }
 
-    protected JobStatusBeschreibung[] getJobStatusbeschreibungen() {
-        return this.jobStatusBeschreibungen
-            .keySet()
-            .stream()
-            .sorted(NATURAL_COMPARATOR)
-            .map(primaryKey -> this.jobStatusBeschreibungen.get(primaryKey))
-            .toArray(JobStatusBeschreibung[]::new);
-    }
-
     public TrayIcon getTrayIcon() {
         return this.tray.getTrayIcon();
     }
@@ -146,7 +137,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     }
 
     protected ImageGenerator getImageGenerator() {
-        return new ImageGenerator(getJobStatusbeschreibungen());
+        return new ImageGenerator(this.jobStatusBeschreibungen);
     }
 
     /**
@@ -158,7 +149,9 @@ public class JenkinsMonitorTray implements Timer.Listener {
         final PopupMenu popup = new PopupMenu();
 
         // Create a popup menu components
-        Arrays.stream(getJobStatusbeschreibungen()).sorted().forEach(statusBeschreibung -> {
+        this.jobStatusBeschreibungen.keySet().stream().sorted()
+            .map(this.jobStatusBeschreibungen::get)
+            .forEach(statusBeschreibung -> {
             final String itemText = String.format("[%s] <%s> %s", statusBeschreibung.getJobOrderId(), statusBeschreibung.getJobStatus(), statusBeschreibung.getJobName());
             final MenuItem item = new MenuItem(itemText);
             item.addActionListener(actionEvent -> {
