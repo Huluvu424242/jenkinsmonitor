@@ -24,6 +24,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 
 
 import com.github.funthomas424242.jenkinsmonitor.etc.Counter;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import org.slf4j.Logger;
@@ -77,8 +78,8 @@ public class Statusfenster extends JWindow {
         // Model füllen
         final List<StatusItem> statusItems = new ArrayList<>();
         final Counter counter = new Counter();
-        jobsStatusBeschreibungen.keySet().stream().sorted()
-            .map(jobsStatusBeschreibungen::get)
+        AbstractJobBeschreibung.sortedStreamOf(jobsStatusBeschreibungen)
+//            .keySet().stream().sorted().map(jobsStatusBeschreibungen::get)
             .forEach((jobStatus) -> {
                 statusItems.add(createStatusItem(counter.value + 1, jobStatus));
                 counter.value++;

@@ -22,6 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import org.slf4j.Logger;
@@ -60,10 +61,8 @@ public class ImageGenerator {
         final int jobCount = jobsStatusBeschreibungen.size();
         final int partImageWidth = width / jobCount;
         final StartXHolder startXHolder = new StartXHolder();
-//        final Map<String, JobStatus> statusBeschreibungen
-//            = Arrays.stream(jobsStatusBeschreibungen).collect(Collectors.toMap(JobStatusBeschreibung::getPrimaryKey, JobStatusBeschreibung::getJobStatus));
-        this.jobsStatusBeschreibungen
-            .keySet().stream().sorted()
+        AbstractJobBeschreibung.sortedKeyStreamOf(this.jobsStatusBeschreibungen)
+//            .keySet().stream().sorted()
             .forEach(primaryKey -> {
                 drawPartImage(image, startXHolder.startX, partImageWidth, height, this.jobsStatusBeschreibungen.get(primaryKey).getJobStatus());
                 startXHolder.startX += partImageWidth;

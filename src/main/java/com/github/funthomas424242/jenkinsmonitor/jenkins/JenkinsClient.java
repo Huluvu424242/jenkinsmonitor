@@ -122,8 +122,8 @@ public class JenkinsClient {
 
     public void ladeJobsStatus(final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen, final Map<String, JobBeschreibung> jobBeschreibungen) {
         LOG.debug("Frage Jobstatus ab");
-        jobBeschreibungen.keySet().stream().sorted()
-            .map(jobBeschreibungen::get)
+        AbstractJobBeschreibung.sortedStreamOf(jobBeschreibungen)
+//            .keySet().stream().sorted().map(jobBeschreibungen::get)
             .forEach(beschreibung -> {
                 final JobAbfragedaten jobAbfragedaten = beschreibung.getJobAbfragedaten();
                 // primär schlüssel nutzen um in Map einzutragen.

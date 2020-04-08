@@ -25,6 +25,7 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
 import com.github.funthomas424242.jenkinsmonitor.etc.RealTimer;
 import com.github.funthomas424242.jenkinsmonitor.etc.Timer;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
@@ -149,8 +150,8 @@ public class JenkinsMonitorTray implements Timer.Listener {
         final PopupMenu popup = new PopupMenu();
 
         // Create a popup menu components
-        this.jobStatusBeschreibungen.keySet().stream().sorted()
-            .map(this.jobStatusBeschreibungen::get)
+        AbstractJobBeschreibung.sortedStreamOf(this.jobStatusBeschreibungen)
+//            .keySet().stream().sorted().map(this.jobStatusBeschreibungen::get)
             .forEach(statusBeschreibung -> {
             final String itemText = String.format("[%s] <%s> %s", statusBeschreibung.getJobOrderId(), statusBeschreibung.getJobStatus(), statusBeschreibung.getJobName());
             final MenuItem item = new MenuItem(itemText);
@@ -209,8 +210,9 @@ public class JenkinsMonitorTray implements Timer.Listener {
     }
 
     protected void updateJobStatus(Map<String, JobBeschreibung> jobBeschreibungen) {
-        final java.util.List<String> entriesToDelete = jobStatusBeschreibungen
-            .keySet().stream().parallel()
+        final java.util.List<String> entriesToDelete = AbstractJobBeschreibung.sortedKeyStreamOf(jobStatusBeschreibungen)
+//            .keySet().stream().parallel()
+            .parallel()
             .filter(primaryKey -> !jobBeschreibungen.containsKey(primaryKey))
             .collect(Collectors.toList());
         entriesToDelete.stream().parallel().forEach(entry -> jobStatusBeschreibungen.remove(entry));

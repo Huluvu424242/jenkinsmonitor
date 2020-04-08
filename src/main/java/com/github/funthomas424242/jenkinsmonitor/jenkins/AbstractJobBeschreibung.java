@@ -27,6 +27,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
 import java.util.Comparator;
+import java.util.Map;
+import java.util.stream.Stream;
 
 public interface AbstractJobBeschreibung extends Comparable<AbstractJobBeschreibung> {
 
@@ -47,6 +49,14 @@ public interface AbstractJobBeschreibung extends Comparable<AbstractJobBeschreib
         if (getJobOrderId() == null && jobBeschreibung.getJobOrderId() != null) return -1;
 
         return NATURAL_COMPARATOR.compare(getJobOrderId(), jobBeschreibung.getJobOrderId());
+    }
+
+    static <T> Stream<String> sortedKeyStreamOf(final Map<String,T> jobBeschreibung){
+        return jobBeschreibung.keySet().stream().sorted(NATURAL_COMPARATOR);
+    }
+
+    static <T> Stream<T> sortedStreamOf(final Map<String,T> jobBeschreibung){
+       return jobBeschreibung.keySet().stream().sorted(NATURAL_COMPARATOR).map(jobBeschreibung::get);
     }
 
 }
