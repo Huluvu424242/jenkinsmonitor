@@ -41,6 +41,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImageTestHelper.isImageOfColor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -88,8 +90,10 @@ public class JenkinsMonitorTrayTest {
     public void shouldShowOneSuccessJobWatching() {
         final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.SUCCESS), new ConfigurationMockEmpty());
         jenkinsMonitorTray.updateJobStatus();
-        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(new JobAbfragedaten(LOCALHOST_JOB_TEST_URL));
+        final Map<String,JobBeschreibung> jobBeschreibungen = new HashMap<>();
+        final JobBeschreibung jobBeschreibung = new JobBeschreibung(new JobAbfragedaten(LOCALHOST_JOB_TEST_URL));
+        jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(),jobBeschreibung);
+
         jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.SUCCESS.getColor()));
@@ -101,8 +105,10 @@ public class JenkinsMonitorTrayTest {
     public void shouldShowOneInstabilJobWatching() {
         final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.UNSTABLE), new ConfigurationMockEmpty());
         jenkinsMonitorTray.updateJobStatus();
-        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(new JobAbfragedaten(LOCALHOST_JOB_TEST_URL));
+        final Map<String,JobBeschreibung> jobBeschreibungen = new HashMap<>();
+        final JobBeschreibung jobBeschreibung = new JobBeschreibung(new JobAbfragedaten(LOCALHOST_JOB_TEST_URL));
+        jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(),jobBeschreibung);
+
         jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.UNSTABLE.getColor()));
@@ -114,8 +120,10 @@ public class JenkinsMonitorTrayTest {
     public void shouldShowOneFailedJobWatching() {
         final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.FAILURE), new ConfigurationMockEmpty());
         jenkinsMonitorTray.updateJobStatus();
-        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(new JobAbfragedaten(LOCALHOST_JOB_TEST_URL));
+        final Map<String,JobBeschreibung> jobBeschreibungen = new HashMap<>();
+        final JobBeschreibung jobBeschreibung = new JobBeschreibung(new JobAbfragedaten(LOCALHOST_JOB_TEST_URL));
+        jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(),jobBeschreibung);
+
         jenkinsMonitorTray.updateJobStatus(jobBeschreibungen);
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.FAILURE.getColor()));

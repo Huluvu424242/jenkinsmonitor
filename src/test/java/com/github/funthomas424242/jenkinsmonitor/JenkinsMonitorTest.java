@@ -22,30 +22,17 @@ package com.github.funthomas424242.jenkinsmonitor;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
-import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
-import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockNoExisting;
-import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockOneJobFailed;
-import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockOneJobSuccess;
-import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTwoJobs;
+import com.github.funthomas424242.jenkinsmonitor.config.*;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsAPIMock;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.tomakehurst.wiremock.WireMockServer;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImageTestHelper.isImageOfColor;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @Tag("headfull")
@@ -101,7 +88,7 @@ public class JenkinsMonitorTest {
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(new ConfigurationMockNoExisting());
         assumeTrue(jenkinsMonitor.monitorTray != null);
         assumeTrue(jenkinsMonitor.monitorTray.getConfiguration() != null);
-        assertEquals(0, jenkinsMonitor.monitorTray.getConfiguration().getJobBeschreibungen().length);
+        assertEquals(0, jenkinsMonitor.monitorTray.getConfiguration().getJobBeschreibungen().size());
     }
 
     @Test

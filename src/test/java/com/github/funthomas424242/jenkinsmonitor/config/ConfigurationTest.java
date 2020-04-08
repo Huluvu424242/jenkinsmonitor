@@ -35,13 +35,9 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
+import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -61,7 +57,7 @@ class ConfigurationTest {
     protected static void setUpAll() {
         final Path defaultConfigfilePath = Paths.get(System.getProperty(USER_HOME) + File.separator + Configuration_CONFIGURATIONFILENAME);
         final File defaultConfigfile = defaultConfigfilePath.toFile();
-        if (defaultConfigfile != null && defaultConfigfile.exists()) {
+        if (defaultConfigfile.exists()) {
             final long timeStamp = new Date().getTime();
             final File newFile = new File(defaultConfigfilePath.toAbsolutePath().toString() + "-old-" + timeStamp);
             defaultConfigfile.renameTo(newFile);
@@ -118,9 +114,9 @@ class ConfigurationTest {
         final long pollPeriodInSecond = this.notexistingConfigurationfile.getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
 
-        final JobBeschreibung[] jobBeschreibungen = this.notexistingConfigurationfile.getJobBeschreibungen();
+        final Map<String, JobBeschreibung> jobBeschreibungen = this.notexistingConfigurationfile.getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
-        assertEquals(0, jobBeschreibungen.length);
+        assertEquals(0, jobBeschreibungen.size());
     }
 
     @Test
@@ -129,9 +125,9 @@ class ConfigurationTest {
         final long pollPeriodInSecond = emptyConfigurationfile.getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
 
-        final JobBeschreibung[] jobBeschreibungen = this.emptyConfigurationfile.getJobBeschreibungen();
+        final Map<String, JobBeschreibung> jobBeschreibungen = this.emptyConfigurationfile.getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
-        assertEquals(0, jobBeschreibungen.length);
+        assertEquals(0, jobBeschreibungen.size());
     }
 
     @Test
@@ -140,40 +136,40 @@ class ConfigurationTest {
         final long pollPeriodInSecond = validConfigurationfile.getPollPeriodInSecond();
         assertEquals(6, pollPeriodInSecond);
 
-        final JobBeschreibung[] jobBeschreibungen = this.validConfigurationfile.getJobBeschreibungen();
+        final Map<String, JobBeschreibung> jobBeschreibungen = this.validConfigurationfile.getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
-        assertEquals(2, jobBeschreibungen.length);
+        assertEquals(2, jobBeschreibungen.size());
     }
 
     @Test
     @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
     protected void useUserNameFromConfigfile() {
-        final JobBeschreibung[] jobBeschreibungen = validConfigurationfile.getJobBeschreibungen();
+        final Map<String, JobBeschreibung> jobBeschreibungen = validConfigurationfile.getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
-        assertEquals(2, jobBeschreibungen.length);
-        assertNotNull(jobBeschreibungen[0].getJobAbfragedaten());
+        assertEquals(2, jobBeschreibungen.size());
+        assertNotNull(jobBeschreibungen.get("multibranch1#http://localhost:8099/job/multibranchjobred/job/master").getJobAbfragedaten());
         assertEquals(
             new BasicAuthDaten("admin", "streng geheim").getBasicAuthToken("streng geheim"),
-            jobBeschreibungen[0].getJobAbfragedaten().getBasicAuthToken());
+            jobBeschreibungen.get("multibranch1#http://localhost:8099/job/multibranchjobred/job/master").getJobAbfragedaten().getBasicAuthToken());
     }
 
     @Test
     @DisplayName("Prüfe auf gleiche Werte bei reload aus Configfile")
     protected void reloadCurrentConfiguration() {
         final long pollPeriodInSecond1 = validConfigurationfile.getPollPeriodInSecond();
-        final JobBeschreibung[] jobBeschreibungen1 = this.validConfigurationfile.getJobBeschreibungen();
+        final Map<String, JobBeschreibung> jobBeschreibungen1 = this.validConfigurationfile.getJobBeschreibungen();
         assumeTrue(pollPeriodInSecond1 == 6);
         assumeTrue(jobBeschreibungen1 != null);
-        assumeTrue(jobBeschreibungen1.length == 2);
+        assumeTrue(jobBeschreibungen1.size() == 2);
         validConfigurationfile.reload();
         final long pollPeriodInSecond2 = validConfigurationfile.getPollPeriodInSecond();
-        final JobBeschreibung[] jobBeschreibungen2 = this.validConfigurationfile.getJobBeschreibungen();
+        final Map<String, JobBeschreibung> jobBeschreibungen2 = this.validConfigurationfile.getJobBeschreibungen();
         assumeTrue(pollPeriodInSecond2 == 6);
         assumeTrue(jobBeschreibungen2 != null);
-        assumeTrue(jobBeschreibungen2.length == 2);
+        assumeTrue(jobBeschreibungen2.size() == 2);
         //
         assertEquals(pollPeriodInSecond1, pollPeriodInSecond2);
-        assertArrayEquals(jobBeschreibungen1, jobBeschreibungen2);
+        assertEquals(jobBeschreibungen1, jobBeschreibungen2);
     }
 
     @Test
@@ -182,15 +178,15 @@ class ConfigurationTest {
         final File emptyConfigFile = new ConfigurationMockEmpty().getConfigurationfile();
         final Configuration tmpConfiguration = new Configuration(emptyConfigFile);
         assumeTrue(tmpConfiguration != null);
-        final JobBeschreibung[] jobBeschreibungenenLeer = tmpConfiguration.getJobBeschreibungen();
+        final Map<String, JobBeschreibung> jobBeschreibungenenLeer = tmpConfiguration.getJobBeschreibungen();
         assumeTrue(jobBeschreibungenenLeer != null);
-        assumeTrue(jobBeschreibungenenLeer.length == 0);
+        assumeTrue(jobBeschreibungenenLeer.size() == 0);
 
         final File configFile = new ConfigurationMockValidTwoJobs().getConfigurationfile();
         tmpConfiguration.reloadFromFile(configFile);
-        final JobBeschreibung[] jobBeschreibungenGefuellt = tmpConfiguration.getJobBeschreibungen();
+        final Map<String, JobBeschreibung> jobBeschreibungenGefuellt = tmpConfiguration.getJobBeschreibungen();
         assertNotNull(jobBeschreibungenGefuellt);
-        assertEquals(2, jobBeschreibungenGefuellt.length);
+        assertEquals(2, jobBeschreibungenGefuellt.size());
     }
 
 

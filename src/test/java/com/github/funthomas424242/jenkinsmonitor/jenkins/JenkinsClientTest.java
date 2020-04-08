@@ -192,8 +192,9 @@ public class JenkinsClientTest {
             }
         };
 
-        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
+        final Map<String,JobBeschreibung> jobBeschreibungen = new HashMap<>();
+        final JobBeschreibung jobBeschreibung = new  JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
+        jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(),jobBeschreibung);
         final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen = new HashMap<>();
 
         assertDoesNotThrow(() -> requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen));
@@ -211,8 +212,9 @@ public class JenkinsClientTest {
                 return new JobStatusBeschreibung("hallo", JobStatus.FAILURE, statusAbfrageInformationen.getJenkinsJobUrl(), jobId);
             }
         };
-        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[1];
-        jobBeschreibungen[0] = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
+        final Map<String,JobBeschreibung> jobBeschreibungen = new HashMap<>();
+        final JobBeschreibung jobBeschreibung =  new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
+        jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(),jobBeschreibung);
         final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen = new HashMap<>();
 
         requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
@@ -244,9 +246,11 @@ public class JenkinsClientTest {
             }
         };
 
-        final JobBeschreibung[] jobBeschreibungen = new JobBeschreibung[2];
-        jobBeschreibungen[0] = new JobBeschreibung("#2", new JobAbfragedaten(NetworkHelper.urlOf("http://test1.org")));
-        jobBeschreibungen[1] = new JobBeschreibung("#1", new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
+        final Map<String,JobBeschreibung> jobBeschreibungen = new HashMap<>();
+        final JobBeschreibung jobBeschreibung1 = new JobBeschreibung("#2", new JobAbfragedaten(NetworkHelper.urlOf("http://test1.org")));
+        jobBeschreibungen.put(jobBeschreibung1.getPrimaryKey(),jobBeschreibung1);
+        final JobBeschreibung jobBeschreibung2 =  new JobBeschreibung("#1", new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
+        jobBeschreibungen.put(jobBeschreibung2.getPrimaryKey(),jobBeschreibung2);
 
         final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen = new HashMap<>();
 

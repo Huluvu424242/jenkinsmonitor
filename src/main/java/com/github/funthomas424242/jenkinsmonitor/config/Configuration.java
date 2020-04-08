@@ -34,10 +34,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Configuration {
 
@@ -128,7 +131,7 @@ public class Configuration {
         return Long.parseLong(propValue);
     }
 
-    public JobBeschreibung[] getJobBeschreibungen() {
+    public Map<String, JobBeschreibung> getJobBeschreibungen() {
         loadPropertiesFromFile(configurationFile);
         return configurationProperties
             .stringPropertyNames()
@@ -148,7 +151,7 @@ public class Configuration {
                     LOG.debug("Config Key not matched: " + key);
                     return new JobBeschreibung(jobAbfragedaten);
                 }
-            }).toArray(JobBeschreibung[]::new);
+            }).collect(Collectors.toMap(JobBeschreibung::getPrimaryKey, Function.identity()));
     }
 
 }

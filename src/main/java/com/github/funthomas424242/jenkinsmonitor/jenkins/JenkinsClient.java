@@ -39,7 +39,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.Arrays;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -52,7 +52,7 @@ public class JenkinsClient {
     public static final String JSONKEY_FULL_DISPLAY_NAME = "fullDisplayName";
     public static final String JSONKEY_RESULT = "result";
 
-
+    //TODO Exception entfernen
     protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten, final String jobId) throws IOException {
 
         final JSONObject resultJSON = sendGetRequest(jobAbfragedaten);
@@ -65,7 +65,7 @@ public class JenkinsClient {
         }
     }
 
-    protected JSONObject sendGetRequest(final JobAbfragedaten statusabfrageDaten) throws IOException {
+    protected JSONObject sendGetRequest(final JobAbfragedaten statusabfrageDaten) {
         final URL statusAbfrageUrl = statusabfrageDaten.getStatusAbfrageUrl();
 
         try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
@@ -94,20 +94,19 @@ public class JenkinsClient {
     protected String readStreamIntoString(InputStream inputStream) throws IOException {
         String requestResult;
         // wegen json gehen wir von utf-8 aus
-        try (BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream, "utf-8"))) {
+        try (BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             requestResult = buffer.lines().collect(Collectors.joining("\n"));
         }
         return requestResult;
     }
 
 
-    public void ladeJobsStatus(final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen, final JobBeschreibung[] jobBeschreibungen) {
+    public void ladeJobsStatus(final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen, final Map<String, JobBeschreibung> jobBeschreibungen) {
         LOG.debug("Frage Jobstatus ab");
         // Jobstatus neu abfragen und Ergebnis in Map eintragen
-        Arrays.stream(jobBeschreibungen)
-            .sorted()
+        jobBeschreibungen.keySet().stream().sorted()
+            .map(jobBeschreibungen::get)
             .forEach(beschreibung -> {
-                JobStatusBeschreibung returnValue = null;
                 try {
                     // TODO prüfen ob schon vorhanden sind bei zunächst leerer Konfig
                     //final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(beschreibung.getJobUrl(), beschreibung.g);
@@ -119,15 +118,15 @@ public class JenkinsClient {
                         , jobStatusEmpfangen.getJobStatus()
                         , beschreibung.getJobUrl()
                         , beschreibung.getJobOrderId());
-                    jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(),jobStatus);
+                    jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
                     LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
                 } catch (IOException e) {
                     LOG.error(e.getLocalizedMessage(), e);
-                    final JobStatusBeschreibung jobStatus  = new JobStatusBeschreibung(beschreibung.getJobOrderId(),
+                    final JobStatusBeschreibung jobStatus = new JobStatusBeschreibung(beschreibung.getJobOrderId(),
                         JobStatus.OTHER,
                         beschreibung.getJobUrl()
                         , beschreibung.getJobOrderId());
-                    jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(),jobStatus);
+                    jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
                     LOG.debug(String.format("JobStatus ERR geladen: %s : %s at %s ", beschreibung.getJobOrderId(), JobStatus.OTHER.toString(), beschreibung.getJobUrl().toExternalForm()));
                 }
             });
