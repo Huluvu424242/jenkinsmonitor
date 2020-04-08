@@ -53,18 +53,18 @@ public class JenkinsClient {
     public static final String JSONKEY_FULL_DISPLAY_NAME = "fullDisplayName";
     public static final String JSONKEY_RESULT = "result";
 
-    protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten, final String jobId) {
+    protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten, final String jobOrderId) {
 
         try {
             final JSONObject resultJSON = sendGetRequest(jobAbfragedaten);
             final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
             final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
-            return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jobAbfragedaten.getJenkinsJobUrl(), jobId);
+            return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
 
         } catch (HttpResponseException e) {
-            return new JobStatusBeschreibung("HTTP Status:" + e.getStatusCode(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobId);
+            return new JobStatusBeschreibung("HTTP Status:" + e.getStatusCode(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
         } catch (NullPointerException | JSONException ex) {
-            return new JobStatusBeschreibung(jobAbfragedaten.getJenkinsJobUrl().getPath(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobId);
+            return new JobStatusBeschreibung(jobAbfragedaten.getJenkinsJobUrl().getPath(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
         }
     }
 
@@ -123,16 +123,9 @@ public class JenkinsClient {
     public void ladeJobsStatus(final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen, final Map<String, JobBeschreibung> jobBeschreibungen) {
         LOG.debug("Frage Jobstatus ab");
         AbstractJobBeschreibung.sortedStreamOf(jobBeschreibungen)
-//            .keySet().stream().sorted().map(jobBeschreibungen::get)
             .forEach(beschreibung -> {
                 final JobAbfragedaten jobAbfragedaten = beschreibung.getJobAbfragedaten();
-                // primär schlüssel nutzen um in Map einzutragen.
-                final JobStatusBeschreibung jobStatusEmpfangen = getJobStatus(jobAbfragedaten, beschreibung.getJobOrderId());
-                // Nutzung des empfangen JobStatus ohne Ummappen
-                final JobStatusBeschreibung jobStatus = new JobStatusBeschreibung(jobStatusEmpfangen.getJobName()
-                    , jobStatusEmpfangen.getJobStatus()
-                    , beschreibung.getJobUrl()
-                    , beschreibung.getJobOrderId());
+                final JobStatusBeschreibung jobStatus = getJobStatus(jobAbfragedaten, beschreibung.getJobOrderId());
                 jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
                 LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
             });
