@@ -211,23 +211,16 @@ public class JenkinsMonitorTray implements Timer.Listener {
     }
 
     public void updateJobStatus() {
-        final Map<String,JobBeschreibung> jobBeschreibungen = this.configuration.getJobBeschreibungen();
+        final Map<String, JobBeschreibung> jobBeschreibungen = this.configuration.getJobBeschreibungen();
         updateJobStatus(jobBeschreibungen);
     }
 
-    protected void updateJobStatus(Map<String,JobBeschreibung> jobBeschreibungen) {
-        // entferne alte Jobs aus Modell und Darstellung (z.B. wenn Config sich ändert)
-//        final Set<String> descriptionKeys = jobBeschreibungen
-//            .keySet().stream().parallel().collect(Collectors.toSet());
-
-        // TODO parallel und Set
+    protected void updateJobStatus(Map<String, JobBeschreibung> jobBeschreibungen) {
         final java.util.List<String> entriesToDelete = jobStatusBeschreibungen
-            .keySet()
-            .stream()
+            .keySet().stream().parallel()
             .filter(primaryKey -> !jobBeschreibungen.containsKey(primaryKey))
             .collect(Collectors.toList());
-        // TODO parallel
-        entriesToDelete.stream().forEach(entry -> jobStatusBeschreibungen.remove(entry));
+        entriesToDelete.stream().parallel().forEach(entry -> jobStatusBeschreibungen.remove(entry));
 
         // aktualisiere den Status der Jobs durch Jenkinsabfragen
         requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
