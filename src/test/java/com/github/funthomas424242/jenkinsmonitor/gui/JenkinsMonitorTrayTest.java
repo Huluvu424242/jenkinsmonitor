@@ -38,7 +38,6 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -58,7 +57,7 @@ class JenkinsClientMock extends JenkinsClient {
     }
 
     @Override
-    protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten, String jobId) throws IOException {
+    protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten, String jobId)  {
         return new JobStatusBeschreibung("xxx", jobStatus[jobNr++], jobAbfragedaten.getJenkinsJobUrl(), jobId);
     }
 }

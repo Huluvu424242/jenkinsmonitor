@@ -29,6 +29,7 @@ import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -52,22 +53,24 @@ public class JenkinsClient {
     public static final String JSONKEY_FULL_DISPLAY_NAME = "fullDisplayName";
     public static final String JSONKEY_RESULT = "result";
 
-    //TODO Exception entfernen
-    protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten, final String jobId) throws IOException {
+    protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten, final String jobId) {
 
-        final JSONObject resultJSON = sendGetRequest(jobAbfragedaten);
         try {
+            final JSONObject resultJSON = sendGetRequest(jobAbfragedaten);
             final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
             final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
             return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jobAbfragedaten.getJenkinsJobUrl(), jobId);
+
+        } catch (HttpResponseException e) {
+            return new JobStatusBeschreibung("HTTP Status:" + e.getStatusCode(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobId);
         } catch (NullPointerException | JSONException ex) {
             return new JobStatusBeschreibung(jobAbfragedaten.getJenkinsJobUrl().getPath(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobId);
         }
     }
 
-    protected JSONObject sendGetRequest(final JobAbfragedaten statusabfrageDaten) {
+    protected JSONObject sendGetRequest(final JobAbfragedaten statusabfrageDaten) throws HttpResponseException {
         final URL statusAbfrageUrl = statusabfrageDaten.getStatusAbfrageUrl();
-
+        int statusCode = -1;
         try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             final HttpHost target = new HttpHost(statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort(), statusAbfrageUrl.getProtocol());
             final HttpGet httpGetRequest = new HttpGet(statusAbfrageUrl.getPath());
@@ -76,19 +79,35 @@ public class JenkinsClient {
                 httpGetRequest.setHeader("Authorization", "Basic " + basicAuthToken);
             }
             final HttpResponse httpResponse = httpClient.execute(target, httpGetRequest);
-            final int statusCode = httpResponse.getStatusLine().getStatusCode();
+            statusCode = httpResponse.getStatusLine().getStatusCode();
             if (statusCode != 200) {
                 throw new HttpResponseException(statusCode, httpResponse.getStatusLine().getReasonPhrase());
             }
-            final HttpEntity entity = httpResponse.getEntity();
-            final InputStream inputStream = entity.getContent();
-            final String requestResult = readStreamIntoString(inputStream);
-            LOG.debug("Empfangen als JSON:\n {}", requestResult);
-            return new JSONObject(requestResult);
-        } catch (Exception ex) {
-            LOG.warn("Could not retrieve data from jenkins: " + ex);
+            return getJsonObjectFromResponse(httpResponse);
+        } catch (JSONException | IOException ex) {
+            LOG.error("Could not retrieve data from jenkins: " + ex);
+            if (ex instanceof HttpResponseException) {
+                throw (HttpResponseException) ex;
+            } else {
+                LOG.error("An Error occured" + ex);
+            }
         }
         return null;
+    }
+
+    @NotNull
+    private JSONObject getJsonObjectFromResponse(HttpResponse httpResponse) throws JSONException {
+        final HttpEntity entity = httpResponse.getEntity();
+        final String requestResult;
+        try {
+            final InputStream inputStream = entity.getContent();
+            requestResult = readStreamIntoString(inputStream);
+        } catch (IOException e) {
+            LOG.warn("Jenkins Response could not be read: " + e);
+            return null;
+        }
+        LOG.debug("Empfangen als JSON:\n {}", requestResult);
+        return new JSONObject(requestResult);
     }
 
     protected String readStreamIntoString(InputStream inputStream) throws IOException {
@@ -107,7 +126,7 @@ public class JenkinsClient {
         jobBeschreibungen.keySet().stream().sorted()
             .map(jobBeschreibungen::get)
             .forEach(beschreibung -> {
-                try {
+//                try {
                     // TODO prüfen ob schon vorhanden sind bei zunächst leerer Konfig
                     //final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(beschreibung.getJobUrl(), beschreibung.g);
                     final JobAbfragedaten jobAbfragedaten = beschreibung.getJobAbfragedaten();
@@ -120,15 +139,16 @@ public class JenkinsClient {
                         , beschreibung.getJobOrderId());
                     jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
                     LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
-                } catch (IOException e) {
-                    LOG.error(e.getLocalizedMessage(), e);
-                    final JobStatusBeschreibung jobStatus = new JobStatusBeschreibung(beschreibung.getJobOrderId(),
-                        JobStatus.OTHER,
-                        beschreibung.getJobUrl()
-                        , beschreibung.getJobOrderId());
-                    jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
-                    LOG.debug(String.format("JobStatus ERR geladen: %s : %s at %s ", beschreibung.getJobOrderId(), JobStatus.OTHER.toString(), beschreibung.getJobUrl().toExternalForm()));
-                }
+//                }
+//                catch (IOException e) {
+//                    LOG.error(e.getLocalizedMessage(), e);
+//                    final JobStatusBeschreibung jobStatus = new JobStatusBeschreibung(beschreibung.getJobOrderId(),
+//                        JobStatus.OTHER,
+//                        beschreibung.getJobUrl()
+//                        , beschreibung.getJobOrderId());
+//                    jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
+//                    LOG.debug(String.format("JobStatus ERR geladen: %s : %s at %s ", beschreibung.getJobOrderId(), JobStatus.OTHER.toString(), beschreibung.getJobUrl().toExternalForm()));
+//                }
             });
     }
 
