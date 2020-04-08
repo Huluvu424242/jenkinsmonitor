@@ -232,6 +232,7 @@ public class JenkinsClientTest {
 
     @Test
     @DisplayName("prüfe ladeJobStatutus für zwei Jobs einer rot und einer gelb")
+//    @Disabled("parallel")
     void checkLadeTwoJobStatusSUCCESS_UNSTABLE() {
 
         final JenkinsClient requester = new JenkinsClient() {

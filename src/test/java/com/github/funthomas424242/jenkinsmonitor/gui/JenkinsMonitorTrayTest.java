@@ -31,10 +31,7 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -131,6 +128,7 @@ public class JenkinsMonitorTrayTest {
 
     @Test
     @DisplayName("Bei 2 Jobs - einer grün, einer rot erscheinen die Status im Tooltipp.")
+//    @Disabled("parallel")
     protected void showStatusAsToolstippsIfJobPresent() {
         final Configuration configJobs = new ConfigurationMockValidTwoJobs();
         final JenkinsMonitorTray tray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.SUCCESS, JobStatus.FAILURE), configJobs);
@@ -143,6 +141,7 @@ public class JenkinsMonitorTrayTest {
 
     @Test
     @DisplayName("Bei 3 Jobs - einer grün, einer rot, einer gelb  erscheinen die Status im Tooltipp.")
+//    @Disabled("parallel")
     protected void showStatusAsToolstippsIfJobsPresent() {
         final Configuration configJobs = new ConfigurationMockValidTreeJobs();
         final JenkinsMonitorTray tray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE), configJobs);
@@ -157,6 +156,7 @@ public class JenkinsMonitorTrayTest {
 
     @Test
     @DisplayName("Status aktualisiert sich nach Ablauf der Zeitperiode durch Jobs update")
+//    @Disabled("parallel")
     public void updateJobsAfterTimePeriod() {
 
         TestDrivenTimer clock = new TestDrivenTimer();
