@@ -22,16 +22,12 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
-import net.greypanther.natsort.SimpleNaturalComparator;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
-import java.util.Comparator;
 import java.util.Objects;
 
-public final class JobBeschreibung implements Comparable<JobBeschreibung>{
-
-    private static final Comparator<String> NATURAL_COMPARATOR = SimpleNaturalComparator.getInstance();
+public final class JobBeschreibung implements AbstractJobBeschreibung {
 
     protected final String jobOrderId;
 
@@ -44,15 +40,18 @@ public final class JobBeschreibung implements Comparable<JobBeschreibung>{
     }
 
     public JobBeschreibung(final String jobOrderId, final JobAbfragedaten jobAbfragedaten) {
-        if (jobAbfragedaten == null || jobAbfragedaten.getJenkinsJobUrl() == null) throw new IllegalArgumentException("URL darf nicht null sein.");
+        if (jobAbfragedaten == null || jobAbfragedaten.getJenkinsJobUrl() == null)
+            throw new IllegalArgumentException("URL darf nicht null sein.");
         this.jobOrderId = jobOrderId;
         this.jobAbfragedaten = jobAbfragedaten;
     }
 
+    @Override
     public URL getJobUrl() {
         return this.jobAbfragedaten.getJenkinsJobUrl();
     }
 
+    @Override
     public String getJobOrderId() {
         return this.jobOrderId;
     }
@@ -76,13 +75,5 @@ public final class JobBeschreibung implements Comparable<JobBeschreibung>{
         return Objects.hash(jobOrderId, jobAbfragedaten);
     }
 
-    @Override
-    public int compareTo(@NotNull JobBeschreibung jobBeschreibung) {
-        if( this.jobOrderId == null && jobBeschreibung.getJobOrderId() == null) return 0;
-        if( this.jobOrderId != null && jobBeschreibung.getJobOrderId() == null) return 1;
-        if( this.jobOrderId == null && jobBeschreibung.getJobOrderId() != null) return -1;
-
-        return NATURAL_COMPARATOR.compare(this.jobOrderId,jobBeschreibung.getJobOrderId());
-    }
 }
 
