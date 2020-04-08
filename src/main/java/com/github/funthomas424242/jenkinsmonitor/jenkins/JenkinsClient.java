@@ -103,8 +103,6 @@ public class JenkinsClient {
 
     public void ladeJobsStatus(final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen, final JobBeschreibung[] jobBeschreibungen) {
         LOG.debug("Frage Jobstatus ab");
-        // TODO alte Jobsstatusbeschreibungen löschen wenn sie nicht mehr in den jobBeschreibungen vorkommen
-
         // Jobstatus neu abfragen und Ergebnis in Map eintragen
         Arrays.stream(jobBeschreibungen)
             .sorted()
