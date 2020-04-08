@@ -33,7 +33,7 @@ public final class JobBeschreibung implements Comparable<JobBeschreibung>{
 
     private static final Comparator<String> NATURAL_COMPARATOR = SimpleNaturalComparator.getInstance();
 
-    protected final String jobId;
+    protected final String jobOrderId;
 
     @NotNull
     protected final JobAbfragedaten jobAbfragedaten;
@@ -43,9 +43,9 @@ public final class JobBeschreibung implements Comparable<JobBeschreibung>{
         this(null, jobAbfragedaten);
     }
 
-    public JobBeschreibung(final String jobId, final JobAbfragedaten jobAbfragedaten) {
+    public JobBeschreibung(final String jobOrderId, final JobAbfragedaten jobAbfragedaten) {
         if (jobAbfragedaten == null || jobAbfragedaten.getJenkinsJobUrl() == null) throw new IllegalArgumentException("URL darf nicht null sein.");
-        this.jobId = jobId;
+        this.jobOrderId = jobOrderId;
         this.jobAbfragedaten = jobAbfragedaten;
     }
 
@@ -53,8 +53,8 @@ public final class JobBeschreibung implements Comparable<JobBeschreibung>{
         return this.jobAbfragedaten.getJenkinsJobUrl();
     }
 
-    public String getJobId() {
-        return this.jobId;
+    public String getJobOrderId() {
+        return this.jobOrderId;
     }
 
 
@@ -67,22 +67,22 @@ public final class JobBeschreibung implements Comparable<JobBeschreibung>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JobBeschreibung that = (JobBeschreibung) o;
-        return Objects.equals(jobId, that.jobId) &&
+        return Objects.equals(jobOrderId, that.jobOrderId) &&
             jobAbfragedaten.equals(that.jobAbfragedaten);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(jobId, jobAbfragedaten);
+        return Objects.hash(jobOrderId, jobAbfragedaten);
     }
 
     @Override
     public int compareTo(@NotNull JobBeschreibung jobBeschreibung) {
-        if( this.jobId == null && jobBeschreibung.getJobId() == null) return 0;
-        if( this.jobId != null && jobBeschreibung.getJobId() == null) return 1;
-        if( this.jobId == null && jobBeschreibung.getJobId() != null) return -1;
+        if( this.jobOrderId == null && jobBeschreibung.getJobOrderId() == null) return 0;
+        if( this.jobOrderId != null && jobBeschreibung.getJobOrderId() == null) return 1;
+        if( this.jobOrderId == null && jobBeschreibung.getJobOrderId() != null) return -1;
 
-        return NATURAL_COMPARATOR.compare(this.jobId,jobBeschreibung.getJobId());
+        return NATURAL_COMPARATOR.compare(this.jobOrderId,jobBeschreibung.getJobOrderId());
     }
 }
 

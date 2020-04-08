@@ -113,22 +113,22 @@ public class JenkinsClient {
                     //final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(beschreibung.getJobUrl(), beschreibung.g);
                     final JobAbfragedaten jobAbfragedaten = beschreibung.getJobAbfragedaten();
                     // primär schlüssel nutzen um in Map einzutragen.
-                    final JobStatusBeschreibung jobStatusEmpfangen = getJobStatus(jobAbfragedaten, beschreibung.getJobId());
+                    final JobStatusBeschreibung jobStatusEmpfangen = getJobStatus(jobAbfragedaten, beschreibung.getJobOrderId());
                     // Nutzung des empfangen JobStatus ohne Ummappen
                     final JobStatusBeschreibung jobStatus = new JobStatusBeschreibung(jobStatusEmpfangen.getJobName()
                         , jobStatusEmpfangen.getJobStatus()
                         , beschreibung.getJobUrl()
-                        , beschreibung.getJobId());
+                        , beschreibung.getJobOrderId());
                     jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(),jobStatus);
                     LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
                 } catch (IOException e) {
                     LOG.error(e.getLocalizedMessage(), e);
-                    final JobStatusBeschreibung jobStatus  = new JobStatusBeschreibung(beschreibung.getJobId(),
+                    final JobStatusBeschreibung jobStatus  = new JobStatusBeschreibung(beschreibung.getJobOrderId(),
                         JobStatus.OTHER,
                         beschreibung.getJobUrl()
-                        , beschreibung.getJobId());
+                        , beschreibung.getJobOrderId());
                     jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(),jobStatus);
-                    LOG.debug(String.format("JobStatus ERR geladen: %s : %s at %s ", beschreibung.getJobId(), JobStatus.OTHER.toString(), beschreibung.getJobUrl().toExternalForm()));
+                    LOG.debug(String.format("JobStatus ERR geladen: %s : %s at %s ", beschreibung.getJobOrderId(), JobStatus.OTHER.toString(), beschreibung.getJobUrl().toExternalForm()));
                 }
             });
     }

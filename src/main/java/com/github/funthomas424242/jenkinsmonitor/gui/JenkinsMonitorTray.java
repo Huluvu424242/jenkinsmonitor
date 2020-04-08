@@ -31,9 +31,7 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.print.attribute.standard.MediaSize;
 import java.awt.*;
-import java.awt.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -220,7 +218,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected void updateJobStatus(JobBeschreibung[] jobBeschreibungen) {
         // entferne alte Jobs aus Modell und Darstellung (z.B. wenn Config sich ändert)
         final Set<String> descriptionKeys = Arrays.stream(jobBeschreibungen).parallel()
-            .map(jobBeschreibung -> jobBeschreibung.getJobId() + "#" + jobBeschreibung.getJobUrl())
+            .map(jobBeschreibung -> jobBeschreibung.getJobOrderId() + "#" + jobBeschreibung.getJobUrl())
             .collect(Collectors.toSet());
         final java.util.List<String> entriesToDelete = jobStatusBeschreibungen
             .keySet()
