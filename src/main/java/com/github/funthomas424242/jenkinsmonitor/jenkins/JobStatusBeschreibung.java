@@ -22,20 +22,16 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
-import net.greypanther.natsort.SimpleNaturalComparator;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.net.URL;
-import java.util.Comparator;
 import java.util.Objects;
 
-public final class JobStatusBeschreibung implements Comparable<JobStatusBeschreibung> {
-
-    public static final Comparator<String> NATURAL_COMPARATOR = SimpleNaturalComparator.getInstance();
+public final class JobStatusBeschreibung implements AbstractJobBeschreibung {
 
     // nicht eindeutig, da in der Config leer sein kann
-    protected final String orderId;
+    protected final String jobOrderId;
 
     protected final JobStatus jobStatus;
 
@@ -45,17 +41,11 @@ public final class JobStatusBeschreibung implements Comparable<JobStatusBeschrei
     // eindeutig aber wenn mehrmals konfiguriert, werden alle auf einen abgebildet.
     protected final URL jobUrl;
 
-    public String getPrimaryKey(){
-        final String url = jobUrl!=null? jobUrl.toExternalForm(): "";
-        return orderId + "#" + url;
-    }
-
-
-    public JobStatusBeschreibung(final String jobName, final JobStatus jobStatus, final URL jobUrl, final String orderId) {
+    public JobStatusBeschreibung(final String jobName, final JobStatus jobStatus, final URL jobUrl, final String jobOrderId) {
         this.jobStatus = jobStatus;
         this.jobName = jobName;
         this.jobUrl = jobUrl;
-        this.orderId = orderId;
+        this.jobOrderId = jobOrderId;
     }
 
     public Color getStatusColor() {
@@ -67,6 +57,7 @@ public final class JobStatusBeschreibung implements Comparable<JobStatusBeschrei
         return jobStatus;
     }
 
+    @Override
     public URL getJobUrl() {
         return this.jobUrl;
     }
@@ -75,8 +66,9 @@ public final class JobStatusBeschreibung implements Comparable<JobStatusBeschrei
         return this.jobName;
     }
 
-    public String getOrderId() {
-        return this.orderId;
+    @Override
+    public String getJobOrderId() {
+        return this.jobOrderId;
     }
 
 
@@ -85,7 +77,7 @@ public final class JobStatusBeschreibung implements Comparable<JobStatusBeschrei
         if (this == o) return true;
         if (!(o instanceof JobStatusBeschreibung)) return false;
         JobStatusBeschreibung that = (JobStatusBeschreibung) o;
-        return Objects.equals(orderId, that.orderId) &&
+        return Objects.equals(jobOrderId, that.jobOrderId) &&
             jobStatus == that.jobStatus &&
             Objects.equals(jobName, that.jobName) &&
             Objects.equals(jobUrl, that.jobUrl);
@@ -93,11 +85,7 @@ public final class JobStatusBeschreibung implements Comparable<JobStatusBeschrei
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, jobStatus, jobName, jobUrl);
+        return Objects.hash(jobOrderId, jobStatus, jobName, jobUrl);
     }
 
-    @Override
-    public int compareTo(@NotNull JobStatusBeschreibung jobStatusBeschreibung) {
-        return NATURAL_COMPARATOR.compare(this.orderId, jobStatusBeschreibung.getOrderId());
-    }
 }

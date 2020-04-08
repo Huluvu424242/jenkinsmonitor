@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import java.net.URL;
 import java.util.Comparator;
 
-public interface AbstractJobBeschreibung extends Comparable<JobStatusBeschreibung> {
+public interface AbstractJobBeschreibung extends Comparable<AbstractJobBeschreibung> {
 
     Comparator<String> NATURAL_COMPARATOR = SimpleNaturalComparator.getInstance();
 

@@ -56,7 +56,7 @@ public class Statusfenster extends JWindow {
 
     private StatusItem createStatusItem(final int counter, JobStatusBeschreibung jobStatus) {
         final String colorValueHEX = jobStatus.getJobStatus().getColorValueHEX() != null ? jobStatus.getJobStatus().getColorValueHEX() : JobStatus.OTHER.getColorValueHEX();
-        final String orderId = jobStatus.getOrderId() != null ? jobStatus.getOrderId() : "###";
+        final String orderId = jobStatus.getJobOrderId() != null ? jobStatus.getJobOrderId() : "###";
         final String jobName = jobStatus.getJobName() != null ? jobStatus.getJobName() : "unbenannt";
         final String counterValue = counter + "";
         final String status = jobStatus.getJobStatus().toString() != null ? jobStatus.getJobStatus().toString() : "unbekannt";
