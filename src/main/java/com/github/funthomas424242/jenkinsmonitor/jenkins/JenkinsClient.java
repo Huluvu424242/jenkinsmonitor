@@ -123,6 +123,7 @@ public class JenkinsClient {
     public void ladeJobsStatus(final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen, final Map<String, JobBeschreibung> jobBeschreibungen) {
         LOG.debug("Frage Jobstatus ab");
         AbstractJobBeschreibung.sortedStreamOf(jobBeschreibungen)
+            .parallel()
             .map(beschreibung -> {
                 final JobAbfragedaten jobAbfragedaten = beschreibung.getJobAbfragedaten();
                 final JobStatusBeschreibung jobStatus = getJobStatus(jobAbfragedaten, beschreibung.getJobOrderId());

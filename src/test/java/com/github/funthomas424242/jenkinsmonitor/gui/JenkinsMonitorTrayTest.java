@@ -128,7 +128,7 @@ public class JenkinsMonitorTrayTest {
 
     @Test
     @DisplayName("Bei 2 Jobs - einer grün, einer rot erscheinen die Status im Tooltipp.")
-//    @Disabled("parallel")
+    @Disabled("parallel")
     protected void showStatusAsToolstippsIfJobPresent() {
         final Configuration configJobs = new ConfigurationMockValidTwoJobs();
         final JenkinsMonitorTray tray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.SUCCESS, JobStatus.FAILURE), configJobs);
@@ -141,7 +141,7 @@ public class JenkinsMonitorTrayTest {
 
     @Test
     @DisplayName("Bei 3 Jobs - einer grün, einer rot, einer gelb  erscheinen die Status im Tooltipp.")
-//    @Disabled("parallel")
+    @Disabled("parallel")
     protected void showStatusAsToolstippsIfJobsPresent() {
         final Configuration configJobs = new ConfigurationMockValidTreeJobs();
         final JenkinsMonitorTray tray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE), configJobs);
@@ -156,7 +156,7 @@ public class JenkinsMonitorTrayTest {
 
     @Test
     @DisplayName("Status aktualisiert sich nach Ablauf der Zeitperiode durch Jobs update")
-//    @Disabled("parallel")
+    @Disabled("parallel")
     public void updateJobsAfterTimePeriod() {
 
         TestDrivenTimer clock = new TestDrivenTimer();
