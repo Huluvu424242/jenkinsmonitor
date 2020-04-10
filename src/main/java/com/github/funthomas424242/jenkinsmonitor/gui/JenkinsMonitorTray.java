@@ -39,11 +39,10 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-
-import static com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung.NATURAL_COMPARATOR;
 
 public class JenkinsMonitorTray implements Timer.Listener {
 
@@ -151,22 +150,21 @@ public class JenkinsMonitorTray implements Timer.Listener {
 
         // Create a popup menu components
         AbstractJobBeschreibung.sortedStreamOf(this.jobStatusBeschreibungen)
-//            .keySet().stream().sorted().map(this.jobStatusBeschreibungen::get)
             .forEach(statusBeschreibung -> {
             final String itemText = String.format("[%s] <%s> %s", statusBeschreibung.getJobOrderId(), statusBeschreibung.getJobStatus(), statusBeschreibung.getJobName());
-            final MenuItem item = new MenuItem(itemText);
-            item.addActionListener(actionEvent -> {
-                URI webSite = null;
-                try {
-                    webSite = statusBeschreibung.getJobUrl().toURI();
-                    Desktop.getDesktop().browse(webSite);
-                    statusArea.setVisible(false);
-                } catch (IOException | URISyntaxException ex) {
-                    LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, webSite), ex);
-                }
+                final MenuItem item = new MenuItem(itemText);
+                item.addActionListener(actionEvent -> {
+                    URI webSite = null;
+                    try {
+                        webSite = statusBeschreibung.getJobUrl().toURI();
+                        Desktop.getDesktop().browse(webSite);
+                        statusArea.setVisible(false);
+                    } catch (IOException | URISyntaxException ex) {
+                        LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, webSite), ex);
+                    }
+                });
+                popup.add(item);
             });
-            popup.add(item);
-        });
 
 
         final MenuItem aboutItem = new MenuItem("Über");
