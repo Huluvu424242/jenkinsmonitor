@@ -184,93 +184,93 @@ public class JenkinsClientTest {
        assertEquals(exception.getStatusCode(),404);
     }
 
-    @Test
-    @DisplayName("ladeStatus beim Auftreten einer IO Exception wird diese geloggt")
-    void checkLadeStatusWithException() {
+//    @Test
+//    @DisplayName("ladeStatus beim Auftreten einer IO Exception wird diese geloggt")
+//    void checkLadeStatusWithException() {
+//
+//        final JenkinsClient requester = new JenkinsClient() {
+//            @Override
+//            protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten statusAbfrageInformationen, String jobId) {
+//                return new JobStatusBeschreibung("test", JobStatus.OTHER, statusAbfrageInformationen.getJenkinsJobUrl(), jobId);
+//            }
+//        };
+//
+//        final Map<String, JobBeschreibung> jobBeschreibungen = new HashMap<>();
+//        final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
+//        jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(), jobBeschreibung);
+//        final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen = new HashMap<>();
+//
+//        assertDoesNotThrow(() -> requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen));
+//        assertEquals(1, jobStatusBeschreibungen.size());
+//    }
 
-        final JenkinsClient requester = new JenkinsClient() {
-            @Override
-            protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten statusAbfrageInformationen, String jobId) {
-                return new JobStatusBeschreibung("test", JobStatus.OTHER, statusAbfrageInformationen.getJenkinsJobUrl(), jobId);
-            }
-        };
 
-        final Map<String, JobBeschreibung> jobBeschreibungen = new HashMap<>();
-        final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
-        jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(), jobBeschreibung);
-        final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen = new HashMap<>();
+//    @Test
+//    @DisplayName("prüfe ladeJobStatus für einen Job mit rotem Build")
+//    void checkLadeOneJobStatusFailure() {
+//
+//        final JenkinsClient requester = new JenkinsClient() {
+//            @Override
+//            protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten statusAbfrageInformationen, final String jobId) {
+//                return new JobStatusBeschreibung("hallo", JobStatus.FAILURE, statusAbfrageInformationen.getJenkinsJobUrl(), jobId);
+//            }
+//        };
+//        final Map<String, JobBeschreibung> jobBeschreibungen = new HashMap<>();
+//        final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
+//        jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(), jobBeschreibung);
+//        final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen = new HashMap<>();
+//
+//        requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
+//
+//        assertEquals(1, jobStatusBeschreibungen.size());
+//        final JobStatusBeschreibung jobStatusBeschreibung = jobStatusBeschreibungen.get("null#http://test.org");
+//        assertEquals("hallo", jobStatusBeschreibung.getJobName());
+//        assertEquals(JobStatus.FAILURE, jobStatusBeschreibung.getJobStatus());
+//        assertEquals("http://test.org", jobStatusBeschreibung.getJobUrl().toExternalForm());
+//        assertEquals("null#http://test.org", jobStatusBeschreibung.getPrimaryKey());
+//    }
 
-        assertDoesNotThrow(() -> requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen));
-        assertEquals(1, jobStatusBeschreibungen.size());
-    }
-
-
-    @Test
-    @DisplayName("prüfe ladeJobStatus für einen Job mit rotem Build")
-    void checkLadeOneJobStatusFailure() {
-
-        final JenkinsClient requester = new JenkinsClient() {
-            @Override
-            protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten statusAbfrageInformationen, final String jobId) {
-                return new JobStatusBeschreibung("hallo", JobStatus.FAILURE, statusAbfrageInformationen.getJenkinsJobUrl(), jobId);
-            }
-        };
-        final Map<String, JobBeschreibung> jobBeschreibungen = new HashMap<>();
-        final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
-        jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(), jobBeschreibung);
-        final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen = new HashMap<>();
-
-        requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
-
-        assertEquals(1, jobStatusBeschreibungen.size());
-        final JobStatusBeschreibung jobStatusBeschreibung = jobStatusBeschreibungen.get("null#http://test.org");
-        assertEquals("hallo", jobStatusBeschreibung.getJobName());
-        assertEquals(JobStatus.FAILURE, jobStatusBeschreibung.getJobStatus());
-        assertEquals("http://test.org", jobStatusBeschreibung.getJobUrl().toExternalForm());
-        assertEquals("null#http://test.org", jobStatusBeschreibung.getPrimaryKey());
-    }
-
-    @Test
-    @DisplayName("prüfe ladeJobStatutus für zwei Jobs einer rot und einer gelb")
-    @Disabled("parallel")
-    void checkLadeTwoJobStatusSUCCESS_UNSTABLE() {
-
-        final JenkinsClient requester = new JenkinsClient() {
-            int counter = 0;
-
-            @Override
-            protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten statusAbfrageInformationen, final String jobId) {
-                if (counter == 0) {
-                    counter++;
-                    return new JobStatusBeschreibung("hallo", JobStatus.FAILURE, statusAbfrageInformationen.getJenkinsJobUrl(), jobId);
-                } else {
-                    counter++;
-                    return new JobStatusBeschreibung("hallo", JobStatus.SUCCESS, statusAbfrageInformationen.getJenkinsJobUrl(), jobId);
-                }
-            }
-        };
-
-        final Map<String, JobBeschreibung> jobBeschreibungen = new HashMap<>();
-        final JobBeschreibung jobBeschreibung1 = new JobBeschreibung("#2", new JobAbfragedaten(NetworkHelper.urlOf("http://test1.org")));
-        jobBeschreibungen.put(jobBeschreibung1.getPrimaryKey(), jobBeschreibung1);
-        final JobBeschreibung jobBeschreibung2 = new JobBeschreibung("#1", new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
-        jobBeschreibungen.put(jobBeschreibung2.getPrimaryKey(), jobBeschreibung2);
-
-        final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen = new HashMap<>();
-
-        requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
-
-        assertEquals(2, jobStatusBeschreibungen.size());
-        final JobStatusBeschreibung jobStatusBeschreibung0 = jobStatusBeschreibungen.get("#1#http://test.org");/**/
-        final JobStatusBeschreibung jobStatusBeschreibung1 = jobStatusBeschreibungen.get("#2#http://test1.org");/**/
-
-        assertEquals("hallo", jobStatusBeschreibung0.getJobName());
-        assertEquals(JobStatus.FAILURE, jobStatusBeschreibung0.getJobStatus());
-        assertEquals("http://test.org", jobStatusBeschreibung0.getJobUrl().toExternalForm());
-
-        assertEquals("hallo", jobStatusBeschreibung1.getJobName());
-        assertEquals(JobStatus.SUCCESS, jobStatusBeschreibung1.getJobStatus());
-        assertEquals("http://test1.org", jobStatusBeschreibung1.getJobUrl().toExternalForm());
-    }
+//    @Test
+//    @DisplayName("prüfe ladeJobStatutus für zwei Jobs einer rot und einer gelb")
+//    @Disabled("parallel")
+//    void checkLadeTwoJobStatusSUCCESS_UNSTABLE() {
+//
+//        final JenkinsClient requester = new JenkinsClient() {
+//            int counter = 0;
+//
+//            @Override
+//            protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten statusAbfrageInformationen, final String jobId) {
+//                if (counter == 0) {
+//                    counter++;
+//                    return new JobStatusBeschreibung("hallo", JobStatus.FAILURE, statusAbfrageInformationen.getJenkinsJobUrl(), jobId);
+//                } else {
+//                    counter++;
+//                    return new JobStatusBeschreibung("hallo", JobStatus.SUCCESS, statusAbfrageInformationen.getJenkinsJobUrl(), jobId);
+//                }
+//            }
+//        };
+//
+//        final Map<String, JobBeschreibung> jobBeschreibungen = new HashMap<>();
+//        final JobBeschreibung jobBeschreibung1 = new JobBeschreibung("#2", new JobAbfragedaten(NetworkHelper.urlOf("http://test1.org")));
+//        jobBeschreibungen.put(jobBeschreibung1.getPrimaryKey(), jobBeschreibung1);
+//        final JobBeschreibung jobBeschreibung2 = new JobBeschreibung("#1", new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
+//        jobBeschreibungen.put(jobBeschreibung2.getPrimaryKey(), jobBeschreibung2);
+//
+//        final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen = new HashMap<>();
+//
+//        requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
+//
+//        assertEquals(2, jobStatusBeschreibungen.size());
+//        final JobStatusBeschreibung jobStatusBeschreibung0 = jobStatusBeschreibungen.get("#1#http://test.org");/**/
+//        final JobStatusBeschreibung jobStatusBeschreibung1 = jobStatusBeschreibungen.get("#2#http://test1.org");/**/
+//
+//        assertEquals("hallo", jobStatusBeschreibung0.getJobName());
+//        assertEquals(JobStatus.FAILURE, jobStatusBeschreibung0.getJobStatus());
+//        assertEquals("http://test.org", jobStatusBeschreibung0.getJobUrl().toExternalForm());
+//
+//        assertEquals("hallo", jobStatusBeschreibung1.getJobName());
+//        assertEquals(JobStatus.SUCCESS, jobStatusBeschreibung1.getJobStatus());
+//        assertEquals("http://test1.org", jobStatusBeschreibung1.getJobUrl().toExternalForm());
+//    }
 
 }

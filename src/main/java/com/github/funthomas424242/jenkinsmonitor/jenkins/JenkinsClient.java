@@ -41,7 +41,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.stream.Collectors;
 
 
@@ -53,7 +58,7 @@ public class JenkinsClient {
     public static final String JSONKEY_FULL_DISPLAY_NAME = "fullDisplayName";
     public static final String JSONKEY_RESULT = "result";
 
-    protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten, final String jobOrderId) {
+    protected static JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten, final String jobOrderId) {
 
         try {
             final JSONObject resultJSON = sendGetRequest(jobAbfragedaten);
@@ -62,9 +67,9 @@ public class JenkinsClient {
             return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
 
         } catch (HttpResponseException e) {
-            if( e.getStatusCode() == 404 ) {
+            if (e.getStatusCode() == 404) {
                 return new JobStatusBeschreibung("Job Not Found:" + jobAbfragedaten.getJenkinsJobUrl(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
-            }else {
+            } else {
                 return new JobStatusBeschreibung("HTTP Status:" + e.getStatusCode(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
             }
         } catch (NullPointerException | JSONException ex) {
@@ -72,7 +77,7 @@ public class JenkinsClient {
         }
     }
 
-    protected JSONObject sendGetRequest(final JobAbfragedaten statusabfrageDaten) throws HttpResponseException {
+    protected static JSONObject sendGetRequest(final JobAbfragedaten statusabfrageDaten) throws HttpResponseException {
         final URL statusAbfrageUrl = statusabfrageDaten.getStatusAbfrageUrl();
         int statusCode = -1;
         try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
@@ -100,7 +105,7 @@ public class JenkinsClient {
     }
 
     @NotNull
-    private JSONObject getJsonObjectFromResponse(HttpResponse httpResponse) {
+    protected static JSONObject getJsonObjectFromResponse(HttpResponse httpResponse) {
         final HttpEntity entity = httpResponse.getEntity();
         final String requestResult;
         try {
@@ -114,7 +119,7 @@ public class JenkinsClient {
         return new JSONObject(requestResult);
     }
 
-    protected String readStreamIntoString(InputStream inputStream) throws IOException {
+    protected static String readStreamIntoString(InputStream inputStream) throws IOException {
         String requestResult;
         // wegen json gehen wir von utf-8 aus
         try (BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
@@ -126,17 +131,27 @@ public class JenkinsClient {
 
     public void ladeJobsStatus(final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen, final Map<String, JobBeschreibung> jobBeschreibungen) {
         LOG.debug("Frage Jobstatus ab");
+        final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
+        final List<Future<JobStatusBeschreibung>> results = new ArrayList<>();
         AbstractJobBeschreibung.sortedStreamOf(jobBeschreibungen)
             .parallel()
             .map(beschreibung -> {
-                final JobAbfragedaten jobAbfragedaten = beschreibung.getJobAbfragedaten();
-                final JobStatusBeschreibung jobStatus = getJobStatus(jobAbfragedaten, beschreibung.getJobOrderId());
+                final JobAbfrage jobAbfrage
+                    = new JobAbfrage(jobStatusBeschreibungen, beschreibung.getJobAbfragedaten(), beschreibung.getJobOrderId());
+                final Future<JobStatusBeschreibung> jobStatus = executor.submit(jobAbfrage);
                 return jobStatus;
             })
-            .forEach(jobStatus -> {
-                jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
-                LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
+            .collect(Collectors.toList())
+            .forEach(jobStatusFuture -> {
+                try {
+                    final JobStatusBeschreibung jobStatus = jobStatusFuture.get();
+                    jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
+                    LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
+                } catch (Exception e) {
+                    LOG.error("Read Future Result goes wrong.");
+                }
             });
+        executor.shutdown();
     }
 
 }
