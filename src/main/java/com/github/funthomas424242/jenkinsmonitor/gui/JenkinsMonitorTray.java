@@ -209,13 +209,13 @@ public class JenkinsMonitorTray implements Timer.Listener {
 
     protected void updateJobStatus(Map<String, JobBeschreibung> jobBeschreibungen) {
         final java.util.List<String> entriesToDelete = AbstractJobBeschreibung.sortedKeyStreamOf(jobStatusBeschreibungen)
-//            .keySet().stream().parallel()
             .parallel()
             .filter(primaryKey -> !jobBeschreibungen.containsKey(primaryKey))
             .collect(Collectors.toList());
         entriesToDelete.stream().parallel().forEach(entry -> jobStatusBeschreibungen.remove(entry));
 
         // aktualisiere den Status der Jobs durch Jenkinsabfragen
+        updateDarstellung();
         requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
         updateDarstellung();
     }
