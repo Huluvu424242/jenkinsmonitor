@@ -62,7 +62,11 @@ public class JenkinsClient {
             return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
 
         } catch (HttpResponseException e) {
-            return new JobStatusBeschreibung("HTTP Status:" + e.getStatusCode(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
+            if( e.getStatusCode() == 404 ) {
+                return new JobStatusBeschreibung("Job Not Found:" + jobAbfragedaten.getJenkinsJobUrl(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
+            }else {
+                return new JobStatusBeschreibung("HTTP Status:" + e.getStatusCode(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
+            }
         } catch (NullPointerException | JSONException ex) {
             return new JobStatusBeschreibung(jobAbfragedaten.getJenkinsJobUrl().getPath(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
         }
