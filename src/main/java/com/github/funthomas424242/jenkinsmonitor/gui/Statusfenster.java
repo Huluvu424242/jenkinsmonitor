@@ -41,9 +41,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class Statusfenster extends JWindow {
@@ -73,7 +71,7 @@ public class Statusfenster extends JWindow {
     }
 
 
-    private Container createContentTmp(final JobStatusBeschreibungen jobsStatusBeschreibungen) {
+    private Container createContent(final JobStatusBeschreibungen jobsStatusBeschreibungen) {
         final JList<StatusItem> list = new JList();
 
         // Model füllen
@@ -119,7 +117,7 @@ public class Statusfenster extends JWindow {
 
     public void aktualisiereContentPane(final JobStatusBeschreibungen jobsStatusBeschreibungen) {
         if (jobsStatusBeschreibungen != null && jobsStatusBeschreibungen.size() > 0) {
-            setContentPane(createContentTmp(jobsStatusBeschreibungen));
+            setContentPane(createContent(jobsStatusBeschreibungen));
             pack();
             repaint();
         }
