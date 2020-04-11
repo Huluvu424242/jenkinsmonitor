@@ -47,12 +47,16 @@ import java.util.List;
 public class Statusfenster extends JWindow {
     public static final Logger LOGGER = LoggerFactory.getLogger(Statusfenster.class);
 
-    public Statusfenster() {
-    }
+    final JobStatusBeschreibungen jobStatusBeschreibungen;
 
-//    public Statusfenster(final JobStatusBeschreibungen jobStatusBeschreibungen) {
-//        aktualisiereContentPane(jobStatusBeschreibungen);
+//
+//    public Statusfenster() {
 //    }
+
+    public Statusfenster(final JobStatusBeschreibungen jobStatusBeschreibungen) {
+        this.jobStatusBeschreibungen = jobStatusBeschreibungen;
+//        aktualisiereContentPane(jobStatusBeschreibungen);
+    }
 
 
     private StatusItem createStatusItem(final int counter, JobStatusBeschreibung jobStatus) {
@@ -115,9 +119,9 @@ public class Statusfenster extends JWindow {
         return splitPane;
     }
 
-    public void aktualisiereContentPane(final JobStatusBeschreibungen jobsStatusBeschreibungen) {
-        if (jobsStatusBeschreibungen != null && jobsStatusBeschreibungen.size() > 0) {
-            setContentPane(createContent(jobsStatusBeschreibungen));
+    public void aktualisiereContentPane() {
+        if (jobStatusBeschreibungen != null && jobStatusBeschreibungen.size() > 0) {
+            setContentPane(createContent(jobStatusBeschreibungen));
             pack();
             repaint();
         }
@@ -136,10 +140,10 @@ public class Statusfenster extends JWindow {
             e.printStackTrace();
         }
 
-        Statusfenster window = new Statusfenster();
+        Statusfenster window = new Statusfenster(jobstatusBeschreibungen);
         window.setAlwaysOnTop(true);
         window.setLocationByPlatform(false);
-        window.aktualisiereContentPane(jobstatusBeschreibungen);
+        window.aktualisiereContentPane();
         window.setVisible(true);
 
         try {
@@ -149,7 +153,7 @@ public class Statusfenster extends JWindow {
         } catch (MalformedURLException | InterruptedException e) {
             e.printStackTrace();
         }
-        window.aktualisiereContentPane(jobstatusBeschreibungen);
+        window.aktualisiereContentPane();
 
     }
 }

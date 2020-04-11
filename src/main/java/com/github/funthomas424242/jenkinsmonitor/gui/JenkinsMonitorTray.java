@@ -78,7 +78,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         timer.start();
         this.configuration = configuration;
         this.requester = requester;
-        this.statusArea = new Statusfenster();
+        this.statusArea = new Statusfenster(jobStatusBeschreibungen);
         try {
             this.statusArea.setAlwaysOnTop(true);
             this.statusArea.setLocationByPlatform(false);

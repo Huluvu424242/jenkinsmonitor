@@ -85,7 +85,8 @@ public class ImageGenerator {
 
     public void updateStatusArea(final Statusfenster statusArea) {
         if (this.jobsStatusBeschreibungen != null) {
-            statusArea.aktualisiereContentPane(this.jobsStatusBeschreibungen);
+            statusArea.aktualisiereContentPane();
+//            statusArea.aktualisiereContentPane(this.jobsStatusBeschreibungen);
         }
     }
 

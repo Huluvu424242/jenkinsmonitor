@@ -151,7 +151,7 @@ class ImageGeneratorTest {
         jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(), jobsStatusBeschreibungen0);
 
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
-        final Statusfenster statusArea = new Statusfenster();
+        final Statusfenster statusArea = new Statusfenster(jobsStatusBeschreibungen);
         generator.updateStatusArea(statusArea);
 
         assertNotNull(statusArea);

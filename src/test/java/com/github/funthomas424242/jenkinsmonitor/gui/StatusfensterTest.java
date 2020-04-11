@@ -29,7 +29,6 @@ import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 
 class StatusfensterTest {
 
@@ -44,8 +43,8 @@ class StatusfensterTest {
         final JobStatusBeschreibung jobstatusBeschreibungen2 = new JobStatusBeschreibung("job2", JobStatus.FAILURE, new URL("http://localhost/job2"), "2");
         jobstatusBeschreibungen.put(jobstatusBeschreibungen2.getPrimaryKey(), jobstatusBeschreibungen2);
 
-        Statusfenster window = new Statusfenster();
-        window.aktualisiereContentPane(jobstatusBeschreibungen);
+        Statusfenster window = new Statusfenster(jobstatusBeschreibungen);
+        window.aktualisiereContentPane();
         window.pack();
         window.setAlwaysOnTop(true);
         window.setLocationByPlatform(false);
