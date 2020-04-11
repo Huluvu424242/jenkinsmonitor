@@ -24,13 +24,12 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 
 import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibungen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Map;
 
 class StartXHolder {
     public int startX = 0;
@@ -40,9 +39,9 @@ public class ImageGenerator {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(ImageGenerator.class);
 
-    protected final Map<String, JobStatusBeschreibung> jobsStatusBeschreibungen;
+    protected final JobStatusBeschreibungen jobsStatusBeschreibungen;
 
-    protected ImageGenerator(final Map<String, JobStatusBeschreibung> jobsStatusBeschreibungen) {
+    protected ImageGenerator(final JobStatusBeschreibungen jobsStatusBeschreibungen) {
         this.jobsStatusBeschreibungen = jobsStatusBeschreibungen;
     }
 

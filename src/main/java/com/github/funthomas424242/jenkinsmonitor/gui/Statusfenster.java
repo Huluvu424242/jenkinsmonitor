@@ -27,6 +27,7 @@ import com.github.funthomas424242.jenkinsmonitor.etc.Counter;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibungen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +52,7 @@ public class Statusfenster extends JWindow {
     public Statusfenster() {
     }
 
-    public Statusfenster(final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen) {
+    public Statusfenster(final JobStatusBeschreibungen jobStatusBeschreibungen) {
         aktualisiereContentPane(jobStatusBeschreibungen);
     }
 
@@ -72,7 +73,7 @@ public class Statusfenster extends JWindow {
     }
 
 
-    private Container createContentTmp(final Map<String, JobStatusBeschreibung> jobsStatusBeschreibungen) {
+    private Container createContentTmp(final JobStatusBeschreibungen jobsStatusBeschreibungen) {
         final JList<StatusItem> list = new JList();
 
         // Model füllen
@@ -116,7 +117,7 @@ public class Statusfenster extends JWindow {
         return splitPane;
     }
 
-    public void aktualisiereContentPane(final Map<String, JobStatusBeschreibung> jobsStatusBeschreibungen) {
+    public void aktualisiereContentPane(final JobStatusBeschreibungen jobsStatusBeschreibungen) {
         if (jobsStatusBeschreibungen != null && jobsStatusBeschreibungen.size() > 0) {
             setContentPane(createContentTmp(jobsStatusBeschreibungen));
             pack();
@@ -125,7 +126,7 @@ public class Statusfenster extends JWindow {
     }
 
     public static void main(String args[]) {
-        final Map<String, JobStatusBeschreibung> jobstatusBeschreibungen = new HashMap<>();
+        final JobStatusBeschreibungen jobstatusBeschreibungen = new JobStatusBeschreibungen();
         try {
             JobStatusBeschreibung jobstatusBeschreibungen0 = new JobStatusBeschreibung("job0", JobStatus.FAILURE, new URL("http://localhost/job0"), "0");
             jobstatusBeschreibungen.put(jobstatusBeschreibungen0.getPrimaryKey(), jobstatusBeschreibungen0);

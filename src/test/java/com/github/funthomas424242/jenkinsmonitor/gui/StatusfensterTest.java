@@ -24,19 +24,19 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibungen;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
 
 class StatusfensterTest {
 
 
     @Test
     void aktualisiereContentPane() throws MalformedURLException {
-        final Map<String, JobStatusBeschreibung> jobstatusBeschreibungen = new HashMap<>();
+        final JobStatusBeschreibungen jobstatusBeschreibungen = new JobStatusBeschreibungen();
         final JobStatusBeschreibung jobstatusBeschreibungen0 = new JobStatusBeschreibung("job0", JobStatus.FAILURE, new URL("http://localhost/job0"), "0");
         jobstatusBeschreibungen.put(jobstatusBeschreibungen0.getPrimaryKey(), jobstatusBeschreibungen0);
         final JobStatusBeschreibung jobstatusBeschreibungen1 = new JobStatusBeschreibung("job1", JobStatus.FAILURE, new URL("http://localhost/job1"), "1");

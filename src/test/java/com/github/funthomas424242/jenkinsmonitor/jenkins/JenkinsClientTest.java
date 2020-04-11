@@ -198,7 +198,7 @@ public class JenkinsClientTest {
 //        final Map<String, JobBeschreibung> jobBeschreibungen = new HashMap<>();
 //        final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
 //        jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(), jobBeschreibung);
-//        final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen = new HashMap<>();
+//        final JobStatusBeschreibungen jobStatusBeschreibungen = new HashMap<>();
 //
 //        assertDoesNotThrow(() -> requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen));
 //        assertEquals(1, jobStatusBeschreibungen.size());
@@ -218,7 +218,7 @@ public class JenkinsClientTest {
 //        final Map<String, JobBeschreibung> jobBeschreibungen = new HashMap<>();
 //        final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
 //        jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(), jobBeschreibung);
-//        final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen = new HashMap<>();
+//        final JobStatusBeschreibungen jobStatusBeschreibungen = new HashMap<>();
 //
 //        requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
 //
@@ -256,7 +256,7 @@ public class JenkinsClientTest {
 //        final JobBeschreibung jobBeschreibung2 = new JobBeschreibung("#1", new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
 //        jobBeschreibungen.put(jobBeschreibung2.getPrimaryKey(), jobBeschreibung2);
 //
-//        final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen = new HashMap<>();
+//        final JobStatusBeschreibungen jobStatusBeschreibungen = new HashMap<>();
 //
 //        requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
 //

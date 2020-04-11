@@ -26,6 +26,7 @@ import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.BasicAuthDaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibungen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,7 +71,7 @@ public class Configuration {
 
     protected void loadPropertiesFromFile(final File configFile) {
         if (this.isInitialisiert) return;
-        LOG.debug("load properties from file "+configFile);
+        LOG.debug("load properties from file " + configFile);
         final Properties properties = new Properties();
         try (FileInputStream propStream = new FileInputStream(configFile)) {
             properties.load(propStream);
@@ -131,9 +132,9 @@ public class Configuration {
         return Long.parseLong(propValue);
     }
 
-    public Map<String, JobBeschreibung> getJobBeschreibungen() {
+    public JobBeschreibungen getJobBeschreibungen() {
         loadPropertiesFromFile(configurationFile);
-        return configurationProperties
+        final Map<String, JobBeschreibung> jobBeschreibungMap = configurationProperties
             .stringPropertyNames()
             .stream()
             .sorted()
@@ -152,6 +153,7 @@ public class Configuration {
                     return new JobBeschreibung(jobAbfragedaten);
                 }
             }).collect(Collectors.toMap(JobBeschreibung::getPrimaryKey, Function.identity()));
+        return new JobBeschreibungen(jobBeschreibungMap);
     }
 
 }

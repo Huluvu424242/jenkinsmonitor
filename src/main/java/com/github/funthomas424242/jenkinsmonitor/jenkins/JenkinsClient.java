@@ -43,7 +43,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -129,7 +128,7 @@ public class JenkinsClient {
     }
 
 
-    public void ladeJobsStatus(final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen, final Map<String, JobBeschreibung> jobBeschreibungen) {
+    public void ladeJobsStatus(final JobStatusBeschreibungen jobStatusBeschreibungen, final JobBeschreibungen jobBeschreibungen) {
         LOG.debug("Frage Jobstatus ab");
         final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
         final List<Future<JobStatusBeschreibung>> results = new ArrayList<>();

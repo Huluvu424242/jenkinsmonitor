@@ -10,36 +10,28 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * it under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Lesser Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Lesser Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
  * #L%
  */
 
-import java.util.concurrent.Callable;
+import java.util.HashMap;
+import java.util.Map;
 
-public class JobAbfrage implements Callable<JobStatusBeschreibung> {
+public class JobBeschreibungen extends AbstractJobBeschreibungen<JobBeschreibung> {
 
-    final JobAbfragedaten jobAbfragedaten;
-    final String jobOrderId;
-    final JobStatusBeschreibungen jobStatusBeschreibungen;
-
-    public JobAbfrage(final JobStatusBeschreibungen jobStatusBeschreibungen, final JobAbfragedaten jobAbfragedaten, final String jobOrderId) {
-        this.jobStatusBeschreibungen = jobStatusBeschreibungen;
-        this.jobAbfragedaten = jobAbfragedaten;
-        this.jobOrderId = jobOrderId;
+    public JobBeschreibungen() {
+        super(new HashMap<>());
     }
 
-    @Override
-    public JobStatusBeschreibung call() throws Exception {
-        final JobStatusBeschreibung jobStatus = JenkinsClient.getJobStatus(jobAbfragedaten, jobOrderId);
-        this.jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
-        return jobStatus;
+    public JobBeschreibungen(final Map<String, JobBeschreibung> jobBeschreibungen) {
+        super(jobBeschreibungen);
     }
 }

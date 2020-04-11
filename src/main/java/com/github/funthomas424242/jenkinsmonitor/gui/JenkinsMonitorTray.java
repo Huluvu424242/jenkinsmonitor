@@ -27,8 +27,8 @@ import com.github.funthomas424242.jenkinsmonitor.etc.RealTimer;
 import com.github.funthomas424242.jenkinsmonitor.etc.Timer;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibungen;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibungen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,8 +39,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -57,7 +55,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected final Statusfenster statusArea;
     protected final Timer timer;
 
-    protected final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen;
+    protected final JobStatusBeschreibungen jobStatusBeschreibungen;
 
     public JenkinsMonitorTray(final Configuration configuration) {
         this(new JenkinsClient(), configuration);
@@ -74,7 +72,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected JenkinsMonitorTray(final SystemTrayWrapper systemTray, final Timer timer, final JenkinsClient requester, final Configuration configuration) {
         //Obtain only one instance of the SystemTray object
         this.tray = systemTray;
-        this.jobStatusBeschreibungen = new HashMap<>();
+        this.jobStatusBeschreibungen = new JobStatusBeschreibungen();
         this.timer = timer;
         timer.register(this);
         timer.start();
@@ -151,7 +149,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         // Create a popup menu components
         AbstractJobBeschreibung.sortedStreamOf(this.jobStatusBeschreibungen)
             .forEach(statusBeschreibung -> {
-            final String itemText = String.format("[%s] <%s> %s", statusBeschreibung.getJobOrderId(), statusBeschreibung.getJobStatus(), statusBeschreibung.getJobName());
+                final String itemText = String.format("[%s] <%s> %s", statusBeschreibung.getJobOrderId(), statusBeschreibung.getJobStatus(), statusBeschreibung.getJobName());
                 final MenuItem item = new MenuItem(itemText);
                 item.addActionListener(actionEvent -> {
                     URI webSite = null;
@@ -203,11 +201,11 @@ public class JenkinsMonitorTray implements Timer.Listener {
     }
 
     public void updateJobStatus() {
-        final Map<String, JobBeschreibung> jobBeschreibungen = this.configuration.getJobBeschreibungen();
+        final JobBeschreibungen jobBeschreibungen = this.configuration.getJobBeschreibungen();
         updateJobStatus(jobBeschreibungen);
     }
 
-    protected void updateJobStatus(Map<String, JobBeschreibung> jobBeschreibungen) {
+    protected void updateJobStatus(JobBeschreibungen jobBeschreibungen) {
         final java.util.List<String> entriesToDelete = AbstractJobBeschreibung.sortedKeyStreamOf(jobStatusBeschreibungen)
             .parallel()
             .filter(primaryKey -> !jobBeschreibungen.containsKey(primaryKey))
