@@ -50,9 +50,9 @@ public class Statusfenster extends JWindow {
     public Statusfenster() {
     }
 
-    public Statusfenster(final JobStatusBeschreibungen jobStatusBeschreibungen) {
-        aktualisiereContentPane(jobStatusBeschreibungen);
-    }
+//    public Statusfenster(final JobStatusBeschreibungen jobStatusBeschreibungen) {
+//        aktualisiereContentPane(jobStatusBeschreibungen);
+//    }
 
 
     private StatusItem createStatusItem(final int counter, JobStatusBeschreibung jobStatus) {
@@ -72,13 +72,13 @@ public class Statusfenster extends JWindow {
 
 
     private Container createContent(final JobStatusBeschreibungen jobsStatusBeschreibungen) {
+        final JobStatusBeschreibungen tmpJobStatusBeschreibungen = new JobStatusBeschreibungen(jobsStatusBeschreibungen.getCloneOfDataModel());
         final JList<StatusItem> list = new JList();
 
         // Model füllen
         final List<StatusItem> statusItems = new ArrayList<>();
         final Counter counter = new Counter();
-        AbstractJobBeschreibung.sortedStreamOf(jobsStatusBeschreibungen)
-//            .keySet().stream().sorted().map(jobsStatusBeschreibungen::get)
+        AbstractJobBeschreibung.sortedStreamOf(tmpJobStatusBeschreibungen)
             .forEach((jobStatus) -> {
                 statusItems.add(createStatusItem(counter.value + 1, jobStatus));
                 counter.value++;
