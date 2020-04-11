@@ -63,16 +63,16 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
 
     @Override
     public JobStatusBeschreibung call() throws Exception {
-        final JobStatusBeschreibung jobStatus = getJobStatus(jobAbfragedaten, jobOrderId);
+        final JobStatusBeschreibung jobStatus = getJobStatus();
         this.jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
         return jobStatus;
     }
 
 
-    protected static JobStatusBeschreibung getJobStatus(final JobAbfragedaten jobAbfragedaten, final String jobOrderId) {
+    protected JobStatusBeschreibung getJobStatus() {
 
         try {
-            final JSONObject resultJSON = sendGetRequest(jobAbfragedaten);
+            final JSONObject resultJSON = sendGetRequest();
             final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
             final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
             return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
@@ -88,13 +88,13 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
         }
     }
 
-    protected static JSONObject sendGetRequest(final JobAbfragedaten statusabfrageDaten) throws HttpResponseException {
-        final URL statusAbfrageUrl = statusabfrageDaten.getStatusAbfrageUrl();
+    protected JSONObject sendGetRequest() throws HttpResponseException {
+        final URL statusAbfrageUrl = jobAbfragedaten.getStatusAbfrageUrl();
         int statusCode = -1;
         try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             final HttpHost target = new HttpHost(statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort(), statusAbfrageUrl.getProtocol());
             final HttpGet httpGetRequest = new HttpGet(statusAbfrageUrl.getPath());
-            final String basicAuthToken = statusabfrageDaten.getBasicAuthToken();
+            final String basicAuthToken = jobAbfragedaten.getBasicAuthToken();
             if (basicAuthToken != null && basicAuthToken.length() > 1) {
                 httpGetRequest.setHeader("Authorization", "Basic " + basicAuthToken);
             }
