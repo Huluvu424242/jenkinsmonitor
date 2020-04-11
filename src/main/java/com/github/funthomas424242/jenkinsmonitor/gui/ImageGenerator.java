@@ -61,7 +61,6 @@ public class ImageGenerator {
         final int partImageWidth = width / jobCount;
         final StartXHolder startXHolder = new StartXHolder();
         AbstractJobBeschreibung.sortedKeyStreamOf(this.jobsStatusBeschreibungen)
-//            .keySet().stream().sorted()
             .forEach(primaryKey -> {
                 drawPartImage(image, startXHolder.startX, partImageWidth, height, this.jobsStatusBeschreibungen.get(primaryKey).getJobStatus());
                 startXHolder.startX += partImageWidth;
@@ -86,7 +85,6 @@ public class ImageGenerator {
     public void updateStatusArea(final Statusfenster statusArea) {
         if (this.jobsStatusBeschreibungen != null) {
             statusArea.aktualisiereContentPane();
-//            statusArea.aktualisiereContentPane(this.jobsStatusBeschreibungen);
         }
     }
 
