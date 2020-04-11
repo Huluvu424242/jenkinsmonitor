@@ -93,7 +93,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         return this.tray.getTrayIcon();
     }
 
-    protected void erzeugeDarstellung() {
+    protected void erzeugeTrayIconDarstellung() {
         LOGGER.debug("Erzeuge Darstellung TrayIcon");
         try {
             final ImageGenerator imageGenerator = getImageGenerator();
@@ -215,13 +215,14 @@ public class JenkinsMonitorTray implements Timer.Listener {
         entriesToDelete.stream().parallel().forEach(entry -> jobStatusBeschreibungen.remove(entry));
 
         // aktualisiere den Status der Jobs durch Jenkinsabfragen
-        updateDarstellung();
+        aktualisiereTrayIconDarstellung();
+        // Langlaufender Prozess durch Request die ins timeout laufen
         requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
-        updateDarstellung();
+        aktualisiereTrayIconDarstellung();
     }
 
-    protected void updateDarstellung() {
-        erzeugeDarstellung();
+    protected void aktualisiereTrayIconDarstellung() {
+        erzeugeTrayIconDarstellung();
     }
 
     public Configuration getConfiguration() {
