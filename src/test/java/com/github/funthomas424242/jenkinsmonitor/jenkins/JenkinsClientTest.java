@@ -37,6 +37,7 @@ public class JenkinsClientTest {
     protected WireMockServer wireMockServer;
 
     protected JobStatusBeschreibungen jobStatusBeschreibungen;
+    protected JenkinsClient jenkinsClient;
 
 
     @BeforeAll
@@ -51,6 +52,7 @@ public class JenkinsClientTest {
         JenkinsAPIMock.definiereAnnahmen(wireMockServer);
 
         this.jobStatusBeschreibungen = new JobStatusBeschreibungen();
+        this.jenkinsClient = new JenkinsClient();
     }
 
     @AfterEach
@@ -62,90 +64,61 @@ public class JenkinsClientTest {
     @Test
     @DisplayName("ladeStatus beim Auftreten einer IO Exception wird diese geloggt")
     void checkLadeStatusWithException() {
-
-        final JenkinsClient requester = new JenkinsClient() {
-//            @Override
-//            protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten statusAbfrageInformationen, String jobId) {
-//                return new JobStatusBeschreibung("test", JobStatus.OTHER, statusAbfrageInformationen.getJenkinsJobUrl(), jobId);
-//            }
-        };
+        // TODO Logging Mock erstellen und auswerten
 
         final JobBeschreibungen jobBeschreibungen = new JobBeschreibungen();
-        final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
+        final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://localhost:8099/job/multibranchjobred/job/master")));
         jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(), jobBeschreibung);
 
-        assertDoesNotThrow(() -> requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen));
+        assertDoesNotThrow(() -> {
+            jenkinsClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
+        });
         assertEquals(1, jobStatusBeschreibungen.size());
     }
 
 
     @Test
     @DisplayName("prüfe ladeJobStatus für einen Job mit rotem Build")
-    @Disabled("refactoring")
     void checkLadeOneJobStatusFailure() {
-
-        final JenkinsClient requester = new JenkinsClient() {
-//            @Override
-//            protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten statusAbfrageInformationen, final String jobId) {
-//                return new JobStatusBeschreibung("hallo", JobStatus.FAILURE, statusAbfrageInformationen.getJenkinsJobUrl(), jobId);
-//            }
-        };
         final JobBeschreibungen jobBeschreibungen = new JobBeschreibungen();
-        final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
+        final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://localhost:8099/job/multibranchjobred/job/master")));
         jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(), jobBeschreibung);
-        final JobStatusBeschreibungen jobStatusBeschreibungen = new JobStatusBeschreibungen();
 
-        requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
+        jenkinsClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
 
         assertEquals(1, jobStatusBeschreibungen.size());
-        final JobStatusBeschreibung jobStatusBeschreibung = jobStatusBeschreibungen.get("null#http://test.org");
-        assertEquals("hallo", jobStatusBeschreibung.getJobName());
+        final JobStatusBeschreibung jobStatusBeschreibung = jobStatusBeschreibungen.get("null#http://localhost:8099/job/multibranchjobred/job/master");
+        assertEquals("mypocketmod » master #2", jobStatusBeschreibung.getJobName());
         assertEquals(JobStatus.FAILURE, jobStatusBeschreibung.getJobStatus());
-        assertEquals("http://test.org", jobStatusBeschreibung.getJobUrl().toExternalForm());
-        assertEquals("null#http://test.org", jobStatusBeschreibung.getPrimaryKey());
+        assertEquals("http://localhost:8099/job/multibranchjobred/job/master", jobStatusBeschreibung.getJobUrl().toExternalForm());
+        assertEquals("null#http://localhost:8099/job/multibranchjobred/job/master", jobStatusBeschreibung.getPrimaryKey());
     }
 
     @Test
     @DisplayName("prüfe ladeJobStatutus für zwei Jobs einer rot und einer gelb")
-    @Disabled("parallel")
     void checkLadeTwoJobStatusSUCCESS_UNSTABLE() {
 
-        final JenkinsClient requester = new JenkinsClient() {
-//            int counter = 0;
-//
-//            @Override
-//            protected JobStatusBeschreibung getJobStatus(final JobAbfragedaten statusAbfrageInformationen, final String jobId) {
-//                if (counter == 0) {
-//                    counter++;
-//                    return new JobStatusBeschreibung("hallo", JobStatus.FAILURE, statusAbfrageInformationen.getJenkinsJobUrl(), jobId);
-//                } else {
-//                    counter++;
-//                    return new JobStatusBeschreibung("hallo", JobStatus.SUCCESS, statusAbfrageInformationen.getJenkinsJobUrl(), jobId);
-//                }
-//            }
-        };
-
         final JobBeschreibungen jobBeschreibungen = new JobBeschreibungen();
-        final JobBeschreibung jobBeschreibung1 = new JobBeschreibung("#2", new JobAbfragedaten(NetworkHelper.urlOf("http://test1.org")));
+        final JobBeschreibung jobBeschreibung1 = new JobBeschreibung("#2", new JobAbfragedaten(NetworkHelper.urlOf("http://localhost:8099/job/multibranchjobred/job/master")));
         jobBeschreibungen.put(jobBeschreibung1.getPrimaryKey(), jobBeschreibung1);
-        final JobBeschreibung jobBeschreibung2 = new JobBeschreibung("#1", new JobAbfragedaten(NetworkHelper.urlOf("http://test.org")));
+        final JobBeschreibung jobBeschreibung2 = new JobBeschreibung("#1", new JobAbfragedaten(NetworkHelper.urlOf("http://localhost:8099/job/multibranchjobgreen/job/master")));
         jobBeschreibungen.put(jobBeschreibung2.getPrimaryKey(), jobBeschreibung2);
 
         final JobStatusBeschreibungen jobStatusBeschreibungen = new JobStatusBeschreibungen();
 
-        requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
+        jenkinsClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
 
         assertEquals(2, jobStatusBeschreibungen.size());
-        final JobStatusBeschreibung jobStatusBeschreibung0 = jobStatusBeschreibungen.get("#1#http://test.org");/**/
-        final JobStatusBeschreibung jobStatusBeschreibung1 = jobStatusBeschreibungen.get("#2#http://test1.org");/**/
+        final JobStatusBeschreibung jobStatusBeschreibung0 = jobStatusBeschreibungen.get("#1#http://localhost:8099/job/multibranchjobgreen/job/master");/**/
+        final JobStatusBeschreibung jobStatusBeschreibung1 = jobStatusBeschreibungen.get("#2#http://localhost:8099/job/multibranchjobred/job/master");/**/
 
-        assertEquals("hallo", jobStatusBeschreibung0.getJobName());
-        assertEquals(JobStatus.FAILURE, jobStatusBeschreibung0.getJobStatus());
-        assertEquals("http://test.org", jobStatusBeschreibung0.getJobUrl().toExternalForm());
+        assertEquals("mypocketmod » master #2", jobStatusBeschreibung0.getJobName());
+        assertEquals(JobStatus.SUCCESS, jobStatusBeschreibung0.getJobStatus());
+        assertEquals("http://localhost:8099/job/multibranchjobgreen/job/master", jobStatusBeschreibung0.getJobUrl().toExternalForm());
 
-        assertEquals("hallo", jobStatusBeschreibung1.getJobName());
-        assertEquals(JobStatus.SUCCESS, jobStatusBeschreibung1.getJobStatus());
-        assertEquals("http://test1.org", jobStatusBeschreibung1.getJobUrl().toExternalForm());
+        assertEquals("mypocketmod » master #2", jobStatusBeschreibung1.getJobName());
+        assertEquals(JobStatus.FAILURE, jobStatusBeschreibung1.getJobStatus());
+        assertEquals("http://localhost:8099/job/multibranchjobred/job/master", jobStatusBeschreibung1.getJobUrl().toExternalForm());
     }
 
 }
