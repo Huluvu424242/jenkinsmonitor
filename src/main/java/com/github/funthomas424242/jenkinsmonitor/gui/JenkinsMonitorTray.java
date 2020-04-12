@@ -83,7 +83,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
             this.statusArea.setAlwaysOnTop(true);
             this.statusArea.setLocationByPlatform(false);
         } catch (Exception ex) {
-            LOGGER.error("Konnte natives Desktopverhalten nicht setzen", ex);
+            LOGGER.warn("Konnte natives Desktopverhalten nicht setzen", ex);
         }
     }
 
@@ -129,7 +129,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
             trayIcon.setPopupMenu(createSettingsMenu());
 
         } catch (Exception ex) {
-            LOGGER.error("Unerwartet wie immer ", ex);
+            LOGGER.error("Unerwarteter Fehler - wie immer :( ", ex);
         }
 
     }
@@ -180,7 +180,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
                 Desktop.getDesktop().browse(new URI(WEBSITE_JENKINSMONITOR_ISSUES));
                 statusArea.setVisible(false);
             } catch (IOException | URISyntaxException ex) {
-                LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, WEBSITE_JENKINSMONITOR_ISSUES), ex);
+                LOGGER.warn(String.format(ERR_COULD_NOT_OPEN_URL, WEBSITE_JENKINSMONITOR_ISSUES), ex);
             }
         });
         MenuItem exitItem = new MenuItem("Beenden");

@@ -56,7 +56,7 @@ public class JenkinsClient {
                     jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
                     LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
                 } catch (Exception e) {
-                    LOG.error("Read Future Result goes wrong.");
+                    LOG.warn("Read Future Result goes wrong.");
                 }
             });
         executor.shutdown();

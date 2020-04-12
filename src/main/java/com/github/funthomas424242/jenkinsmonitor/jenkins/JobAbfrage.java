@@ -112,11 +112,11 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
             }
             return getJsonObjectFromResponse(httpResponse);
         } catch (JSONException | IOException ex) {
-            LOG.error("Could not retrieve data from jenkins: " + ex);
+            LOG.warn("Could not retrieve data from jenkins: " + ex);
             if (ex instanceof HttpResponseException) {
                 throw (HttpResponseException) ex;
             } else {
-                LOG.error("An Error occured" + ex);
+                LOG.warn("An Error occured" + ex);
             }
         }
         return null;

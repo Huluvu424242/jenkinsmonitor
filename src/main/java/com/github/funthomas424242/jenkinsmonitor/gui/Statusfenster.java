@@ -187,10 +187,8 @@ class SharedListSelectionHandler implements ListSelectionListener {
                 Desktop.getDesktop().browse(navigationURI);
                 statusArea.setVisible(false);
             } catch (URISyntaxException | IOException e) {
-                LOGGER.error(e.toString());
+                LOGGER.warn(e.toString());
             }
-
-
         }
     }
 }

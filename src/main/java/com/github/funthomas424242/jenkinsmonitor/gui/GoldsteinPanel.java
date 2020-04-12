@@ -51,7 +51,7 @@ public class GoldsteinPanel extends JPanel {
             this.add(picLabel);
             inputStream.close();
         } catch (IOException e) {
-            LOGGER.error("Goldstein Panel nicht erzeugt: " + e);
+            LOGGER.warn("Goldstein Panel nicht erzeugt: " + e);
         }
 
         this.add( new JLabel("Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft."));

@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Objects;
 
@@ -47,12 +48,8 @@ public class BasicAuthDaten {
 
     public String getBasicAuthToken(String password) {
         String encodedToken = null;
-        try {
-            if (password != null && password.equals(this.password)) {
-                encodedToken = Base64.getEncoder().encodeToString(String.format("%s:%s", this.userName, password).getBytes("utf-8"));
-            }
-        } catch (UnsupportedEncodingException e) {
-            LOGGER.error("Nichtunterstütztes Encoding utf-8 für das Verschlüsseln der Zugangsdaten angefordert");
+        if (password != null && password.equals(this.password)) {
+            encodedToken = Base64.getEncoder().encodeToString(String.format("%s:%s", this.userName, password).getBytes(StandardCharsets.UTF_8));
         }
         return encodedToken;
     }

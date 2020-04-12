@@ -61,7 +61,7 @@ public class JobAbfragedaten {
         try {
             return new URL(jenkinsJobUrl.toExternalForm() + JenkinsAPI.STATUS_PATH);
         } catch (MalformedURLException e) {
-            LOGGER.error("Generierter Statusabfrage URL ist ungültig", e);
+            LOGGER.warn("Generierter Statusabfrage URL ist ungültig", e);
         }
         return null;
     }
