@@ -51,7 +51,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
 
     protected final Configuration configuration;
     protected final SystemTrayWrapper tray;
-    protected final JenkinsClient requester;
+    protected final JenkinsClient jenkinsClient;
     protected final Statusfenster statusArea;
     protected final Timer timer;
 
@@ -69,7 +69,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         this(new SystemTrayWrapper(), timer, jenkinsClient, configuration);
     }
 
-    protected JenkinsMonitorTray(final SystemTrayWrapper systemTray, final Timer timer, final JenkinsClient requester, final Configuration configuration) {
+    protected JenkinsMonitorTray(final SystemTrayWrapper systemTray, final Timer timer, final JenkinsClient jenkinsClient, final Configuration configuration) {
         //Obtain only one instance of the SystemTray object
         this.tray = systemTray;
         this.jobStatusBeschreibungen = new JobStatusBeschreibungen();
@@ -77,7 +77,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         timer.register(this);
         timer.start();
         this.configuration = configuration;
-        this.requester = requester;
+        this.jenkinsClient = jenkinsClient;
         this.statusArea = new Statusfenster(jobStatusBeschreibungen);
         try {
             this.statusArea.setAlwaysOnTop(true);
@@ -202,10 +202,6 @@ public class JenkinsMonitorTray implements Timer.Listener {
 
     public void updateJobStatus() {
         final JobBeschreibungen jobBeschreibungen = this.configuration.getJobBeschreibungen();
-        updateJobStatus(jobBeschreibungen);
-    }
-
-    protected void updateJobStatus(JobBeschreibungen jobBeschreibungen) {
         final java.util.List<String> entriesToDelete = AbstractJobBeschreibung.sortedKeyStreamOf(jobStatusBeschreibungen)
             .parallel()
             .filter(primaryKey -> !jobBeschreibungen.containsKey(primaryKey))
@@ -215,7 +211,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         // aktualisiere den Status der Jobs durch Jenkinsabfragen
         aktualisiereTrayIconDarstellung();
         // Langlaufender Prozess durch Request die ins timeout laufen
-        requester.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
+        jenkinsClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
         aktualisiereTrayIconDarstellung();
     }
 
