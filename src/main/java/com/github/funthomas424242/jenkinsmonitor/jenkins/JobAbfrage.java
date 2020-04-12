@@ -77,18 +77,20 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
             final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
             return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
 
-        } catch (HttpResponseException e) {
+        } catch (HttpResponseException  e) {
             if (e.getStatusCode() == 404) {
-                return new JobStatusBeschreibung("Job Not Found:" + jobAbfragedaten.getJenkinsJobUrl(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
+                return new JobStatusBeschreibung("Job Not Found ERROR: " + jobAbfragedaten.getJenkinsJobUrl(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
             } else {
                 return new JobStatusBeschreibung("HTTP Status:" + e.getStatusCode(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
             }
+        } catch ( ConnectionFailedException e) {
+            return new JobStatusBeschreibung("Connection ERROR: " + jobAbfragedaten.getJenkinsJobUrl(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
         } catch (NullPointerException | JSONException ex) {
             return new JobStatusBeschreibung(jobAbfragedaten.getJenkinsJobUrl().toExternalForm(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
         }
     }
 
-    protected JSONObject sendGetRequest() throws HttpResponseException {
+    protected JSONObject sendGetRequest() throws HttpResponseException,  ConnectionFailedException {
         final URL statusAbfrageUrl = jobAbfragedaten.getStatusAbfrageUrl();
         int statusCode = -1;
         try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
@@ -98,7 +100,12 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
             if (basicAuthToken != null && basicAuthToken.length() > 1) {
                 httpGetRequest.setHeader("Authorization", "Basic " + basicAuthToken);
             }
-            final HttpResponse httpResponse = httpClient.execute(target, httpGetRequest);
+            final HttpResponse httpResponse;
+            try {
+                httpResponse = httpClient.execute(target, httpGetRequest);
+            } catch (IOException ex) {
+                throw new ConnectionFailedException(ex);
+            }
             statusCode = httpResponse.getStatusLine().getStatusCode();
             if (statusCode != 200) {
                 throw new HttpResponseException(statusCode, httpResponse.getStatusLine().getReasonPhrase());
