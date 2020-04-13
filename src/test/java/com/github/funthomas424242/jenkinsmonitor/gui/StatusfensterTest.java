@@ -25,11 +25,13 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibungen;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
+@Tag("headfull")
 class StatusfensterTest {
 
 
