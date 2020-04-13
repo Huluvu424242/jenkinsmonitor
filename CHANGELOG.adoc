@@ -8,9 +8,16 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 
 //== [undelivered]
 
-== [0.0.2] fertiggestellt 
+== [0.0.2] fertiggestellt 2020-04-13
+=== known issues
+
+* Hintergrundfarbe der Jobs im Statusfenster ist nicht einheitlich breit
+
 === Added
 
+* Logo von Goldstein und Zitate werden mit angezeigt.
+* Behandlung von Requestfehlern implementiert.
+* file logging supported via -Dlogback.configurationFile=filelogging.xml
 * https://github.com/FunThomas424242/jenkinsmonitor/issues/35[issue #35] Zustand Abgebrochen aufgenommen
 * https://github.com/FunThomas424242/jenkinsmonitor/issues/32[issue #32] Datei mit Verhaltensregeln steht bereit
 * https://github.com/FunThomas424242/jenkinsmonitor/issues/25[issue #25] Basic Authentification wird unterstützt
@@ -18,10 +25,16 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 
 === Changed
 
+* Parallele Ausführung von Anfragen an den Jenkins
+* Vorabdarstellung des TrayIcon um Zeit zu den letzten eintreffenden Responses zu verkürzen
+* Scrollbares Statusfenster um lange Joblisten beobachtbar zu machen.
+* Job Not Found Fehler werden jetzt im Status angezeigt
+* Connection Fehler werden jetzt im Status angezeigt
+* Statusfenster wird nach Timer aktualisiert auch wenn noch nicht alle Responses eingetroffen sind.
 * https://github.com/FunThomas424242/jenkinsmonitor/issues/19[issue #19] Umgestellt auf jdk11
-* file logging supported via -Dlogback.configurationFile=filelogging.xml
 * natural sort of jobident supported
 * hard system.exit(0) added to avoid zoombie http get requests
+* Loglevel und Logmeldungen überarbeitet
 
 ### Removed
 
