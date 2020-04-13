@@ -49,13 +49,8 @@ public class Statusfenster extends JWindow {
 
     final JobStatusBeschreibungen jobStatusBeschreibungen;
 
-//
-//    public Statusfenster() {
-//    }
-
     public Statusfenster(final JobStatusBeschreibungen jobStatusBeschreibungen) {
         this.jobStatusBeschreibungen = jobStatusBeschreibungen;
-//        aktualisiereContentPane(jobStatusBeschreibungen);
     }
 
 
@@ -67,17 +62,16 @@ public class Statusfenster extends JWindow {
         final String status = jobStatus.getJobStatus().toString() != null ? jobStatus.getJobStatus().toString() : "unbekannt";
         final String url = jobStatus.getJobUrl() != null ? jobStatus.getJobUrl().toString() : "<no url>";
 
-
-        final String htmlTemplate = "<html><body style=\"display:inline-block;background-color:" + colorValueHEX + ";\"><h1>[" + orderId + "] " + jobName + "</h1>"
+        final String rawLine = "[" + orderId + "] " + jobName;
+        final String htmlTemplate = "<html><div style=\"background-color:" + colorValueHEX + ";\"><h1>" + rawLine + "</h1>"
             + "<p>(" + counterValue + ") Status: " + status
-            + " <a href=\"" + url + "\">" + url + "</a></p></body></html>";
+            + " <a href=\"" + url + "\">" + url + "</a></p></div></html>";
         return new StatusItem(htmlTemplate, jobStatus.getJobUrl());
     }
 
 
     private Container createContent(final JobStatusBeschreibungen jobsStatusBeschreibungen) {
         final JobStatusBeschreibungen tmpJobStatusBeschreibungen = new JobStatusBeschreibungen(jobsStatusBeschreibungen.getCloneOfDataModel());
-        final JList<StatusItem> list = new JList();
 
         // Model füllen
         final List<StatusItem> statusItems = new ArrayList<>();
@@ -88,19 +82,14 @@ public class Statusfenster extends JWindow {
                 counter.value++;
             });
 
-        // Layoutvorgaben
-        final GridBagLayout layout = new GridBagLayout();
-        list.setLayout(layout);
-        final GridBagConstraints layoutVorgaben = new GridBagConstraints();
-        layoutVorgaben.weightx = 1;
-        layoutVorgaben.fill = GridBagConstraints.HORIZONTAL;
-        layoutVorgaben.gridwidth = GridBagConstraints.REMAINDER;
-        layout.setConstraints(list, layoutVorgaben);
 
-        // Daten setzen
+        // Datenmodell erzeugen
         final DefaultListModel<StatusItem> listModel = new DefaultListModel<>();
         listModel.addAll(statusItems);
-        list.setModel(listModel);
+        // Liste erzeugen mit Datenmodell
+        final JList<StatusItem> list = new JList<>(listModel);
+        // Layoutvorgaben
+        list.setLayoutOrientation(JList.VERTICAL);
 
         // Selektion Modus
         list.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
@@ -109,14 +98,14 @@ public class Statusfenster extends JWindow {
             new SharedListSelectionHandler(statusItems, this));
 
         // Scrollpane erzeugen
-        final JScrollPane pane = new JScrollPane(list);
-        final GoldsteinPanel panel = new GoldsteinPanel();
-        final JPanel splitPane = new JPanel();
-        splitPane.setLayout(new GridLayout(2, 1));
-        splitPane.setOpaque(true);
-        splitPane.add(pane);
-        splitPane.add(panel);
-        return splitPane;
+        final JScrollPane scrollPane = new JScrollPane(list);
+        final GoldsteinPanel logoPanel = new GoldsteinPanel();
+        final JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new GridLayout(2, 1));
+        contentPanel.setOpaque(true);
+        contentPanel.add(scrollPane);
+        contentPanel.add(logoPanel);
+        return contentPanel;
     }
 
     public void aktualisiereContentPane() {

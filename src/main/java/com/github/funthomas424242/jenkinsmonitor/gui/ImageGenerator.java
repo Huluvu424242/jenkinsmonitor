@@ -57,12 +57,14 @@ public class ImageGenerator {
             return image;
         }
 
-        final int jobCount = jobsStatusBeschreibungen.size();
+        final JobStatusBeschreibungen tmpJobStatusBeschreibungen = new JobStatusBeschreibungen(jobsStatusBeschreibungen.getCloneOfDataModel());
+
+        final int jobCount = tmpJobStatusBeschreibungen.size();
         final int partImageWidth = width / jobCount;
         final StartXHolder startXHolder = new StartXHolder();
-        AbstractJobBeschreibung.sortedKeyStreamOf(this.jobsStatusBeschreibungen)
+        AbstractJobBeschreibung.sortedKeyStreamOf(tmpJobStatusBeschreibungen)
             .forEach(primaryKey -> {
-                drawPartImage(image, startXHolder.startX, partImageWidth, height, this.jobsStatusBeschreibungen.get(primaryKey).getJobStatus());
+                drawPartImage(image, startXHolder.startX, partImageWidth, height, tmpJobStatusBeschreibungen.get(primaryKey).getJobStatus());
                 startXHolder.startX += partImageWidth;
             });
         return image;

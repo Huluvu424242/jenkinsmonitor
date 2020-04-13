@@ -25,15 +25,38 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class JobStatusBeschreibungen extends AbstractJobBeschreibungen<JobStatusBeschreibung> {
 
+//    protected int displayCharLength = 0;
 
     public JobStatusBeschreibungen() {
         super(new HashMap<>());
     }
 
-    public JobStatusBeschreibungen(final Map<String,JobStatusBeschreibung> jobStatusBeschreibungen) {
+    public JobStatusBeschreibungen(final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen) {
         super(jobStatusBeschreibungen);
     }
 
+//    public void computeDisplayCharLength() {
+//
+//        final Comparator<Integer> maxComparator = new Comparator<Integer>() {
+//
+//            @Override
+//            public int compare(Integer n1, Integer n2) {
+//                return n1.compareTo(n2);
+//            }
+//        };
+//
+//        final Optional<Integer> maxLen = AbstractJobBeschreibung.sortedStreamOf(this)
+//            .map(jobStatusBeschreibung -> jobStatusBeschreibung.getJobName().length())
+//            .max(maxComparator);
+//        if (maxLen.isPresent()) {
+//            this.displayCharLength = maxLen.get();
+//        }
+//    }
+//
+//    public int getDisplayCharLength() {
+//        return this.displayCharLength;
+//    }
 }
