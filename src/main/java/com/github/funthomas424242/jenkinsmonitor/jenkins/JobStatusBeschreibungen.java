@@ -22,13 +22,15 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 
 public class JobStatusBeschreibungen extends AbstractJobBeschreibungen<JobStatusBeschreibung> {
 
-//    protected int displayCharLength = 0;
+    protected int displayCharLength = 0;
 
     public JobStatusBeschreibungen() {
         super(new HashMap<>());
@@ -38,25 +40,28 @@ public class JobStatusBeschreibungen extends AbstractJobBeschreibungen<JobStatus
         super(jobStatusBeschreibungen);
     }
 
-//    public void computeDisplayCharLength() {
-//
-//        final Comparator<Integer> maxComparator = new Comparator<Integer>() {
-//
-//            @Override
-//            public int compare(Integer n1, Integer n2) {
-//                return n1.compareTo(n2);
-//            }
-//        };
-//
-//        final Optional<Integer> maxLen = AbstractJobBeschreibung.sortedStreamOf(this)
-//            .map(jobStatusBeschreibung -> jobStatusBeschreibung.getJobName().length())
-//            .max(maxComparator);
-//        if (maxLen.isPresent()) {
-//            this.displayCharLength = maxLen.get();
-//        }
-//    }
-//
-//    public int getDisplayCharLength() {
-//        return this.displayCharLength;
-//    }
+    public void computeDisplayCharLength() {
+
+        final Comparator<Integer> maxComparator = new Comparator<Integer>() {
+
+            @Override
+            public int compare(Integer n1, Integer n2) {
+                return n1.compareTo(n2);
+            }
+        };
+
+        final Optional<Integer> nameMaxLen = AbstractJobBeschreibung.sortedStreamOf(this)
+            .map(jobStatusBeschreibung -> jobStatusBeschreibung.getJobName().length()+jobStatusBeschreibung.getJobOrderId().length())
+            .max(maxComparator);
+        final Optional<Integer> urlMaxLen = AbstractJobBeschreibung.sortedStreamOf(this)
+            .map(jobStatusBeschreibung -> jobStatusBeschreibung.getJobUrl().toExternalForm().length())
+            .max(maxComparator);
+        if (nameMaxLen.isPresent() && urlMaxLen.isPresent()) {
+            this.displayCharLength = Math.max(nameMaxLen.get(),urlMaxLen.get());
+        }
+    }
+
+    public int getDisplayCharLength() {
+        return this.displayCharLength;
+    }
 }

@@ -77,7 +77,7 @@ public class ImageGenerator {
                                           final JobStatus jobStatus) {
 
         final Graphics g = image.createGraphics();
-        g.setColor(jobStatus.getColor());
+        g.setColor(jobStatus.getAWTColor());
         g.fillRect(x, 0, width, height);
         g.dispose();
 

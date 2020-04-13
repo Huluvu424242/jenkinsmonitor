@@ -22,15 +22,18 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
+import javafx.scene.control.Label;
+
 import java.net.URL;
 
-public class StatusItem {
+public class StatusItem extends Label {
 
     protected final String htmlSnippet;
 
     protected final URL navigationURL;
 
     public StatusItem(final String htmlSnippet, final URL navigationURL) {
+        super(htmlSnippet);
         this.htmlSnippet = htmlSnippet;
         this.navigationURL = navigationURL;
     }
@@ -39,8 +42,8 @@ public class StatusItem {
         return this.navigationURL;
     }
 
-    @Override
-    public String toString() {
-        return htmlSnippet;
-    }
+//    @Override
+//    public String toString() {
+//        return htmlSnippet;
+//    }
 }

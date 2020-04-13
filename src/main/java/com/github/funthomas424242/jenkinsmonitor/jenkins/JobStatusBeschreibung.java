@@ -22,6 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
+import javafx.scene.paint.Color;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;

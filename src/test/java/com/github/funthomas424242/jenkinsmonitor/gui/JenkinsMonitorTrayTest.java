@@ -97,7 +97,7 @@ public class JenkinsMonitorTrayTest {
         jenkinsMonitorTray.updateJobStatus();
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertEquals("Keine Jobs überwachend", trayIcon.getToolTip());
-        assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.OTHER.getColor()));
+        assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.OTHER.getAWTColor()));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class JenkinsMonitorTrayTest {
         jenkinsMonitorTray.updateJobStatus();
 
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
-        assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.SUCCESS.getColor()));
+        assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.SUCCESS.getAWTColor()));
     }
 
     @Test
@@ -119,7 +119,7 @@ public class JenkinsMonitorTrayTest {
         jenkinsMonitorTray.updateJobStatus();
 
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
-        assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.UNSTABLE.getColor()));
+        assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.UNSTABLE.getAWTColor()));
     }
 
     @Test
@@ -130,7 +130,7 @@ public class JenkinsMonitorTrayTest {
         jenkinsMonitorTray.updateJobStatus();
 
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
-        assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.FAILURE.getColor()));
+        assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.FAILURE.getAWTColor()));
     }
 
     @Test
@@ -142,8 +142,8 @@ public class JenkinsMonitorTrayTest {
 
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
-            , JobStatus.SUCCESS.getColor()
-            , JobStatus.FAILURE.getColor()));
+            , JobStatus.SUCCESS.getAWTColor()
+            , JobStatus.FAILURE.getAWTColor()));
     }
 
     @Test
@@ -155,9 +155,9 @@ public class JenkinsMonitorTrayTest {
 
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
-            , JobStatus.SUCCESS.getColor()
-            , JobStatus.FAILURE.getColor()
-            , JobStatus.UNSTABLE.getColor())
+            , JobStatus.SUCCESS.getAWTColor()
+            , JobStatus.FAILURE.getAWTColor()
+            , JobStatus.UNSTABLE.getAWTColor())
         );
     }
 
@@ -172,18 +172,18 @@ public class JenkinsMonitorTrayTest {
 
         final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
-            , JobStatus.SUCCESS.getColor()
-            , JobStatus.FAILURE.getColor()
-            , JobStatus.UNSTABLE.getColor())
+            , JobStatus.SUCCESS.getAWTColor()
+            , JobStatus.FAILURE.getAWTColor()
+            , JobStatus.UNSTABLE.getAWTColor())
         );
 
         clock.elapseTime();
 
         final TrayIcon trayIcon1 = jenkinsMonitorTray.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon1.getImage()
-            , JobStatus.SUCCESS.getColor()
-            , JobStatus.SUCCESS.getColor()
-            , JobStatus.SUCCESS.getColor())
+            , JobStatus.SUCCESS.getAWTColor()
+            , JobStatus.SUCCESS.getAWTColor()
+            , JobStatus.SUCCESS.getAWTColor())
         );
 
     }

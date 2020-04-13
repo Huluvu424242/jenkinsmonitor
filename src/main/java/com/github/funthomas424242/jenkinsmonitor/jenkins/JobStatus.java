@@ -22,26 +22,32 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
-import java.awt.*;
+import javafx.scene.paint.Color;
 
 public enum JobStatus {
-    SUCCESS(Color.green, "#7FFFD4"),
-    FAILURE(Color.red, "#FF7F50"),
-    UNSTABLE(Color.yellow, "#FFFF00"),
-    ABORTED(Color.lightGray, "#C0C0C0"),
+    SUCCESS(java.awt.Color.green, Color.GREEN, "#7FFFD4"),
+    FAILURE(java.awt.Color.red, Color.RED, "#FF7F50"),
+    UNSTABLE(java.awt.Color.yellow, Color.YELLOW, "#FFFF00"),
+    ABORTED(java.awt.Color.lightGray, Color.LIGHTGRAY, "#C0C0C0"),
     // lightGray statt gray wegen gray Anomalie!;
-    OTHER(Color.lightGray, "#C0C0C0");
+    OTHER(java.awt.Color.lightGray, Color.LIGHTGRAY, "#C0C0C0");
 
     protected final Color color;
+    protected final java.awt.Color awtColor;
     protected final String colorValueHEX;
 
-    JobStatus(Color color, String colorValueHEX) {
+    JobStatus(java.awt.Color awtColor, Color color, String colorValueHEX) {
+        this.awtColor = awtColor;
         this.color = color;
         this.colorValueHEX = colorValueHEX;
     }
 
     public Color getColor() {
         return this.color;
+    }
+
+    public java.awt.Color getAWTColor() {
+        return this.awtColor;
     }
 
     public String getColorValueHEX() {

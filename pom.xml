@@ -50,6 +50,8 @@
     <maven.compiler.release>11</maven.compiler.release>
     <junit-jupiter-engine.version>5.6.2</junit-jupiter-engine.version>
     <junit-excluded-groups/>
+    <javafx.version>14</javafx.version>
+    <main.class>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor</main.class>
   </properties>
 
   <prerequisites>
@@ -61,6 +63,24 @@
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
       <version>14</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-graphics</artifactId>
+      <version>${javafx.version}</version>
+      <classifier>win</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-graphics</artifactId>
+      <version>${javafx.version}</version>
+      <classifier>linux</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-graphics</artifactId>
+      <version>${javafx.version}</version>
+      <classifier>mac</classifier>
     </dependency>
     <!-- https://mvnrepository.com/artifact/net.grey-panther/natural-comparator -->
     <dependency>
@@ -355,6 +375,14 @@
           <fork>true</fork>
         </configuration>
       </plugin>
+<!--      <plugin>-->
+<!--        <groupId>org.openjfx</groupId>-->
+<!--        <artifactId>javafx-maven-plugin</artifactId>-->
+<!--        <version>0.0.4</version>-->
+<!--        <configuration>-->
+<!--          <mainClass>${main.class}</mainClass>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -393,7 +421,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor</mainClass>
+              <mainClass>${main.class}</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -452,7 +480,7 @@
             <configuration>
               <archive>
                 <manifest>
-                  <mainClass>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor</mainClass>
+                  <mainClass>${main.class}</mainClass>
                 </manifest>
               </archive>
               <tarLongFileMode>posix</tarLongFileMode>
@@ -510,7 +538,7 @@
                   <goal>java</goal>
                 </goals>
                 <configuration>
-                  <mainClass>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor</mainClass>
+                  <mainClass>${main.class}</mainClass>
                 </configuration>
               </execution>
             </executions>

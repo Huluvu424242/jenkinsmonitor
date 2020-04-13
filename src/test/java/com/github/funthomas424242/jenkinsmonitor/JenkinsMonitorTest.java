@@ -115,7 +115,7 @@ public class JenkinsMonitorTest {
         final TrayIcon icon = jenkinsMonitor.monitorTray.getTrayIcon();
         final BufferedImage image = (BufferedImage) icon.getImage();
         assertNotNull(icon);
-        isImageOfColor(image, JobStatus.OTHER.getColor());
+        isImageOfColor(image, JobStatus.OTHER.getAWTColor());
     }
 
     @Test
@@ -127,7 +127,7 @@ public class JenkinsMonitorTest {
         assertNotNull(icon);
         final BufferedImage image = (BufferedImage) icon.getImage();
         assertNotNull(image);
-        assertTrue(isImageOfColor(image, JobStatus.SUCCESS.getColor()));
+        assertTrue(isImageOfColor(image, JobStatus.SUCCESS.getAWTColor()));
     }
 
     @Test
@@ -139,6 +139,6 @@ public class JenkinsMonitorTest {
         assertNotNull(icon);
         final BufferedImage image = (BufferedImage) icon.getImage();
         assertNotNull(image);
-        assertTrue(isImageOfColor(image, JobStatus.FAILURE.getColor()));
+        assertTrue(isImageOfColor(image, JobStatus.FAILURE.getAWTColor()));
     }
 }

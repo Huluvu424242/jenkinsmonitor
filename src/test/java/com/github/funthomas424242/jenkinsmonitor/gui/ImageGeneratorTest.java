@@ -46,7 +46,7 @@ class ImageGeneratorTest {
         final BufferedImage image = generator.createImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertTrue(isImageOfColor(image, JobStatus.OTHER.getColor()));
+        assertTrue(isImageOfColor(image, JobStatus.OTHER.getAWTColor()));
         assertTrue(isImageOfColor(image, Color.lightGray));
     }
 
@@ -58,7 +58,7 @@ class ImageGeneratorTest {
         final BufferedImage image = generator.createImage(100, 100);
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertTrue(isImageOfColor(image, JobStatus.OTHER.getColor()));
+        assertTrue(isImageOfColor(image, JobStatus.OTHER.getAWTColor()));
         assertTrue(isImageOfColor(image, Color.lightGray));
     }
 
@@ -76,7 +76,7 @@ class ImageGeneratorTest {
 
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertTrue(isImageOfColor(image, JobStatus.SUCCESS.getColor()));
+        assertTrue(isImageOfColor(image, JobStatus.SUCCESS.getAWTColor()));
         assertTrue(isImageOfColor(image, Color.green));
     }
 
@@ -94,7 +94,7 @@ class ImageGeneratorTest {
 
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertTrue(isImageOfColor(image, JobStatus.UNSTABLE.getColor()));
+        assertTrue(isImageOfColor(image, JobStatus.UNSTABLE.getAWTColor()));
         assertTrue(isImageOfColor(image, Color.yellow));
     }
 
@@ -112,7 +112,7 @@ class ImageGeneratorTest {
 
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertTrue(isImageOfColor(image, JobStatus.FAILURE.getColor()));
+        assertTrue(isImageOfColor(image, JobStatus.FAILURE.getAWTColor()));
         assertTrue(isImageOfColor(image, Color.red));
     }
 
@@ -134,9 +134,9 @@ class ImageGeneratorTest {
 
         assertEquals(100, image.getHeight());
         assertEquals(100, image.getWidth());
-        assertEquals(JobStatus.SUCCESS.getColor().getRGB(), image.getRGB(10, 10));
+        assertEquals(JobStatus.SUCCESS.getAWTColor().getRGB(), image.getRGB(10, 10));
         assertEquals(Color.green.getRGB(), image.getRGB(10, 10));
-        assertEquals(JobStatus.FAILURE.getColor().getRGB(), image.getRGB(60, 10));
+        assertEquals(JobStatus.FAILURE.getAWTColor().getRGB(), image.getRGB(60, 10));
         assertEquals(Color.red.getRGB(), image.getRGB(60, 10));
     }
 
