@@ -22,13 +22,15 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class JobStatusBeschreibungen extends AbstractJobBeschreibungen<JobStatusBeschreibung> {
 
-//    protected int displayCharLength = 0;
+    protected int displayLaengeOben = 0;
+    protected int displayLaengeUnten = 0;
 
     public JobStatusBeschreibungen() {
         super(new HashMap<>());
@@ -36,27 +38,34 @@ public class JobStatusBeschreibungen extends AbstractJobBeschreibungen<JobStatus
 
     public JobStatusBeschreibungen(final Map<String, JobStatusBeschreibung> jobStatusBeschreibungen) {
         super(jobStatusBeschreibungen);
+        computeDisplayCharLength();
     }
 
-//    public void computeDisplayCharLength() {
-//
-//        final Comparator<Integer> maxComparator = new Comparator<Integer>() {
-//
-//            @Override
-//            public int compare(Integer n1, Integer n2) {
-//                return n1.compareTo(n2);
-//            }
-//        };
-//
-//        final Optional<Integer> maxLen = AbstractJobBeschreibung.sortedStreamOf(this)
-//            .map(jobStatusBeschreibung -> jobStatusBeschreibung.getJobName().length())
-//            .max(maxComparator);
-//        if (maxLen.isPresent()) {
-//            this.displayCharLength = maxLen.get();
-//        }
-//    }
-//
-//    public int getDisplayCharLength() {
-//        return this.displayCharLength;
-//    }
+    protected void computeDisplayCharLength() {
+
+        final Comparator<Integer> maxComparator = new Comparator<Integer>() {
+
+            @Override
+            public int compare(Integer n1, Integer n2) {
+                return n1.compareTo(n2);
+            }
+        };
+
+        this.displayLaengeOben = AbstractJobBeschreibung.sortedStreamOf(this)
+            .map(jobStatusBeschreibung -> (jobStatusBeschreibung.getJobName() + jobStatusBeschreibung.getJobOrderId()).length())
+            .max(maxComparator)
+            .orElseGet(() -> 0);
+
+        this.displayLaengeUnten = AbstractJobBeschreibung.sortedStreamOf(this)
+            .map(jobStatusBeschreibung -> jobStatusBeschreibung.getJobUrl().toString().length())
+            .max(maxComparator)
+            .orElseGet(() -> 0);
+    }
+
+    public int getDisplayLaengeOben() {
+        return this.displayLaengeOben;
+    }
+    public int getDisplayLaengeUnten() {
+        return this.displayLaengeUnten;
+    }
 }

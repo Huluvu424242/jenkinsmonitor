@@ -59,6 +59,7 @@ public class ImageGenerator {
 
         final JobStatusBeschreibungen tmpJobStatusBeschreibungen = new JobStatusBeschreibungen(jobsStatusBeschreibungen.getCloneOfDataModel());
 
+
         final int jobCount = tmpJobStatusBeschreibungen.size();
         final int partImageWidth = width / jobCount;
         final StartXHolder startXHolder = new StartXHolder();
