@@ -4,7 +4,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
 
-  
+
   <groupId>com.github.funthomas424242</groupId>
   <version>0.0.2</version>
   <artifactId>jenkinsmonitor</artifactId>
@@ -36,16 +36,10 @@
     <url>https://travis-ci.org/FunThomas424242/jenkinsmonitor</url>
   </ciManagement>
   <distributionManagement>
-    <snapshotRepository>
-      <id>bintray-funthomas424242-funthomas424242-libs</id>
-      <name>oss-jfrog-artifactory-snapshots</name>
-      <url>https://oss.jfrog.org/artifactory/oss-snapshot-local</url>
-    </snapshotRepository>
     <repository>
-      <id>bintray-funthomas424242-funthomas424242-libs</id>
-      <name>funthomas424242-funthomas424242-libs</name>
-      <url>https://api.bintray.com/maven/funthomas424242/funthomas424242-libs/${project.artifactId}/;publish=1
-      </url>
+      <id>github</id>
+      <name>GitHub FunThomas424242 Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/FunThomas424242/${project.artifactId}</url>
     </repository>
   </distributionManagement>
 
@@ -94,12 +88,12 @@
       <scope>compile</scope>
     </dependency>
     <!-- APIs von denen die Generate abhängen -->
-<!--    <dependency>-->
-<!--      <groupId>javax.validation</groupId>-->
-<!--      <artifactId>validation-api</artifactId>-->
-<!--      <version>2.0.1.Final</version>-->
-<!--      <scope>compile</scope>-->
-<!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>javax.validation</groupId>-->
+    <!--      <artifactId>validation-api</artifactId>-->
+    <!--      <version>2.0.1.Final</version>-->
+    <!--      <scope>compile</scope>-->
+    <!--    </dependency>-->
 
     <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
     <dependency>
