@@ -22,6 +22,9 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.gui.JobStatusZeileOben;
+import com.github.funthomas424242.jenkinsmonitor.gui.JobStatusZeileUnten;
+
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,10 +65,13 @@ public class JobStatusBeschreibungen extends AbstractJobBeschreibungen<JobStatus
             .orElseGet(() -> 0);
     }
 
-    public int getDisplayLaengeOben() {
-        return this.displayLaengeOben;
+    public JobStatusZeileOben getJobStatusZeileOben(final JobStatusBeschreibung jobStatusBeschreibung) {
+        return new JobStatusZeileOben(jobStatusBeschreibung.getJobName(), jobStatusBeschreibung.getJobOrderId(), this.displayLaengeOben);
     }
-    public int getDisplayLaengeUnten() {
-        return this.displayLaengeUnten;
+
+    public JobStatusZeileUnten getJobStatusZeileUnten(final JobStatusBeschreibung jobStatusBeschreibung) {
+        return new JobStatusZeileUnten(jobStatusBeschreibung.getJobUrl(), this.displayLaengeUnten, jobStatusBeschreibung.getJobStatus());
     }
+
+
 }

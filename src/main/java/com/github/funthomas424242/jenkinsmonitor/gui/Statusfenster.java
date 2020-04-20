@@ -54,39 +54,15 @@ public class Statusfenster extends JWindow {
     }
 
 
-    private StatusItem createStatusItem(final int maxLenOben, final int maxLenUnten, final int counter, JobStatusBeschreibung jobStatus) {
-        final String colorValueHEX = jobStatus.getJobStatus().getColorValueHEX() != null ? jobStatus.getJobStatus().getColorValueHEX() : JobStatus.OTHER.getColorValueHEX();
-        final String orderId = jobStatus.getJobOrderId() != null ? jobStatus.getJobOrderId() : "###";
-        final String jobName = jobStatus.getJobName() != null ? jobStatus.getJobName() : "unbenannt";
-        final String counterValue = counter + "";
-        final String status = jobStatus.getJobStatus().toString() != null ? jobStatus.getJobStatus().toString() : "unbekannt";
-        final String url = jobStatus.getJobUrl() != null ? jobStatus.getJobUrl().toString() : "<no url>";
+    private StatusItem createStatusItem(final JobStatusZeileOben zeileOben, final JobStatusZeileUnten zeileUnten, final int counter, final JobStatus jobStatus, final URL jobUrl) {
+        final String colorValueHEX = jobStatus.getColorValueHEX() != null ? jobStatus.getColorValueHEX() : JobStatus.OTHER.getColorValueHEX();
 
-        final String obereZeile = orderId + jobName;
-        final int deltaOben = maxLenOben - obereZeile.length();
-        String pufferOben = "";
-        for (int i = 0; i < deltaOben; i++) {
-            pufferOben += "&nbsp;";
-        }
-
-        final String untereZeile = url;
-        final int deltaUnten = maxLenUnten - untereZeile.length();
-        String pufferUnten = "";
-        for (int i = 0; i < deltaUnten; i++) {
-            pufferUnten += "&nbsp;";
-        }
-
-        String pufferStatus = "";
-        for (int i = 0; i < (JobStatus.UNSTABLE.name().length()-status.length()); i++) {
-            pufferStatus += "&nbsp;";
-        }
-
-
-
-        final String htmlTemplate = "<html><body style=\"display:inline-block;font-family:monospace;background-color:" + colorValueHEX + ";\"><div style=\"font-size:22\">[" + orderId + "] "+ jobName + pufferOben+ "</div>"
-            + "<div style=\"font-size:14\">(" + counterValue + ") Status: " + status + pufferStatus
-            +  " <a href=\"#\">"+url +  "</a>"+pufferUnten+"</div></body></html>";
-        return new StatusItem(htmlTemplate, jobStatus.getJobUrl());
+        final String htmlTemplate =
+            "<html><body style=\"display:inline-block;font-family:monospace;background-color:" + colorValueHEX + ";\">"
+                + zeileOben.toHTMLString()
+                + zeileUnten.toHTMLString(counter)
+                + "</body></html>";
+        return new StatusItem(htmlTemplate, jobUrl);
     }
 
 
@@ -98,7 +74,14 @@ public class Statusfenster extends JWindow {
         final Counter counter = new Counter();
         AbstractJobBeschreibung.sortedStreamOf(tmpJobStatusBeschreibungen)
             .forEach((jobStatus) -> {
-                statusItems.add(createStatusItem(tmpJobStatusBeschreibungen.getDisplayLaengeOben(), tmpJobStatusBeschreibungen.getDisplayLaengeUnten(), counter.value + 1, jobStatus));
+                statusItems.add(
+                    createStatusItem(
+                        tmpJobStatusBeschreibungen.getJobStatusZeileOben(jobStatus),
+                        tmpJobStatusBeschreibungen.getJobStatusZeileUnten(jobStatus),
+                        counter.value + 1,
+                        jobStatus.getJobStatus(),
+                        jobStatus.getJobUrl())
+                );
                 counter.value++;
             });
 
