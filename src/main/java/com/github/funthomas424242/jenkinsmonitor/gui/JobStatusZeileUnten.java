@@ -28,6 +28,8 @@ import java.net.URL;
 
 public class JobStatusZeileUnten {
 
+    protected final int listIndex;
+
     //
     protected final JobStatus jobStatus;
 
@@ -38,13 +40,14 @@ public class JobStatusZeileUnten {
     protected final int maxLen;
 
 
-    public JobStatusZeileUnten(final URL jobUrl, final int maxLen, final JobStatus jobStatus) {
+    public JobStatusZeileUnten(final int listIndex, final URL jobUrl, final int maxLen, final JobStatus jobStatus) {
+        this.listIndex = listIndex;
         this.jobUrl = jobUrl;
         this.maxLen = maxLen;
         this.jobStatus = jobStatus;
     }
 
-    public String toHTMLString(final int counterValue) {
+    public String toHTMLString() {
 
         // Platz für Status Darstellung berechnen
         final String status = this.jobStatus.toString() != null ? this.jobStatus.toString() : "unbekannt";
@@ -65,7 +68,7 @@ public class JobStatusZeileUnten {
         }
 
         // Zeile zusammenbauen
-        return "<div style=\"font-size:14\">(" + counterValue + ") Status: " + status + pufferStatus + " <a href=\"#\">" + newUrl + "</a>" + pufferUrl + "</div>";
+        return "<div style=\"font-size:14\">(" + this.listIndex + ") Status: " + status + pufferStatus + " <a href=\"#\">" + newUrl + "</a>" + pufferUrl + "</div>";
     }
 
 }

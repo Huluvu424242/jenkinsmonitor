@@ -54,13 +54,13 @@ public class Statusfenster extends JWindow {
     }
 
 
-    private StatusItem createStatusItem(final JobStatusZeileOben zeileOben, final JobStatusZeileUnten zeileUnten, final int counter, final JobStatus jobStatus, final URL jobUrl) {
+    private StatusItem createStatusItem(final JobStatusZeileOben zeileOben, final JobStatusZeileUnten zeileUnten, final JobStatus jobStatus, final URL jobUrl) {
         final String colorValueHEX = jobStatus.getColorValueHEX() != null ? jobStatus.getColorValueHEX() : JobStatus.OTHER.getColorValueHEX();
 
         final String htmlTemplate =
             "<html><body style=\"display:inline-block;font-family:monospace;background-color:" + colorValueHEX + ";\">"
                 + zeileOben.toHTMLString()
-                + zeileUnten.toHTMLString(counter)
+                + zeileUnten.toHTMLString()
                 + "</body></html>";
         return new StatusItem(htmlTemplate, jobUrl);
     }
@@ -77,8 +77,7 @@ public class Statusfenster extends JWindow {
                 statusItems.add(
                     createStatusItem(
                         tmpJobStatusBeschreibungen.getJobStatusZeileOben(jobStatus),
-                        tmpJobStatusBeschreibungen.getJobStatusZeileUnten(jobStatus),
-                        counter.value + 1,
+                        tmpJobStatusBeschreibungen.getJobStatusZeileUnten(jobStatus,counter.value + 1),
                         jobStatus.getJobStatus(),
                         jobStatus.getJobUrl())
                 );

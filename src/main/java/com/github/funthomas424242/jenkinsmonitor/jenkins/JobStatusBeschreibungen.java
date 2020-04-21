@@ -69,8 +69,8 @@ public class JobStatusBeschreibungen extends AbstractJobBeschreibungen<JobStatus
         return new JobStatusZeileOben(jobStatusBeschreibung.getJobName(), jobStatusBeschreibung.getJobOrderId(), this.displayLaengeOben);
     }
 
-    public JobStatusZeileUnten getJobStatusZeileUnten(final JobStatusBeschreibung jobStatusBeschreibung) {
-        return new JobStatusZeileUnten(jobStatusBeschreibung.getJobUrl(), this.displayLaengeUnten, jobStatusBeschreibung.getJobStatus());
+    public JobStatusZeileUnten getJobStatusZeileUnten(final JobStatusBeschreibung jobStatusBeschreibung, final int listIndex) {
+        return new JobStatusZeileUnten(listIndex, jobStatusBeschreibung.getJobUrl(), this.displayLaengeUnten, jobStatusBeschreibung.getJobStatus());
     }
 
 
