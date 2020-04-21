@@ -39,23 +39,8 @@ public class JenkinsMonitor {
         LOGGER.info("Jenkinsmonitor gestartet");
     }
 
-    public void terminateMainThread(){
-        System.exit(0);
-    }
-
     public static void main(final String[] commandlineArgs) {
         final Configuration defaultConfiguration = new Configuration(Configuration.getDefaultConfigurationsfile());
-        final JenkinsMonitor monitor = new JenkinsMonitor(defaultConfiguration);
-//        Runtime.getRuntime().addShutdownHook(new Thread()
-//        {
-//            public void run()
-//            {
-//                System.out.println("Shutdown Hook is running !");
-//                if( monitor != null ) {
-//                    monitor.terminateMainThread();
-//                }
-//                System.exit(0);
-//            }
-//        });
+        new JenkinsMonitor(defaultConfiguration);
     }
 }
