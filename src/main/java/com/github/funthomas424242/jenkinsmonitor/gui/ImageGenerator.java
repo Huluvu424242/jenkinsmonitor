@@ -24,7 +24,6 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 
 import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibungen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

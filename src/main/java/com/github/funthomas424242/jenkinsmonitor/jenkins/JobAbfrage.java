@@ -53,9 +53,9 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
 
     final JobAbfragedaten jobAbfragedaten;
     final String jobOrderId;
-    final JobStatusBeschreibungen jobStatusBeschreibungen;
+    final AbstractJobBeschreibungen jobStatusBeschreibungen;
 
-    public JobAbfrage(final JobStatusBeschreibungen jobStatusBeschreibungen, final JobAbfragedaten jobAbfragedaten, final String jobOrderId) {
+    public JobAbfrage(final AbstractJobBeschreibungen jobStatusBeschreibungen, final JobAbfragedaten jobAbfragedaten, final String jobOrderId) {
         this.jobStatusBeschreibungen = jobStatusBeschreibungen;
         this.jobAbfragedaten = jobAbfragedaten;
         this.jobOrderId = jobOrderId;
@@ -77,20 +77,20 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
             final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
             return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
 
-        } catch (HttpResponseException  e) {
+        } catch (HttpResponseException e) {
             if (e.getStatusCode() == 404) {
                 return new JobStatusBeschreibung("Job Not Found ERROR: " + jobAbfragedaten.getJenkinsJobUrl(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
             } else {
                 return new JobStatusBeschreibung("HTTP Status:" + e.getStatusCode(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
             }
-        } catch ( ConnectionFailedException e) {
+        } catch (ConnectionFailedException e) {
             return new JobStatusBeschreibung("Connection ERROR: " + jobAbfragedaten.getJenkinsJobUrl(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
         } catch (NullPointerException | JSONException ex) {
             return new JobStatusBeschreibung(jobAbfragedaten.getJenkinsJobUrl().toExternalForm(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
         }
     }
 
-    protected JSONObject sendGetRequest() throws HttpResponseException,  ConnectionFailedException {
+    protected JSONObject sendGetRequest() throws HttpResponseException, ConnectionFailedException {
         final URL statusAbfrageUrl = jobAbfragedaten.getStatusAbfrageUrl();
         int statusCode = -1;
         try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {

@@ -1,4 +1,4 @@
-package com.github.funthomas424242.jenkinsmonitor.jenkins;
+package com.github.funthomas424242.jenkinsmonitor.gui;
 
 /*-
  * #%L
@@ -22,8 +22,9 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.gui.JobStatusZeileOben;
-import com.github.funthomas424242.jenkinsmonitor.gui.JobStatusZeileUnten;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibungen;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 
 import java.util.Comparator;
 import java.util.HashMap;

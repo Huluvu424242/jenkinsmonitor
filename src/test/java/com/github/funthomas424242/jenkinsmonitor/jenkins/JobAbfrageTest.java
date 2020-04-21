@@ -22,6 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.gui.JobStatusBeschreibungen;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.apache.http.client.HttpResponseException;
 import org.json.JSONObject;
