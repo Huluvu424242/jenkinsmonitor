@@ -26,12 +26,9 @@ import net.greypanther.natsort.SimpleNaturalComparator;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
-import java.util.Comparator;
 import java.util.stream.Stream;
 
 public interface AbstractJobBeschreibung extends Comparable<AbstractJobBeschreibung> {
-
-    Comparator<String> NATURAL_COMPARATOR = SimpleNaturalComparator.getInstance();
 
     URL getJobUrl();
 
@@ -47,15 +44,15 @@ public interface AbstractJobBeschreibung extends Comparable<AbstractJobBeschreib
         if (getJobOrderId() != null && jobBeschreibung.getJobOrderId() == null) return 1;
         if (getJobOrderId() == null && jobBeschreibung.getJobOrderId() != null) return -1;
 
-        return NATURAL_COMPARATOR.compare(getJobOrderId(), jobBeschreibung.getJobOrderId());
+        return SimpleNaturalComparator.getInstance().compare(getJobOrderId(), jobBeschreibung.getJobOrderId());
     }
 
     static <T> Stream<String> sortedKeyStreamOf(final AbstractJobBeschreibungen<T> jobBeschreibung) {
-        return jobBeschreibung.keySet().stream().sorted(NATURAL_COMPARATOR);
+        return jobBeschreibung.keySet().stream().sorted(SimpleNaturalComparator.getInstance());
     }
 
     static <T> Stream<T> sortedStreamOf(final AbstractJobBeschreibungen<T> jobBeschreibung) {
-        return jobBeschreibung.keySet().stream().sorted(NATURAL_COMPARATOR).map(jobBeschreibung::get);
+        return jobBeschreibung.keySet().stream().sorted(SimpleNaturalComparator.getInstance()).map(jobBeschreibung::get);
     }
 
 }
