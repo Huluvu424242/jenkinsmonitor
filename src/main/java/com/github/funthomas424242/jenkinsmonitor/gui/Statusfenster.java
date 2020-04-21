@@ -42,18 +42,20 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
+
 
 public class Statusfenster extends JWindow {
     public static final Logger LOGGER = LoggerFactory.getLogger(Statusfenster.class);
 
-    final JobStatusBeschreibungen jobStatusBeschreibungen;
+    protected transient final JobStatusBeschreibungen jobStatusBeschreibungen;
 
     public Statusfenster(final JobStatusBeschreibungen jobStatusBeschreibungen) {
         this.jobStatusBeschreibungen = jobStatusBeschreibungen;
     }
 
 
-    private StatusItem createStatusItem(final JobStatusZeileOben zeileOben, final JobStatusZeileUnten zeileUnten, final JobStatus jobStatus, final URL jobUrl) {
+    private static StatusItem createStatusItem(final JobStatusZeileOben zeileOben, final JobStatusZeileUnten zeileUnten, final JobStatus jobStatus, final URL jobUrl) {
         final String colorValueHEX = jobStatus.getColorValueHEX() != null ? jobStatus.getColorValueHEX() : JobStatus.OTHER.getColorValueHEX();
 
         final String htmlTemplate =
@@ -65,18 +67,18 @@ public class Statusfenster extends JWindow {
     }
 
 
-    private Container createContent(final JobStatusBeschreibungen jobsStatusBeschreibungen) {
-        final JobStatusBeschreibungen tmpJobStatusBeschreibungen = new JobStatusBeschreibungen(jobsStatusBeschreibungen.getCloneOfDataModel());
+    private Container createContent() {
+        final JobStatusBeschreibungen tmpJobStatusBeschreibungen = new JobStatusBeschreibungen(this.jobStatusBeschreibungen.getCloneOfDataModel());
 
         // Model füllen
         final List<StatusItem> statusItems = new ArrayList<>();
         final Counter counter = new Counter();
         AbstractJobBeschreibung.sortedStreamOf(tmpJobStatusBeschreibungen)
-            .forEach((jobStatus) -> {
+            .forEach(jobStatus -> {
                 statusItems.add(
                     createStatusItem(
                         tmpJobStatusBeschreibungen.getJobStatusZeileOben(jobStatus),
-                        tmpJobStatusBeschreibungen.getJobStatusZeileUnten(jobStatus,counter.value + 1),
+                        tmpJobStatusBeschreibungen.getJobStatusZeileUnten(jobStatus, counter.value + 1),
                         jobStatus.getJobStatus(),
                         jobStatus.getJobUrl())
                 );
@@ -93,7 +95,7 @@ public class Statusfenster extends JWindow {
         list.setLayoutOrientation(JList.VERTICAL);
 
         // Selektion Modus
-        list.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+        list.setSelectionMode(SINGLE_SELECTION);
         final ListSelectionModel listSelectionModel = list.getSelectionModel();
         listSelectionModel.addListSelectionListener(
             new SharedListSelectionHandler(statusItems, this));
@@ -111,13 +113,13 @@ public class Statusfenster extends JWindow {
 
     public void aktualisiereContentPane() {
         if (jobStatusBeschreibungen != null && jobStatusBeschreibungen.size() > 0) {
-            setContentPane(createContent(jobStatusBeschreibungen));
+            setContentPane(createContent());
             pack();
             repaint();
         }
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         final JobStatusBeschreibungen jobstatusBeschreibungen = new JobStatusBeschreibungen();
         try {
             JobStatusBeschreibung jobstatusBeschreibungen0 = new JobStatusBeschreibung("job0", JobStatus.FAILURE, new URL("http://localhost/job0"), "0");
@@ -127,10 +129,9 @@ public class Statusfenster extends JWindow {
             JobStatusBeschreibung jobstatusBeschreibungen2 = new JobStatusBeschreibung("job2", JobStatus.UNSTABLE, new URL("http://localhost/job2"), "2");
             jobstatusBeschreibungen.put(jobstatusBeschreibungen2.getPrimaryKey(), jobstatusBeschreibungen2);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.toString());
         }
 
-        final JobStatusBeschreibungen tmpJobStatusBeschreibungen = new JobStatusBeschreibungen(jobstatusBeschreibungen.getCloneOfDataModel());
         Statusfenster window = new Statusfenster(jobstatusBeschreibungen);
         window.setAlwaysOnTop(true);
         window.setLocationByPlatform(false);
@@ -142,7 +143,7 @@ public class Statusfenster extends JWindow {
             JobStatusBeschreibung jobstatusBeschreibungen2a = new JobStatusBeschreibung("job2", JobStatus.OTHER, new URL("http://localhost/job2"), "2");
             jobstatusBeschreibungen.put(jobstatusBeschreibungen2a.getPrimaryKey(), jobstatusBeschreibungen2a);
         } catch (MalformedURLException | InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         window.aktualisiereContentPane();
 
@@ -163,14 +164,11 @@ class SharedListSelectionHandler implements ListSelectionListener {
 
     public void valueChanged(ListSelectionEvent event) {
         final ListSelectionModel selectionModel = (ListSelectionModel) event.getSource();
-        int firstIndex = event.getFirstIndex();
-        int lastIndex = event.getLastIndex();
         boolean isAdjusting = event.getValueIsAdjusting();
 
         if (!selectionModel.isSelectionEmpty() && !isAdjusting) {
             // Find out which indexes are selected.
             int minIndex = selectionModel.getMinSelectionIndex();
-            int maxIndex = selectionModel.getMaxSelectionIndex();
 
             final URI navigationURI;
             try {
