@@ -46,7 +46,7 @@ class JenkinsClientMock extends JenkinsClient {
     }
 
     @Override
-    public void ladeJobsStatus(final JobStatusBeschreibungen jobStatusBeschreibungen, final JobBeschreibungen jobBeschreibungen) {
+    public void ladeJobsStatus(final AbstractJobBeschreibungen jobStatusBeschreibungen, final JobBeschreibungen jobBeschreibungen) {
         final JobStatusBeschreibung jobStatusBeschreibung = new JobStatusBeschreibung("xxx", jobStatus[jobNr++], NetworkHelper.urlOf("http://localhost:8099/job/multibranchjob/job/master" + (jobNr + 1)), "#" + (jobNr + 1));
         jobStatusBeschreibungen.put(jobStatusBeschreibung.getPrimaryKey(), jobStatusBeschreibung);
     }
@@ -62,7 +62,7 @@ class JenkinsClientMockAuto extends JenkinsClient {
     }
 
     @Override
-    public void ladeJobsStatus(final JobStatusBeschreibungen jobStatusBeschreibungen, final JobBeschreibungen jobBeschreibungen) {
+    public void ladeJobsStatus(final AbstractJobBeschreibungen jobStatusBeschreibungen, final JobBeschreibungen jobBeschreibungen) {
         AbstractJobBeschreibung.sortedStreamOf(jobBeschreibungen)
             .forEach(jobBeschreibung -> {
                 final JobStatusBeschreibung jobStatusBeschreibung = new JobStatusBeschreibung("xxx", jobStatus[jobNr++], NetworkHelper.urlOf("http://localhost:8099/job/multibranchjob/job/master" + jobNr), "#" + jobNr);

@@ -28,7 +28,6 @@ import com.github.funthomas424242.jenkinsmonitor.etc.Timer;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibungen;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibungen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

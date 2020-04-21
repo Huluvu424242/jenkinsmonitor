@@ -22,9 +22,9 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibungen;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,6 @@ import java.awt.image.BufferedImage;
 
 import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImageTestHelper.isImageOfColor;
 import static org.junit.jupiter.api.Assertions.*;
-
 
 class ImageGeneratorTest {
 
@@ -68,7 +67,7 @@ class ImageGeneratorTest {
         final JobStatusBeschreibungen jobsStatusBeschreibungen = new JobStatusBeschreibungen();
         final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
-            , null, "#1");
+            , NetworkHelper.urlOf("http://localhost/"), "#1");
         jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(), jobsStatusBeschreibungen0);
 
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
@@ -86,7 +85,7 @@ class ImageGeneratorTest {
         final JobStatusBeschreibungen jobsStatusBeschreibungen = new JobStatusBeschreibungen();
         final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
             , JobStatus.UNSTABLE
-            , null, "#1");
+            , NetworkHelper.urlOf("http://localhost/"), "#1");
         jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(), jobsStatusBeschreibungen0);
 
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
@@ -104,7 +103,7 @@ class ImageGeneratorTest {
         final JobStatusBeschreibungen jobsStatusBeschreibungen = new JobStatusBeschreibungen();
         final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
             , JobStatus.FAILURE
-            , null, "#1");
+            , NetworkHelper.urlOf("http://localhost/"), "#1");
         jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(), jobsStatusBeschreibungen0);
 
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
@@ -122,11 +121,11 @@ class ImageGeneratorTest {
         final JobStatusBeschreibungen jobsStatusBeschreibungen = new JobStatusBeschreibungen();
         final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
-            , null, "#1");
+            , NetworkHelper.urlOf("http://localhost/"), "#1");
         jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(), jobsStatusBeschreibungen0);
         final JobStatusBeschreibung jobsStatusBeschreibungen1 = new JobStatusBeschreibung("Job2/master"
             , JobStatus.FAILURE
-            , null, "#2");
+            , NetworkHelper.urlOf("http://localhost/"), "#2");
         jobsStatusBeschreibungen.put(jobsStatusBeschreibungen1.getPrimaryKey(), jobsStatusBeschreibungen1);
 
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
@@ -147,7 +146,7 @@ class ImageGeneratorTest {
         final JobStatusBeschreibungen jobsStatusBeschreibungen = new JobStatusBeschreibungen();
         final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
             , JobStatus.SUCCESS
-            , null, "#1");
+            , NetworkHelper.urlOf("http://localhost/"), "#1");
         jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(), jobsStatusBeschreibungen0);
 
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);

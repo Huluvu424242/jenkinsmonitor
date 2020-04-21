@@ -27,7 +27,6 @@ import com.github.funthomas424242.jenkinsmonitor.etc.Counter;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibungen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,19 +53,15 @@ public class Statusfenster extends JWindow {
     }
 
 
-    private StatusItem createStatusItem(final int counter, JobStatusBeschreibung jobStatus) {
-        final String colorValueHEX = jobStatus.getJobStatus().getColorValueHEX() != null ? jobStatus.getJobStatus().getColorValueHEX() : JobStatus.OTHER.getColorValueHEX();
-        final String orderId = jobStatus.getJobOrderId() != null ? jobStatus.getJobOrderId() : "###";
-        final String jobName = jobStatus.getJobName() != null ? jobStatus.getJobName() : "unbenannt";
-        final String counterValue = counter + "";
-        final String status = jobStatus.getJobStatus().toString() != null ? jobStatus.getJobStatus().toString() : "unbekannt";
-        final String url = jobStatus.getJobUrl() != null ? jobStatus.getJobUrl().toString() : "<no url>";
+    private StatusItem createStatusItem(final JobStatusZeileOben zeileOben, final JobStatusZeileUnten zeileUnten, final JobStatus jobStatus, final URL jobUrl) {
+        final String colorValueHEX = jobStatus.getColorValueHEX() != null ? jobStatus.getColorValueHEX() : JobStatus.OTHER.getColorValueHEX();
 
-        final String rawLine = "[" + orderId + "] " + jobName;
-        final String htmlTemplate = "<html><div style=\"background-color:" + colorValueHEX + ";\"><h1>" + rawLine + "</h1>"
-            + "<p>(" + counterValue + ") Status: " + status
-            + " <a href=\"" + url + "\">" + url + "</a></p></div></html>";
-        return new StatusItem(htmlTemplate, jobStatus.getJobUrl());
+        final String htmlTemplate =
+            "<html><body style=\"display:inline-block;font-family:monospace;background-color:" + colorValueHEX + ";\">"
+                + zeileOben.toHTMLString()
+                + zeileUnten.toHTMLString()
+                + "</body></html>";
+        return new StatusItem(htmlTemplate, jobUrl);
     }
 
 
@@ -78,7 +73,13 @@ public class Statusfenster extends JWindow {
         final Counter counter = new Counter();
         AbstractJobBeschreibung.sortedStreamOf(tmpJobStatusBeschreibungen)
             .forEach((jobStatus) -> {
-                statusItems.add(createStatusItem(counter.value + 1, jobStatus));
+                statusItems.add(
+                    createStatusItem(
+                        tmpJobStatusBeschreibungen.getJobStatusZeileOben(jobStatus),
+                        tmpJobStatusBeschreibungen.getJobStatusZeileUnten(jobStatus,counter.value + 1),
+                        jobStatus.getJobStatus(),
+                        jobStatus.getJobUrl())
+                );
                 counter.value++;
             });
 
@@ -129,6 +130,7 @@ public class Statusfenster extends JWindow {
             e.printStackTrace();
         }
 
+        final JobStatusBeschreibungen tmpJobStatusBeschreibungen = new JobStatusBeschreibungen(jobstatusBeschreibungen.getCloneOfDataModel());
         Statusfenster window = new Statusfenster(jobstatusBeschreibungen);
         window.setAlwaysOnTop(true);
         window.setLocationByPlatform(false);

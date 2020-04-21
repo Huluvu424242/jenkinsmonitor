@@ -23,6 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
+import com.github.funthomas424242.jenkinsmonitor.gui.JobStatusBeschreibungen;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.*;
 
