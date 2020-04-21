@@ -10,12 +10,12 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * it under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Lesser Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Lesser Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
@@ -29,9 +29,10 @@ import org.slf4j.LoggerFactory;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
+import static java.util.Arrays.stream;
 
 
 public class Zugangsdatensammler {
@@ -66,20 +67,20 @@ public class Zugangsdatensammler {
     }
 
     public void addZugangsdatumJenkinsHost(String jenkinsId, String jesnkinsHost) {
-        checkAllParameterUntilFirstNotNull(jenkinsId, jesnkinsHost);
+        ensureParametersAreNotNull(jenkinsId, jesnkinsHost);
         final Zugang zugang = getOrCreateZugang(jenkinsId);
         zugang.host = jesnkinsHost;
     }
 
     public void addZugangsdatumJenkinsUserName(String jenkinsId, String userName) {
-        checkAllParameterUntilFirstNotNull(jenkinsId, userName);
+        ensureParametersAreNotNull(jenkinsId, userName);
         final Zugang zugang = getOrCreateZugang(jenkinsId);
         zugang.userName = userName;
     }
 
 
     public void addZugangsdatumJenkinsPassword(String jenkinsId, String password) {
-        checkAllParameterUntilFirstNotNull(jenkinsId, password);
+        ensureParametersAreNotNull(jenkinsId, password);
         final Zugang zugang = getOrCreateZugang(jenkinsId);
         zugang.password = password;
     }
@@ -90,7 +91,7 @@ public class Zugangsdatensammler {
             .values()
             .stream()
             .forEach((zugang) -> {
-                if( zugang.userName != null && zugang.password != null) {
+                if (zugang.userName != null && zugang.password != null) {
                     try {
                         final Jenkinszugangskonfiguration jenkinszugangskonfiguration
                             = new Jenkinszugangskonfiguration(
@@ -100,22 +101,18 @@ public class Zugangsdatensammler {
                     } catch (MalformedURLException e) {
                         LOGGER.error("URL ist ungültig: {}", zugang.host);
                     }
-                }else{
+                } else {
                     LOGGER.info("Für {} existieren keine Zugangsdaten", zugang.host);
                 }
             });
         return jobabfragedaten.toArray(Jenkinszugangskonfiguration[]::new);
     }
 
-    protected void checkAllParameterUntilFirstNotNull(Object... parameter) {
-        Arrays.stream(parameter)
-            .filter((part) -> {
-                if (part == null) {
-                    throw new IllegalArgumentException("jenkinsID und zugangstyp sind erforderlich");
-                } else {
-                    return false;
-                }
-            });
+    protected void ensureParametersAreNotNull(Object... parameter) {
+        final boolean areNotNull = stream(parameter).allMatch(para -> para != null);
+        if (!areNotNull) {
+            throw new IllegalArgumentException("jenkinsID und zugangstyp sind erforderlich");
+        }
     }
 
     protected Zugang getOrCreateZugang(String jenkinsId) {
