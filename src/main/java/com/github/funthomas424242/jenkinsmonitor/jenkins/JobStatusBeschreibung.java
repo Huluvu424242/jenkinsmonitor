@@ -22,9 +22,6 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.gui.JobStatusZeileOben;
-import org.jetbrains.annotations.NotNull;
-
 import java.awt.*;
 import java.net.URL;
 import java.util.Objects;

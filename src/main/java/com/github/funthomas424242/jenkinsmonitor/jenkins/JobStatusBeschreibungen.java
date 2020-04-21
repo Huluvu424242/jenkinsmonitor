@@ -32,6 +32,8 @@ import java.util.Map;
 
 public class JobStatusBeschreibungen extends AbstractJobBeschreibungen<JobStatusBeschreibung> {
 
+    public static final Comparator<Integer> MAXCOMPARATOR = Comparator.naturalOrder();
+
     protected int displayLaengeOben = 0;
     protected int displayLaengeUnten = 0;
 
@@ -46,22 +48,15 @@ public class JobStatusBeschreibungen extends AbstractJobBeschreibungen<JobStatus
 
     protected void computeDisplayCharLength() {
 
-        final Comparator<Integer> maxComparator = new Comparator<Integer>() {
-
-            @Override
-            public int compare(Integer n1, Integer n2) {
-                return n1.compareTo(n2);
-            }
-        };
 
         this.displayLaengeOben = AbstractJobBeschreibung.sortedStreamOf(this)
             .map(jobStatusBeschreibung -> (jobStatusBeschreibung.getJobName() + jobStatusBeschreibung.getJobOrderId()).length())
-            .max(maxComparator)
+            .max(MAXCOMPARATOR)
             .orElseGet(() -> 0);
 
         this.displayLaengeUnten = AbstractJobBeschreibung.sortedStreamOf(this)
             .map(jobStatusBeschreibung -> jobStatusBeschreibung.getJobUrl().toString().length())
-            .max(maxComparator)
+            .max(MAXCOMPARATOR)
             .orElseGet(() -> 0);
     }
 
