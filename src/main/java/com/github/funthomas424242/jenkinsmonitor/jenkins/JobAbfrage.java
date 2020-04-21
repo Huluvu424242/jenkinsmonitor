@@ -53,9 +53,9 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
 
     final JobAbfragedaten jobAbfragedaten;
     final String jobOrderId;
-    final AbstractJobBeschreibungen jobStatusBeschreibungen;
+    final AbstractJobBeschreibungen<JobStatusBeschreibung> jobStatusBeschreibungen;
 
-    public JobAbfrage(final AbstractJobBeschreibungen jobStatusBeschreibungen, final JobAbfragedaten jobAbfragedaten, final String jobOrderId) {
+    public JobAbfrage(final AbstractJobBeschreibungen<JobStatusBeschreibung> jobStatusBeschreibungen, final JobAbfragedaten jobAbfragedaten, final String jobOrderId) {
         this.jobStatusBeschreibungen = jobStatusBeschreibungen;
         this.jobAbfragedaten = jobAbfragedaten;
         this.jobOrderId = jobOrderId;

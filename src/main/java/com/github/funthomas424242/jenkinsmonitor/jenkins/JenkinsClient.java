@@ -37,7 +37,7 @@ public class JenkinsClient {
 
     protected static final Logger LOG = LoggerFactory.getLogger(JenkinsClient.class);
 
-    public void ladeJobsStatus(final AbstractJobBeschreibungen jobStatusBeschreibungen, final JobBeschreibungen jobBeschreibungen) {
+    public void ladeJobsStatus(final AbstractJobBeschreibungen<JobStatusBeschreibung> jobStatusBeschreibungen, final JobBeschreibungen jobBeschreibungen) {
         LOG.debug("Frage Jobstatus ab");
         final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
         final List<Future<JobStatusBeschreibung>> results = new ArrayList<>();
