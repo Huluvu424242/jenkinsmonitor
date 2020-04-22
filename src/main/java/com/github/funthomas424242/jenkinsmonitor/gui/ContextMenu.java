@@ -29,8 +29,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -88,7 +86,6 @@ public class ContextMenu {
             });
 
 
-        final Menu aboutItem = new Menu("Über");
         /* Projekt Homepage Menüeintrag */
         final MenuItem homepage = new MenuItem("Projekt-Webseite");
         homepage.addActionListener(actionEvent -> {
@@ -99,7 +96,6 @@ public class ContextMenu {
                 LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, WEBSITE_JENKINSMONITOR), ex);
             }
         });
-        aboutItem.add(homepage);
         /* Bugtracker Menüeintrag */
         final MenuItem bugtracker = new MenuItem("Bugtracker");
         bugtracker.addActionListener(actionEvent -> {
@@ -110,15 +106,9 @@ public class ContextMenu {
                 LOGGER.warn(String.format(ERR_COULD_NOT_OPEN_URL, WEBSITE_JENKINSMONITOR_ISSUES), ex);
             }
         });
-        aboutItem.add(bugtracker);
         /* Versionsinfo Menüeintrag */
-        final MenuItem versionsinfo = new MenuItem("Versionsinfo");
-        versionsinfo.addActionListener(actionEvent -> {
-            splashWindow.setVisible(!splashWindow.isVisible());
-//            splashWindow.setFocusable(true);
-//            splashWindow.toFront();
-        });
-        aboutItem.add(versionsinfo);
+        final CheckboxMenuItem versionsinfo = new CheckboxMenuItem("Versionsinfo", splashWindow.isVisible());
+        versionsinfo.addItemListener(itemEvent -> splashWindow.setVisible(!splashWindow.isVisible()));
 
         final MenuItem exitItem = new MenuItem("Beenden");
         exitItem.addActionListener(actionEvent -> {
@@ -129,7 +119,10 @@ public class ContextMenu {
         });
 
         //Add components to popup menu
-        popup.add(aboutItem);
+        popup.addSeparator();
+        popup.add(versionsinfo);
+        popup.add(bugtracker);
+        popup.add(homepage);
         popup.addSeparator();
         popup.add(exitItem);
 //        MenuScroller.setScrollerFor(popup);
