@@ -27,7 +27,10 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -46,13 +49,16 @@ public class ContextMenu {
 
     protected final Statusfenster statusArea;
 
+    protected final JWindow splashWindow;
+
     protected final Timer timer;
 
-    public ContextMenu(final JobStatusBeschreibungen jobStatusBeschreibungen, final SystemTrayWrapper tray, final Statusfenster statusArea, final Timer timer) {
+    public ContextMenu(final JobStatusBeschreibungen jobStatusBeschreibungen, final SystemTrayWrapper tray, final Statusfenster statusArea, final JWindow splashWindow, final Timer timer) {
         this.jobStatusBeschreibungen = jobStatusBeschreibungen;
         this.tray = tray;
         this.statusArea = statusArea;
         this.timer = timer;
+        this.splashWindow = splashWindow;
     }
 
     /**
@@ -82,8 +88,10 @@ public class ContextMenu {
             });
 
 
-        final MenuItem aboutItem = new MenuItem("Über");
-        aboutItem.addActionListener(actionEvent -> {
+        final Menu aboutItem = new Menu("Über");
+        /* Projekt Homepage Menüeintrag */
+        final MenuItem homepage = new MenuItem("Projekt-Webseite");
+        homepage.addActionListener(actionEvent -> {
             try {
                 Desktop.getDesktop().browse(new URI(WEBSITE_JENKINSMONITOR));
                 statusArea.setVisible(false);
@@ -91,7 +99,9 @@ public class ContextMenu {
                 LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, WEBSITE_JENKINSMONITOR), ex);
             }
         });
-        MenuItem bugtracker = new MenuItem("Bugtracker");
+        aboutItem.add(homepage);
+        /* Bugtracker Menüeintrag */
+        final MenuItem bugtracker = new MenuItem("Bugtracker");
         bugtracker.addActionListener(actionEvent -> {
             try {
                 Desktop.getDesktop().browse(new URI(WEBSITE_JENKINSMONITOR_ISSUES));
@@ -100,7 +110,17 @@ public class ContextMenu {
                 LOGGER.warn(String.format(ERR_COULD_NOT_OPEN_URL, WEBSITE_JENKINSMONITOR_ISSUES), ex);
             }
         });
-        MenuItem exitItem = new MenuItem("Beenden");
+        aboutItem.add(bugtracker);
+        /* Versionsinfo Menüeintrag */
+        final MenuItem versionsinfo = new MenuItem("Versionsinfo");
+        versionsinfo.addActionListener(actionEvent -> {
+            splashWindow.setVisible(true);
+            splashWindow.setFocusable(true);
+            splashWindow.toFront();
+        });
+        aboutItem.add(versionsinfo);
+
+        final MenuItem exitItem = new MenuItem("Beenden");
         exitItem.addActionListener(actionEvent -> {
             timer.stop();
             statusArea.setVisible(false);
@@ -110,7 +130,6 @@ public class ContextMenu {
 
         //Add components to popup menu
         popup.add(aboutItem);
-        popup.add(bugtracker);
         popup.addSeparator();
         popup.add(exitItem);
 //        MenuScroller.setScrollerFor(popup);

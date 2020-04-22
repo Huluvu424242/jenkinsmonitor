@@ -31,9 +31,12 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibungen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -47,6 +50,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected final SystemTrayWrapper tray;
     protected final JenkinsClient jenkinsClient;
     protected final Statusfenster statusArea;
+    protected final JWindow splashWindow;
     protected final Timer timer;
 
     protected final JobStatusBeschreibungen jobStatusBeschreibungen;
@@ -72,6 +76,19 @@ public class JenkinsMonitorTray implements Timer.Listener {
         timer.start();
         this.configuration = configuration;
         this.jenkinsClient = jenkinsClient;
+        // Goldsteinlogo
+        this.splashWindow = new JWindow();
+        final JPanel panel = new GoldsteinPanel();
+        splashWindow.add(panel);
+        splashWindow.pack();
+        splashWindow.setLocationRelativeTo(null);
+        splashWindow.setAutoRequestFocus(false);
+        this.splashWindow.addWindowListener(new WindowAdapter() {
+            public void windowLostFocus(WindowEvent e) {
+                splashWindow.setVisible(false);
+            }
+        });
+        // Statusfenster
         this.statusArea = new Statusfenster(jobStatusBeschreibungen);
         try {
             this.statusArea.setAlwaysOnTop(true);
@@ -120,7 +137,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
             } else {
                 trayIcon.setToolTip("Keine Jobs überwachend");
             }
-            trayIcon.setPopupMenu(new ContextMenu(this.jobStatusBeschreibungen, tray, statusArea, timer).createContextMenu());
+            trayIcon.setPopupMenu(new ContextMenu(this.jobStatusBeschreibungen, tray, statusArea, splashWindow, timer).createContextMenu());
 
         } catch (Exception ex) {
             LOGGER.error("Unerwarteter Fehler - wie immer :( ", ex);
