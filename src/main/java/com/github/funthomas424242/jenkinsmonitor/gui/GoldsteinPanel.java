@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,8 +38,12 @@ public class GoldsteinPanel extends JPanel {
 
     public GoldsteinPanel() {
 
-        this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        this.add(new JLabel("Wer den Jenkins kontrolliert, kontrolliert die Gegenwart !!!"));
+        this.setLayout(new GridLayout(3,1));
+        this.add(new JLabel("<html>" +
+            "<h1>Jenkins Monitor Version: 0.0.3</h1>" +
+            "<p>Wer den Jenkins kontrolliert, kontrolliert die Gegenwart !!!</p>" +
+            "</html>"));
+//        this.add(new JLabel("<html><p>Wer den Jenkins kontrolliert, kontrolliert die Gegenwart !!!</p></html>"));
         try {
             final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("1984EmmanuelGoldstein.jpg");
             assert inputStream != null;
@@ -50,9 +55,12 @@ public class GoldsteinPanel extends JPanel {
             LOGGER.warn(MessageFormat.format("Goldstein Panel nicht erzeugt: {0}", e));
         }
 
-        this.add(new JLabel("Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft."));
-        this.add(new JLabel("Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit."));
-        this.add(new JLabel("— Georg Orwell (Author des Buches \"1984\")"));
+        this.add(new JLabel("<html><p>Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft.</p>" +
+            "<p>Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.</p>" +
+            "<p>— Georg Orwell (Author des Buches \"1984\")</p>" +
+            "</html>"));
+//        this.add(new JLabel("<html><p>Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.</p></html>"));
+//        this.add(new JLabel("<html><p>— Georg Orwell (Author des Buches \"1984\")</p></html>"));
 
     }
 
