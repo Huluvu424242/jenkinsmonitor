@@ -31,6 +31,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.Arrays.stream;
 
@@ -109,7 +110,7 @@ public class Zugangsdatensammler {
     }
 
     protected void ensureParametersAreNotNull(Object... parameter) {
-        final boolean areNotNull = stream(parameter).allMatch(para -> para != null);
+        final boolean areNotNull = stream(parameter).allMatch(Objects::nonNull);
         if (!areNotNull) {
             throw new IllegalArgumentException("jenkinsID und zugangstyp sind erforderlich");
         }
