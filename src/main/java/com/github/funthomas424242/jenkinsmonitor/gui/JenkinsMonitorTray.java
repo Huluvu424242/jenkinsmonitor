@@ -35,9 +35,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -125,7 +122,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
             } else {
                 trayIcon.setToolTip("Keine Jobs überwachend");
             }
-            trayIcon.setPopupMenu(createSettingsMenu());
+            trayIcon.setPopupMenu(new ContextMenu(this.jobStatusBeschreibungen, tray, statusArea, timer).createContextMenu());
 
         } catch (Exception ex) {
             LOGGER.error("Unerwarteter Fehler - wie immer :( ", ex);
@@ -137,75 +134,13 @@ public class JenkinsMonitorTray implements Timer.Listener {
         return new ImageGenerator(this.jobStatusBeschreibungen);
     }
 
-    /**
-     * https://stackoverflow.com/questions/13989265/task-tray-notification-balloon-events
-     *
-     * @return PopuMenu Contextmenü des TrayIcons
-     */
-    protected PopupMenu createSettingsMenu() {
-        final PopupMenu popup = new PopupMenu();
-
-        // Create a popup menu components
-        AbstractJobBeschreibung.sortedStreamOf(this.jobStatusBeschreibungen)
-            .forEach(statusBeschreibung -> {
-                final String itemText = String.format("[%s] <%s> %s", statusBeschreibung.getJobOrderId(), statusBeschreibung.getJobStatus(), statusBeschreibung.getJobName());
-                final MenuItem item = new MenuItem(itemText);
-                item.addActionListener(actionEvent -> {
-                    URI webSite = null;
-                    try {
-                        webSite = statusBeschreibung.getJobUrl().toURI();
-                        Desktop.getDesktop().browse(webSite);
-                        statusArea.setVisible(false);
-                    } catch (IOException | URISyntaxException ex) {
-                        LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, webSite), ex);
-                    }
-                });
-                popup.add(item);
-            });
-
-
-        final MenuItem aboutItem = new MenuItem("Über");
-        aboutItem.addActionListener(actionEvent -> {
-            try {
-                Desktop.getDesktop().browse(new URI(WEBSITE_JENKINSMONITOR));
-                statusArea.setVisible(false);
-            } catch (IOException | URISyntaxException ex) {
-                LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, WEBSITE_JENKINSMONITOR), ex);
-            }
-        });
-        MenuItem bugtracker = new MenuItem("Bugtracker");
-        bugtracker.addActionListener(actionEvent -> {
-            try {
-                Desktop.getDesktop().browse(new URI(WEBSITE_JENKINSMONITOR_ISSUES));
-                statusArea.setVisible(false);
-            } catch (IOException | URISyntaxException ex) {
-                LOGGER.warn(String.format(ERR_COULD_NOT_OPEN_URL, WEBSITE_JENKINSMONITOR_ISSUES), ex);
-            }
-        });
-        MenuItem exitItem = new MenuItem("Beenden");
-        exitItem.addActionListener(actionEvent -> {
-            timer.stop();
-            statusArea.setVisible(false);
-            statusArea.dispose();
-            tray.removeTrayIcon();
-        });
-
-        //Add components to popup menu
-        popup.add(aboutItem);
-        popup.add(bugtracker);
-        popup.addSeparator();
-        popup.add(exitItem);
-//        MenuScroller.setScrollerFor(popup);
-        return popup;
-    }
-
     public void updateJobStatus() {
         final JobBeschreibungen jobBeschreibungen = this.configuration.getJobBeschreibungen();
         final java.util.List<String> entriesToDelete = AbstractJobBeschreibung.sortedKeyStreamOf(jobStatusBeschreibungen)
             .parallel()
             .filter(primaryKey -> !jobBeschreibungen.containsKey(primaryKey))
             .collect(Collectors.toList());
-        entriesToDelete.stream().parallel().forEach(entry -> jobStatusBeschreibungen.remove(entry));
+        entriesToDelete.stream().parallel().forEach(jobStatusBeschreibungen::remove);
 
         // aktualisiere den Status der Jobs durch Jenkinsabfragen
         aktualisiereTrayIconDarstellung();
