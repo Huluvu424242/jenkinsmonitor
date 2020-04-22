@@ -114,9 +114,9 @@ public class ContextMenu {
         /* Versionsinfo Menüeintrag */
         final MenuItem versionsinfo = new MenuItem("Versionsinfo");
         versionsinfo.addActionListener(actionEvent -> {
-            splashWindow.setVisible(true);
-            splashWindow.setFocusable(true);
-            splashWindow.toFront();
+            splashWindow.setVisible(!splashWindow.isVisible());
+//            splashWindow.setFocusable(true);
+//            splashWindow.toFront();
         });
         aboutItem.add(versionsinfo);
 

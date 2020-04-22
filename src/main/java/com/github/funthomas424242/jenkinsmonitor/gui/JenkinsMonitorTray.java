@@ -83,11 +83,11 @@ public class JenkinsMonitorTray implements Timer.Listener {
         splashWindow.pack();
         splashWindow.setLocationRelativeTo(null);
         splashWindow.setAutoRequestFocus(false);
-        this.splashWindow.addWindowListener(new WindowAdapter() {
-            public void windowLostFocus(WindowEvent e) {
-                splashWindow.setVisible(false);
-            }
-        });
+//        this.splashWindow.addWindowListener(new WindowAdapter() {
+//            public void windowLostFocus(WindowEvent e) {
+//                splashWindow.setVisible(false);
+//            }
+//        });
         // Statusfenster
         this.statusArea = new Statusfenster(jobStatusBeschreibungen);
         try {
