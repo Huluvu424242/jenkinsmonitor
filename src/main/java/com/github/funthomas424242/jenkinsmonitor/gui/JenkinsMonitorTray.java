@@ -41,9 +41,7 @@ import java.util.stream.Collectors;
 public class JenkinsMonitorTray implements Timer.Listener {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(JenkinsMonitorTray.class);
-    public static final String WEBSITE_JENKINSMONITOR_ISSUES = "https://github.com/FunThomas424242/jenkinsmonitor/issues";
-    public static final String WEBSITE_JENKINSMONITOR = "https://github.com/FunThomas424242/jenkinsmonitor";
-    public static final String ERR_COULD_NOT_OPEN_URL = "URL %s konnte nicht geöffnet werden";
+
 
     protected final Configuration configuration;
     protected final SystemTrayWrapper tray;
