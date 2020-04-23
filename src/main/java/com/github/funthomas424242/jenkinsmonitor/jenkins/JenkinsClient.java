@@ -25,10 +25,7 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.stream.Collectors;
 
@@ -40,14 +37,12 @@ public class JenkinsClient {
     public void ladeJobsStatus(final AbstractJobBeschreibungen<JobStatusBeschreibung> jobStatusBeschreibungen, final JobBeschreibungen jobBeschreibungen) {
         LOG.debug("Frage Jobstatus ab");
         final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
-        final List<Future<JobStatusBeschreibung>> results = new ArrayList<>();
         AbstractJobBeschreibung.sortedStreamOf(jobBeschreibungen)
             .parallel()
             .map(beschreibung -> {
                 final JobAbfrage jobAbfrage
                     = new JobAbfrage(jobStatusBeschreibungen, beschreibung.getJobAbfragedaten(), beschreibung.getJobOrderId());
-                final Future<JobStatusBeschreibung> jobStatus = executor.submit(jobAbfrage);
-                return jobStatus;
+                return executor.submit(jobAbfrage);
             })
             .collect(Collectors.toList())
             .forEach(jobStatusFuture -> {
