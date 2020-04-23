@@ -50,7 +50,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected final SystemTrayWrapper tray;
     protected final JenkinsClient jenkinsClient;
     protected final Statusfenster statusArea;
-    protected final JWindow splashWindow;
+    protected final ContextMenu contextMenu;
     protected final Timer timer;
 
     protected final JobStatusBeschreibungen jobStatusBeschreibungen;
@@ -77,12 +77,12 @@ public class JenkinsMonitorTray implements Timer.Listener {
         this.configuration = configuration;
         this.jenkinsClient = jenkinsClient;
         // Goldsteinlogo
-        this.splashWindow = new JWindow();
+        final JWindow projectInfoWindow = new JWindow();
         final JPanel panel = new GoldsteinPanel();
-        splashWindow.add(panel);
-        splashWindow.pack();
-        splashWindow.setLocationRelativeTo(null);
-        splashWindow.setAutoRequestFocus(false);
+        projectInfoWindow.add(panel);
+        projectInfoWindow.pack();
+        projectInfoWindow.setLocationRelativeTo(null);
+        projectInfoWindow.setAutoRequestFocus(false);
         // Statusfenster
         this.statusArea = new Statusfenster(jobStatusBeschreibungen);
         try {
@@ -91,6 +91,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         } catch (Exception ex) {
             LOGGER.warn("Konnte natives Desktopverhalten nicht setzen", ex);
         }
+        this.contextMenu=new ContextMenu(this.jobStatusBeschreibungen, tray, statusArea, projectInfoWindow, timer);
     }
 
     public TrayIcon getTrayIcon() {
@@ -132,7 +133,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
             } else {
                 trayIcon.setToolTip("Keine Jobs überwachend");
             }
-            trayIcon.setPopupMenu(new ContextMenu(this.jobStatusBeschreibungen, tray, statusArea, splashWindow, timer).createContextMenu());
+            trayIcon.setPopupMenu(this.contextMenu.createContextMenu());
 
         } catch (Exception ex) {
             LOGGER.error("Unerwarteter Fehler - wie immer :( ", ex);
@@ -144,13 +145,17 @@ public class JenkinsMonitorTray implements Timer.Listener {
         return new ImageGenerator(this.jobStatusBeschreibungen);
     }
 
-    public void updateJobStatus() {
-        final JobBeschreibungen jobBeschreibungen = this.configuration.getJobBeschreibungen();
+    protected void bereinigeJobStatusBeschreibungen(final JobBeschreibungen jobBeschreibungen){
         final java.util.List<String> entriesToDelete = AbstractJobBeschreibung.sortedKeyStreamOf(jobStatusBeschreibungen)
             .parallel()
             .filter(primaryKey -> !jobBeschreibungen.containsKey(primaryKey))
             .collect(Collectors.toList());
         entriesToDelete.stream().parallel().forEach(jobStatusBeschreibungen::remove);
+    }
+
+    public void updateJobStatus() {
+        final JobBeschreibungen jobBeschreibungen = this.configuration.getJobBeschreibungen();
+        bereinigeJobStatusBeschreibungen(jobBeschreibungen);
 
         // aktualisiere den Status der Jobs durch Jenkinsabfragen
         aktualisiereTrayIconDarstellung();
