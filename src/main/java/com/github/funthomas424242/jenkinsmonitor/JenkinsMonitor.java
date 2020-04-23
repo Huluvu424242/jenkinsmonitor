@@ -38,7 +38,7 @@ public class JenkinsMonitor {
         LOGGER.info("Jenkinsmonitor gestartet");
     }
 
-    public JenkinsMonitorTray getMonitorTray(){
+    public JenkinsMonitorTray getMonitorTray() {
         return this.monitorTray;
     }
 

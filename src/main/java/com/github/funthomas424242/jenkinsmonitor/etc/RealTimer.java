@@ -65,7 +65,7 @@ public class RealTimer implements Timer {
         this.cancelableFuture = timerService.scheduleAtFixedRate(this::reportTimeElapse, period.duration, period.duration, period.durationTimeUnit);
     }
 
-    private void reportTimeStarted(){
+    private void reportTimeStarted() {
         listeners.forEach(Listener::timeStarted);
     }
 

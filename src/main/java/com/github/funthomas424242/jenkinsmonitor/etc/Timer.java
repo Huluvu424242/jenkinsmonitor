@@ -37,6 +37,7 @@ public interface Timer {
 
     interface Listener {
         void timeStarted();
+
         void timeElapsed();
     }
 }
