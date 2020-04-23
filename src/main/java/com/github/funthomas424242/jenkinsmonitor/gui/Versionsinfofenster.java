@@ -33,10 +33,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
 
-public class GoldsteinPanel extends JWindow {
-    public static final Logger LOGGER = LoggerFactory.getLogger(GoldsteinPanel.class);
+public class Versionsinfofenster extends JWindow {
+    public static final Logger LOGGER = LoggerFactory.getLogger(Versionsinfofenster.class);
 
-    public GoldsteinPanel() {
+    public Versionsinfofenster() {
         // create Window Content
         this.add(createGoldsteinPanel());
         this.pack();

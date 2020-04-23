@@ -40,7 +40,7 @@ public class ContextMenu {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(ContextMenu.class);
 
-    protected final GoldsteinPanel goldsteinPanel;
+    protected final Versionsinfofenster versionsinfofenster;
 
     protected final JobStatusBeschreibungen jobStatusBeschreibungen;
 
@@ -51,12 +51,11 @@ public class ContextMenu {
     protected final Timer timer;
 
     public ContextMenu(final JobStatusBeschreibungen jobStatusBeschreibungen, final SystemTrayWrapper tray, final Statusfenster statusArea, final Timer timer) {
+        this.versionsinfofenster = new Versionsinfofenster();
         this.jobStatusBeschreibungen = jobStatusBeschreibungen;
         this.tray = tray;
         this.statusArea = statusArea;
         this.timer = timer;
-        // Projectinfo Fenster
-        this.goldsteinPanel = new GoldsteinPanel();
     }
 
     /**
@@ -107,8 +106,8 @@ public class ContextMenu {
             }
         });
         /* Versionsinfo Menüeintrag */
-        final CheckboxMenuItem versionsinfo = new CheckboxMenuItem("Versionsinfo", goldsteinPanel.isVisible());
-        versionsinfo.addItemListener(itemEvent -> goldsteinPanel.setVisible(!goldsteinPanel.isVisible()));
+        final CheckboxMenuItem versionsinfo = new CheckboxMenuItem("Versionsinfo", versionsinfofenster.isVisible());
+        versionsinfo.addItemListener(itemEvent -> versionsinfofenster.setVisible(!versionsinfofenster.isVisible()));
 
         final MenuItem exitItem = new MenuItem("Beenden");
         exitItem.addActionListener(actionEvent -> {
