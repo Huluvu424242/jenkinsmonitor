@@ -31,12 +31,9 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibungen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -49,7 +46,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected final Configuration configuration;
     protected final SystemTrayWrapper tray;
     protected final JenkinsClient jenkinsClient;
-    protected final Statusfenster statusArea;
+    protected final Statusfenster statusfenster;
     protected final ContextMenu contextMenu;
     protected final Timer timer;
 
@@ -77,15 +74,15 @@ public class JenkinsMonitorTray implements Timer.Listener {
         this.configuration = configuration;
         this.jenkinsClient = jenkinsClient;
         // Statusfenster
-        this.statusArea = new Statusfenster(jobStatusBeschreibungen);
+        this.statusfenster = new Statusfenster(jobStatusBeschreibungen);
         try {
-            this.statusArea.setAlwaysOnTop(true);
-            this.statusArea.setLocationByPlatform(false);
+            this.statusfenster.setAlwaysOnTop(true);
+            this.statusfenster.setLocationByPlatform(false);
         } catch (Exception ex) {
             LOGGER.warn("Konnte natives Desktopverhalten nicht setzen", ex);
         }
         // ContextMenu
-        this.contextMenu=new ContextMenu(this.jobStatusBeschreibungen, tray, statusArea,  timer);
+        this.contextMenu=new ContextMenu(this.jobStatusBeschreibungen, tray, statusfenster,  timer);
     }
 
     public TrayIcon getTrayIcon() {
@@ -96,7 +93,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         LOGGER.debug("Erzeuge Darstellung TrayIcon");
         try {
             final ImageGenerator imageGenerator = getImageGenerator();
-            imageGenerator.updateStatusArea(statusArea);
+            imageGenerator.updateStatusArea(statusfenster);
 
             TrayIcon trayIcon = getTrayIcon();
             if (trayIcon == null) {
@@ -108,7 +105,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
                     public void mouseClicked(MouseEvent e) {
                         LOGGER.debug("Mouseklick links");
                         if (e.getClickCount() == 1) {
-                            statusArea.setVisible(!statusArea.isVisible());
+                            statusfenster.setVisible(!statusfenster.isVisible());
                         }
                     }
                 });
