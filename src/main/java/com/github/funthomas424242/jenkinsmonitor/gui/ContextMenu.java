@@ -27,7 +27,6 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
@@ -41,22 +40,23 @@ public class ContextMenu {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(ContextMenu.class);
 
+    protected final GoldsteinPanel goldsteinPanel;
+
     protected final JobStatusBeschreibungen jobStatusBeschreibungen;
 
     protected final SystemTrayWrapper tray;
 
     protected final Statusfenster statusArea;
 
-    protected final JWindow splashWindow;
-
     protected final Timer timer;
 
-    public ContextMenu(final JobStatusBeschreibungen jobStatusBeschreibungen, final SystemTrayWrapper tray, final Statusfenster statusArea, final JWindow splashWindow, final Timer timer) {
+    public ContextMenu(final JobStatusBeschreibungen jobStatusBeschreibungen, final SystemTrayWrapper tray, final Statusfenster statusArea, final Timer timer) {
         this.jobStatusBeschreibungen = jobStatusBeschreibungen;
         this.tray = tray;
         this.statusArea = statusArea;
         this.timer = timer;
-        this.splashWindow = splashWindow;
+        // Projectinfo Fenster
+        this.goldsteinPanel = new GoldsteinPanel();
     }
 
     /**
@@ -107,8 +107,8 @@ public class ContextMenu {
             }
         });
         /* Versionsinfo Menüeintrag */
-        final CheckboxMenuItem versionsinfo = new CheckboxMenuItem("Versionsinfo", splashWindow.isVisible());
-        versionsinfo.addItemListener(itemEvent -> splashWindow.setVisible(!splashWindow.isVisible()));
+        final CheckboxMenuItem versionsinfo = new CheckboxMenuItem("Versionsinfo", goldsteinPanel.isVisible());
+        versionsinfo.addItemListener(itemEvent -> goldsteinPanel.setVisible(!goldsteinPanel.isVisible()));
 
         final MenuItem exitItem = new MenuItem("Beenden");
         exitItem.addActionListener(actionEvent -> {
@@ -125,7 +125,6 @@ public class ContextMenu {
         popup.add(homepage);
         popup.addSeparator();
         popup.add(exitItem);
-//        MenuScroller.setScrollerFor(popup);
         return popup;
     }
 }

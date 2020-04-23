@@ -33,35 +33,43 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
 
-public class GoldsteinPanel extends JPanel {
+public class GoldsteinPanel extends JWindow {
     public static final Logger LOGGER = LoggerFactory.getLogger(GoldsteinPanel.class);
 
     public GoldsteinPanel() {
+        // create Window Content
+        this.add(createGoldsteinPanel());
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setAutoRequestFocus(false);
+    }
 
-        this.setLayout(new GridLayout(3,1));
-        this.add(new JLabel("<html>" +
+    protected JPanel createGoldsteinPanel() {
+
+        final JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(3, 1));
+        panel.add(new JLabel("<html>" +
             "<h1>Jenkins Monitor Version: 0.0.3</h1>" +
             "<p>Wer den Jenkins kontrolliert, kontrolliert die Gegenwart !!!</p>" +
             "</html>"));
-//        this.add(new JLabel("<html><p>Wer den Jenkins kontrolliert, kontrolliert die Gegenwart !!!</p></html>"));
+
         try {
             final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("1984EmmanuelGoldstein.jpg");
             assert inputStream != null;
             final BufferedImage myPicture = ImageIO.read(inputStream);
             final JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-            this.add(picLabel);
+            panel.add(picLabel);
             inputStream.close();
         } catch (IOException e) {
             LOGGER.warn(MessageFormat.format("Goldstein Panel nicht erzeugt: {0}", e));
         }
 
-        this.add(new JLabel("<html><p>Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft.</p>" +
+        panel.add(new JLabel("<html><p>Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft.</p>" +
             "<p>Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.</p>" +
             "<p>— Georg Orwell (Author des Buches \"1984\")</p>" +
             "</html>"));
-//        this.add(new JLabel("<html><p>Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.</p></html>"));
-//        this.add(new JLabel("<html><p>— Georg Orwell (Author des Buches \"1984\")</p></html>"));
 
+        return panel;
     }
 
 }

@@ -76,13 +76,6 @@ public class JenkinsMonitorTray implements Timer.Listener {
         timer.start();
         this.configuration = configuration;
         this.jenkinsClient = jenkinsClient;
-        // Goldsteinlogo
-        final JWindow projectInfoWindow = new JWindow();
-        final JPanel panel = new GoldsteinPanel();
-        projectInfoWindow.add(panel);
-        projectInfoWindow.pack();
-        projectInfoWindow.setLocationRelativeTo(null);
-        projectInfoWindow.setAutoRequestFocus(false);
         // Statusfenster
         this.statusArea = new Statusfenster(jobStatusBeschreibungen);
         try {
@@ -91,7 +84,8 @@ public class JenkinsMonitorTray implements Timer.Listener {
         } catch (Exception ex) {
             LOGGER.warn("Konnte natives Desktopverhalten nicht setzen", ex);
         }
-        this.contextMenu=new ContextMenu(this.jobStatusBeschreibungen, tray, statusArea, projectInfoWindow, timer);
+        // ContextMenu
+        this.contextMenu=new ContextMenu(this.jobStatusBeschreibungen, tray, statusArea,  timer);
     }
 
     public TrayIcon getTrayIcon() {
