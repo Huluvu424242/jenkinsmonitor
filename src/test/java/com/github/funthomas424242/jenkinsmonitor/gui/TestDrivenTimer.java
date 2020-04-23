@@ -57,7 +57,4 @@ class TestDrivenTimer implements Timer {
         return 0;
     }
 
-    public void elapseTime() {
-        listeners.forEach(Listener::timeElapsed);
-    }
 }
