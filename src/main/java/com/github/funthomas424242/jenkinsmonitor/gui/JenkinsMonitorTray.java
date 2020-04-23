@@ -82,7 +82,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
             LOGGER.warn("Konnte natives Desktopverhalten nicht setzen", ex);
         }
         // ContextMenu
-        this.contextMenu=new ContextMenu(this.jobStatusBeschreibungen, tray, statusfenster,  timer);
+        this.contextMenu = new ContextMenu(this.jobStatusBeschreibungen, tray, statusfenster, timer);
     }
 
     public TrayIcon getTrayIcon() {
@@ -92,12 +92,10 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected void erzeugeTrayIconDarstellung() {
         LOGGER.debug("Erzeuge Darstellung TrayIcon");
         try {
-            if (this.jobStatusBeschreibungen != null) {
-                statusfenster.aktualisiereContentPane();
-            }
+            statusfenster.aktualisiereContentPane();
 
             TrayIcon trayIcon = getTrayIcon();
-            final ImageGenerator imageGenerator = getImageGenerator();;
+            final ImageGenerator imageGenerator = new ImageGenerator(this.jobStatusBeschreibungen);
             if (trayIcon == null) {
                 final BufferedImage trayImage = imageGenerator.createImage(100, 100);
                 trayIcon = new TrayIcon(trayImage);
@@ -134,11 +132,11 @@ public class JenkinsMonitorTray implements Timer.Listener {
 
     }
 
-    protected ImageGenerator getImageGenerator() {
-        return new ImageGenerator(this.jobStatusBeschreibungen);
+    protected void aktualisiereTrayIconDarstellung() {
+        erzeugeTrayIconDarstellung();
     }
 
-    protected void bereinigeJobStatusBeschreibungen(final JobBeschreibungen jobBeschreibungen){
+    protected void bereinigeJobStatusBeschreibungen(final JobBeschreibungen jobBeschreibungen) {
         final java.util.List<String> entriesToDelete = AbstractJobBeschreibung.sortedKeyStreamOf(jobStatusBeschreibungen)
             .parallel()
             .filter(primaryKey -> !jobBeschreibungen.containsKey(primaryKey))
@@ -157,9 +155,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         aktualisiereTrayIconDarstellung();
     }
 
-    protected void aktualisiereTrayIconDarstellung() {
-        erzeugeTrayIconDarstellung();
-    }
+
 
     public Configuration getConfiguration() {
         return this.configuration;
