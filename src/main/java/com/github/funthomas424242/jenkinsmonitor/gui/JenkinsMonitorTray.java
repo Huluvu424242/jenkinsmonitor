@@ -62,6 +62,10 @@ public class JenkinsMonitorTray implements Timer.Listener {
         timer.start(); // implicit call updateJobStatus()
     }
 
+    protected JobStatusDarstellungen getJobStatusDarstellungen() {
+        return this.jobStatusDarstellungen;
+    }
+
     public void updateJobStatus() {
         final JobBeschreibungen jobBeschreibungen = configuration.getJobBeschreibungen();
         jobStatusDarstellungen.bereinigeJobStatusBeschreibungen(jobBeschreibungen);
