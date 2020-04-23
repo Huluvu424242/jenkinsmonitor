@@ -38,6 +38,10 @@ public class JenkinsMonitor {
         LOGGER.info("Jenkinsmonitor gestartet");
     }
 
+    public JenkinsMonitorTray getMonitorTray(){
+        return this.monitorTray;
+    }
+
     public static void main(final String[] commandlineArgs) {
         final Configuration defaultConfiguration = new Configuration(Configuration.getDefaultConfigurationsfile());
         new JenkinsMonitor(defaultConfiguration);
