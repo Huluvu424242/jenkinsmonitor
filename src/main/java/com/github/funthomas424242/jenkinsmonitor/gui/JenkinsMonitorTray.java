@@ -70,11 +70,14 @@ public class JenkinsMonitorTray implements Timer.Listener {
         final JobBeschreibungen jobBeschreibungen = configuration.getJobBeschreibungen();
         jobStatusDarstellungen.bereinigeJobStatusBeschreibungen(jobBeschreibungen);
 
-        // aktualisiere den Status der Jobs durch Jenkinsabfragen
+        // aktualisiere den Status der Anzeigen ohne Jenkinsabfragen
         jobStatusDarstellungen.aktualisiereStatusfenster();
         jobStatusDarstellungen.aktualisiereTrayIconDarstellung();
-        // Langlaufender Prozess durch Request die ins timeout laufen
+
+        // Langlaufender, blockierender Prozess mit Jenkinsabfragen durch Request die ins timeout laufen
         jenkinsClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
+
+        // aktualisiere den Status der Anzeigen ohne Jenkinsabfragen
         jobStatusDarstellungen.aktualisiereTrayIconDarstellung();
         jobStatusDarstellungen.aktualisiereStatusfenster();
     }
