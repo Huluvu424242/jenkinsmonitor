@@ -26,14 +26,14 @@ import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImageTestHelper.isImageOfColor;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ImageGeneratorTest {
 
@@ -138,8 +138,6 @@ class ImageGeneratorTest {
         assertEquals(JobStatus.FAILURE.getColor().getRGB(), image.getRGB(60, 10));
         assertEquals(Color.red.getRGB(), image.getRGB(60, 10));
     }
-
-
 
 
 }

@@ -112,7 +112,7 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei einem erfolreichen Job soll das TrayIcon grün sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master success>>")
     public void shouldShowOneSuccessJobWatching() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock,new JenkinsClientMock(JobStatus.SUCCESS), new ConfigurationMockOneJobSuccess());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMock(JobStatus.SUCCESS), new ConfigurationMockOneJobSuccess());
 
         jenkinsMonitorTray.updateJobStatus();
 
