@@ -51,9 +51,9 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
     public static final String JSONKEY_FULL_DISPLAY_NAME = "fullDisplayName";
     public static final String JSONKEY_RESULT = "result";
 
-    final JobAbfragedaten jobAbfragedaten;
-    final String jobOrderId;
-    final AbstractJobBeschreibungen<JobStatusBeschreibung> jobStatusBeschreibungen;
+    protected final JobAbfragedaten jobAbfragedaten;
+    protected final String jobOrderId;
+    protected final AbstractJobBeschreibungen<JobStatusBeschreibung> jobStatusBeschreibungen;
 
     public JobAbfrage(final AbstractJobBeschreibungen<JobStatusBeschreibung> jobStatusBeschreibungen, final JobAbfragedaten jobAbfragedaten, final String jobOrderId) {
         this.jobStatusBeschreibungen = jobStatusBeschreibungen;
