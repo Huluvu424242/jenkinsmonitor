@@ -59,6 +59,20 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
         this.jobOrderId = jobOrderId;
     }
 
+    public String getPrimaryKey() {
+        final String url = getAbfrageUrl() != null ? getAbfrageUrl().toExternalForm() : "";
+        return getJobOrderId() + "#" + url;
+    }
+
+    public URL getAbfrageUrl() {
+        return this.jobAbfragedaten.getJenkinsJobUrl();
+    }
+
+    public String getJobOrderId() {
+        return this.jobOrderId;
+    }
+
+
     @Override
     public JobStatusBeschreibung call() throws Exception {
         return getJobStatus();

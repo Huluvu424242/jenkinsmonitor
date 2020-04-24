@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -43,16 +44,23 @@ public class JenkinsClient {
             .map(beschreibung -> {
                 final JobAbfrage jobAbfrage
                     = new JobAbfrage(beschreibung.getJobAbfragedaten(), beschreibung.getJobOrderId());
-                return executor.submit(jobAbfrage);
+                final Future<JobStatusBeschreibung> jobAbfrageFuture = executor.submit(jobAbfrage);
+                return new JobAbfrageFutureWrapper(jobAbfrage, jobAbfrageFuture);
             })
             .collect(Collectors.toList())
-            .forEach(jobAbfrageFuture -> {
+            .forEach(jobAbfrageFutureWrapper -> {
+                final Future<JobStatusBeschreibung> future = jobAbfrageFutureWrapper.getJobAbfrageFuture();
                 try {
-                    final JobStatusBeschreibung jobStatus = jobAbfrageFuture.get(1, TimeUnit.SECONDS);
+
+                    final JobStatusBeschreibung jobStatus = future.get(3, TimeUnit.SECONDS);
                     jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
                     LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
                 } catch (Exception e) {
-                    jobAbfrageFuture.cancel(true);
+                    future.cancel(true);
+                    final JobAbfrage jobAbfrage = jobAbfrageFutureWrapper.getJobAbfrage();
+                    final JobStatusBeschreibung jobStatusBeschreibung
+                        = new JobStatusBeschreibung("Connection Timeout" + jobAbfrage.getAbfrageUrl().toExternalForm(), JobStatus.OTHER, jobAbfrage.getAbfrageUrl(), jobAbfrage.getJobOrderId());
+                    jobStatusBeschreibungen.put(jobAbfrage.getPrimaryKey(), jobStatusBeschreibung);
                     LOG.warn("Read Future Result goes wrong and was canceled");
                 }
             });
