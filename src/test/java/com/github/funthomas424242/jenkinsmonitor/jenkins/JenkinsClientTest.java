@@ -93,7 +93,7 @@ public class JenkinsClientTest {
 
     @Test
     @DisplayName("prüfe ladeJobStatutus für zwei Jobs einer rot und einer gelb")
-    void checkLadeTwoJobStatusSUCCESS_UNSTABLE() {
+    void checkLadeTwoJobStatusSUCCESSandUNSTABLE() {
 
         final JobBeschreibungen jobBeschreibungen = new JobBeschreibungen();
         final JobBeschreibung jobBeschreibung1 = new JobBeschreibung("#2", new JobAbfragedaten(NetworkHelper.urlOf("http://localhost:8099/job/multibranchjobred/job/master")));
