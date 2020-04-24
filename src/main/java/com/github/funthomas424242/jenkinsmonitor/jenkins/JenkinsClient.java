@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
@@ -41,20 +42,23 @@ public class JenkinsClient {
             .parallel()
             .map(beschreibung -> {
                 final JobAbfrage jobAbfrage
-                    = new JobAbfrage(jobStatusBeschreibungen, beschreibung.getJobAbfragedaten(), beschreibung.getJobOrderId());
+                    = new JobAbfrage(beschreibung.getJobAbfragedaten(), beschreibung.getJobOrderId());
                 return executor.submit(jobAbfrage);
             })
             .collect(Collectors.toList())
-            .forEach(jobStatusFuture -> {
+            .forEach(jobAbfrageFuture -> {
                 try {
-                    final JobStatusBeschreibung jobStatus = jobStatusFuture.get();
+                    final JobStatusBeschreibung jobStatus = jobAbfrageFuture.get(1, TimeUnit.SECONDS);
                     jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
                     LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
                 } catch (Exception e) {
-                    LOG.warn("Read Future Result goes wrong.");
+                    jobAbfrageFuture.cancel(true);
+                    LOG.warn("Read Future Result goes wrong and was canceled");
                 }
             });
         executor.shutdown();
     }
-
 }
+
+
+
