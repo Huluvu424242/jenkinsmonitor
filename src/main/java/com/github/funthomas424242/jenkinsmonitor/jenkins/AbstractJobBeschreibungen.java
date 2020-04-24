@@ -29,7 +29,7 @@ import java.util.Set;
 
 public class AbstractJobBeschreibungen<T> {
 
-    final Map<String, T> jobBeschreibungen;
+    protected final Map<String, T> jobBeschreibungen;
 
     public void remove(String key) {
         jobBeschreibungen.remove(key);
