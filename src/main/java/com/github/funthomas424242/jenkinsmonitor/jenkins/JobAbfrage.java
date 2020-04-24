@@ -112,11 +112,11 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
             }
             return getJsonObjectFromResponse(httpResponse);
         } catch (JSONException | IOException ex) {
-            LOG.warn("Could not retrieve data from jenkins: " + ex);
+            LOG.warn(String.format("Could not retrieve data from jenkins: %s", ex));
             if (ex instanceof HttpResponseException) {
                 throw (HttpResponseException) ex;
             } else {
-                LOG.warn("An Error occured" + ex);
+                LOG.warn(String.format("An Error occured%s", ex));
             }
         }
         return null;
@@ -131,7 +131,7 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
             final InputStream inputStream = entity.getContent();
             requestResult = readStreamIntoString(inputStream);
         } catch (IOException e) {
-            LOG.warn("Jenkins Response could not be read: " + e);
+            LOG.warn(String.format("Jenkins Response could not be read: %s", e));
             return null;
         }
         LOG.debug("Empfangen als JSON:\n {}", requestResult);
