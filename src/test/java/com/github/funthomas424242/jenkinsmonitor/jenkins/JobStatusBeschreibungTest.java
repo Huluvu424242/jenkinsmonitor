@@ -47,7 +47,9 @@ class JobStatusBeschreibungTest {
     @Test
     @DisplayName("Prüfe equals und hashCode")
     protected void checkEqualsAndHashCode() {
-        EqualsVerifier.forClass(JobStatusBeschreibung.class).verify();
+        assertDoesNotThrow(() -> {
+            EqualsVerifier.forClass(JobStatusBeschreibung.class).verify();
+        });
     }
 
 
