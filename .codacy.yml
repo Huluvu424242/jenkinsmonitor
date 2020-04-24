@@ -1,3 +1,5 @@
 exclude_paths:
     - '.github/**'
     - '.mvn/**'
+    - 'docs/css/print.css'
+    - 'docs/css/*.min.css'
