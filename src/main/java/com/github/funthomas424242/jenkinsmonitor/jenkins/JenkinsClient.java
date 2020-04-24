@@ -47,6 +47,7 @@ public class JenkinsClient {
                 final Future<JobStatusBeschreibung> jobAbfrageFuture = executor.submit(jobAbfrage);
                 return new JobAbfrageFutureWrapper(jobAbfrage, jobAbfrageFuture);
             })
+            // TODO optimieren nach https://www.concretepage.com/java/jdk-8/java-8-stream-collect-example#collect
             .collect(Collectors.toList())
             .forEach(jobAbfrageFutureWrapper -> {
                 final Future<JobStatusBeschreibung> future = jobAbfrageFutureWrapper.getJobAbfrageFuture();
