@@ -1,6 +1,6 @@
-var treeMapJson = {"id":"Clover database So. Apr. 26 2020 00:59:48 MESZ0","name":"","data":{
-    "$area":821.0,"$color":81.36419,"title":
-    " 821 Elements, 81,4% Coverage"},"children":[{"id":
+var treeMapJson = {"id":"Clover database So. Apr. 26 2020 01:35:22 MESZ0","name":"","data":{
+    "$area":821.0,"$color":81.242386,"title":
+    " 821 Elements, 81,2% Coverage"},"children":[{"id":
       "com.github.funthomas424242.jenkinsmonitor.jenkins472","name":
       "com.github.funthomas424242.jenkinsmonitor.jenkins","data":{"$area":
         294.0,"$color":81.63265,"title":
@@ -68,8 +68,8 @@ var treeMapJson = {"id":"Clover database So. Apr. 26 2020 00:59:48 MESZ0","name"
             "title":"JenkinsAPIMock 6 Elements, 100% Coverage"},"children":[]}]},
     {"id":"com.github.funthomas424242.jenkinsmonitor.gui167","name":
       "com.github.funthomas424242.jenkinsmonitor.gui","data":{"$area":
-        325.0,"$color":76.92308,"title":
-        "com.github.funthomas424242.jenkinsmonitor.gui 325 Elements, 76,9% Coverage"},
+        325.0,"$color":76.61539,"title":
+        "com.github.funthomas424242.jenkinsmonitor.gui 325 Elements, 76,6% Coverage"},
       "children":[{"id":"ContextMenu167","name":"ContextMenu","data":{
             "$area":46.0,"$color":60.869564,"path":
             "com/github/funthomas424242/jenkinsmonitor/gui/ContextMenu.html#ContextMenu",
@@ -92,10 +92,10 @@ var treeMapJson = {"id":"Clover database So. Apr. 26 2020 00:59:48 MESZ0","name"
             "com/github/funthomas424242/jenkinsmonitor/gui/JobStatusBeschreibungen.html#JobStatusBeschreibungen",
             "title":"JobStatusBeschreibungen 12 Elements, 100% Coverage"},
           "children":[]},{"id":"JobStatusDarstellungen286","name":
-          "JobStatusDarstellungen","data":{"$area":41.0,"$color":82.92683,
+          "JobStatusDarstellungen","data":{"$area":41.0,"$color":80.48781,
             "path":
             "com/github/funthomas424242/jenkinsmonitor/gui/JobStatusDarstellungen.html#JobStatusDarstellungen",
-            "title":"JobStatusDarstellungen 41 Elements, 82,9% Coverage"},
+            "title":"JobStatusDarstellungen 41 Elements, 80,5% Coverage"},
           "children":[]},{"id":"JobStatusZeileOben327","name":
           "JobStatusZeileOben","data":{"$area":19.0,"$color":89.47369,"path":
             

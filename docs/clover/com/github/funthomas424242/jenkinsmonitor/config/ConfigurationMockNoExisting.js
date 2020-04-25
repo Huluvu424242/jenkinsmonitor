@@ -4,7 +4,7 @@ var clover = new Object();
 clover.pageData = {"classes":[{"el":42,"id":765,"methods":[{"el":35,"sc":5,"sl":33},{"el":40,"sc":5,"sl":37}],"name":"ConfigurationMockNoExisting","sl":29}]}
 
 // JSON: {test_ID : {"methods": [ID1, ID2, ID3...], "name" : "testXXX() void"}, ...};
-clover.testTargets = {"test_41":{"methods":[{"sl":33},{"sl":37}],"name":"checkTrayInstanz","pass":true,"statements":[{"sl":34},{"sl":38},{"sl":39}]},"test_45":{"methods":[{"sl":33},{"sl":37}],"name":"initialConfigWithEmptyJobs","pass":true,"statements":[{"sl":34},{"sl":38},{"sl":39}]}}
+clover.testTargets = {"test_14":{"methods":[{"sl":33},{"sl":37}],"name":"initialConfigWithEmptyJobs","pass":true,"statements":[{"sl":34},{"sl":38},{"sl":39}]},"test_36":{"methods":[{"sl":33},{"sl":37}],"name":"checkTrayInstanz","pass":true,"statements":[{"sl":34},{"sl":38},{"sl":39}]}}
 
 // JSON: { lines : [{tests : [testid1, testid2, testid3, ...]}, ...]};
-clover.srcFileLines = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [45, 41], [45, 41], [], [], [45, 41], [45, 41], [45, 41], [], [], []]
+clover.srcFileLines = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [14, 36], [14, 36], [], [], [14, 36], [14, 36], [14, 36], [], [], []]
