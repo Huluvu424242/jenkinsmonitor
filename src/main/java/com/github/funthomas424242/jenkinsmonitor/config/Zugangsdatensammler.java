@@ -35,17 +35,15 @@ import java.util.Objects;
 
 import static java.util.Arrays.stream;
 
+class Zugang {
+    public String host;
+    public String userName;
+    public String password;
+}
 
 public class Zugangsdatensammler {
 
-    transient protected final Logger LOGGER = LoggerFactory.getLogger(Zugangsdatensammler.class);
-
-    protected class Zugang {
-        public String host;
-        public String userName;
-        public String password;
-    }
-
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Zugangsdatensammler.class);
 
     protected final HashMap<String, Zugang> zugaenge;
 
@@ -90,8 +88,7 @@ public class Zugangsdatensammler {
         final List<Jenkinszugangskonfiguration> jobabfragedaten = new ArrayList<>();
         zugaenge
             .values()
-            .stream()
-            .forEach((zugang) -> {
+            .forEach(zugang -> {
                 if (zugang.userName != null && zugang.password != null) {
                     try {
                         final Jenkinszugangskonfiguration jenkinszugangskonfiguration
