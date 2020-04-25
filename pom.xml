@@ -171,6 +171,11 @@
           <version>${maven-compiler-plugin.version}</version>
         </plugin>
         <plugin>
+          <groupId>org.openclover</groupId>
+          <artifactId>clover-maven-plugin</artifactId>
+          <version>4.4.1</version>
+        </plugin>
+        <plugin>
           <artifactId>maven-source-plugin</artifactId>
           <version>3.2.1</version>
         </plugin>
@@ -284,6 +289,7 @@
               <goal>clean</goal>
             </goals>
             <configuration>
+              <excludeDefaultDirectories>true</excludeDefaultDirectories>
               <filesets>
                 <fileset>
                   <directory>${basedir}/docs</directory>
@@ -292,21 +298,22 @@
               </filesets>
             </configuration>
           </execution>
-          <execution>
-            <id>clean-test</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>clean</goal>
-            </goals>
-            <configuration>
-              <filesets>
-                <fileset>
-                  <directory>${basedir}/generated/</directory>
-                  <followSymlinks>false</followSymlinks>
-                </fileset>
-              </filesets>
-            </configuration>
-          </execution>
+<!--          <execution>-->
+<!--            <id>clean-test</id>-->
+<!--            <phase>initialize</phase>-->
+<!--            <goals>-->
+<!--              <goal>clean</goal>-->
+<!--            </goals>-->
+<!--            <configuration>-->
+<!--              <excludeDefaultDirectories>true</excludeDefaultDirectories>-->
+<!--              <filesets>-->
+<!--                <fileset>-->
+<!--                  <directory>${basedir}/generated/</directory>-->
+<!--                  <followSymlinks>false</followSymlinks>-->
+<!--                </fileset>-->
+<!--              </filesets>-->
+<!--            </configuration>-->
+<!--          </execution>-->
         </executions>
       </plugin>
       <plugin>
@@ -342,6 +349,15 @@
             <arg>--add-opens=java.base/java.net=ALL-UNNAMED</arg>
           </compilerArgs>
           <fork>true</fork>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.openclover</groupId>
+        <artifactId>clover-maven-plugin</artifactId>
+        <configuration>
+          <!-- Use custom report descriptor -->
+          <reportDescriptor>clover-report.xml</reportDescriptor>
+          <outputDirectory>${basedir}/docs/clover/</outputDirectory>
         </configuration>
       </plugin>
       <plugin>
@@ -588,6 +604,48 @@
     <!--        <maven.test.skip>false</maven.test.skip>-->
     <!--      </properties>-->
     <!--    </profile>-->
+
+    <profile>
+      <id>site</id>
+      <build>
+        <defaultGoal>clean site clover:setup verify clover:aggregate clover:clover</defaultGoal>
+      </build>
+    </profile>
+
+<!--    <profile>-->
+<!--      <id>clover.report</id>-->
+<!--      <build>-->
+<!--        <defaultGoal>verify</defaultGoal>-->
+<!--        <plugins>-->
+<!--          <plugin>-->
+<!--            <groupId>org.openclover</groupId>-->
+<!--            <artifactId>clover-maven-plugin</artifactId>-->
+<!--            <configuration>-->
+
+<!--            </configuration>-->
+<!--            <executions>-->
+<!--              <execution>-->
+<!--                <id>clover</id>-->
+<!--                <phase>verify</phase>-->
+<!--                <goals>-->
+<!--                  <goal>instrument</goal>-->
+<!--                  <goal>check</goal>-->
+<!--                  <goal>clover</goal>-->
+<!--                </goals>-->
+<!--              </execution>-->
+<!--            </executions>-->
+<!--          </plugin>-->
+<!--        </plugins>-->
+<!--      </build>-->
+<!--      <reporting>-->
+<!--        <plugins>-->
+<!--          <plugin>-->
+<!--            <groupId>org.openclover</groupId>-->
+<!--            <artifactId>clover-maven-plugin</artifactId>-->
+<!--          </plugin>-->
+<!--        </plugins>-->
+<!--      </reporting>-->
+<!--    </profile>-->
 
   </profiles>
 
