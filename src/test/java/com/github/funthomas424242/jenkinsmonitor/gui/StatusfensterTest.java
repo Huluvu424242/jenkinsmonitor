@@ -52,24 +52,4 @@ class StatusfensterTest {
         window.setVisible(true);
         window.dispose();
     }
-
-    // TODO Reaktivieren (kommt aus ImageGeneratorTest)
-//    @Test
-//    @Tag("headfull")
-//    @DisplayName("Zeige Buildstatusfläche für einen grünen Job an einer bestimmten Position")
-//    public void showBuildStatusAreaOneSuccessJob() {
-//        final JobStatusBeschreibungen jobsStatusBeschreibungen = new JobStatusBeschreibungen();
-//        final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
-//            , JobStatus.SUCCESS
-//            , NetworkHelper.urlOf("http://localhost/"), "#1");
-//        jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(), jobsStatusBeschreibungen0);
-//
-//        final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
-//        final Statusfenster statusArea = new Statusfenster(jobsStatusBeschreibungen);
-//        generator.updateStatusArea(statusArea);
-//
-//        assertNotNull(statusArea);
-////        assertEquals("##",statusArea.getRootPane().getComponents()[0].getName());
-//    }
-
 }
