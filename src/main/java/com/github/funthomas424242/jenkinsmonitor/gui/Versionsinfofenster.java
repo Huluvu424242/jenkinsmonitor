@@ -40,6 +40,8 @@ public class Versionsinfofenster extends JWindow {
         // create Window Content
         this.add(createGoldsteinPanel());
         this.pack();
+        this.setAlwaysOnTop(true);
+        this.setLocationByPlatform(false);
         this.setLocationRelativeTo(null);
         this.setAutoRequestFocus(false);
     }
