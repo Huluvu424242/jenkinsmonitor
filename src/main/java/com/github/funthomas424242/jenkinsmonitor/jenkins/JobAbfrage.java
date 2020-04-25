@@ -26,10 +26,10 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpResponseException;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -51,21 +51,31 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
     public static final String JSONKEY_FULL_DISPLAY_NAME = "fullDisplayName";
     public static final String JSONKEY_RESULT = "result";
 
-    final JobAbfragedaten jobAbfragedaten;
-    final String jobOrderId;
-    final AbstractJobBeschreibungen<JobStatusBeschreibung> jobStatusBeschreibungen;
+    protected final JobAbfragedaten jobAbfragedaten;
+    protected final String jobOrderId;
 
-    public JobAbfrage(final AbstractJobBeschreibungen<JobStatusBeschreibung> jobStatusBeschreibungen, final JobAbfragedaten jobAbfragedaten, final String jobOrderId) {
-        this.jobStatusBeschreibungen = jobStatusBeschreibungen;
+    public JobAbfrage(final JobAbfragedaten jobAbfragedaten, final String jobOrderId) {
         this.jobAbfragedaten = jobAbfragedaten;
         this.jobOrderId = jobOrderId;
     }
 
+    public String getPrimaryKey() {
+        final String url = getAbfrageUrl() != null ? getAbfrageUrl().toExternalForm() : "";
+        return getJobOrderId() + "#" + url;
+    }
+
+    public URL getAbfrageUrl() {
+        return this.jobAbfragedaten.getJenkinsJobUrl();
+    }
+
+    public String getJobOrderId() {
+        return this.jobOrderId;
+    }
+
+
     @Override
     public JobStatusBeschreibung call() throws Exception {
-        final JobStatusBeschreibung jobStatus = getJobStatus();
-        this.jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
-        return jobStatus;
+        return getJobStatus();
     }
 
 
@@ -93,7 +103,12 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
     protected JSONObject sendGetRequest() throws HttpResponseException, ConnectionFailedException {
         final URL statusAbfrageUrl = jobAbfragedaten.getStatusAbfrageUrl();
         int statusCode = -1;
-        try (final CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
+        int timeout = 1;
+        final RequestConfig config = RequestConfig.custom()
+            .setConnectTimeout(timeout * 1000)
+            .setConnectionRequestTimeout(timeout * 1000)
+            .setSocketTimeout(timeout * 1000).build();
+        try (final CloseableHttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build()) {
             final HttpHost target = new HttpHost(statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort(), statusAbfrageUrl.getProtocol());
             final HttpGet httpGetRequest = new HttpGet(statusAbfrageUrl.getPath());
             final String basicAuthToken = jobAbfragedaten.getBasicAuthToken();
@@ -112,18 +127,17 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
             }
             return getJsonObjectFromResponse(httpResponse);
         } catch (JSONException | IOException ex) {
-            LOG.warn("Could not retrieve data from jenkins: " + ex);
+            LOG.warn(String.format("Could not retrieve data from jenkins: %s", ex));
             if (ex instanceof HttpResponseException) {
                 throw (HttpResponseException) ex;
             } else {
-                LOG.warn("An Error occured" + ex);
+                LOG.warn(String.format("An Error occured%s", ex));
             }
         }
         return null;
     }
 
 
-    @NotNull
     protected static JSONObject getJsonObjectFromResponse(HttpResponse httpResponse) {
         final HttpEntity entity = httpResponse.getEntity();
         final String requestResult;
@@ -131,7 +145,7 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
             final InputStream inputStream = entity.getContent();
             requestResult = readStreamIntoString(inputStream);
         } catch (IOException e) {
-            LOG.warn("Jenkins Response could not be read: " + e);
+            LOG.warn(String.format("Jenkins Response could not be read: %s", e));
             return null;
         }
         LOG.debug("Empfangen als JSON:\n {}", requestResult);
@@ -147,6 +161,5 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
         }
         return requestResult;
     }
-
 
 }

@@ -52,5 +52,4 @@ class StatusfensterTest {
         window.setVisible(true);
         window.dispose();
     }
-
 }

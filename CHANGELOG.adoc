@@ -7,6 +7,31 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 // == [3.1.1] fertiggestellt 2018-05-11
 
 //== [undelivered]
+== [0.0.3] fertiggestellt 2020-XX-XX (aktuell in Entwicklung)
+
+=== Added
+
+* Versionsinfo als Kontextmenüeintrag aufgenommen
+* Anzeige des Goldstein Logos in der Versionsinfo
+* Versionsinfo ein-/ausschaltbar (Checkbox)
+
+=== Changed
+
+* Bekanntes Issue aus 0.0.2 behoben: Hintergrundfarbe jetzt einheitlich
+* Jenkinsabfragen werden in parallelen Threads abgearbeitet
+* Gesamt Timeout je Jenkinsabfrage auf 3 Sekunden gesetzt
+* Timeout der Connection Parameter zum Jenkins je auf 1 Sekunde gesetzt für:
+  * Connection Timeout: Zeit bis zum Herstellen der Verbindung
+  * Socket Timeout: Zeit bis nächstes Datenpaket empfangen wird
+  * Connection Manager Timeout: Zeit bis nächste Verbindung aus Pool entnommen werden konnte
+* Dokumentation erweitert um:
+  * JavaDoc
+  * Lizenzen
+  * Abhängigkeiten
+
+### Removed
+
+* Goldstein-Logo aus Statusfenster entfernt
 
 == [0.0.2] fertiggestellt 2020-04-13
 === known issues

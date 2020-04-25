@@ -36,6 +36,8 @@ public interface Timer {
     long getPeriod();
 
     interface Listener {
+        void timeStarted();
+
         void timeElapsed();
     }
 }

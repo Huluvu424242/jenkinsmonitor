@@ -7,4 +7,12 @@
 
 Dieses Projekt stellt einen Jenkinsmonitor zur Überwachung der laufenden Jenkins Jobs bereit.
 
+link:licenses.html[Lizenzinformationen]
+
 link:benutzer.html[Benutzerhandbuch] link:entwickler.html[Entwicklerhandbuch]
+
+
+.Per Klick gehts zum aktuellen Report
+[#clover-report]
+[caption="Screenshot Clover Report: ",link=clover/index.html,role=external,window=_blank]
+image::images/CloverReportDemo.png[Clover Report,300,200]

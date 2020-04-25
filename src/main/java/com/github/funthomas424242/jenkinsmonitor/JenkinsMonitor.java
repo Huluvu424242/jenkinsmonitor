@@ -35,8 +35,11 @@ public class JenkinsMonitor {
 
     public JenkinsMonitor(Configuration configuration) {
         this.monitorTray = new JenkinsMonitorTray(configuration);
-        this.monitorTray.updateJobStatus();
         LOGGER.info("Jenkinsmonitor gestartet");
+    }
+
+    public JenkinsMonitorTray getMonitorTray() {
+        return this.monitorTray;
     }
 
     public static void main(final String[] commandlineArgs) {

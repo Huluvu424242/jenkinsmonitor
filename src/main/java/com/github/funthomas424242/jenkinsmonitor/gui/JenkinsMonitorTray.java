@@ -25,205 +25,74 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
 import com.github.funthomas424242.jenkinsmonitor.etc.RealTimer;
 import com.github.funthomas424242.jenkinsmonitor.etc.Timer;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibungen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 public class JenkinsMonitorTray implements Timer.Listener {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(JenkinsMonitorTray.class);
-    public static final String WEBSITE_JENKINSMONITOR_ISSUES = "https://github.com/FunThomas424242/jenkinsmonitor/issues";
-    public static final String WEBSITE_JENKINSMONITOR = "https://github.com/FunThomas424242/jenkinsmonitor";
-    public static final String ERR_COULD_NOT_OPEN_URL = "URL %s konnte nicht geöffnet werden";
+
 
     protected final Configuration configuration;
-    protected final SystemTrayWrapper tray;
+    protected final JobStatusBeschreibungen jobStatusBeschreibungen;
+    protected final JobStatusDarstellungen jobStatusDarstellungen;
     protected final JenkinsClient jenkinsClient;
-    protected final Statusfenster statusArea;
     protected final Timer timer;
 
-    protected final JobStatusBeschreibungen jobStatusBeschreibungen;
 
     public JenkinsMonitorTray(final Configuration configuration) {
         this(new JenkinsClient(), configuration);
     }
 
     public JenkinsMonitorTray(final JenkinsClient jenkinsClient, final Configuration configuration) {
-        this(new SystemTrayWrapper(), new RealTimer(configuration.getPollPeriodInSecond(), TimeUnit.SECONDS), jenkinsClient, configuration);
+        this(new RealTimer(configuration.getPollPeriodInSecond(), TimeUnit.SECONDS), jenkinsClient, configuration);
     }
 
-    public JenkinsMonitorTray(final Timer timer, final JenkinsClient jenkinsClient, final Configuration configuration) {
-        this(new SystemTrayWrapper(), timer, jenkinsClient, configuration);
-    }
-
-    protected JenkinsMonitorTray(final SystemTrayWrapper systemTray, final Timer timer, final JenkinsClient jenkinsClient, final Configuration configuration) {
-        //Obtain only one instance of the SystemTray object
-        this.tray = systemTray;
+    protected JenkinsMonitorTray(final Timer timer, final JenkinsClient jenkinsClient, final Configuration configuration) {
+        this.configuration = configuration;
         this.jobStatusBeschreibungen = new JobStatusBeschreibungen();
+        this.jobStatusDarstellungen = new JobStatusDarstellungen(this.jobStatusBeschreibungen, timer);
+        this.jenkinsClient = jenkinsClient;
         this.timer = timer;
         timer.register(this);
-        timer.start();
-        this.configuration = configuration;
-        this.jenkinsClient = jenkinsClient;
-        this.statusArea = new Statusfenster(jobStatusBeschreibungen);
-        try {
-            this.statusArea.setAlwaysOnTop(true);
-            this.statusArea.setLocationByPlatform(false);
-        } catch (Exception ex) {
-            LOGGER.warn("Konnte natives Desktopverhalten nicht setzen", ex);
-        }
+        timer.start(); // implicit call updateJobStatus()
     }
 
-    public TrayIcon getTrayIcon() {
-        return this.tray.getTrayIcon();
-    }
-
-    protected void erzeugeTrayIconDarstellung() {
-        LOGGER.debug("Erzeuge Darstellung TrayIcon");
-        try {
-            final ImageGenerator imageGenerator = getImageGenerator();
-            imageGenerator.updateStatusArea(statusArea);
-
-            TrayIcon trayIcon = getTrayIcon();
-            if (trayIcon == null) {
-                final BufferedImage trayImage = imageGenerator.createImage(100, 100);
-                trayIcon = new TrayIcon(trayImage);
-                trayIcon.addMouseListener(new MouseAdapter() {
-
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        LOGGER.debug("Mouseklick links");
-                        if (e.getClickCount() == 1) {
-                            statusArea.setVisible(!statusArea.isVisible());
-                        }
-                    }
-                });
-//                trayIcon.addActionListener(e -> {
-//                    LOGGER.debug("Mouseklick links doppelt");
-//                    statusArea.setVisible(!statusArea.isVisible());
-//                });
-                tray.add(trayIcon);
-            } else {
-                imageGenerator.drawImage((BufferedImage) trayIcon.getImage(), 100, 100);
-            }
-
-            trayIcon.setImageAutoSize(true);
-            if (this.jobStatusBeschreibungen.size() > 0) {
-                trayIcon.setToolTip("Links: Statusfenster ein-/aus, Rechts: Status & Settings");
-            } else {
-                trayIcon.setToolTip("Keine Jobs überwachend");
-            }
-            trayIcon.setPopupMenu(createSettingsMenu());
-
-        } catch (Exception ex) {
-            LOGGER.error("Unerwarteter Fehler - wie immer :( ", ex);
-        }
-
-    }
-
-    protected ImageGenerator getImageGenerator() {
-        return new ImageGenerator(this.jobStatusBeschreibungen);
-    }
-
-    /**
-     * https://stackoverflow.com/questions/13989265/task-tray-notification-balloon-events
-     *
-     * @return PopuMenu Contextmenü des TrayIcons
-     */
-    protected PopupMenu createSettingsMenu() {
-        final PopupMenu popup = new PopupMenu();
-
-        // Create a popup menu components
-        AbstractJobBeschreibung.sortedStreamOf(this.jobStatusBeschreibungen)
-            .forEach(statusBeschreibung -> {
-                final String itemText = String.format("[%s] <%s> %s", statusBeschreibung.getJobOrderId(), statusBeschreibung.getJobStatus(), statusBeschreibung.getJobName());
-                final MenuItem item = new MenuItem(itemText);
-                item.addActionListener(actionEvent -> {
-                    URI webSite = null;
-                    try {
-                        webSite = statusBeschreibung.getJobUrl().toURI();
-                        Desktop.getDesktop().browse(webSite);
-                        statusArea.setVisible(false);
-                    } catch (IOException | URISyntaxException ex) {
-                        LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, webSite), ex);
-                    }
-                });
-                popup.add(item);
-            });
-
-
-        final MenuItem aboutItem = new MenuItem("Über");
-        aboutItem.addActionListener(actionEvent -> {
-            try {
-                Desktop.getDesktop().browse(new URI(WEBSITE_JENKINSMONITOR));
-                statusArea.setVisible(false);
-            } catch (IOException | URISyntaxException ex) {
-                LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, WEBSITE_JENKINSMONITOR), ex);
-            }
-        });
-        MenuItem bugtracker = new MenuItem("Bugtracker");
-        bugtracker.addActionListener(actionEvent -> {
-            try {
-                Desktop.getDesktop().browse(new URI(WEBSITE_JENKINSMONITOR_ISSUES));
-                statusArea.setVisible(false);
-            } catch (IOException | URISyntaxException ex) {
-                LOGGER.warn(String.format(ERR_COULD_NOT_OPEN_URL, WEBSITE_JENKINSMONITOR_ISSUES), ex);
-            }
-        });
-        MenuItem exitItem = new MenuItem("Beenden");
-        exitItem.addActionListener(actionEvent -> {
-            timer.stop();
-            statusArea.setVisible(false);
-            statusArea.dispose();
-            tray.removeTrayIcon();
-        });
-
-        //Add components to popup menu
-        popup.add(aboutItem);
-        popup.add(bugtracker);
-        popup.addSeparator();
-        popup.add(exitItem);
-//        MenuScroller.setScrollerFor(popup);
-        return popup;
+    protected JobStatusDarstellungen getJobStatusDarstellungen() {
+        return this.jobStatusDarstellungen;
     }
 
     public void updateJobStatus() {
-        final JobBeschreibungen jobBeschreibungen = this.configuration.getJobBeschreibungen();
-        final java.util.List<String> entriesToDelete = AbstractJobBeschreibung.sortedKeyStreamOf(jobStatusBeschreibungen)
-            .parallel()
-            .filter(primaryKey -> !jobBeschreibungen.containsKey(primaryKey))
-            .collect(Collectors.toList());
-        entriesToDelete.stream().parallel().forEach(entry -> jobStatusBeschreibungen.remove(entry));
+        final JobBeschreibungen jobBeschreibungen = configuration.getJobBeschreibungen();
+        jobStatusDarstellungen.bereinigeJobStatusBeschreibungen(jobBeschreibungen);
 
-        // aktualisiere den Status der Jobs durch Jenkinsabfragen
-        aktualisiereTrayIconDarstellung();
-        // Langlaufender Prozess durch Request die ins timeout laufen
+        // aktualisiere den Status der Anzeigen ohne Jenkinsabfragen
+        jobStatusDarstellungen.aktualisiereStatusfenster();
+        jobStatusDarstellungen.aktualisiereTrayIconDarstellung();
+
+        // Langlaufender, blockierender Prozess mit Jenkinsabfragen durch Request die ins timeout laufen
         jenkinsClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
-        aktualisiereTrayIconDarstellung();
+
+        // aktualisiere den Status der Anzeigen ohne Jenkinsabfragen
+        jobStatusDarstellungen.aktualisiereTrayIconDarstellung();
+        jobStatusDarstellungen.aktualisiereStatusfenster();
     }
 
-    protected void aktualisiereTrayIconDarstellung() {
-        erzeugeTrayIconDarstellung();
-    }
-
-    public Configuration getConfiguration() {
-        return this.configuration;
+    @Override
+    public void timeStarted() {
+        updateJobStatus();
     }
 
     @Override
     public void timeElapsed() {
+        timeBasedUpdate();
+    }
+
+    protected void timeBasedUpdate() {
         LOGGER.debug("Lade Konfiguration");
         this.configuration.reload();
         if (this.timer.getPeriod() != this.configuration.getPollPeriodInSecond()) {

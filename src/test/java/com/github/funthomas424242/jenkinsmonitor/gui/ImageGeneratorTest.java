@@ -26,14 +26,14 @@ import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImageTestHelper.isImageOfColor;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ImageGeneratorTest {
 
@@ -137,24 +137,6 @@ class ImageGeneratorTest {
         assertEquals(Color.green.getRGB(), image.getRGB(10, 10));
         assertEquals(JobStatus.FAILURE.getColor().getRGB(), image.getRGB(60, 10));
         assertEquals(Color.red.getRGB(), image.getRGB(60, 10));
-    }
-
-    @Test
-    @Tag("headfull")
-    @DisplayName("Zeige Buildstatusfläche für einen grünen Job an einer bestimmten Position")
-    public void showBuildStatusAreaOneSuccessJob() {
-        final JobStatusBeschreibungen jobsStatusBeschreibungen = new JobStatusBeschreibungen();
-        final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
-            , JobStatus.SUCCESS
-            , NetworkHelper.urlOf("http://localhost/"), "#1");
-        jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(), jobsStatusBeschreibungen0);
-
-        final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
-        final Statusfenster statusArea = new Statusfenster(jobsStatusBeschreibungen);
-        generator.updateStatusArea(statusArea);
-
-        assertNotNull(statusArea);
-//        assertEquals("##",statusArea.getRootPane().getComponents()[0].getName());
     }
 
 

@@ -102,13 +102,8 @@ public class Statusfenster extends JWindow {
 
         // Scrollpane erzeugen
         final JScrollPane scrollPane = new JScrollPane(list);
-        final GoldsteinPanel logoPanel = new GoldsteinPanel();
-        final JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new GridLayout(2, 1));
-        contentPanel.setOpaque(true);
-        contentPanel.add(scrollPane);
-        contentPanel.add(logoPanel);
-        return contentPanel;
+        scrollPane.setOpaque(true);
+        return scrollPane;
     }
 
     public void aktualisiereContentPane() {

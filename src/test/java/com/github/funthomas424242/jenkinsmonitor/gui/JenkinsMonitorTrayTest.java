@@ -54,11 +54,12 @@ class JenkinsClientMock extends JenkinsClient {
 
 class JenkinsClientMockAuto extends JenkinsClient {
 
-    protected int jobNr = 0;
+    protected int jobNr;
     protected final JobStatus[] jobStatus;
 
     public JenkinsClientMockAuto(JobStatus... jobStatus) {
         this.jobStatus = jobStatus;
+        this.jobNr = 0;
     }
 
     @Override
@@ -79,6 +80,8 @@ public class JenkinsMonitorTrayTest {
 
     protected JenkinsClient jenkinsClient;
 
+    protected TestDrivenTimer clock;
+
 
     @BeforeAll
     protected static void setUpAll() throws MalformedURLException {
@@ -88,14 +91,20 @@ public class JenkinsMonitorTrayTest {
     @BeforeEach
     protected void beforeTest() {
         jenkinsClient = new JenkinsClient();
+        this.clock = new TestDrivenTimer();
     }
+
+    protected TrayIcon getTrayIcon(final JenkinsMonitorTray jenkinsMonitorTray) {
+        return jenkinsMonitorTray.getJobStatusDarstellungen().trayWrapper.getTrayIcon();
+    }
+
 
     @Test
     @DisplayName("Bei leerer Configuration wird ein graues Icon angezeigt mit Tooltipp <<No jobs watching>>")
     public void shouldShowNoJobsWatching() {
         final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(jenkinsClient, new ConfigurationMockEmpty());
         jenkinsMonitorTray.updateJobStatus();
-        final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
+        final TrayIcon trayIcon = getTrayIcon(jenkinsMonitorTray);
         assertEquals("Keine Jobs überwachend", trayIcon.getToolTip());
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.OTHER.getColor()));
     }
@@ -103,44 +112,44 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei einem erfolreichen Job soll das TrayIcon grün sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master success>>")
     public void shouldShowOneSuccessJobWatching() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.SUCCESS), new ConfigurationMockOneJobSuccess());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMock(JobStatus.SUCCESS), new ConfigurationMockOneJobSuccess());
 
         jenkinsMonitorTray.updateJobStatus();
 
-        final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
+        final TrayIcon trayIcon = getTrayIcon(jenkinsMonitorTray);
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.SUCCESS.getColor()));
     }
 
     @Test
     @DisplayName("Bei einem instabilen Job soll das TrayIcon gelb sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master unstable>>")
     public void shouldShowOneInstabilJobWatching() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.UNSTABLE), new ConfigurationMockOneJobUnstable());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMock(JobStatus.UNSTABLE), new ConfigurationMockOneJobUnstable());
 
         jenkinsMonitorTray.updateJobStatus();
 
-        final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
+        final TrayIcon trayIcon = getTrayIcon(jenkinsMonitorTray);
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.UNSTABLE.getColor()));
     }
 
     @Test
     @DisplayName("Bei einem fehlschlagenden Job soll das TrayIcon rot sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master failed>>")
     public void shouldShowOneFailedJobWatching() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(new JenkinsClientMock(JobStatus.FAILURE), new ConfigurationMockOneJobFailed());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMock(JobStatus.FAILURE), new ConfigurationMockOneJobFailed());
 
         jenkinsMonitorTray.updateJobStatus();
 
-        final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
+        final TrayIcon trayIcon = jenkinsMonitorTray.getJobStatusDarstellungen().trayWrapper.getTrayIcon();
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage(), JobStatus.FAILURE.getColor()));
     }
 
     @Test
     @DisplayName("Bei 2 Jobs - einer grün, einer rot erscheinen die Status im Tooltipp.")
     protected void showStatusAsToolstippsIfJobPresent() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(new JenkinsClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE), new ConfigurationMockValidTwoJobs());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE), new ConfigurationMockValidTwoJobs());
 
         jenkinsMonitorTray.updateJobStatus();
 
-        final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
+        final TrayIcon trayIcon = getTrayIcon(jenkinsMonitorTray);
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
             , JobStatus.SUCCESS.getColor()
             , JobStatus.FAILURE.getColor()));
@@ -149,11 +158,11 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei 3 Jobs - einer grün, einer rot, einer gelb  erscheinen die Status im Tooltipp.")
     protected void showStatusAsToolstippsIfJobsPresent() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(new JenkinsClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE), new ConfigurationMockValidTreeJobs());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE), new ConfigurationMockValidTreeJobs());
 
         jenkinsMonitorTray.updateJobStatus();
 
-        final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
+        final TrayIcon trayIcon = getTrayIcon(jenkinsMonitorTray);
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
             , JobStatus.SUCCESS.getColor()
             , JobStatus.FAILURE.getColor()
@@ -163,14 +172,14 @@ public class JenkinsMonitorTrayTest {
 
     @Test
     @DisplayName("Status aktualisiert sich nach Ablauf der Zeitperiode durch Jobs update")
-    @Disabled("wackelt")
+//    @Disabled("wackelt")
     public void updateJobsAfterTimePeriod() {
-        TestDrivenTimer clock = new TestDrivenTimer();
+
         final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE, JobStatus.SUCCESS, JobStatus.SUCCESS, JobStatus.SUCCESS), new ConfigurationMockValidTreeJobs());
 
         jenkinsMonitorTray.updateJobStatus();
 
-        final TrayIcon trayIcon = jenkinsMonitorTray.getTrayIcon();
+        final TrayIcon trayIcon = getTrayIcon(jenkinsMonitorTray);
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
             , JobStatus.SUCCESS.getColor()
             , JobStatus.FAILURE.getColor()
@@ -179,7 +188,7 @@ public class JenkinsMonitorTrayTest {
 
         clock.elapseTime();
 
-        final TrayIcon trayIcon1 = jenkinsMonitorTray.getTrayIcon();
+        final TrayIcon trayIcon1 = getTrayIcon(jenkinsMonitorTray);
         assertTrue(isImageOfColor((BufferedImage) trayIcon1.getImage()
             , JobStatus.SUCCESS.getColor()
             , JobStatus.SUCCESS.getColor()

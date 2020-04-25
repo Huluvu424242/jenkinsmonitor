@@ -30,9 +30,7 @@ import org.junit.jupiter.api.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class JobStatusBeschreibungTest {
 
@@ -41,15 +39,17 @@ class JobStatusBeschreibungTest {
 
     @BeforeAll
     public static void setUp() throws MalformedURLException {
-         new URL("http://localhost:8099/job/test");
-         // TODO prüfen - tut nix
+        new URL("http://localhost:8099/job/test");
+        // TODO prüfen - tut nix
         // LOCALHOST_JOB_TEST_URL = new URL("http://localhost:8099/job/test");
     }
 
     @Test
     @DisplayName("Prüfe equals und hashCode")
     protected void checkEqualsAndHashCode() {
-        EqualsVerifier.forClass(JobStatusBeschreibung.class).verify();
+        assertDoesNotThrow(() -> {
+            EqualsVerifier.forClass(JobStatusBeschreibung.class).verify();
+        });
     }
 
 
@@ -80,7 +80,7 @@ class JobStatusBeschreibungTest {
     public void instabileJobsSindGelb() {
         final JobStatusBeschreibung JobStatusBeschreibung = new JobStatusBeschreibung(NAME_JOB1
             , JobStatus.UNSTABLE
-            , LOCALHOST_JOB_TEST_URL,"#1");
+            , LOCALHOST_JOB_TEST_URL, "#1");
         assertNotNull(JobStatusBeschreibung);
         assertEquals(JobStatus.UNSTABLE.getColor(), JobStatusBeschreibung.getStatusColor());
     }
@@ -90,7 +90,7 @@ class JobStatusBeschreibungTest {
     public void fehlerhafteJobsSindRot() {
         final JobStatusBeschreibung JobStatusBeschreibung = new JobStatusBeschreibung(NAME_JOB1
             , JobStatus.FAILURE
-            , LOCALHOST_JOB_TEST_URL,"#1");
+            , LOCALHOST_JOB_TEST_URL, "#1");
         assertNotNull(JobStatusBeschreibung);
         assertEquals(JobStatus.FAILURE.getColor(), JobStatusBeschreibung.getStatusColor());
     }

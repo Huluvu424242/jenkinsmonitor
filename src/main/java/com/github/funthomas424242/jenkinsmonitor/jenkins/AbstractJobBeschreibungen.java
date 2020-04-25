@@ -29,10 +29,10 @@ import java.util.Set;
 
 public class AbstractJobBeschreibungen<T> {
 
-    final Map<String, T> jobBeschreibungen;
+    protected final Map<String, T> jobBeschreibungen;
 
-    public T remove(String key) {
-        return jobBeschreibungen.remove(key);
+    public void remove(String key) {
+        jobBeschreibungen.remove(key);
     }
 
     public AbstractJobBeschreibungen(final Map<String, T> jobBeschreibungen) {
@@ -61,7 +61,7 @@ public class AbstractJobBeschreibungen<T> {
 
     public Map<String, T> getCloneOfDataModel() {
         final Map<String, T> newMap = new HashMap<>();
-        jobBeschreibungen.keySet().stream().forEach(primaryKey -> newMap.put(primaryKey, jobBeschreibungen.get(primaryKey)));
+        jobBeschreibungen.keySet().forEach(primaryKey -> newMap.put(primaryKey, jobBeschreibungen.get(primaryKey)));
         return newMap;
     }
 

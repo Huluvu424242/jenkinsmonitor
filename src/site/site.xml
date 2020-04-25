@@ -69,15 +69,15 @@
       <item name="~ Jenkins Monitor" href="index.html">
         <item name="Quellen" href="https://github.com/FunThomas424242/jenkinsmonitor"/>
         <item name="Changelog" href="changelog.html"/>
-        <item name="Benutzer" href="benutzer.html"/>
-        <item name="Entwickler" href="entwickler.html"/>
+        <item name="Benutzer Handbuch" href="benutzer.html"/>
+        <item name="Entwickler Handbuch" href="entwickler.html"/>
       </item>
       <item name="~ Fluent Builder" href="https://funthomas424242.github.io/rades.fluent-builder/index.html"/>
       <item name="~ Annotationen" href="https://funthomas424242.github.io/rades-annotations/index.html"/>
       <item name="~ Tag Generator" href="https://funthomas424242.github.io/rades.tag-generator/index.html"/>
-      <item name="~ Example" href="https://funthomas424242.github.io/rades.example/index.html"/>
+      <item name="~ Example" href="https://github.com/FunThomas424242/rades.example"/>
       <item name="Ruhende Projekte">
-        <item name="~ JBoss Forge Addon" href="https://funthomas424242.github.io/rades.forge-addon/index.html"/>
+        <item name="~ JBoss Forge Addon" href="https://github.com/FunThomas424242/rades.forge-addon"/>
       </item>
     </menu>
   </body>

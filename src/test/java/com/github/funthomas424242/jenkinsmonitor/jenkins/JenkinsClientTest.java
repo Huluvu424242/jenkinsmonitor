@@ -25,9 +25,10 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
 import com.github.funthomas424242.jenkinsmonitor.gui.JobStatusBeschreibungen;
 import com.github.tomakehurst.wiremock.WireMockServer;
-import org.junit.jupiter.api.*;
-
-import java.net.MalformedURLException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,11 +41,6 @@ public class JenkinsClientTest {
     protected JobStatusBeschreibungen jobStatusBeschreibungen;
     protected JenkinsClient jenkinsClient;
 
-
-    @BeforeAll
-    protected static void setUpAll() throws MalformedURLException {
-
-    }
 
     @BeforeEach
     protected void setUp() {
@@ -97,7 +93,7 @@ public class JenkinsClientTest {
 
     @Test
     @DisplayName("prüfe ladeJobStatutus für zwei Jobs einer rot und einer gelb")
-    void checkLadeTwoJobStatusSUCCESS_UNSTABLE() {
+    void checkLadeTwoJobStatusSUCCESSandUNSTABLE() {
 
         final JobBeschreibungen jobBeschreibungen = new JobBeschreibungen();
         final JobBeschreibung jobBeschreibung1 = new JobBeschreibung("#2", new JobAbfragedaten(NetworkHelper.urlOf("http://localhost:8099/job/multibranchjobred/job/master")));

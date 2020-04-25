@@ -41,12 +41,6 @@ public class JobAbfrageTest {
     protected static URL JOB_URL_MULTIBRANCH_JOB1_GRAY_BUILDING;
     protected static URL JOB_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW;
 
-
-//    protected static URL STATUS_URL_MULTIBRANCH_JOB1_RED;
-//    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GREEN;
-//    protected static URL STATUS_URL_MULTIBRANCH_JOB1_YELLOW;
-//    protected static URL STATUS_URL_MULTIBRANCH_JOB1_GRAY;
-
     protected WireMockServer wireMockServer;
 
     protected JobStatusBeschreibungen jobStatusBeschreibungen;
@@ -86,7 +80,7 @@ public class JobAbfrageTest {
 
         final JobStatusBeschreibung jobStatusBeschreibung = assertDoesNotThrow(() -> {
             final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_RED);
-            final JobAbfrage requester = new JobAbfrage(jobStatusBeschreibungen, jobAbfragedaten, "#1");
+            final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
             return requester.getJobStatus();
         });
         assertNotNull(jobStatusBeschreibung);
@@ -100,7 +94,7 @@ public class JobAbfrageTest {
     protected void getStatusGreen() {
         final JobStatusBeschreibung jobStatusBeschreibung = assertDoesNotThrow(() -> {
             final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GREEN);
-            final JobAbfrage requester = new JobAbfrage(jobStatusBeschreibungen, jobAbfragedaten, "#1");
+            final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
             return requester.getJobStatus();
         });
         assertNotNull(jobStatusBeschreibung);
@@ -114,7 +108,7 @@ public class JobAbfrageTest {
     protected void getStatusYellow() {
         final JobStatusBeschreibung jobStatusBeschreibung = assertDoesNotThrow(() -> {
             final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_YELLOW);
-            final JobAbfrage requester = new JobAbfrage(jobStatusBeschreibungen, jobAbfragedaten, "#1");
+            final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
             return requester.getJobStatus();
         });
         assertNotNull(jobStatusBeschreibung);
@@ -128,7 +122,7 @@ public class JobAbfrageTest {
     protected void getStatusGray() {
         final JobStatusBeschreibung jobStatusBeschreibung = assertDoesNotThrow(() -> {
             final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW);
-            final JobAbfrage requester = new JobAbfrage(jobStatusBeschreibungen, jobAbfragedaten, "#1");
+            final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
             return requester.getJobStatus();
         });
         assertNotNull(jobStatusBeschreibung);
@@ -143,7 +137,7 @@ public class JobAbfrageTest {
     protected void getValidJsonRed() {
         final JSONObject json = assertDoesNotThrow(() -> {
             final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_RED);
-            final JobAbfrage requester = new JobAbfrage(jobStatusBeschreibungen, jobAbfragedaten, "#");
+            final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#");
             return requester.sendGetRequest();
         });
         assertNotNull(json);
@@ -155,7 +149,7 @@ public class JobAbfrageTest {
     @DisplayName("Die Statusabfrage eines grünen Build Jobs gibt ein valides JSON zurück")
     protected void getValidJsonGreen() {
         final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GREEN, null);
-        final JobAbfrage requester = new JobAbfrage(jobStatusBeschreibungen, jobAbfragedaten, "#1");
+        final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
         final JSONObject json = assertDoesNotThrow(() -> requester.sendGetRequest());
         assertNotNull(json);
         assertEquals("mypocketmod \u00bb master #2", json.get("fullDisplayName"));
@@ -167,7 +161,7 @@ public class JobAbfrageTest {
     protected void getValidJsonYellow() {
         final JSONObject json = assertDoesNotThrow(() -> {
             final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_YELLOW, null);
-            final JobAbfrage requester = new JobAbfrage(jobStatusBeschreibungen, jobAbfragedaten, "#1");
+            final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
             return requester.sendGetRequest();
         });
         assertNotNull(json);
@@ -179,7 +173,7 @@ public class JobAbfrageTest {
     @DisplayName("Die Statusabfrage eines unbekannten Build Jobs gibt KEIN valides JSON zurück")
     protected void getValidJsonGray() {
         final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW, null);
-        final JobAbfrage requester = new JobAbfrage(jobStatusBeschreibungen, jobAbfragedaten, "#1");
+        final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
         HttpResponseException exception = assertThrows(HttpResponseException.class, () -> {
             requester.sendGetRequest();
             fail();
