@@ -6,5 +6,6 @@
 :encoding: iso-8859-1
 
 Dieses Projekt stellt einen Jenkinsmonitor zur Überwachung der laufenden Jenkins Jobs bereit.
+link:licenses.html[Lizenzinformationen]
 
 link:benutzer.html[Benutzerhandbuch] link:entwickler.html[Entwicklerhandbuch]

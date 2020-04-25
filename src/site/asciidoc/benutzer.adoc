@@ -1,4 +1,4 @@
-# Rades Annotations Projekt
+# Jenkins Monitor Projekt
 
 Dieses Projekt stellt einen Jenkins Monitor zur Überwachung der laufenden Builds bereit.
 

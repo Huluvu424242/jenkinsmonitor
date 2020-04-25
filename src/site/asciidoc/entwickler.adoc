@@ -1,7 +1,12 @@
 # Jenkins Monitor Projekt
 
-include::../../../ArchitekturEntscheidungen.adoc[tabsize=4]
+## link:apidocs/index.html[API Doku der Anwendung,role=external,window=_blank]
+
+## link:testapidocs/index.html[API Doku der Tests,role=external,window=_blank]
 
 ## Deployment ins Maven Central
 
-link:https://blog.bintray.com/2014/02/11/bintray-as-pain-free-gateway-to-maven-central/[Anleitung für Bintray]
+link:https://blog.bintray.com/2014/02/11/bintray-as-pain-free-gateway-to-maven-central/[Anleitung für Bintray,role=external,window=_blank]
+
+include::../../../ArchitekturEntscheidungen.adoc[tabsize=4]
+
