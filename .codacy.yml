@@ -4,3 +4,5 @@ exclude_paths:
     - 'docs/css/print.css'
     - 'docs/css/*.min.css'
     - 'docs/clover/**'
+    - 'docs/apidoc/**'
+    - 'docs/testapidoc/**'
