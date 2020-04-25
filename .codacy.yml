@@ -3,3 +3,4 @@ exclude_paths:
     - '.mvn/**'
     - 'docs/css/print.css'
     - 'docs/css/*.min.css'
+    - 'docs/clover/**'
