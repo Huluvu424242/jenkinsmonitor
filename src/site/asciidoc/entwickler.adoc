@@ -1,8 +1,10 @@
 # Jenkins Monitor Projekt
 
-## link:apidocs/index.html[API Doku der Anwendung,role=external,window=_blank]
+## API Dokumentation
 
-## link:testapidocs/index.html[API Doku der Tests,role=external,window=_blank]
+link:apidocs/index.html[Javadoc der Anwendung,role=external,window=_blank]
+
+link:testapidocs/index.html[Javadoc der Tests,role=external,window=_blank]
 
 ## Deployment ins Maven Central
 
