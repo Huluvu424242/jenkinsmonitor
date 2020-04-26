@@ -23,11 +23,15 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  */
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.*;
-
 import java.net.MalformedURLException;
 import java.net.URL;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.when;
 

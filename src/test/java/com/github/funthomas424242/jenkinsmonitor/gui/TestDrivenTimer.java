@@ -23,7 +23,6 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.etc.Timer;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;

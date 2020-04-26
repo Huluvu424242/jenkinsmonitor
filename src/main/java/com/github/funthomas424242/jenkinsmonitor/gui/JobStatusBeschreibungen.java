@@ -25,7 +25,6 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibungen;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
-
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;

@@ -22,6 +22,14 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -34,15 +42,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.concurrent.Callable;
-import java.util.stream.Collectors;
 
 public class JobAbfrage implements Callable<JobStatusBeschreibung> {
 

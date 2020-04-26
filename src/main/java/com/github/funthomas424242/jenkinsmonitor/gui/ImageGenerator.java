@@ -24,11 +24,10 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 
 import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class StartXHolder {
     public int startX = 0;

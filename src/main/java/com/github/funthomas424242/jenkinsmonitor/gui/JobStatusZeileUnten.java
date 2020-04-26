@@ -23,7 +23,6 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
-
 import java.net.URL;
 
 public class JobStatusZeileUnten {

@@ -22,11 +22,10 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
-import net.greypanther.natsort.SimpleNaturalComparator;
-import org.jetbrains.annotations.NotNull;
-
 import java.net.URL;
 import java.util.stream.Stream;
+import net.greypanther.natsort.SimpleNaturalComparator;
+import org.jetbrains.annotations.NotNull;
 
 public interface AbstractJobBeschreibung extends Comparable<AbstractJobBeschreibung> {
 

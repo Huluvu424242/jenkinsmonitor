@@ -23,7 +23,6 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.jenkins.BasicAuthDaten;
-
 import java.net.URL;
 
 public class Jenkinszugangskonfiguration {

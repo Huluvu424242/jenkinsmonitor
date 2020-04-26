@@ -24,14 +24,21 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
 
 import com.github.funthomas424242.jenkinsmonitor.gui.JobStatusBeschreibungen;
 import com.github.tomakehurst.wiremock.WireMockServer;
-import org.apache.http.client.HttpResponseException;
-import org.json.JSONObject;
-import org.junit.jupiter.api.*;
-
 import java.net.MalformedURLException;
 import java.net.URL;
+import org.apache.http.client.HttpResponseException;
+import org.json.JSONObject;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class JobAbfrageTest {
 

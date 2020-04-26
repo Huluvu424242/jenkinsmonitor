@@ -22,16 +22,15 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Versionsinfofenster extends JWindow {
     public static final Logger LOGGER = LoggerFactory.getLogger(Versionsinfofenster.class);

@@ -22,11 +22,10 @@ package com.github.funthomas424242.jenkinsmonitor.etc;
  * #L%
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.net.MalformedURLException;
 import java.net.URL;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class NetworkHelper {
 

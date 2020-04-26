@@ -27,9 +27,6 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.BasicAuthDaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibungen;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -43,6 +40,8 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Configuration {
 

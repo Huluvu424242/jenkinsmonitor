@@ -24,13 +24,12 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 
 import com.github.funthomas424242.jenkinsmonitor.etc.Timer;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ContextMenu {
 

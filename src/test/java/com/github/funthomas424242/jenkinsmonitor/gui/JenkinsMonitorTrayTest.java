@@ -22,15 +22,28 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.config.*;
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockOneJobFailed;
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockOneJobSuccess;
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockOneJobUnstable;
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTreeJobs;
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTwoJobs;
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.*;
-import org.junit.jupiter.api.*;
-
+import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibungen;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibungen;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URL;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImageTestHelper.isImageOfColor;
 import static org.junit.jupiter.api.Assertions.assertEquals;

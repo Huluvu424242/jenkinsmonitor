@@ -22,10 +22,9 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
-import org.jetbrains.annotations.NotNull;
-
 import java.net.URL;
 import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
 
 public final class JobBeschreibung implements AbstractJobBeschreibung {
 
