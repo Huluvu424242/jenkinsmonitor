@@ -79,19 +79,19 @@
     ​
     <provides>
         ​
-        <binary>Jenkins_Monitor_0.0.2-preview-x86_64.AppImage</binary>
+        <binary>Jenkins_Monitor_0.1.1-x86_64.AppImage</binary>
         ​
     </provides>
     ​
     ​
     <releases>
         ​
-        <release version="0.0.1" date="2019-10-06">
+        <release version="0.1.1" date="2020-04-26">
             ​
             <description>
                 ​
                 <a href="https://github.com/FunThomas424242/jenkinsmonitor/blob/master/CHANGELOG.adoc">siehe CHANGELOG
-                </p>
+                </a>
                 ​
             </description>
             ​
