@@ -24,17 +24,22 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Tag("headfull")
 class StatusfensterTest {
 
 
     @Test
-    void aktualisiereContentPane() throws MalformedURLException {
+    protected void aktualisiereContentPane() throws MalformedURLException {
         final JobStatusBeschreibungen jobstatusBeschreibungen = new JobStatusBeschreibungen();
         final JobStatusBeschreibung jobstatusBeschreibungen0 = new JobStatusBeschreibung("job0", JobStatus.FAILURE, new URL("http://localhost/job0"), "0");
         jobstatusBeschreibungen.put(jobstatusBeschreibungen0.getPrimaryKey(), jobstatusBeschreibungen0);
@@ -44,11 +49,15 @@ class StatusfensterTest {
         jobstatusBeschreibungen.put(jobstatusBeschreibungen2.getPrimaryKey(), jobstatusBeschreibungen2);
 
         Statusfenster window = new Statusfenster(jobstatusBeschreibungen);
+        assertNotNull(window);
         window.aktualisiereContentPane();
         window.pack();
         window.setAlwaysOnTop(true);
         window.setLocationByPlatform(false);
         window.setVisible(true);
+
+        // TODO irgendwas prüfen z.B. Hintgrundfarbe oder Texte in der GUI
+
         window.dispose();
     }
 }
