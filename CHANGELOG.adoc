@@ -28,6 +28,7 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
   * JavaDoc
   * Lizenzen
   * Abhängigkeiten
+  * Clover Coverage Report (weil aktuell in der CI keine GUI Tests ausgeführt werden können)
 
 ### Removed
 
