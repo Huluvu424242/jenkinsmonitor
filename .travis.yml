@@ -7,8 +7,10 @@ jdk:
 install: skip
 
 script:
-  - ./mvnw -U -Pheadless clean site install
-  - cd etc/devscripts; ./buildAppImage.sh
+  - ./mvnw -U -Pheadless site
+  - ./mvnw -U -Pheadless clean install
+  - chmod +x etc/devscripts/*.sh
+  - etc/devscripts/buildAppImage.sh
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
