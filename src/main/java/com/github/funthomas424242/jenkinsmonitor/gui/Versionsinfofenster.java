@@ -48,18 +48,18 @@ public class Versionsinfofenster extends JWindow {
     protected JPanel createGoldsteinPanel() {
 
         final JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 1));
+//        panel.setLayout(new BoxLayout(panel,));
         panel.add(new JLabel("<html>" +
                 "<h1>Jenkins Monitor Version: 0.1.1</h1>" +
                 "<p>Wer den Jenkins kontrolliert, kontrolliert die Gegenwart !!!</p>" +
-                "</html>"));
+                "</html>"), BorderLayout.PAGE_START);
 
         try {
             final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("1984EmmanuelGoldstein.jpg");
             assert inputStream != null;
             final BufferedImage myPicture = ImageIO.read(inputStream);
             final JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-            panel.add(picLabel);
+            panel.add(picLabel,BorderLayout.CENTER);
             inputStream.close();
         } catch (IOException e) {
             LOGGER.warn(MessageFormat.format("Goldstein Panel nicht erzeugt: {0}", e));
@@ -68,7 +68,7 @@ public class Versionsinfofenster extends JWindow {
         panel.add(new JLabel("<html><p>Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft.</p>" +
                 "<p>Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.</p>" +
                 "<p>— Georg Orwell (Author des Buches \"1984\")</p>" +
-                "</html>"));
+                "</html>"),BorderLayout.PAGE_END);
 
         return panel;
     }
