@@ -60,7 +60,7 @@ public class JenkinsClientTest {
 
     @Test
     @DisplayName("ladeStatus beim Auftreten einer IO Exception wird diese geloggt")
-    void checkLadeStatusWithException() {
+    protected void checkLadeStatusWithException() {
         // TODO Logging Mock erstellen und auswerten
 
         final JobBeschreibungen jobBeschreibungen = new JobBeschreibungen();
@@ -76,7 +76,7 @@ public class JenkinsClientTest {
 
     @Test
     @DisplayName("prüfe ladeJobStatus für einen Job mit rotem Build")
-    void checkLadeOneJobStatusFailure() {
+    protected void checkLadeOneJobStatusFailure() {
         final JobBeschreibungen jobBeschreibungen = new JobBeschreibungen();
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://localhost:8099/job/multibranchjobred/job/master")));
         jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(), jobBeschreibung);
@@ -93,7 +93,7 @@ public class JenkinsClientTest {
 
     @Test
     @DisplayName("prüfe ladeJobStatutus für zwei Jobs einer rot und einer gelb")
-    void checkLadeTwoJobStatusSUCCESSandUNSTABLE() {
+    protected void checkLadeTwoJobStatusSUCCESSandUNSTABLE() {
 
         final JobBeschreibungen jobBeschreibungen = new JobBeschreibungen();
         final JobBeschreibung jobBeschreibung1 = new JobBeschreibung("#2", new JobAbfragedaten(NetworkHelper.urlOf("http://localhost:8099/job/multibranchjobred/job/master")));

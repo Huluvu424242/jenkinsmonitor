@@ -24,14 +24,11 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Tag("headfull")
