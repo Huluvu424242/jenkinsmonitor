@@ -356,7 +356,7 @@
         <artifactId>clover-maven-plugin</artifactId>
         <configuration>
           <!-- Use custom report descriptor -->
-          <reportDescriptor>clover-report.xml</reportDescriptor>
+          <reportDescriptor>etc/clover-report.xml</reportDescriptor>
           <outputDirectory>${basedir}/docs/clover/</outputDirectory>
         </configuration>
       </plugin>

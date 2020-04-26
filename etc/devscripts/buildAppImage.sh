@@ -2,9 +2,9 @@
 
 export ARCH=x86_64
 export CUR_DIR=${PWD}/
-export APP_DIR=target/AppDir/
-export BUILD_DIR=target/appbuild/
-export RESOURCE_DIR=src/appimage-resources/
+export APP_DIR=../../target/AppDir/
+export BUILD_DIR=../../target/appbuild/
+export RESOURCE_DIR=../../src/appimage-resources/
 export JDK_ARCHIVE_NAME=OpenJDK11U-jdk_x64_linux_openj9_11.0.3_7_openj9-0.14.3.tar.gz
 
 # download jre 11
