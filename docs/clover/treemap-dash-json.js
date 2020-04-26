@@ -1,6 +1,6 @@
-var treeMapJson = {"id":"Clover database So. Apr. 26 2020 11:41:06 MESZ0","name":"","data":{
-    "$area":821.0,"$color":81.242386,"title":
-    " 821 Elements, 81,2% Coverage"},"children":[{"id":
+var treeMapJson = {"id":"Clover database So. Apr. 26 2020 14:48:42 MESZ0","name":"","data":{
+    "$area":821.0,"$color":81.36419,"title":
+    " 821 Elements, 81,4% Coverage"},"children":[{"id":
       "com.github.funthomas424242.jenkinsmonitor.jenkins472","name":
       "com.github.funthomas424242.jenkinsmonitor.jenkins","data":{"$area":
         294.0,"$color":81.63265,"title":
@@ -8,8 +8,8 @@ var treeMapJson = {"id":"Clover database So. Apr. 26 2020 11:41:06 MESZ0","name"
       "children":[]},{"id":
       "com.github.funthomas424242.jenkinsmonitor.gui167","name":
       "com.github.funthomas424242.jenkinsmonitor.gui","data":{"$area":
-        325.0,"$color":76.61539,"title":
-        "com.github.funthomas424242.jenkinsmonitor.gui 325 Elements, 76,6% Coverage"},
+        325.0,"$color":76.92308,"title":
+        "com.github.funthomas424242.jenkinsmonitor.gui 325 Elements, 76,9% Coverage"},
       "children":[]},{"id":"com.github.funthomas424242.jenkinsmonitor0",
       "name":"com.github.funthomas424242.jenkinsmonitor","data":{"$area":
         8.0,"$color":100.0,"title":
