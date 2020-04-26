@@ -14,4 +14,4 @@ jobs:
       with:
         java-version: '13'
     - name: Build with Maven
-      run: ./mvnw -Pheadless -B package --file pom.xml
+      run: ./etc/devscripts/mvnw.sh -Pheadless -B package --file pom.xml
