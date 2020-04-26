@@ -6,7 +6,13 @@
   </target>
 
   <target name="current">
+
+      <tstamp>
+          <format property="date" pattern="dd.MM.yyyy"/>
+      </tstamp>
+
     <clover-report>
+
       <current outfile="${output}" title="${title}">
         <format type="html"/>
 
