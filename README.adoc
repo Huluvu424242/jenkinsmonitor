@@ -23,8 +23,9 @@ ____
 
 [#summary]
 Ein Monitor zum Überwachen der Buildstatus ausgewählter Jenkins Jobs.
-Fachlichkeit und Architekturentscheidungen lassen sich dieser Readme sowie den link:ArchitekturEntscheidungen.adoc[ArchitekturEntscheidungen]
-entnehmen.
+Details finden Sie in der link:https://funthomas424242.github.io/jenkinsmonitor/index.html[Projektdokumentation].
+Als Teil dieser finden Sie auch die link:ArchitekturEntscheidungen.adoc[ArchitekturEntscheidungen]
+zur Umsetzung der fachlichen Anforderungen.
 
 Da die einzige Aufgabe des Programmes in der Überwachung liegt, hielt ich eine Analogie zu Orwells Roman
 link:https://de.wikipedia.org/wiki/1984_(Roman)#Emmanuel_Goldstein["1984"] für gegeben und habe
