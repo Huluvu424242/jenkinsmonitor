@@ -34,6 +34,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.when;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @Tag("compatibillity")
 public class JenkinsAPICompatibillityTest {
@@ -72,57 +73,64 @@ public class JenkinsAPICompatibillityTest {
     @Test
     @DisplayName("Jenkins API Compatibillity: Statusabfrage roter Multibranch Job")
     public void statusMultibranchJobRot() {
-        when().
-                get(STATUS_URL_MULTIBRANCH_JOB1_RED).
-                then().
-                statusCode(200).
-                body("fullDisplayName", Matchers.equalTo("mypocketmod » master #2"),
-                        "result", Matchers.equalTo("FAILURE"));
-
+        assertDoesNotThrow(() -> {
+            when().
+                    get(STATUS_URL_MULTIBRANCH_JOB1_RED).
+                    then().
+                    statusCode(200).
+                    body("fullDisplayName", Matchers.equalTo("mypocketmod » master #2"),
+                            "result", Matchers.equalTo("FAILURE"));
+        });
     }
 
     @Test
     @DisplayName("Jenkins API Compatibillity: Statusabfrage grüner Multibranch Job")
     public void statusMultibranchJobGruen() {
-        when().
-                get(STATUS_URL_MULTIBRANCH_JOB1_GREEN).
-                then().
-                statusCode(200).
-                body("fullDisplayName", Matchers.equalTo("mypocketmod » master #2"),
-                        "result", Matchers.equalTo("SUCCESS"));
-
+        assertDoesNotThrow(() -> {
+            when().
+                    get(STATUS_URL_MULTIBRANCH_JOB1_GREEN).
+                    then().
+                    statusCode(200).
+                    body("fullDisplayName", Matchers.equalTo("mypocketmod » master #2"),
+                            "result", Matchers.equalTo("SUCCESS"));
+        });
     }
 
     @Test
     @DisplayName("Jenkins API Compatibillity: Statusabfrage gelber Multibranch Job")
     public void statusMultibranchJobGelb() {
-        when().
-                get(STATUS_URL_MULTIBRANCH_JOB1_YELLOW).
-                then().
-                statusCode(200).
-                body("fullDisplayName", Matchers.equalTo("mypocketmod » master #2"),
-                        "result", Matchers.equalTo("UNSTABLE"));
+        assertDoesNotThrow(() -> {
+            when().
+                    get(STATUS_URL_MULTIBRANCH_JOB1_YELLOW).
+                    then().
+                    statusCode(200).
+                    body("fullDisplayName", Matchers.equalTo("mypocketmod » master #2"),
+                            "result", Matchers.equalTo("UNSTABLE"));
+        });
 
     }
 
     @Test
     @DisplayName("Jenkins API Compatibillity: Statusabfrage im Build befindlicher Multibranch Job")
     public void statusMultibranchJobGrauBuildend() {
-        when().
-                get(STATUS_URL_MULTIBRANCH_JOB1_GRAY_BUILDING).
-                then().
-                statusCode(200).
-                body("building", Matchers.equalTo(true));
-
+        assertDoesNotThrow(() -> {
+            when().
+                    get(STATUS_URL_MULTIBRANCH_JOB1_GRAY_BUILDING).
+                    then().
+                    statusCode(200).
+                    body("building", Matchers.equalTo(true));
+        });
     }
 
     @Test
     @DisplayName("Jenkins API Compatibillity: Statusabfrage unbekannter Multibranch Job")
     public void statusMultibranchJobGrauUnbekannt() {
-        when().
-                get(STATUS_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW).
-                then().
-                statusCode(404);
+        assertDoesNotThrow(() -> {
+            when().
+                    get(STATUS_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW).
+                    then().
+                    statusCode(404);
+        });
     }
 
 
