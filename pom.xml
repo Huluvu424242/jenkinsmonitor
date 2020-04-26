@@ -212,11 +212,6 @@
           <artifactId>license-maven-plugin</artifactId>
           <version>2.0.0</version>
         </plugin>
-        <plugin>
-          <groupId>org.jacoco</groupId>
-          <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.5</version>
-        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -372,33 +367,7 @@
           </excludedGroups>
         </configuration>
       </plugin>
-      <!--      <plugin>-->
-      <!--        <groupId>org.jacoco</groupId>-->
-      <!--        <artifactId>jacoco-maven-plugin</artifactId>-->
-      <!--        <executions>-->
-      <!--          <execution>-->
-      <!--            <id>pre-unit-test</id>-->
-      <!--            <goals>-->
-      <!--              <goal>prepare-agent</goal>-->
-      <!--            </goals>-->
-      <!--            <configuration>-->
-      <!--              <destFile>${project.build.directory}/jacoco-ut.exec</destFile>-->
-      <!--              <propertyName>surefireArgLine</propertyName>-->
-      <!--            </configuration>-->
-      <!--          </execution>-->
-      <!--          <execution>-->
-      <!--            <id>post-unit-test</id>-->
-      <!--            <phase>test</phase>-->
-      <!--            <goals>-->
-      <!--              <goal>report</goal>-->
-      <!--            </goals>-->
-      <!--            <configuration>-->
-      <!--              <dataFile>${project.build.directory}/jacoco-ut.exec</dataFile>-->
-      <!--              <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>-->
-      <!--            </configuration>-->
-      <!--          </execution>-->
-      <!--        </executions>-->
-      <!--      </plugin>-->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -503,68 +472,68 @@
   </build>
 
   <profiles>
-    <profile>
-      <id>runlocal</id>
-      <properties>
-        <skipTests>true</skipTests>
-      </properties>
-      <build>
-        <defaultGoal>test</defaultGoal>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>1.6.0</version>
-            <executions>
-              <execution>
-                <phase>test</phase>
-                <goals>
-                  <goal>java</goal>
-                </goals>
-                <configuration>
-                  <mainClass>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor</mainClass>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-      <activation>
-        <!-- nur aktive wenn noch kein anderes aktiv ist -->
-        <activeByDefault>false</activeByDefault>
-      </activation>
-    </profile>
-    <profile>
-      <id>local</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-toolchains-plugin</artifactId>
-            <version>3.0.0</version>
-            <configuration>
-              <toolchains>
-                <jdk>
-                  <version>13</version>
-                  <vendor>openjdk</vendor>
-                </jdk>
-              </toolchains>
-            </configuration>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>toolchain</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-      <activation>
-        <!-- nur aktive wenn noch kein anderes aktiv ist -->
-        <activeByDefault>false</activeByDefault>
-      </activation>
-    </profile>
+<!--    <profile>-->
+<!--      <id>runlocal</id>-->
+<!--      <properties>-->
+<!--        <skipTests>true</skipTests>-->
+<!--      </properties>-->
+<!--      <build>-->
+<!--        <defaultGoal>test</defaultGoal>-->
+<!--        <plugins>-->
+<!--          <plugin>-->
+<!--            <groupId>org.codehaus.mojo</groupId>-->
+<!--            <artifactId>exec-maven-plugin</artifactId>-->
+<!--            <version>1.6.0</version>-->
+<!--            <executions>-->
+<!--              <execution>-->
+<!--                <phase>test</phase>-->
+<!--                <goals>-->
+<!--                  <goal>java</goal>-->
+<!--                </goals>-->
+<!--                <configuration>-->
+<!--                  <mainClass>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor</mainClass>-->
+<!--                </configuration>-->
+<!--              </execution>-->
+<!--            </executions>-->
+<!--          </plugin>-->
+<!--        </plugins>-->
+<!--      </build>-->
+<!--      <activation>-->
+<!--        &lt;!&ndash; nur aktive wenn noch kein anderes aktiv ist &ndash;&gt;-->
+<!--        <activeByDefault>false</activeByDefault>-->
+<!--      </activation>-->
+<!--    </profile>-->
+<!--    <profile>-->
+<!--      <id>local</id>-->
+<!--      <build>-->
+<!--        <plugins>-->
+<!--          <plugin>-->
+<!--            <groupId>org.apache.maven.plugins</groupId>-->
+<!--            <artifactId>maven-toolchains-plugin</artifactId>-->
+<!--            <version>3.0.0</version>-->
+<!--            <configuration>-->
+<!--              <toolchains>-->
+<!--                <jdk>-->
+<!--                  <version>13</version>-->
+<!--                  <vendor>openjdk</vendor>-->
+<!--                </jdk>-->
+<!--              </toolchains>-->
+<!--            </configuration>-->
+<!--            <executions>-->
+<!--              <execution>-->
+<!--                <goals>-->
+<!--                  <goal>toolchain</goal>-->
+<!--                </goals>-->
+<!--              </execution>-->
+<!--            </executions>-->
+<!--          </plugin>-->
+<!--        </plugins>-->
+<!--      </build>-->
+<!--      <activation>-->
+<!--        &lt;!&ndash; nur aktive wenn noch kein anderes aktiv ist &ndash;&gt;-->
+<!--        <activeByDefault>false</activeByDefault>-->
+<!--      </activation>-->
+<!--    </profile>-->
     <profile>
       <id>headless</id>
       <properties>
@@ -608,44 +577,9 @@
     <profile>
       <id>site</id>
       <build>
-        <defaultGoal>clean site clover:setup verify clover:aggregate clover:clover</defaultGoal>
+        <defaultGoal>clean site clover:setup verify clover:aggregate clover:clover clover:reset install</defaultGoal>
       </build>
     </profile>
-
-<!--    <profile>-->
-<!--      <id>clover.report</id>-->
-<!--      <build>-->
-<!--        <defaultGoal>verify</defaultGoal>-->
-<!--        <plugins>-->
-<!--          <plugin>-->
-<!--            <groupId>org.openclover</groupId>-->
-<!--            <artifactId>clover-maven-plugin</artifactId>-->
-<!--            <configuration>-->
-
-<!--            </configuration>-->
-<!--            <executions>-->
-<!--              <execution>-->
-<!--                <id>clover</id>-->
-<!--                <phase>verify</phase>-->
-<!--                <goals>-->
-<!--                  <goal>instrument</goal>-->
-<!--                  <goal>check</goal>-->
-<!--                  <goal>clover</goal>-->
-<!--                </goals>-->
-<!--              </execution>-->
-<!--            </executions>-->
-<!--          </plugin>-->
-<!--        </plugins>-->
-<!--      </build>-->
-<!--      <reporting>-->
-<!--        <plugins>-->
-<!--          <plugin>-->
-<!--            <groupId>org.openclover</groupId>-->
-<!--            <artifactId>clover-maven-plugin</artifactId>-->
-<!--          </plugin>-->
-<!--        </plugins>-->
-<!--      </reporting>-->
-<!--    </profile>-->
 
   </profiles>
 
@@ -696,18 +630,6 @@
         <artifactId>maven-surefire-report-plugin</artifactId>
         <version>2.22.2</version>
       </plugin>
-      <!--      <plugin>-->
-      <!--        <groupId>org.jacoco</groupId>-->
-      <!--        <artifactId>jacoco-maven-plugin</artifactId>-->
-      <!--        <reportSets>-->
-      <!--          <reportSet>-->
-      <!--            <reports>-->
-      <!--              &lt;!&ndash; select non-aggregate reports &ndash;&gt;-->
-      <!--              <report>report</report>-->
-      <!--            </reports>-->
-      <!--          </reportSet>-->
-      <!--        </reportSets>-->
-      <!--      </plugin>-->
     </plugins>
   </reporting>
 
