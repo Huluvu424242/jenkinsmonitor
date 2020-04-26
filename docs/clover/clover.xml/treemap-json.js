@@ -1,4 +1,4 @@
-var treeMapJson = {"id":"Clover database So. Apr. 26 2020 01:35:22 MESZ0","name":"","data":{
+var treeMapJson = {"id":"Clover database So. Apr. 26 2020 11:41:06 MESZ0","name":"","data":{
     "$area":821.0,"$color":81.242386,"title":
     " 821 Elements, 81,2% Coverage"},"children":[{"id":
       "com.github.funthomas424242.jenkinsmonitor.jenkins472","name":
@@ -62,7 +62,7 @@ var treeMapJson = {"id":"Clover database So. Apr. 26 2020 01:35:22 MESZ0","name"
           "data":{"$area":32.0,"$color":100.0,"path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/JobStatusBeschreibung.html#JobStatusBeschreibung",
             "title":"JobStatusBeschreibung 32 Elements, 100% Coverage"},
-          "children":[]},{"id":"JenkinsAPIMock1124","name":
+          "children":[]},{"id":"JenkinsAPIMock1129","name":
           "JenkinsAPIMock","data":{"$area":6.0,"$color":100.0,"path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/JenkinsAPIMock.html#JenkinsAPIMock",
             "title":"JenkinsAPIMock 6 Elements, 100% Coverage"},"children":[]}]},
