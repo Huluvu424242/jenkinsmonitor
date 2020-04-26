@@ -50,14 +50,14 @@ public class JobStatusBeschreibungen extends AbstractJobBeschreibungen<JobStatus
 
 
         this.displayLaengeOben = AbstractJobBeschreibung.sortedStreamOf(this)
-            .map(jobStatusBeschreibung -> (jobStatusBeschreibung.getJobName() + jobStatusBeschreibung.getJobOrderId()).length())
-            .max(MAXCOMPARATOR)
-            .orElseGet(() -> 0);
+                .map(jobStatusBeschreibung -> (jobStatusBeschreibung.getJobName() + jobStatusBeschreibung.getJobOrderId()).length())
+                .max(MAXCOMPARATOR)
+                .orElseGet(() -> 0);
 
         this.displayLaengeUnten = AbstractJobBeschreibung.sortedStreamOf(this)
-            .map(jobStatusBeschreibung -> jobStatusBeschreibung.getJobUrl().toString().length())
-            .max(MAXCOMPARATOR)
-            .orElseGet(() -> 0);
+                .map(jobStatusBeschreibung -> jobStatusBeschreibung.getJobUrl().toString().length())
+                .max(MAXCOMPARATOR)
+                .orElseGet(() -> 0);
     }
 
     public JobStatusZeileOben getJobStatusZeileOben(final JobStatusBeschreibung jobStatusBeschreibung) {

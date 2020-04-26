@@ -58,10 +58,10 @@ public class Statusfenster extends JWindow {
         final String colorValueHEX = jobStatus.getColorValueHEX() != null ? jobStatus.getColorValueHEX() : JobStatus.OTHER.getColorValueHEX();
 
         final String htmlTemplate =
-            "<html><body style=\"display:inline-block;font-family:monospace;background-color:" + colorValueHEX + ";\">"
-                + zeileOben.toHTMLString()
-                + zeileUnten.toHTMLString()
-                + "</body></html>";
+                "<html><body style=\"display:inline-block;font-family:monospace;background-color:" + colorValueHEX + ";\">"
+                        + zeileOben.toHTMLString()
+                        + zeileUnten.toHTMLString()
+                        + "</body></html>";
         return new StatusItem(htmlTemplate, jobUrl);
     }
 
@@ -73,16 +73,16 @@ public class Statusfenster extends JWindow {
         final List<StatusItem> statusItems = new ArrayList<>();
         final Counter counter = new Counter();
         AbstractJobBeschreibung.sortedStreamOf(tmpJobStatusBeschreibungen)
-            .forEach(jobStatus -> {
-                statusItems.add(
-                    createStatusItem(
-                        tmpJobStatusBeschreibungen.getJobStatusZeileOben(jobStatus),
-                        tmpJobStatusBeschreibungen.getJobStatusZeileUnten(jobStatus, counter.value + 1),
-                        jobStatus.getJobStatus(),
-                        jobStatus.getJobUrl())
-                );
-                counter.value++;
-            });
+                .forEach(jobStatus -> {
+                    statusItems.add(
+                            createStatusItem(
+                                    tmpJobStatusBeschreibungen.getJobStatusZeileOben(jobStatus),
+                                    tmpJobStatusBeschreibungen.getJobStatusZeileUnten(jobStatus, counter.value + 1),
+                                    jobStatus.getJobStatus(),
+                                    jobStatus.getJobUrl())
+                    );
+                    counter.value++;
+                });
 
 
         // Datenmodell erzeugen
@@ -97,7 +97,7 @@ public class Statusfenster extends JWindow {
         list.setSelectionMode(SINGLE_SELECTION);
         final ListSelectionModel listSelectionModel = list.getSelectionModel();
         listSelectionModel.addListSelectionListener(
-            new SharedListSelectionHandler(statusItems, this));
+                new SharedListSelectionHandler(statusItems, this));
 
         // Scrollpane erzeugen
         final JScrollPane scrollPane = new JScrollPane(list);

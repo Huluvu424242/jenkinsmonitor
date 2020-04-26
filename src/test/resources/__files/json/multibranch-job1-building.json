@@ -1,25 +1,25 @@
 {
-    "building": true,
-    "description": null,
-    "displayName": "#3",
-    "duration": 0,
-    "estimatedDuration": 201478,
-    "executor": {
-        "_class": "hudson.model.OneOffExecutor"
-    },
-    "fullDisplayName": "rezeptsammlung-allbranches » master #3",
-    "id": "3",
-    "keepLog": false,
-    "number": 3,
-    "queueId": 2337,
-    "result": null,
-    "timestamp": 1585769052802,
-    "url": "http://jenkins:8080/job/rezeptsammlung-allbranches/job/master/3/",
-    "changeSets": [],
-    "culprits": [],
-    "nextBuild": null,
-    "previousBuild": {
-        "number": 2,
-        "url": "http://jenkins:8080/job/rezeptsammlung-allbranches/job/master/2/"
-    }
+  "building": true,
+  "description": null,
+  "displayName": "#3",
+  "duration": 0,
+  "estimatedDuration": 201478,
+  "executor": {
+    "_class": "hudson.model.OneOffExecutor"
+  },
+  "fullDisplayName": "rezeptsammlung-allbranches » master #3",
+  "id": "3",
+  "keepLog": false,
+  "number": 3,
+  "queueId": 2337,
+  "result": null,
+  "timestamp": 1585769052802,
+  "url": "http://jenkins:8080/job/rezeptsammlung-allbranches/job/master/3/",
+  "changeSets": [],
+  "culprits": [],
+  "nextBuild": null,
+  "previousBuild": {
+    "number": 2,
+    "url": "http://jenkins:8080/job/rezeptsammlung-allbranches/job/master/2/"
+  }
 }

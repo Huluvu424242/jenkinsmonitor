@@ -48,12 +48,12 @@ class JobStatusDarstellungenTest {
     public void showBuildStatusAreaOneSuccessJob() {
         final JobStatusBeschreibungen jobsStatusBeschreibungen = new JobStatusBeschreibungen();
         final JobStatusBeschreibung jobsStatusBeschreibung0 = new JobStatusBeschreibung("Job1/master"
-            , JobStatus.SUCCESS
-            , NetworkHelper.urlOf("http://localhost/"), "#1");
+                , JobStatus.SUCCESS
+                , NetworkHelper.urlOf("http://localhost/"), "#1");
         jobsStatusBeschreibungen.put(jobsStatusBeschreibung0.getPrimaryKey(), jobsStatusBeschreibung0);
 
         final JobStatusDarstellungen jobStatusDarstellungen
-            = new JobStatusDarstellungen(jobsStatusBeschreibungen, clock);
+                = new JobStatusDarstellungen(jobsStatusBeschreibungen, clock);
         final Statusfenster statusArea = new Statusfenster(jobsStatusBeschreibungen);
 
         jobStatusDarstellungen.aktualisiereStatusfenster();

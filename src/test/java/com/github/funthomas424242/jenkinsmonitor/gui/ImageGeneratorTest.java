@@ -65,8 +65,8 @@ class ImageGeneratorTest {
     public void initOneJobGreenIcon100x100() {
         final JobStatusBeschreibungen jobsStatusBeschreibungen = new JobStatusBeschreibungen();
         final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
-            , JobStatus.SUCCESS
-            , NetworkHelper.urlOf("http://localhost/"), "#1");
+                , JobStatus.SUCCESS
+                , NetworkHelper.urlOf("http://localhost/"), "#1");
         jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(), jobsStatusBeschreibungen0);
 
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
@@ -83,8 +83,8 @@ class ImageGeneratorTest {
     public void initOneJobYellowIcon100x100() {
         final JobStatusBeschreibungen jobsStatusBeschreibungen = new JobStatusBeschreibungen();
         final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
-            , JobStatus.UNSTABLE
-            , NetworkHelper.urlOf("http://localhost/"), "#1");
+                , JobStatus.UNSTABLE
+                , NetworkHelper.urlOf("http://localhost/"), "#1");
         jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(), jobsStatusBeschreibungen0);
 
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
@@ -101,8 +101,8 @@ class ImageGeneratorTest {
     public void initOneJobRedIcon100x100() {
         final JobStatusBeschreibungen jobsStatusBeschreibungen = new JobStatusBeschreibungen();
         final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
-            , JobStatus.FAILURE
-            , NetworkHelper.urlOf("http://localhost/"), "#1");
+                , JobStatus.FAILURE
+                , NetworkHelper.urlOf("http://localhost/"), "#1");
         jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(), jobsStatusBeschreibungen0);
 
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);
@@ -119,12 +119,12 @@ class ImageGeneratorTest {
     public void initTwoJobsOneGreenOneRedIcon50x100() {
         final JobStatusBeschreibungen jobsStatusBeschreibungen = new JobStatusBeschreibungen();
         final JobStatusBeschreibung jobsStatusBeschreibungen0 = new JobStatusBeschreibung("Job1/master"
-            , JobStatus.SUCCESS
-            , NetworkHelper.urlOf("http://localhost/"), "#1");
+                , JobStatus.SUCCESS
+                , NetworkHelper.urlOf("http://localhost/"), "#1");
         jobsStatusBeschreibungen.put(jobsStatusBeschreibungen0.getPrimaryKey(), jobsStatusBeschreibungen0);
         final JobStatusBeschreibung jobsStatusBeschreibungen1 = new JobStatusBeschreibung("Job2/master"
-            , JobStatus.FAILURE
-            , NetworkHelper.urlOf("http://localhost/"), "#2");
+                , JobStatus.FAILURE
+                , NetworkHelper.urlOf("http://localhost/"), "#2");
         jobsStatusBeschreibungen.put(jobsStatusBeschreibungen1.getPrimaryKey(), jobsStatusBeschreibungen1);
 
         final ImageGenerator generator = new ImageGenerator(jobsStatusBeschreibungen);

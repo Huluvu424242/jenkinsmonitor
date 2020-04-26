@@ -1,87 +1,87 @@
 {
-    "_class": "hudson.model.FreeStyleBuild",
-    "actions": [
+  "_class": "hudson.model.FreeStyleBuild",
+  "actions": [
+    {
+      "_class": "hudson.model.CauseAction",
+      "causes": [
         {
-            "_class": "hudson.model.CauseAction",
-            "causes": [
-                {
-                    "_class": "hudson.model.Cause$UpstreamCause",
-                    "shortDescription": "Gestartet durch vorgelagertes Projekt „NighlyTrigger“, Build 6",
-                    "upstreamBuild": 6,
-                    "upstreamProject": "NighlyTrigger",
-                    "upstreamUrl": "job/NighlyTrigger/"
-                }
-            ]
-        },
-        {},
-        {
-            "_class": "hudson.plugins.git.util.BuildData",
-            "buildsByBranchName": {
-                "refs/remotes/origin/master": {
-                    "_class": "hudson.plugins.git.util.Build",
-                    "buildNumber": 6,
-                    "buildResult": null,
-                    "marked": {
-                        "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
-                        "branch": [
-                            {
-                                "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
-                                "name": "refs/remotes/origin/master"
-                            }
-                        ]
-                    },
-                    "revision": {
-                        "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
-                        "branch": [
-                            {
-                                "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
-                                "name": "refs/remotes/origin/master"
-                            }
-                        ]
-                    }
-                }
-            },
-            "lastBuiltRevision": {
-                "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
-                "branch": [
-                    {
-                        "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
-                        "name": "refs/remotes/origin/master"
-                    }
-                ]
-            },
-            "remoteUrls": [
-                "https://github.com/FunThomas424242/rades-annotations.git"
-            ],
-            "scmName": ""
-        },
-        {
-            "_class": "hudson.plugins.git.GitTagAction"
-        },
-        {},
-        {},
-        {}
-    ],
-    "artifacts": [],
-    "building": false,
-    "description": null,
-    "displayName": "#6",
-    "duration": 28582,
-    "estimatedDuration": 47475,
-    "executor": null,
-    "fullDisplayName": "rades-annotations #6",
-    "id": "6",
-    "keepLog": false,
-    "number": 6,
-    "queueId": 39,
-    "result": "SUCCESS",
-    "timestamp": 1568557708973,
-    "url": "http://stachel:8099/job/rades-annotations/6/",
-    "builtOn": "",
-    "changeSet": {
-        "_class": "hudson.plugins.git.GitChangeSetList",
-        "items": [],
-        "kind": "git"
+          "_class": "hudson.model.Cause$UpstreamCause",
+          "shortDescription": "Gestartet durch vorgelagertes Projekt „NighlyTrigger“, Build 6",
+          "upstreamBuild": 6,
+          "upstreamProject": "NighlyTrigger",
+          "upstreamUrl": "job/NighlyTrigger/"
+        }
+      ]
     },
-    "culprits": []
+    {},
+    {
+      "_class": "hudson.plugins.git.util.BuildData",
+      "buildsByBranchName": {
+        "refs/remotes/origin/master": {
+          "_class": "hudson.plugins.git.util.Build",
+          "buildNumber": 6,
+          "buildResult": null,
+          "marked": {
+            "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
+            "branch": [
+              {
+                "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
+                "name": "refs/remotes/origin/master"
+              }
+            ]
+          },
+          "revision": {
+            "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
+            "branch": [
+              {
+                "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
+                "name": "refs/remotes/origin/master"
+              }
+            ]
+          }
+        }
+      },
+      "lastBuiltRevision": {
+        "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
+        "branch": [
+          {
+            "SHA1": "d68e6e7cbc7155a549e480e7354a6e64493382fa",
+            "name": "refs/remotes/origin/master"
+          }
+        ]
+      },
+      "remoteUrls": [
+        "https://github.com/FunThomas424242/rades-annotations.git"
+      ],
+      "scmName": ""
+    },
+    {
+      "_class": "hudson.plugins.git.GitTagAction"
+    },
+    {},
+    {},
+    {}
+  ],
+  "artifacts": [],
+  "building": false,
+  "description": null,
+  "displayName": "#6",
+  "duration": 28582,
+  "estimatedDuration": 47475,
+  "executor": null,
+  "fullDisplayName": "rades-annotations #6",
+  "id": "6",
+  "keepLog": false,
+  "number": 6,
+  "queueId": 39,
+  "result": "SUCCESS",
+  "timestamp": 1568557708973,
+  "url": "http://stachel:8099/job/rades-annotations/6/",
+  "builtOn": "",
+  "changeSet": {
+    "_class": "hudson.plugins.git.GitChangeSetList",
+    "items": [],
+    "kind": "git"
+  },
+  "culprits": []
 }

@@ -59,8 +59,8 @@ class JobStatusBeschreibungTest {
     @DisplayName("Es wird eine gültige Instanz erstellt")
     public void valideInitialisierung() {
         final JobStatusBeschreibung JobStatusBeschreibung = new JobStatusBeschreibung(null
-            , null
-            , null, "#1");
+                , null
+                , null, "#1");
         assertNotNull(JobStatusBeschreibung);
         assertNull(JobStatusBeschreibung.getJobStatus());
         assertNull(JobStatusBeschreibung.getJobUrl());
@@ -71,8 +71,8 @@ class JobStatusBeschreibungTest {
     @DisplayName("Statusfarbe eines erfolgreichen Jobs ist grün")
     public void erfolgreicheJobsSindGruen() {
         final JobStatusBeschreibung JobStatusBeschreibung = new JobStatusBeschreibung(NAME_JOB1
-            , JobStatus.SUCCESS
-            , LOCALHOST_JOB_TEST_URL, "#1");
+                , JobStatus.SUCCESS
+                , LOCALHOST_JOB_TEST_URL, "#1");
         assertNotNull(JobStatusBeschreibung);
         assertEquals(JobStatus.SUCCESS.getColor(), JobStatusBeschreibung.getStatusColor());
     }
@@ -81,8 +81,8 @@ class JobStatusBeschreibungTest {
     @DisplayName("Statusfarbe eines instabilen Jobs ist gelb")
     public void instabileJobsSindGelb() {
         final JobStatusBeschreibung JobStatusBeschreibung = new JobStatusBeschreibung(NAME_JOB1
-            , JobStatus.UNSTABLE
-            , LOCALHOST_JOB_TEST_URL, "#1");
+                , JobStatus.UNSTABLE
+                , LOCALHOST_JOB_TEST_URL, "#1");
         assertNotNull(JobStatusBeschreibung);
         assertEquals(JobStatus.UNSTABLE.getColor(), JobStatusBeschreibung.getStatusColor());
     }
@@ -91,8 +91,8 @@ class JobStatusBeschreibungTest {
     @DisplayName("Statusfarbe eines fehlerhaften Jobs ist rot")
     public void fehlerhafteJobsSindRot() {
         final JobStatusBeschreibung JobStatusBeschreibung = new JobStatusBeschreibung(NAME_JOB1
-            , JobStatus.FAILURE
-            , LOCALHOST_JOB_TEST_URL, "#1");
+                , JobStatus.FAILURE
+                , LOCALHOST_JOB_TEST_URL, "#1");
         assertNotNull(JobStatusBeschreibung);
         assertEquals(JobStatus.FAILURE.getColor(), JobStatusBeschreibung.getStatusColor());
     }

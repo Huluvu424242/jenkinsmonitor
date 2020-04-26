@@ -66,7 +66,7 @@ public final class JobBeschreibung implements AbstractJobBeschreibung {
         if (o == null || getClass() != o.getClass()) return false;
         JobBeschreibung that = (JobBeschreibung) o;
         return Objects.equals(jobOrderId, that.jobOrderId) &&
-            jobAbfragedaten.equals(that.jobAbfragedaten);
+                jobAbfragedaten.equals(that.jobAbfragedaten);
     }
 
     @Override

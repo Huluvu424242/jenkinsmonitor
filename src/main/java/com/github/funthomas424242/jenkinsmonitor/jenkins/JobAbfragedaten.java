@@ -75,7 +75,7 @@ public class JobAbfragedaten {
         if (o == null || getClass() != o.getClass()) return false;
         JobAbfragedaten that = (JobAbfragedaten) o;
         return jenkinsJobUrl.equals(that.jenkinsJobUrl) &&
-            Objects.equals(authDaten, that.authDaten);
+                Objects.equals(authDaten, that.authDaten);
     }
 
     @Override

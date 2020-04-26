@@ -23,38 +23,38 @@
 
 <configuration>
 
-  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>jenkinsMonitor.log</file>
-    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <!-- daily rollover -->
-      <fileNamePattern>jenkinsMonitor.%d{yyyy-MM-dd}.log</fileNamePattern>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>jenkinsMonitor.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>jenkinsMonitor.%d{yyyy-MM-dd}.log</fileNamePattern>
 
-      <!-- keep 30 days' worth of history capped at 3GB total size -->
-      <maxHistory>30</maxHistory>
-      <totalSizeCap>1MB</totalSizeCap>
+            <!-- keep 30 days' worth of history capped at 3GB total size -->
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1MB</totalSizeCap>
 
-    </rollingPolicy>
+        </rollingPolicy>
 
-    <encoder>
-      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
-    </encoder>
-  </appender>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
 
 
-  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-    <layout class="ch.qos.logback.classic.PatternLayout">
-      <Pattern>
-        %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
-      </Pattern>
-    </layout>
-  </appender>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
 
-  <logger name="com.github.funthomas424242" level="debug" additivity="true">
-    <appender-ref ref="FILE"/>
-  </logger>
+    <logger name="com.github.funthomas424242" level="debug" additivity="true">
+        <appender-ref ref="FILE"/>
+    </logger>
 
-  <root level="error">
-    <appender-ref ref="FILE"/>
-  </root>
+    <root level="error">
+        <appender-ref ref="FILE"/>
+    </root>
 
 </configuration>

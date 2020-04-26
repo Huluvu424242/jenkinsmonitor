@@ -63,9 +63,9 @@ public class JobStatusDarstellungen {
 
     protected void bereinigeJobStatusBeschreibungen(final JobBeschreibungen jobBeschreibungen) {
         final java.util.List<String> entriesToDelete = AbstractJobBeschreibung.sortedKeyStreamOf(jobStatusBeschreibungen)
-            .parallel()
-            .filter(primaryKey -> !jobBeschreibungen.containsKey(primaryKey))
-            .collect(Collectors.toList());
+                .parallel()
+                .filter(primaryKey -> !jobBeschreibungen.containsKey(primaryKey))
+                .collect(Collectors.toList());
         entriesToDelete.stream().parallel().forEach(jobStatusBeschreibungen::remove);
     }
 

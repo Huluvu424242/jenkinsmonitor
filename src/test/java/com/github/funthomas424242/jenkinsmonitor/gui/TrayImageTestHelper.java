@@ -41,9 +41,9 @@ public interface TrayImageTestHelper {
         final int jobWith = width / jobAnzahl;
 
         Arrays.stream(colors).forEachOrdered((color) -> {
-                valueHolder.isOfColor = isOfColor4JobRectangle(image, valueHolder.isOfColor, valueHolder.jobNr, jobWith, color);
-                valueHolder.jobNr++;
-            }
+                    valueHolder.isOfColor = isOfColor4JobRectangle(image, valueHolder.isOfColor, valueHolder.jobNr, jobWith, color);
+                    valueHolder.jobNr++;
+                }
         );
         return valueHolder.isOfColor;
     }

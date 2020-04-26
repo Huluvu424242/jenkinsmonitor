@@ -8,4 +8,3 @@
 # Systemanforderungen: Java 11 muss installiert sein
 #
 #
-

@@ -1,102 +1,102 @@
 {
-    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
-    "actions": [
+  "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+  "actions": [
+    {
+      "_class": "hudson.model.CauseAction",
+      "causes": [
         {
-            "_class": "hudson.model.CauseAction",
-            "causes": [
-                {
-                    "_class": "hudson.model.Cause$UpstreamCause",
-                    "shortDescription": "Gestartet durch vorgelagertes Projekt „NighlyTrigger“, Build 6",
-                    "upstreamBuild": 6,
-                    "upstreamProject": "NighlyTrigger",
-                    "upstreamUrl": "job/NighlyTrigger/"
-                }
-            ]
-        },
-        {},
-        {
-            "_class": "jenkins.scm.api.SCMRevisionAction"
-        },
-        {},
-        {
-            "_class": "hudson.plugins.git.util.BuildData",
-            "buildsByBranchName": {
-                "refs/remotes/origin/master": {
-                    "_class": "hudson.plugins.git.util.Build",
-                    "buildNumber": 2,
-                    "buildResult": null,
-                    "marked": {
-                        "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
-                        "branch": [
-                            {
-                                "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
-                                "name": "refs/remotes/origin/master"
-                            }
-                        ]
-                    },
-                    "revision": {
-                        "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
-                        "branch": [
-                            {
-                                "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
-                                "name": "refs/remotes/origin/master"
-                            }
-                        ]
-                    }
-                }
-            },
-            "lastBuiltRevision": {
+          "_class": "hudson.model.Cause$UpstreamCause",
+          "shortDescription": "Gestartet durch vorgelagertes Projekt „NighlyTrigger“, Build 6",
+          "upstreamBuild": 6,
+          "upstreamProject": "NighlyTrigger",
+          "upstreamUrl": "job/NighlyTrigger/"
+        }
+      ]
+    },
+    {},
+    {
+      "_class": "jenkins.scm.api.SCMRevisionAction"
+    },
+    {},
+    {
+      "_class": "hudson.plugins.git.util.BuildData",
+      "buildsByBranchName": {
+        "refs/remotes/origin/master": {
+          "_class": "hudson.plugins.git.util.Build",
+          "buildNumber": 2,
+          "buildResult": null,
+          "marked": {
+            "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
+            "branch": [
+              {
                 "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
-                "branch": [
-                    {
-                        "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
-                        "name": "refs/remotes/origin/master"
-                    }
-                ]
-            },
-            "remoteUrls": [
-                "https://github.com/jglick/simple-maven-project-with-tests.git"
-            ],
-            "scmName": ""
-        },
-        {
-            "_class": "hudson.plugins.git.GitTagAction"
-        },
-        {},
-        {},
-        {},
-        {},
-        {
-            "_class": "org.jenkinsci.plugins.pipeline.modeldefinition.actions.RestartDeclarativePipelineAction"
-        },
-        {},
-        {
-            "_class": "org.jenkinsci.plugins.workflow.job.views.FlowGraphAction"
-        },
-        {},
-        {},
-        {}
-    ],
-    "artifacts": [],
-    "building": false,
-    "description": null,
-    "displayName": "#2",
-    "duration": 5160,
-    "estimatedDuration": 11686,
-    "executor": null,
-    "fullDisplayName": "mypocketmod » master #2",
-    "id": "2",
-    "keepLog": false,
-    "number": 2,
-    "queueId": 37,
-    "result": "UNSTABLE",
-    "timestamp": 1568557693971,
-    "url": "http://stachel:8099/job/mypocketmod/job/master/2/",
-    "changeSets": [],
-    "culprits": [],
-    "nextBuild": null,
-    "previousBuild": {
-        "number": 1,
-        "url": "http://stachel:8099/job/mypocketmod/job/master/1/"
-    }
+                "name": "refs/remotes/origin/master"
+              }
+            ]
+          },
+          "revision": {
+            "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
+            "branch": [
+              {
+                "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
+                "name": "refs/remotes/origin/master"
+              }
+            ]
+          }
+        }
+      },
+      "lastBuiltRevision": {
+        "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
+        "branch": [
+          {
+            "SHA1": "b3a39b21ac048d9298986e0d4a1d9f4dd185df8f",
+            "name": "refs/remotes/origin/master"
+          }
+        ]
+      },
+      "remoteUrls": [
+        "https://github.com/jglick/simple-maven-project-with-tests.git"
+      ],
+      "scmName": ""
+    },
+    {
+      "_class": "hudson.plugins.git.GitTagAction"
+    },
+    {},
+    {},
+    {},
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.pipeline.modeldefinition.actions.RestartDeclarativePipelineAction"
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.views.FlowGraphAction"
+    },
+    {},
+    {},
+    {}
+  ],
+  "artifacts": [],
+  "building": false,
+  "description": null,
+  "displayName": "#2",
+  "duration": 5160,
+  "estimatedDuration": 11686,
+  "executor": null,
+  "fullDisplayName": "mypocketmod » master #2",
+  "id": "2",
+  "keepLog": false,
+  "number": 2,
+  "queueId": 37,
+  "result": "UNSTABLE",
+  "timestamp": 1568557693971,
+  "url": "http://stachel:8099/job/mypocketmod/job/master/2/",
+  "changeSets": [],
+  "culprits": [],
+  "nextBuild": null,
+  "previousBuild": {
+    "number": 1,
+    "url": "http://stachel:8099/job/mypocketmod/job/master/1/"
+  }
 }

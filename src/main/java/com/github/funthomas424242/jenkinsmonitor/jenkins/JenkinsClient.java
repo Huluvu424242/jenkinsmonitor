@@ -39,31 +39,31 @@ public class JenkinsClient {
         LOG.debug("Frage Jobstatus ab");
         final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
         AbstractJobBeschreibung.sortedStreamOf(jobBeschreibungen)
-            .parallel()
-            .map(beschreibung -> {
-                final JobAbfrage jobAbfrage
-                    = new JobAbfrage(beschreibung.getJobAbfragedaten(), beschreibung.getJobOrderId());
-                final Future<JobStatusBeschreibung> jobAbfrageFuture = executor.submit(jobAbfrage);
-                return new JobAbfrageFutureWrapper(jobAbfrage, jobAbfrageFuture);
-            })
-            // TODO optimieren nach https://www.concretepage.com/java/jdk-8/java-8-stream-collect-example#collect
-            .collect(Collectors.toList())
-            .forEach(jobAbfrageFutureWrapper -> {
-                final Future<JobStatusBeschreibung> future = jobAbfrageFutureWrapper.getJobAbfrageFuture();
-                try {
+                .parallel()
+                .map(beschreibung -> {
+                    final JobAbfrage jobAbfrage
+                            = new JobAbfrage(beschreibung.getJobAbfragedaten(), beschreibung.getJobOrderId());
+                    final Future<JobStatusBeschreibung> jobAbfrageFuture = executor.submit(jobAbfrage);
+                    return new JobAbfrageFutureWrapper(jobAbfrage, jobAbfrageFuture);
+                })
+                // TODO optimieren nach https://www.concretepage.com/java/jdk-8/java-8-stream-collect-example#collect
+                .collect(Collectors.toList())
+                .forEach(jobAbfrageFutureWrapper -> {
+                    final Future<JobStatusBeschreibung> future = jobAbfrageFutureWrapper.getJobAbfrageFuture();
+                    try {
 
-                    final JobStatusBeschreibung jobStatus = future.get(3, TimeUnit.SECONDS);
-                    jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
-                    LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
-                } catch (Exception e) {
-                    future.cancel(true);
-                    final JobAbfrage jobAbfrage = jobAbfrageFutureWrapper.getJobAbfrage();
-                    final JobStatusBeschreibung jobStatusBeschreibung
-                        = new JobStatusBeschreibung("Connection Timeout" + jobAbfrage.getAbfrageUrl().toExternalForm(), JobStatus.OTHER, jobAbfrage.getAbfrageUrl(), jobAbfrage.getJobOrderId());
-                    jobStatusBeschreibungen.put(jobAbfrage.getPrimaryKey(), jobStatusBeschreibung);
-                    LOG.warn("Read Future Result goes wrong and was canceled");
-                }
-            });
+                        final JobStatusBeschreibung jobStatus = future.get(3, TimeUnit.SECONDS);
+                        jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
+                        LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
+                    } catch (Exception e) {
+                        future.cancel(true);
+                        final JobAbfrage jobAbfrage = jobAbfrageFutureWrapper.getJobAbfrage();
+                        final JobStatusBeschreibung jobStatusBeschreibung
+                                = new JobStatusBeschreibung("Connection Timeout" + jobAbfrage.getAbfrageUrl().toExternalForm(), JobStatus.OTHER, jobAbfrage.getAbfrageUrl(), jobAbfrage.getJobOrderId());
+                        jobStatusBeschreibungen.put(jobAbfrage.getPrimaryKey(), jobStatusBeschreibung);
+                        LOG.warn("Read Future Result goes wrong and was canceled");
+                    }
+                });
         executor.shutdown();
     }
 }

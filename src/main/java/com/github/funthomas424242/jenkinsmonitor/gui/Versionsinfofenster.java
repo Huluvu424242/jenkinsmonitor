@@ -50,9 +50,9 @@ public class Versionsinfofenster extends JWindow {
         final JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3, 1));
         panel.add(new JLabel("<html>" +
-            "<h1>Jenkins Monitor Version: 0.0.3</h1>" +
-            "<p>Wer den Jenkins kontrolliert, kontrolliert die Gegenwart !!!</p>" +
-            "</html>"));
+                "<h1>Jenkins Monitor Version: 0.0.3</h1>" +
+                "<p>Wer den Jenkins kontrolliert, kontrolliert die Gegenwart !!!</p>" +
+                "</html>"));
 
         try {
             final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("1984EmmanuelGoldstein.jpg");
@@ -66,9 +66,9 @@ public class Versionsinfofenster extends JWindow {
         }
 
         panel.add(new JLabel("<html><p>Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft.</p>" +
-            "<p>Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.</p>" +
-            "<p>— Georg Orwell (Author des Buches \"1984\")</p>" +
-            "</html>"));
+                "<p>Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.</p>" +
+                "<p>— Georg Orwell (Author des Buches \"1984\")</p>" +
+                "</html>"));
 
         return panel;
     }

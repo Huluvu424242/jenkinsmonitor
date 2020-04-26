@@ -104,9 +104,9 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
         int statusCode = -1;
         int timeout = 1;
         final RequestConfig config = RequestConfig.custom()
-            .setConnectTimeout(timeout * 1000)
-            .setConnectionRequestTimeout(timeout * 1000)
-            .setSocketTimeout(timeout * 1000).build();
+                .setConnectTimeout(timeout * 1000)
+                .setConnectionRequestTimeout(timeout * 1000)
+                .setSocketTimeout(timeout * 1000).build();
         try (final CloseableHttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build()) {
             final HttpHost target = new HttpHost(statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort(), statusAbfrageUrl.getProtocol());
             final HttpGet httpGetRequest = new HttpGet(statusAbfrageUrl.getPath());

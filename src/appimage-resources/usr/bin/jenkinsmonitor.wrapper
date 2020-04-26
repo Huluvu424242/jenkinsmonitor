@@ -1,11 +1,10 @@
 #!/usr/bin/sh
 
 # here copy the jenkinsmonitor.properties.template to ~/jenkinsmonitor.properties if not exists
-if [ -f ~/jenkinsmonitor.properties ]
-then
-  echo "~/jenkinsmonitor.properties exists"
+if [ -f ~/jenkinsmonitor.properties ]; then
+    echo "~/jenkinsmonitor.properties exists"
 else
-  cp $APPDIR/jenkinsmonitor.properties.template ~/jenkinsmonitor.properties
+    cp $APPDIR/jenkinsmonitor.properties.template ~/jenkinsmonitor.properties
 fi
 
 # start the app

@@ -41,9 +41,9 @@ class JobAbfragedatenTest {
     public void containsAllProperties() {
         final JobAbfragedaten jobAbfragedaten = assertDoesNotThrow(() -> {
             return new JobAbfragedaten(
-                new URL("http://localhost:8080/"), new BasicAuthDaten(
-                "Nutzername",
-                "Passwort")
+                    new URL("http://localhost:8080/"), new BasicAuthDaten(
+                    "Nutzername",
+                    "Passwort")
 
             );
         });
@@ -59,9 +59,9 @@ class JobAbfragedatenTest {
 
         final JobAbfragedaten jobAbfragedaten = assertDoesNotThrow(() -> {
             return new JobAbfragedaten(
-                new URL("http://localhost:8080/"), new BasicAuthDaten(
-                "Nutzername",
-                "Passwort")
+                    new URL("http://localhost:8080/"), new BasicAuthDaten(
+                    "Nutzername",
+                    "Passwort")
             );
         });
         try {
@@ -78,9 +78,9 @@ class JobAbfragedatenTest {
 
         final JobAbfragedaten jobAbfragedaten = assertDoesNotThrow(() -> {
             return new JobAbfragedaten(
-                new URL("http://localhost:8080/"), new BasicAuthDaten(
-                "Nutzername",
-                "Passwort")
+                    new URL("http://localhost:8080/"), new BasicAuthDaten(
+                    "Nutzername",
+                    "Passwort")
             );
         });
         assertNotNull(jobAbfragedaten.getStatusAbfrageUrl());

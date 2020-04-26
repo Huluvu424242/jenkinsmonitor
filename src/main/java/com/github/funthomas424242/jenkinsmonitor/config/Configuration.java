@@ -90,12 +90,12 @@ public class Configuration {
         loadPropertiesFromFile(configurationFile);
         final Zugangsdatensammler zugangsdatensammler = new Zugangsdatensammler();
         configurationProperties
-            .stringPropertyNames()
-            .stream()
-            .filter((key) -> key.startsWith(KEY_JENKINSAUTH))
-            .forEach(key -> {
-                zugangsdatensammler.addZugangsdatum(key, configurationProperties.getProperty(key));
-            });
+                .stringPropertyNames()
+                .stream()
+                .filter((key) -> key.startsWith(KEY_JENKINSAUTH))
+                .forEach(key -> {
+                    zugangsdatensammler.addZugangsdatum(key, configurationProperties.getProperty(key));
+                });
         return zugangsdatensammler.getJenkinsZugangsdaten();
     }
 
@@ -103,11 +103,11 @@ public class Configuration {
         loadPropertiesFromFile(configurationFile);
         final Jenkinszugangskonfiguration[] alleJenkinsZugaenge = getAllJenkinszugangskonfigurationen();
         final Optional<BasicAuthDaten> jenkinsZugangsdaten = Arrays.stream(alleJenkinsZugaenge)
-            .filter((zugang) -> {
-                return jobUrl.toExternalForm().startsWith(zugang.getJenkinsUrl().toExternalForm());
-            })
-            .map((zugang) -> zugang.getAuthDaten())
-            .findFirst();
+                .filter((zugang) -> {
+                    return jobUrl.toExternalForm().startsWith(zugang.getJenkinsUrl().toExternalForm());
+                })
+                .map((zugang) -> zugang.getAuthDaten())
+                .findFirst();
         if (jenkinsZugangsdaten.isPresent()) {
             return new JobAbfragedaten(jobUrl, jenkinsZugangsdaten.get());
         } else {
@@ -135,24 +135,24 @@ public class Configuration {
     public JobBeschreibungen getJobBeschreibungen() {
         loadPropertiesFromFile(configurationFile);
         final Map<String, JobBeschreibung> jobBeschreibungMap = configurationProperties
-            .stringPropertyNames()
-            .stream()
-            .sorted()
-            .filter((key) -> key.startsWith(JOBKEY_PREFIX))
-            .map(key -> {
-                final Pattern pattern = Pattern.compile("joburl-(.+)");
-                final Matcher matcher = pattern.matcher(key);
-                final String value = configurationProperties.getProperty(key);
-                final URL jobURL = NetworkHelper.urlOf(value);
-                final JobAbfragedaten jobAbfragedaten = getAbfragedatenOf(jobURL);
-                if (matcher.find()) {
-                    final String id = matcher.group(1);
-                    return new JobBeschreibung(id, jobAbfragedaten);
-                } else {
-                    LOG.debug("Config Key not matched: " + key);
-                    return new JobBeschreibung(jobAbfragedaten);
-                }
-            }).collect(Collectors.toMap(JobBeschreibung::getPrimaryKey, Function.identity()));
+                .stringPropertyNames()
+                .stream()
+                .sorted()
+                .filter((key) -> key.startsWith(JOBKEY_PREFIX))
+                .map(key -> {
+                    final Pattern pattern = Pattern.compile("joburl-(.+)");
+                    final Matcher matcher = pattern.matcher(key);
+                    final String value = configurationProperties.getProperty(key);
+                    final URL jobURL = NetworkHelper.urlOf(value);
+                    final JobAbfragedaten jobAbfragedaten = getAbfragedatenOf(jobURL);
+                    if (matcher.find()) {
+                        final String id = matcher.group(1);
+                        return new JobBeschreibung(id, jobAbfragedaten);
+                    } else {
+                        LOG.debug("Config Key not matched: " + key);
+                        return new JobBeschreibung(jobAbfragedaten);
+                    }
+                }).collect(Collectors.toMap(JobBeschreibung::getPrimaryKey, Function.identity()));
         return new JobBeschreibungen(jobBeschreibungMap);
     }
 

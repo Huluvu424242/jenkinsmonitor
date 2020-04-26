@@ -23,62 +23,62 @@
          xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd"
 >
 
-  <skin>
-    <groupId>org.apache.maven.skins</groupId>
-    <artifactId>maven-fluido-skin</artifactId>
-    <version>1.7</version>
-  </skin>
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.7</version>
+    </skin>
 
-  <custom>
-    <fluidoSkin>
-      <topBarEnabled>true</topBarEnabled>
-      <topBarContainerStyle>width: 80%;</topBarContainerStyle>
-      <sideBarEnabled>false</sideBarEnabled>
-      <gitHub>
-        <projectId>FunThomas424242/jenkinsmonitor</projectId>
-        <ribbonOrientation>left</ribbonOrientation>
-        <ribbonColor>gray</ribbonColor>
-      </gitHub>
-      <ohloh>
-        <projectId>jenkinsmonitor</projectId>
-        <!--<projectId>735033</projectId>-->
-        <widget>factoids</widget>
-      </ohloh>
-      <googlePlusOne/>
-      <facebookLike/>
-      <googleSearch/>
-      <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
-    </fluidoSkin>
-  </custom>
+    <custom>
+        <fluidoSkin>
+            <topBarEnabled>true</topBarEnabled>
+            <topBarContainerStyle>width: 80%;</topBarContainerStyle>
+            <sideBarEnabled>false</sideBarEnabled>
+            <gitHub>
+                <projectId>FunThomas424242/jenkinsmonitor</projectId>
+                <ribbonOrientation>left</ribbonOrientation>
+                <ribbonColor>gray</ribbonColor>
+            </gitHub>
+            <ohloh>
+                <projectId>jenkinsmonitor</projectId>
+                <!--<projectId>735033</projectId>-->
+                <widget>factoids</widget>
+            </ohloh>
+            <googlePlusOne/>
+            <facebookLike/>
+            <googleSearch/>
+            <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
+        </fluidoSkin>
+    </custom>
 
-  <!--<url>http://maven.apache.org/skins/maven-fluido-skin</url>-->
+    <!--<url>http://maven.apache.org/skins/maven-fluido-skin</url>-->
 
-  <!--<bannerLeft>-->
-  <!--<name>${project.artifactId}</name>-->
-  <!--&lt;!&ndash;<src>http://maven.apache.org/images/apache-maven-project-2.png</src>&ndash;&gt;-->
-  <!--<href>https://github.com/FunThomas424242/rades-annotations</href>-->
-  <!--</bannerLeft>-->
+    <!--<bannerLeft>-->
+    <!--<name>${project.artifactId}</name>-->
+    <!--&lt;!&ndash;<src>http://maven.apache.org/images/apache-maven-project-2.png</src>&ndash;&gt;-->
+    <!--<href>https://github.com/FunThomas424242/rades-annotations</href>-->
+    <!--</bannerLeft>-->
 
-  <!--<bannerRight>-->
-  <!--<src>http://maven.apache.org/images/maven-logo-2.gif</src>-->
-  <!--</bannerRight>-->
+    <!--<bannerRight>-->
+    <!--<src>http://maven.apache.org/images/maven-logo-2.gif</src>-->
+    <!--</bannerRight>-->
 
-  <body>
-    <menu name="RADES Universum">
-      <item name="RADES" href="https://PIUGroup.github.io/rades/index.html"/>
-      <item name="~ Jenkins Monitor" href="index.html">
-        <item name="Quellen" href="https://github.com/FunThomas424242/jenkinsmonitor"/>
-        <item name="Changelog" href="changelog.html"/>
-        <item name="Benutzer Handbuch" href="benutzer.html"/>
-        <item name="Entwickler Handbuch" href="entwickler.html"/>
-      </item>
-      <item name="~ Fluent Builder" href="https://funthomas424242.github.io/rades.fluent-builder/index.html"/>
-      <item name="~ Annotationen" href="https://funthomas424242.github.io/rades-annotations/index.html"/>
-      <item name="~ Tag Generator" href="https://funthomas424242.github.io/rades.tag-generator/index.html"/>
-      <item name="~ Example" href="https://github.com/FunThomas424242/rades.example"/>
-      <item name="Ruhende Projekte">
-        <item name="~ JBoss Forge Addon" href="https://github.com/FunThomas424242/rades.forge-addon"/>
-      </item>
-    </menu>
-  </body>
+    <body>
+        <menu name="RADES Universum">
+            <item name="RADES" href="https://PIUGroup.github.io/rades/index.html"/>
+            <item name="~ Jenkins Monitor" href="index.html">
+                <item name="Quellen" href="https://github.com/FunThomas424242/jenkinsmonitor"/>
+                <item name="Changelog" href="changelog.html"/>
+                <item name="Benutzer Handbuch" href="benutzer.html"/>
+                <item name="Entwickler Handbuch" href="entwickler.html"/>
+            </item>
+            <item name="~ Fluent Builder" href="https://funthomas424242.github.io/rades.fluent-builder/index.html"/>
+            <item name="~ Annotationen" href="https://funthomas424242.github.io/rades-annotations/index.html"/>
+            <item name="~ Tag Generator" href="https://funthomas424242.github.io/rades.tag-generator/index.html"/>
+            <item name="~ Example" href="https://github.com/FunThomas424242/rades.example"/>
+            <item name="Ruhende Projekte">
+                <item name="~ JBoss Forge Addon" href="https://github.com/FunThomas424242/rades.forge-addon"/>
+            </item>
+        </menu>
+    </body>
 </project>

@@ -62,10 +62,10 @@ public class ImageGenerator {
         final int partImageWidth = width / jobCount;
         final StartXHolder startXHolder = new StartXHolder();
         AbstractJobBeschreibung.sortedKeyStreamOf(tmpJobStatusBeschreibungen)
-            .forEach(primaryKey -> {
-                drawPartImage(image, startXHolder.startX, partImageWidth, height, tmpJobStatusBeschreibungen.get(primaryKey).getJobStatus());
-                startXHolder.startX += partImageWidth;
-            });
+                .forEach(primaryKey -> {
+                    drawPartImage(image, startXHolder.startX, partImageWidth, height, tmpJobStatusBeschreibungen.get(primaryKey).getJobStatus());
+                    startXHolder.startX += partImageWidth;
+                });
         return image;
     }
 

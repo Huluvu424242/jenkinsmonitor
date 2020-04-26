@@ -78,10 +78,10 @@ class JenkinsClientMockAuto extends JenkinsClient {
     @Override
     public void ladeJobsStatus(final AbstractJobBeschreibungen<JobStatusBeschreibung> jobStatusBeschreibungen, final JobBeschreibungen jobBeschreibungen) {
         AbstractJobBeschreibung.sortedStreamOf(jobBeschreibungen)
-            .forEach(jobBeschreibung -> {
-                final JobStatusBeschreibung jobStatusBeschreibung = new JobStatusBeschreibung("xxx", jobStatus[jobNr++], NetworkHelper.urlOf("http://localhost:8099/job/multibranchjob/job/master" + jobNr), "#" + jobNr);
-                jobStatusBeschreibungen.put(jobStatusBeschreibung.getPrimaryKey(), jobStatusBeschreibung);
-            });
+                .forEach(jobBeschreibung -> {
+                    final JobStatusBeschreibung jobStatusBeschreibung = new JobStatusBeschreibung("xxx", jobStatus[jobNr++], NetworkHelper.urlOf("http://localhost:8099/job/multibranchjob/job/master" + jobNr), "#" + jobNr);
+                    jobStatusBeschreibungen.put(jobStatusBeschreibung.getPrimaryKey(), jobStatusBeschreibung);
+                });
     }
 }
 
@@ -164,8 +164,8 @@ public class JenkinsMonitorTrayTest {
 
         final TrayIcon trayIcon = getTrayIcon(jenkinsMonitorTray);
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
-            , JobStatus.SUCCESS.getColor()
-            , JobStatus.FAILURE.getColor()));
+                , JobStatus.SUCCESS.getColor()
+                , JobStatus.FAILURE.getColor()));
     }
 
     @Test
@@ -177,9 +177,9 @@ public class JenkinsMonitorTrayTest {
 
         final TrayIcon trayIcon = getTrayIcon(jenkinsMonitorTray);
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
-            , JobStatus.SUCCESS.getColor()
-            , JobStatus.FAILURE.getColor()
-            , JobStatus.UNSTABLE.getColor())
+                , JobStatus.SUCCESS.getColor()
+                , JobStatus.FAILURE.getColor()
+                , JobStatus.UNSTABLE.getColor())
         );
     }
 
@@ -194,18 +194,18 @@ public class JenkinsMonitorTrayTest {
 
         final TrayIcon trayIcon = getTrayIcon(jenkinsMonitorTray);
         assertTrue(isImageOfColor((BufferedImage) trayIcon.getImage()
-            , JobStatus.SUCCESS.getColor()
-            , JobStatus.FAILURE.getColor()
-            , JobStatus.UNSTABLE.getColor())
+                , JobStatus.SUCCESS.getColor()
+                , JobStatus.FAILURE.getColor()
+                , JobStatus.UNSTABLE.getColor())
         );
 
         clock.elapseTime();
 
         final TrayIcon trayIcon1 = getTrayIcon(jenkinsMonitorTray);
         assertTrue(isImageOfColor((BufferedImage) trayIcon1.getImage()
-            , JobStatus.SUCCESS.getColor()
-            , JobStatus.SUCCESS.getColor()
-            , JobStatus.SUCCESS.getColor())
+                , JobStatus.SUCCESS.getColor()
+                , JobStatus.SUCCESS.getColor()
+                , JobStatus.SUCCESS.getColor())
         );
 
     }

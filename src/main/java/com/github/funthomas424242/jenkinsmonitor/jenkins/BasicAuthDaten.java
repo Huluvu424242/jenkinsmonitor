@@ -54,7 +54,7 @@ public class BasicAuthDaten {
         if (o == null || getClass() != o.getClass()) return false;
         BasicAuthDaten that = (BasicAuthDaten) o;
         return userName.equals(that.userName) &&
-            password.equals(that.password);
+                password.equals(that.password);
     }
 
     @Override

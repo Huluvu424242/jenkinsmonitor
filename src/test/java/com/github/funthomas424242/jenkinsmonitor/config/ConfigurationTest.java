@@ -63,7 +63,7 @@ class ConfigurationTest {
             final File newFile = new File(defaultConfigfilePath.toAbsolutePath().toString() + "-old-" + timeStamp);
             defaultConfigfile.renameTo(newFile);
             LOG.debug("### Bereinige Testumgebung: Configfile renamed from " + defaultConfigfile.getAbsolutePath().toString() + " zu "
-                + newFile.getAbsolutePath().toString());
+                    + newFile.getAbsolutePath().toString());
         }
     }
 
@@ -150,8 +150,8 @@ class ConfigurationTest {
         assertEquals(2, jobBeschreibungen.size());
         assertNotNull(jobBeschreibungen.get("multibranch1#http://localhost:8099/job/multibranchjobred/job/master").getJobAbfragedaten());
         assertEquals(
-            new BasicAuthDaten("admin", "streng geheim").getBasicAuthToken("streng geheim"),
-            jobBeschreibungen.get("multibranch1#http://localhost:8099/job/multibranchjobred/job/master").getJobAbfragedaten().getBasicAuthToken());
+                new BasicAuthDaten("admin", "streng geheim").getBasicAuthToken("streng geheim"),
+                jobBeschreibungen.get("multibranch1#http://localhost:8099/job/multibranchjobred/job/master").getJobAbfragedaten().getBasicAuthToken());
     }
 
     @Test

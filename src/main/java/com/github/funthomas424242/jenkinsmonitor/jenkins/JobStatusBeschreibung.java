@@ -76,9 +76,9 @@ public final class JobStatusBeschreibung implements AbstractJobBeschreibung {
         if (!(o instanceof JobStatusBeschreibung)) return false;
         JobStatusBeschreibung that = (JobStatusBeschreibung) o;
         return Objects.equals(jobOrderId, that.jobOrderId) &&
-            jobStatus == that.jobStatus &&
-            Objects.equals(jobName, that.jobName) &&
-            Objects.equals(jobUrl, that.jobUrl);
+                jobStatus == that.jobStatus &&
+                Objects.equals(jobName, that.jobName) &&
+                Objects.equals(jobUrl, that.jobUrl);
     }
 
     @Override

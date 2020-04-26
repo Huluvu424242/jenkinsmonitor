@@ -53,10 +53,10 @@ public class JobStatusZeileUnten {
 
         // Zeile zusammenbauen
         return "<div style=\"font-size:14\">(" + this.listIndex + ") Status: " + status
-            // Platz für Status Puffer berechnen:  UNSTABLE ist aktuell der längste Status Name
-            + "&nbsp;".repeat(Math.max(0, (JobStatus.UNSTABLE.name().length() - status.length())))
-            // Platz für URL Puffer berechnen
-            + " <a href=\"#\">" + newUrl + "</a>" + "&nbsp;".repeat(Math.max(0, deltaUnten)) + "</div>";
+                // Platz für Status Puffer berechnen:  UNSTABLE ist aktuell der längste Status Name
+                + "&nbsp;".repeat(Math.max(0, (JobStatus.UNSTABLE.name().length() - status.length())))
+                // Platz für URL Puffer berechnen
+                + " <a href=\"#\">" + newUrl + "</a>" + "&nbsp;".repeat(Math.max(0, deltaUnten)) + "</div>";
     }
 
 }

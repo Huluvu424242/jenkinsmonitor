@@ -57,27 +57,27 @@ public class JenkinsAPIMock {
 
     public static void definiereAnnahmen(WireMockServer jenkins) {
         jenkins.stubFor(get(WireMock.urlEqualTo(STATUSPATH_MULTIBRANCH_JOB1_RED))
-            .willReturn(aResponse().withHeader("Content-Type", "application/json")
-                .withStatus(200)
-                .withBodyFile("json/multibranch-job1-red.json")));
+                .willReturn(aResponse().withHeader("Content-Type", "application/json")
+                        .withStatus(200)
+                        .withBodyFile("json/multibranch-job1-red.json")));
         jenkins.stubFor(get(WireMock.urlEqualTo(STATUSPATH_MULTIBRANCH_JOB1_GREEN))
-            .willReturn(aResponse().withHeader("Content-Type", "application/json")
-                .withStatus(200)
-                .withBodyFile("json/multibranch-job1-green.json")));
+                .willReturn(aResponse().withHeader("Content-Type", "application/json")
+                        .withStatus(200)
+                        .withBodyFile("json/multibranch-job1-green.json")));
         jenkins.stubFor(get(WireMock.urlEqualTo(STATUSPATH_MULTIBRANCH_JOB1_YELLOW))
-            .willReturn(aResponse().withHeader("Content-Type", "application/json")
-                .withStatus(200)
-                .withBodyFile("json/multibranch-job1-yellow.json")));
+                .willReturn(aResponse().withHeader("Content-Type", "application/json")
+                        .withStatus(200)
+                        .withBodyFile("json/multibranch-job1-yellow.json")));
         jenkins.stubFor(get(WireMock.urlEqualTo(STATUSPATH_MULTIBRANCH_JOB1_GRAY_BUILDING))
-            .willReturn(aResponse().withHeader("Content-Type", "application/json")
-                .withStatus(200)
-                // job baut gerade
-                .withBodyFile("json/multibranch-job1-building.json")));
+                .willReturn(aResponse().withHeader("Content-Type", "application/json")
+                        .withStatus(200)
+                        // job baut gerade
+                        .withBodyFile("json/multibranch-job1-building.json")));
         jenkins.stubFor(get(WireMock.urlEqualTo(STATUSPATH_MULTIBRANCH_JOB1_GRAY_UNKNOW))
-            .willReturn(aResponse().withHeader("Content-Type", "application/json")
-                // 404 status falls job nicht existiert
-                .withStatus(404)
-            ));
+                .willReturn(aResponse().withHeader("Content-Type", "application/json")
+                        // 404 status falls job nicht existiert
+                        .withStatus(404)
+                ));
     }
 
 }

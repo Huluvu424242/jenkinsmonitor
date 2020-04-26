@@ -14,8 +14,7 @@ rm ./${MODULE_ID}-${VERSION}.jmod
 jdeps --generate-open-module ./jdeps ~/.m2/repository/${GROUP_ID}/${ARTIFACT_ID}/${VERSION}/${ARTIFACT_ID}-${VERSION}.jar
 jdeps --generate-module-info ./jdeps ~/.m2/repository/${GROUP_ID}/${ARTIFACT_ID}/${VERSION}/${ARTIFACT_ID}-${VERSION}.jar
 # compiliere module-info
-unzip  ~/.m2/repository/${GROUP_ID}/${ARTIFACT_ID}/${VERSION}/${ARTIFACT_ID}-${VERSION}.jar -d ./jdeps/${MODULE_ID}/classes
+unzip ~/.m2/repository/${GROUP_ID}/${ARTIFACT_ID}/${VERSION}/${ARTIFACT_ID}-${VERSION}.jar -d ./jdeps/${MODULE_ID}/classes
 javac -d ./jdeps/${MODULE_ID}/classes ./jdeps/${MODULE_ID}/module-info.java
 # erzeuge jmod module
 jmod create --class-path ./jdeps/${MODULE_ID}/classes ./${MODULE_ID}-${VERSION}.jmod
-

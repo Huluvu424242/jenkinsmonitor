@@ -1,101 +1,102 @@
 ​<?xml version="1.0" encoding="UTF-8"?>
-  <!--
-    #%L
-    Jenkins Monitor
-    %%
-    Copyright (C) 2019 - 2020 PIUG
-    %%
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as
-    published by the Free Software Foundation, either version 3 of the
-    License, or (at your option) any later version.
+        <!--
+          #%L
+          Jenkins Monitor
+          %%
+          Copyright (C) 2019 - 2020 PIUG
+          %%
+          This program is free software: you can redistribute it and/or modify
+          it under the terms of the GNU Lesser General Public License as
+          published by the Free Software Foundation, either version 3 of the
+          License, or (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Lesser Public License for more details.
+          This program is distributed in the hope that it will be useful,
+          but WITHOUT ANY WARRANTY; without even the implied warranty of
+          MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+          GNU General Lesser Public License for more details.
 
-    You should have received a copy of the GNU General Lesser Public
-    License along with this program.  If not, see
-    <http://www.gnu.org/licenses/lgpl-3.0.html>.
-    #L%
-    -->
-  ​
+          You should have received a copy of the GNU General Lesser Public
+          License along with this program.  If not, see
+          <http://www.gnu.org/licenses/lgpl-3.0.html>.
+          #L%
+          -->
+        ​
 <component type="desktop-application">
-  ​
-  <id>com.github.funthomas424242.jenkinsmonitor</id>
-  ​
-  <metadata_license>FSFAP</metadata_license>
-  ​
-  <project_license>LGPL-3.0+</project_license>
-  ​
-  <name>Jenkins Monitor</name>
-  ​
-  <summary>Monitor zur Überwachung von Jenkins Jobs</summary>
-  ​
-  ​
-  <description>
     ​
-    <p>
-      Nach Start erscheint der Jenkins Monitor als Tray Icon.
-      Per Linksklick kann eine Statusliste aller Jobs ein- und ausgeblendet werden.
-      Per Rechtsklick wird das Aktionsmenü erreicht. Über dem Menü wird der aktuell Status ebenfalls angezeigt.
-      Die Konfiguration erfolgt per ~/jenkinsmonitor.properties
-    </p>
+    <id>com.github.funthomas424242.jenkinsmonitor</id>
     ​
-  </description>
-  ​
-  ​
-  <launchable type="desktop-id">com.github.funthomas424242.jenkinsmonitor.desktop</launchable>
-  ​
-  ​
-  <screenshots>
+    <metadata_license>FSFAP</metadata_license>
     ​
-    <screenshot type="default">
-      ​
-      <caption>Das Icon der Anwendung</caption>
-      ​
-      <image>
-        https://raw.githubusercontent.com/FunThomas424242/jenkinsmonitor/master/src/main/resources/img/1984EmmanuelGoldstein.jpg
-      </image>
-      ​
-    </screenshot>
+    <project_license>LGPL-3.0+</project_license>
     ​
-    <screenshot>
-      ​
-      <image>
-        https://raw.githubusercontent.com/FunThomas424242/jenkinsmonitor/master/src/main/resources/img/screenshot.jpg
-      </image>
-      ​
-    </screenshot>
+    <name>Jenkins Monitor</name>
     ​
-  </screenshots>
-  ​
-  ​
-  <url type="homepage">https://github.com/FunThomas424242/jenkinsmonitor/</url>
-  ​
-  <project_group>RADeS</project_group>
-  ​
-  ​
-  <provides>
+    <summary>Monitor zur Überwachung von Jenkins Jobs</summary>
     ​
-    <binary>Jenkins_Monitor_0.0.2-preview-x86_64.AppImage</binary>
     ​
-  </provides>
-  ​
-  ​
-  <releases>
-    ​
-    <release version="0.0.1" date="2019-10-06">
-      ​
-      <description>
+    <description>
         ​
-        <a href="https://github.com/FunThomas424242/jenkinsmonitor/blob/master/CHANGELOG.adoc">siehe CHANGELOG</p>
+        <p>
+            Nach Start erscheint der Jenkins Monitor als Tray Icon.
+            Per Linksklick kann eine Statusliste aller Jobs ein- und ausgeblendet werden.
+            Per Rechtsklick wird das Aktionsmenü erreicht. Über dem Menü wird der aktuell Status ebenfalls angezeigt.
+            Die Konfiguration erfolgt per ~/jenkinsmonitor.properties
+        </p>
         ​
-      </description>
-      ​
-    </release>
+    </description>
     ​
-  </releases>
-  ​
+    ​
+    <launchable type="desktop-id">com.github.funthomas424242.jenkinsmonitor.desktop</launchable>
+    ​
+    ​
+    <screenshots>
+        ​
+        <screenshot type="default">
+            ​
+            <caption>Das Icon der Anwendung</caption>
+            ​
+            <image>
+                https://raw.githubusercontent.com/FunThomas424242/jenkinsmonitor/master/src/main/resources/img/1984EmmanuelGoldstein.jpg
+            </image>
+            ​
+        </screenshot>
+        ​
+        <screenshot>
+            ​
+            <image>
+                https://raw.githubusercontent.com/FunThomas424242/jenkinsmonitor/master/src/main/resources/img/screenshot.jpg
+            </image>
+            ​
+        </screenshot>
+        ​
+    </screenshots>
+    ​
+    ​
+    <url type="homepage">https://github.com/FunThomas424242/jenkinsmonitor/</url>
+    ​
+    <project_group>RADeS</project_group>
+    ​
+    ​
+    <provides>
+        ​
+        <binary>Jenkins_Monitor_0.0.2-preview-x86_64.AppImage</binary>
+        ​
+    </provides>
+    ​
+    ​
+    <releases>
+        ​
+        <release version="0.0.1" date="2019-10-06">
+            ​
+            <description>
+                ​
+                <a href="https://github.com/FunThomas424242/jenkinsmonitor/blob/master/CHANGELOG.adoc">siehe CHANGELOG
+                </p>
+                ​
+            </description>
+            ​
+        </release>
+        ​
+    </releases>
+    ​
 </component>

@@ -67,21 +67,21 @@ public class ContextMenu {
 
         // Create a popup menu components
         AbstractJobBeschreibung.sortedStreamOf(this.jobStatusBeschreibungen)
-            .forEach(statusBeschreibung -> {
-                final String itemText = String.format("[%s] <%s> %s", statusBeschreibung.getJobOrderId(), statusBeschreibung.getJobStatus(), statusBeschreibung.getJobName());
-                final MenuItem item = new MenuItem(itemText);
-                item.addActionListener(actionEvent -> {
-                    URI webSite = null;
-                    try {
-                        webSite = statusBeschreibung.getJobUrl().toURI();
-                        Desktop.getDesktop().browse(webSite);
-                        statusArea.setVisible(false);
-                    } catch (IOException | URISyntaxException ex) {
-                        LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, webSite), ex);
-                    }
+                .forEach(statusBeschreibung -> {
+                    final String itemText = String.format("[%s] <%s> %s", statusBeschreibung.getJobOrderId(), statusBeschreibung.getJobStatus(), statusBeschreibung.getJobName());
+                    final MenuItem item = new MenuItem(itemText);
+                    item.addActionListener(actionEvent -> {
+                        URI webSite = null;
+                        try {
+                            webSite = statusBeschreibung.getJobUrl().toURI();
+                            Desktop.getDesktop().browse(webSite);
+                            statusArea.setVisible(false);
+                        } catch (IOException | URISyntaxException ex) {
+                            LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, webSite), ex);
+                        }
+                    });
+                    popup.add(item);
                 });
-                popup.add(item);
-            });
 
 
         /* Projekt Homepage Menüeintrag */
