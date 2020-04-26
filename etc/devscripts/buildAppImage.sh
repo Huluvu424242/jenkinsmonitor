@@ -12,7 +12,7 @@ wget -P ${BUILD_DIR} -c https://github.com/AdoptOpenJDK/openjdk11-binaries/relea
 tar  -C ${BUILD_DIR} -xf ${BUILD_DIR}${JDK_ARCHIVE_NAME}
 
 # list deps modules
-${BUILD_DIR}jdk-11.0.3+7/bin/jdeps  --list-deps ./target/jenkinsmonitor-*-jar-with-dependencies.jar
+${BUILD_DIR}jdk-11.0.3+7/bin/jdeps  --list-deps ../../target/jenkinsmonitor-*-jar-with-dependencies.jar
 
 # spezielles jre bauen
 ${BUILD_DIR}jdk-11.0.3+7/bin/jlink --no-header-files --no-man-pages --compress=2 --strip-debug --add-modules java.base,java.desktop,java.logging,java.management,java.naming,java.security.jgss,java.sql,java.xml --output ${BUILD_DIR}usr
