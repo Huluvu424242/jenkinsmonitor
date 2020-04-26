@@ -2,545 +2,524 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
 
-  <groupId>com.github.funthomas424242</groupId>
-  <version>0.0.3-SNAPSHOT</version>
-  <artifactId>jenkinsmonitor</artifactId>
-  <packaging>${mypackaging}</packaging>
-  <name>Jenkins Monitor</name>
-  <description>Ein Jenkinsmonitor für den Systemtray</description>
-  <inceptionYear>2019</inceptionYear>
-  <url>https://github.com/FunThomas424242/jenkinsmonitor</url>
-  <licenses>
-    <license>
-      <url>https://www.gnu.org/licenses/lgpl-3.0.de.html</url>
-      <name>GNU LESSER GENERAL PUBLIC LICENSE
-        Version 3, 29 June 2007
-      </name>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  <scm>
-    <connection>scm:git:https://github.com/FunThomas424242/jenkinsmonitor.git</connection>
-    <developerConnection>scm:git:git@github.com:FunThomas424242/jenkinsmonitor.git</developerConnection>
+    <groupId>com.github.funthomas424242</groupId>
+    <version>0.0.3-SNAPSHOT</version>
+    <artifactId>jenkinsmonitor</artifactId>
+    <packaging>${mypackaging}</packaging>
+    <name>Jenkins Monitor</name>
+    <description>Ein Jenkinsmonitor für den Systemtray</description>
+    <inceptionYear>2019</inceptionYear>
     <url>https://github.com/FunThomas424242/jenkinsmonitor</url>
-  </scm>
-  <issueManagement>
-    <system>GitHub</system>
-    <url>https://github.com/FunThomas424242/jenkinsmonitor/issues/new</url>
-  </issueManagement>
-  <ciManagement>
-    <system>Travis</system>
-    <url>https://travis-ci.org/FunThomas424242/jenkinsmonitor</url>
-  </ciManagement>
-  <distributionManagement>
-    <repository>
-      <id>github</id>
-      <name>GitHub FunThomas424242 Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/FunThomas424242/${project.artifactId}</url>
-    </repository>
-  </distributionManagement>
+    <licenses>
+        <license>
+            <url>https://www.gnu.org/licenses/lgpl-3.0.de.html</url>
+            <name>GNU LESSER GENERAL PUBLIC LICENSE
+                Version 3, 29 June 2007
+            </name>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:https://github.com/FunThomas424242/jenkinsmonitor.git</connection>
+        <developerConnection>scm:git:git@github.com:FunThomas424242/jenkinsmonitor.git</developerConnection>
+        <url>https://github.com/FunThomas424242/jenkinsmonitor</url>
+    </scm>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/FunThomas424242/jenkinsmonitor/issues/new</url>
+    </issueManagement>
+    <ciManagement>
+        <system>Travis</system>
+        <url>https://travis-ci.org/FunThomas424242/jenkinsmonitor</url>
+    </ciManagement>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub FunThomas424242 Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/FunThomas424242/${project.artifactId}</url>
+        </repository>
+    </distributionManagement>
 
-  <properties>
-    <mypackaging>jar</mypackaging>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-    <maven.compiler.release>11</maven.compiler.release>
-    <junit-jupiter-engine.version>5.6.2</junit-jupiter-engine.version>
-    <junit-excluded-groups/>
-    <surefireArgLine/>
-  </properties>
+    <properties>
+        <mypackaging>jar</mypackaging>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven.compiler.release>11</maven.compiler.release>
+        <junit-jupiter-engine.version>5.6.2</junit-jupiter-engine.version>
+        <junit-excluded-groups/>
+        <surefireArgLine/>
+    </properties>
 
-  <prerequisites>
-    <maven>3.6.2</maven>
-  </prerequisites>
+    <prerequisites>
+        <maven>3.6.2</maven>
+    </prerequisites>
 
-  <dependencies>
-    <!-- https://mvnrepository.com/artifact/net.grey-panther/natural-comparator -->
-    <dependency>
-      <groupId>net.grey-panther</groupId>
-      <artifactId>natural-comparator</artifactId>
-      <version>1.1</version>
-      <scope>compile</scope>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-core -->
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>1.3.0-alpha5</version>
-      <!-- weil wir keine Lib sondern eine echte Enduser App sind -->
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-core</artifactId>
-      <version>1.3.0-alpha5</version>
-      <!-- weil wir keine Lib sondern eine echte Enduser App sind -->
-      <scope>compile</scope>
-    </dependency>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/net.grey-panther/natural-comparator -->
+        <dependency>
+            <groupId>net.grey-panther</groupId>
+            <artifactId>natural-comparator</artifactId>
+            <version>1.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-core -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.3.0-alpha5</version>
+            <!-- weil wir keine Lib sondern eine echte Enduser App sind -->
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.3.0-alpha5</version>
+            <!-- weil wir keine Lib sondern eine echte Enduser App sind -->
+            <scope>compile</scope>
+        </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>2.0.0-alpha1</version>
-      <scope>compile</scope>
-    </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.0-alpha1</version>
+            <scope>compile</scope>
+        </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>4.5.12</version>
-      <scope>compile</scope>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.json/json -->
-    <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20190722</version>
-      <scope>compile</scope>
-    </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.12</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20190722</version>
+            <scope>compile</scope>
+        </dependency>
 
 
-    <!-- Test Abhängigkeiten -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>5.6.2</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit-jupiter-engine.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>nl.jqno.equalsverifier</groupId>
-      <artifactId>equalsverifier</artifactId>
-      <version>3.1.13</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.bval</groupId>
-      <artifactId>bval-jsr</artifactId>
-      <version>2.0.3</version>
-      <scope>test</scope>
-    </dependency>
-    <!-- REST Clients testen -->
-    <!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock -->
-    <dependency>
-      <groupId>com.github.tomakehurst</groupId>
-      <artifactId>wiremock-standalone</artifactId>
-      <version>2.26.3</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>rest-assured</artifactId>
-      <version>4.3.0</version>
-      <scope>test</scope>
-    </dependency>
+        <!-- Test Abhängigkeiten -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.6.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter-engine.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>nl.jqno.equalsverifier</groupId>
+            <artifactId>equalsverifier</artifactId>
+            <version>3.1.13</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.bval</groupId>
+            <artifactId>bval-jsr</artifactId>
+            <version>2.0.3</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- REST Clients testen -->
+        <!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock -->
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock-standalone</artifactId>
+            <version>2.26.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.3.0</version>
+            <scope>test</scope>
+        </dependency>
 
-  </dependencies>
+    </dependencies>
 
-  <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources/</directory>
-        <includes>
-          <include>logback.xml</include>
-          <include>filelogging.xml</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>src/main/resources/img/</directory>
-        <includes>
-          <include>1984EmmanuelGoldstein.jpg</include>
-        </includes>
-      </resource>
-    </resources>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <includes>
+                    <include>logback.xml</include>
+                    <include>filelogging.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/img/</directory>
+                <includes>
+                    <include>1984EmmanuelGoldstein.jpg</include>
+                </includes>
+            </resource>
+        </resources>
 
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>${maven-compiler-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.openclover</groupId>
-          <artifactId>clover-maven-plugin</artifactId>
-          <version>4.4.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-source-plugin</artifactId>
-          <version>3.2.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.8.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.1.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>3.0.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.2.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-assembly-plugin</artifactId>
-          <version>3.2.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.2.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>license-maven-plugin</artifactId>
-          <version>2.0.0</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <configuration>
-          <licenseFile>LICENSE</licenseFile>
-          <licenseName>lgpl_v3</licenseName>
-          <useMissingFile>true</useMissingFile>
-          <excludedLicenses>
-            <excludedLicense>GNU General Public License (GPL) 1.0</excludedLicense>
-            <excludedLicense>GNU General Public License (GPL) 2.0</excludedLicense>
-            <excludedLicense>GNU General Public License (GPL) 3.0</excludedLicense>
-          </excludedLicenses>
-          <failIfWarning>true</failIfWarning>
-          <includes>
-            <include>**/*.java</include>
-            <include>**/*.properties</include>
-            <include>**/*.xml</include>
-          </includes>
-          <excludes>
-            <exclude>**/*.png</exclude>
-            <exclude>**/*.json</exclude>
-            <exclude>**/empty*.properties</exclude>
-            <exclude>**/valid*.properties</exclude>
-          </excludes>
-        </configuration>
-        <executions>
-          <execution>
-            <id>update-header</id>
-            <phase>process-sources</phase>
-            <goals>
-              <goal>update-file-header</goal>
-              <goal>update-project-license</goal>
-              <goal>add-third-party</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>versions-maven-plugin</artifactId>
-        <version>2.7</version>
-        <configuration>
-          <generateBackupPoms>false</generateBackupPoms>
-          <rulesUri>file:///${project.basedir}/etc/version-rules.xml</rulesUri>
-        </configuration>
-        <executions>
-          <execution>
-            <id>show-dep-updates</id>
-            <phase>
-              validate
-            </phase>
-            <goals>
-              <goal>display-dependency-updates</goal>
-              <goal>display-plugin-updates</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-clean-plugin</artifactId>
-        <version>3.1.0</version>
-        <executions>
-          <execution>
-            <id>clean-site</id>
-            <phase>pre-site</phase>
-            <goals>
-              <goal>clean</goal>
-            </goals>
-            <configuration>
-              <excludeDefaultDirectories>true</excludeDefaultDirectories>
-              <filesets>
-                <fileset>
-                  <directory>${basedir}/docs</directory>
-                  <followSymlinks>false</followSymlinks>
-                </fileset>
-              </filesets>
-            </configuration>
-          </execution>
-<!--          <execution>-->
-<!--            <id>clean-test</id>-->
-<!--            <phase>initialize</phase>-->
-<!--            <goals>-->
-<!--              <goal>clean</goal>-->
-<!--            </goals>-->
-<!--            <configuration>-->
-<!--              <excludeDefaultDirectories>true</excludeDefaultDirectories>-->
-<!--              <filesets>-->
-<!--                <fileset>-->
-<!--                  <directory>${basedir}/generated/</directory>-->
-<!--                  <followSymlinks>false</followSymlinks>-->
-<!--                </fileset>-->
-<!--              </filesets>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy-resources</id>
-            <phase>process-sources</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${basedir}/target/</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>src/main/non-packaged-resources</directory>
-                  <filtering>true</filtering>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <encoding>UTF-8</encoding>
-          <release>11</release>
-          <compilerArgs>
-            <arg>-Xlint:all</arg>
-            <arg>--add-opens=java.base/java.lang=ALL-UNNAMED</arg>
-            <arg>--add-opens=java.base/java.net=ALL-UNNAMED</arg>
-          </compilerArgs>
-          <fork>true</fork>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.openclover</groupId>
-        <artifactId>clover-maven-plugin</artifactId>
-        <configuration>
-          <!-- Use custom report descriptor -->
-          <reportDescriptor>etc/clover-report.xml</reportDescriptor>
-          <outputDirectory>${basedir}/docs/clover/</outputDirectory>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.2</version>
-        <configuration>
-          <forkCount>0</forkCount>
-          <argLine>${surefireArgLine} --illegal-access=warn</argLine>
-          <excludedGroups>
-            ${junit-excluded-groups}
-          </excludedGroups>
-        </configuration>
-      </plugin>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.openclover</groupId>
+                    <artifactId>clover-maven-plugin</artifactId>
+                    <version>4.4.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.2.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>2.0.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <licenseFile>LICENSE</licenseFile>
+                    <licenseName>lgpl_v3</licenseName>
+                    <useMissingFile>true</useMissingFile>
+                    <excludedLicenses>
+                        <excludedLicense>GNU General Public License (GPL) 1.0</excludedLicense>
+                        <excludedLicense>GNU General Public License (GPL) 2.0</excludedLicense>
+                        <excludedLicense>GNU General Public License (GPL) 3.0</excludedLicense>
+                    </excludedLicenses>
+                    <failIfWarning>true</failIfWarning>
+                    <includes>
+                        <include>**/*.java</include>
+                        <include>**/*.properties</include>
+                        <include>**/*.xml</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/*.png</exclude>
+                        <exclude>**/*.json</exclude>
+                        <exclude>**/empty*.properties</exclude>
+                        <exclude>**/valid*.properties</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>update-header</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>update-file-header</goal>
+                            <goal>update-project-license</goal>
+                            <goal>add-third-party</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                    <rulesUri>file:///${project.basedir}/etc/version-rules.xml</rulesUri>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>show-dep-updates</id>
+                        <phase>
+                            validate
+                        </phase>
+                        <goals>
+                            <goal>display-dependency-updates</goal>
+                            <goal>display-plugin-updates</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>clean-site</id>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                        <configuration>
+                            <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                            <filesets>
+                                <fileset>
+                                    <directory>${basedir}/docs</directory>
+                                    <followSymlinks>false</followSymlinks>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/non-packaged-resources</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <release>11</release>
+                    <compilerArgs>
+                        <arg>-Xlint:all</arg>
+                        <arg>--add-opens=java.base/java.lang=ALL-UNNAMED</arg>
+                        <arg>--add-opens=java.base/java.net=ALL-UNNAMED</arg>
+                    </compilerArgs>
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openclover</groupId>
+                <artifactId>clover-maven-plugin</artifactId>
+                <configuration>
+                    <!-- Use custom report descriptor -->
+                    <reportDescriptor>etc/clover-report.xml</reportDescriptor>
+                    <outputDirectory>${basedir}/docs/clover/</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <forkCount>0</forkCount>
+                    <argLine>${surefireArgLine} --illegal-access=warn</argLine>
+                    <excludedGroups>
+                        ${junit-excluded-groups}
+                    </excludedGroups>
+                </configuration>
+            </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-      <!--      <plugin>-->
-      <!--        <artifactId>maven-jlink-plugin</artifactId>-->
-      <!--        <version>3.0.0-alpha-1</version>-->
-      <!--        <extensions>true</extensions>-->
-      <!--        <configuration>-->
-      <!--          <verbose>false</verbose>-->
-      <!--          <noHeaderFiles>true</noHeaderFiles>-->
-      <!--          <noManPages>true</noManPages>-->
-      <!--        </configuration>-->
-      <!--      </plugin>-->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>3.9.0</version>
-        <configuration>
-          <outputDirectory>${basedir}/docs</outputDirectory>
-          <locales>de</locales>
-          <relativizeDecorationLinks>false</relativizeDecorationLinks>
-          <requires>
-            <require>asciidoctor-diagram</require>
-          </requires>
-          <backend>html5</backend>
-          <asciidoc>
-            <attributes>
-              <icons>font</icons>
-              <source-highlighter>coderay</source-highlighter>
-              <coderay-css>style</coderay-css>
-              <toc>left</toc>
-              <!--<toclevels>2</toclevels>-->
-            </attributes>
-          </asciidoc>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.asciidoctor</groupId>
-            <artifactId>asciidoctor-maven-plugin</artifactId>
-            <version>2.0.0-RC.1</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
-        <!-- NOTE: We don't need a groupId specification because the group is
-            org.apache.maven.plugins ...which is assumed by default. -->
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>package-assemblies</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <archive>
-                <manifest>
-                  <mainClass>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor</mainClass>
-                </manifest>
-              </archive>
-              <tarLongFileMode>posix</tarLongFileMode>
-              <descriptorRefs>
-                <descriptorRef>jar-with-dependencies</descriptorRef>
-              </descriptorRefs>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-          <configuration>
-              <notimestamp>true</notimestamp>
-          </configuration>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar-no-fork</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!--      <plugin>-->
+            <!--        <artifactId>maven-jlink-plugin</artifactId>-->
+            <!--        <version>3.0.0-alpha-1</version>-->
+            <!--        <extensions>true</extensions>-->
+            <!--        <configuration>-->
+            <!--          <verbose>false</verbose>-->
+            <!--          <noHeaderFiles>true</noHeaderFiles>-->
+            <!--          <noManPages>true</noManPages>-->
+            <!--        </configuration>-->
+            <!--      </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.9.0</version>
+                <configuration>
+                    <outputDirectory>${basedir}/docs</outputDirectory>
+                    <locales>de</locales>
+                    <relativizeDecorationLinks>false</relativizeDecorationLinks>
+                    <requires>
+                        <require>asciidoctor-diagram</require>
+                    </requires>
+                    <backend>html5</backend>
+                    <asciidoc>
+                        <attributes>
+                            <icons>font</icons>
+                            <source-highlighter>coderay</source-highlighter>
+                            <coderay-css>style</coderay-css>
+                            <toc>left</toc>
+                            <!--<toclevels>2</toclevels>-->
+                        </attributes>
+                    </asciidoc>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctor-maven-plugin</artifactId>
+                        <version>2.0.0-RC.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <!-- NOTE: We don't need a groupId specification because the group is
+                    org.apache.maven.plugins ...which is assumed by default. -->
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>package-assemblies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor</mainClass>
+                                </manifest>
+                            </archive>
+                            <tarLongFileMode>posix</tarLongFileMode>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
-  <profiles>
+    <profiles>
 
-    <profile>
-      <id>headless</id>
-      <properties>
-        <junit-excluded-groups>headfull</junit-excluded-groups>
-      </properties>
-    </profile>
+        <profile>
+            <id>headless</id>
+            <properties>
+                <junit-excluded-groups>headfull</junit-excluded-groups>
+            </properties>
+        </profile>
 
-    <profile>
-      <id>site</id>
-      <build>
-        <defaultGoal>clean site clover:setup verify clover:aggregate clover:clover clover:reset install</defaultGoal>
-      </build>
-    </profile>
+        <profile>
+            <id>site</id>
+            <build>
+                <defaultGoal>clean site clover:setup verify clover:aggregate clover:clover clover:reset install
+                </defaultGoal>
+            </build>
+        </profile>
 
-  </profiles>
+    </profiles>
 
-  <organization>
-    <name>PIUG</name>
-    <url>https://piug.slack.com</url>
-  </organization>
+    <organization>
+        <name>PIUG</name>
+        <url>https://piug.slack.com</url>
+    </organization>
 
-  <developers>
-    <developer>
-      <name>FunThomas424242 (Thomas Schubert)</name>
-      <email>funthomas424242@gmail.com</email>
-      <roles>
-        <role>project owner</role>
-        <role>developer</role>
-      </roles>
-    </developer>
-  </developers>
+    <developers>
+        <developer>
+            <name>FunThomas424242 (Thomas Schubert)</name>
+            <email>funthomas424242@gmail.com</email>
+            <roles>
+                <role>project owner</role>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
 
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <reportSets>
-          <reportSet>
-            <reports><!-- select reports -->
-              <report>licenses</report>
-              <report>dependencies</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <reportSets>
-          <reportSet><!-- by default, id = "default" -->
-            <reports><!-- select non-aggregate reports -->
-              <report>javadoc</report>
-              <report>test-javadoc</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-<!--        Nicht notwendig solage Clover Report das auch leistet        -->
-<!--      <plugin>-->
-<!--        <groupId>org.apache.maven.plugins</groupId>-->
-<!--        <artifactId>maven-surefire-report-plugin</artifactId>-->
-<!--        <version>2.22.2</version>-->
-<!--      </plugin>-->
-    </plugins>
-  </reporting>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports><!-- select reports -->
+                            <report>licenses</report>
+                            <report>dependencies</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <notimestamp>true</notimestamp>
+                </configuration>
+                <reportSets>
+                    <reportSet><!-- by default, id = "default" -->
+                        <reports><!-- select non-aggregate reports -->
+                            <report>javadoc</report>
+                            <report>test-javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>
