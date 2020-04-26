@@ -1,75 +1,75 @@
-var treeMapJson = {"id":"Clover database So. Apr. 26 2020 14:48:42 MESZ0","name":"","data":{
-    "$area":821.0,"$color":81.36419,"title":
-    " 821 Elements, 81,4% Coverage"},"children":[{"id":
-      "com.github.funthomas424242.jenkinsmonitor.jenkins472","name":
+var treeMapJson = {"id":"Clover database So. Apr. 26 2020 15:27:40 MESZ0","name":"","data":{
+    "$area":820.0,"$color":81.21951,"title":
+    " 820 Elements, 81,2% Coverage"},"children":[{"id":
+      "com.github.funthomas424242.jenkinsmonitor.jenkins471","name":
       "com.github.funthomas424242.jenkinsmonitor.jenkins","data":{"$area":
         294.0,"$color":81.63265,"title":
         "com.github.funthomas424242.jenkinsmonitor.jenkins 294 Elements, 81,6% Coverage"},
-      "children":[{"id":"AbstractJobBeschreibung472","name":
+      "children":[{"id":"AbstractJobBeschreibung471","name":
           "AbstractJobBeschreibung","data":{"$area":23.0,"$color":
             34.782608,"path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/AbstractJobBeschreibung.html#AbstractJobBeschreibung",
             "title":"AbstractJobBeschreibung 23 Elements, 34,8% Coverage"},
-          "children":[]},{"id":"AbstractJobBeschreibungen495","name":
+          "children":[]},{"id":"AbstractJobBeschreibungen494","name":
           "AbstractJobBeschreibungen","data":{"$area":31.0,"$color":
             80.645164,"path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/AbstractJobBeschreibungen.html#AbstractJobBeschreibungen",
             "title":
             "AbstractJobBeschreibungen 31 Elements, 80,6% Coverage"},
-          "children":[]},{"id":"BasicAuthDaten526","name":"BasicAuthDaten",
+          "children":[]},{"id":"BasicAuthDaten525","name":"BasicAuthDaten",
           "data":{"$area":27.0,"$color":88.88889,"path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/BasicAuthDaten.html#BasicAuthDaten",
             "title":"BasicAuthDaten 27 Elements, 88,9% Coverage"},"children":
-          []},{"id":"ConnectionFailedException553","name":
+          []},{"id":"ConnectionFailedException552","name":
           "ConnectionFailedException","data":{"$area":2.0,"$color":100.0,
             "path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/ConnectionFailedException.html#ConnectionFailedException",
             "title":"ConnectionFailedException 2 Elements, 100% Coverage"},
-          "children":[]},{"id":"JenkinsAPI555","name":"JenkinsAPI","data":{
+          "children":[]},{"id":"JenkinsAPI554","name":"JenkinsAPI","data":{
             "$area":0.0,"$color":-100.0,"path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/JenkinsAPI.html#JenkinsAPI",
             "title":"JenkinsAPI 0 Elements,  -  Coverage"},"children":[]},{
-          "id":"JenkinsClient555","name":"JenkinsClient","data":{"$area":
+          "id":"JenkinsClient554","name":"JenkinsClient","data":{"$area":
             18.0,"$color":72.22222,"path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/JenkinsClient.html#JenkinsClient",
             "title":"JenkinsClient 18 Elements, 72,2% Coverage"},"children":[]},
-        {"id":"JobAbfrage573","name":"JobAbfrage","data":{"$area":74.0,
+        {"id":"JobAbfrage572","name":"JobAbfrage","data":{"$area":74.0,
             "$color":77.02703,"path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/JobAbfrage.html#JobAbfrage",
             "title":"JobAbfrage 74 Elements, 77% Coverage"},"children":[]},{
-          "id":"JobAbfrageFutureWrapper647","name":
+          "id":"JobAbfrageFutureWrapper646","name":
           "JobAbfrageFutureWrapper","data":{"$area":7.0,"$color":71.42857,
             "path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/JobAbfrageFutureWrapper.html#JobAbfrageFutureWrapper",
             "title":"JobAbfrageFutureWrapper 7 Elements, 71,4% Coverage"},
-          "children":[]},{"id":"JobAbfragedaten654","name":
+          "children":[]},{"id":"JobAbfragedaten653","name":
           "JobAbfragedaten","data":{"$area":35.0,"$color":88.57143,"path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/JobAbfragedaten.html#JobAbfragedaten",
             "title":"JobAbfragedaten 35 Elements, 88,6% Coverage"},
-          "children":[]},{"id":"JobBeschreibung689","name":
+          "children":[]},{"id":"JobBeschreibung688","name":
           "JobBeschreibung","data":{"$area":28.0,"$color":92.85714,"path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/JobBeschreibung.html#JobBeschreibung",
             "title":"JobBeschreibung 28 Elements, 92,9% Coverage"},
-          "children":[]},{"id":"JobBeschreibungen717","name":
+          "children":[]},{"id":"JobBeschreibungen716","name":
           "JobBeschreibungen","data":{"$area":4.0,"$color":100.0,"path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/JobBeschreibungen.html#JobBeschreibungen",
             "title":"JobBeschreibungen 4 Elements, 100% Coverage"},
-          "children":[]},{"id":"JobStatus721","name":"JobStatus","data":{
+          "children":[]},{"id":"JobStatus720","name":"JobStatus","data":{
             "$area":7.0,"$color":100.0,"path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/JobStatus.html#JobStatus",
             "title":"JobStatus 7 Elements, 100% Coverage"},"children":[]},{
-          "id":"JobStatusBeschreibung728","name":"JobStatusBeschreibung",
+          "id":"JobStatusBeschreibung727","name":"JobStatusBeschreibung",
           "data":{"$area":32.0,"$color":100.0,"path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/JobStatusBeschreibung.html#JobStatusBeschreibung",
             "title":"JobStatusBeschreibung 32 Elements, 100% Coverage"},
-          "children":[]},{"id":"JenkinsAPIMock1129","name":
+          "children":[]},{"id":"JenkinsAPIMock1128","name":
           "JenkinsAPIMock","data":{"$area":6.0,"$color":100.0,"path":
             "com/github/funthomas424242/jenkinsmonitor/jenkins/JenkinsAPIMock.html#JenkinsAPIMock",
             "title":"JenkinsAPIMock 6 Elements, 100% Coverage"},"children":[]}]},
     {"id":"com.github.funthomas424242.jenkinsmonitor.gui167","name":
       "com.github.funthomas424242.jenkinsmonitor.gui","data":{"$area":
-        325.0,"$color":76.92308,"title":
-        "com.github.funthomas424242.jenkinsmonitor.gui 325 Elements, 76,9% Coverage"},
+        324.0,"$color":76.54321,"title":
+        "com.github.funthomas424242.jenkinsmonitor.gui 324 Elements, 76,5% Coverage"},
       "children":[{"id":"ContextMenu167","name":"ContextMenu","data":{
             "$area":46.0,"$color":60.869564,"path":
             "com/github/funthomas424242/jenkinsmonitor/gui/ContextMenu.html#ContextMenu",
@@ -92,10 +92,10 @@ var treeMapJson = {"id":"Clover database So. Apr. 26 2020 14:48:42 MESZ0","name"
             "com/github/funthomas424242/jenkinsmonitor/gui/JobStatusBeschreibungen.html#JobStatusBeschreibungen",
             "title":"JobStatusBeschreibungen 12 Elements, 100% Coverage"},
           "children":[]},{"id":"JobStatusDarstellungen286","name":
-          "JobStatusDarstellungen","data":{"$area":41.0,"$color":82.92683,
+          "JobStatusDarstellungen","data":{"$area":41.0,"$color":80.48781,
             "path":
             "com/github/funthomas424242/jenkinsmonitor/gui/JobStatusDarstellungen.html#JobStatusDarstellungen",
-            "title":"JobStatusDarstellungen 41 Elements, 82,9% Coverage"},
+            "title":"JobStatusDarstellungen 41 Elements, 80,5% Coverage"},
           "children":[]},{"id":"JobStatusZeileOben327","name":
           "JobStatusZeileOben","data":{"$area":19.0,"$color":89.47369,"path":
             
@@ -125,15 +125,15 @@ var treeMapJson = {"id":"Clover database So. Apr. 26 2020 14:48:42 MESZ0","name"
             "com/github/funthomas424242/jenkinsmonitor/gui/SystemTrayWrapper.html#SystemTrayWrapper",
             "title":"SystemTrayWrapper 14 Elements, 50% Coverage"},
           "children":[]},{"id":"Versionsinfofenster450","name":
-          "Versionsinfofenster","data":{"$area":22.0,"$color":90.909096,
+          "Versionsinfofenster","data":{"$area":21.0,"$color":90.47619,
             "path":
             "com/github/funthomas424242/jenkinsmonitor/gui/Versionsinfofenster.html#Versionsinfofenster",
-            "title":"Versionsinfofenster 22 Elements, 90,9% Coverage"},
-          "children":[]},{"id":"ValueHolder1082","name":"ValueHolder","data":
+            "title":"Versionsinfofenster 21 Elements, 90,5% Coverage"},
+          "children":[]},{"id":"ValueHolder1081","name":"ValueHolder","data":
           {"$area":0.0,"$color":-100.0,"path":
             "com/github/funthomas424242/jenkinsmonitor/gui/TrayImageTestHelper.html#ValueHolder",
             "title":"ValueHolder 0 Elements,  -  Coverage"},"children":[]},{
-          "id":"TrayImageTestHelper1082","name":"TrayImageTestHelper","data":
+          "id":"TrayImageTestHelper1081","name":"TrayImageTestHelper","data":
           {"$area":20.0,"$color":100.0,"path":
             "com/github/funthomas424242/jenkinsmonitor/gui/TrayImageTestHelper.html#TrayImageTestHelper",
             "title":"TrayImageTestHelper 20 Elements, 100% Coverage"},
@@ -168,42 +168,42 @@ var treeMapJson = {"id":"Clover database So. Apr. 26 2020 14:48:42 MESZ0","name"
             "$area":56.0,"$color":91.07143,"path":
             "com/github/funthomas424242/jenkinsmonitor/config/Zugangsdatensammler.html#Zugangsdatensammler",
             "title":"Zugangsdatensammler 56 Elements, 91,1% Coverage"},
-          "children":[]},{"id":"ConfigurationMockEmpty760","name":
+          "children":[]},{"id":"ConfigurationMockEmpty759","name":
           "ConfigurationMockEmpty","data":{"$area":5.0,"$color":100.0,"path":
             
             "com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockEmpty.html#ConfigurationMockEmpty",
             "title":"ConfigurationMockEmpty 5 Elements, 100% Coverage"},
-          "children":[]},{"id":"ConfigurationMockNoExisting765","name":
+          "children":[]},{"id":"ConfigurationMockNoExisting764","name":
           "ConfigurationMockNoExisting","data":{"$area":5.0,"$color":100.0,
             "path":
             "com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockNoExisting.html#ConfigurationMockNoExisting",
             "title":
             "ConfigurationMockNoExisting 5 Elements, 100% Coverage"},
-          "children":[]},{"id":"ConfigurationMockOneJobFailed770","name":
+          "children":[]},{"id":"ConfigurationMockOneJobFailed769","name":
           "ConfigurationMockOneJobFailed","data":{"$area":5.0,"$color":
             100.0,"path":
             "com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockOneJobFailed.html#ConfigurationMockOneJobFailed",
             "title":
             "ConfigurationMockOneJobFailed 5 Elements, 100% Coverage"},
-          "children":[]},{"id":"ConfigurationMockOneJobSuccess775","name":
+          "children":[]},{"id":"ConfigurationMockOneJobSuccess774","name":
           "ConfigurationMockOneJobSuccess","data":{"$area":5.0,"$color":
             100.0,"path":
             "com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockOneJobSuccess.html#ConfigurationMockOneJobSuccess",
             "title":
             "ConfigurationMockOneJobSuccess 5 Elements, 100% Coverage"},
-          "children":[]},{"id":"ConfigurationMockOneJobUnstable780","name":
+          "children":[]},{"id":"ConfigurationMockOneJobUnstable779","name":
           "ConfigurationMockOneJobUnstable","data":{"$area":5.0,"$color":
             100.0,"path":
             "com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockOneJobUnstable.html#ConfigurationMockOneJobUnstable",
             "title":
             "ConfigurationMockOneJobUnstable 5 Elements, 100% Coverage"},
-          "children":[]},{"id":"ConfigurationMockValidTreeJobs785","name":
+          "children":[]},{"id":"ConfigurationMockValidTreeJobs784","name":
           "ConfigurationMockValidTreeJobs","data":{"$area":5.0,"$color":
             100.0,"path":
             "com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockValidTreeJobs.html#ConfigurationMockValidTreeJobs",
             "title":
             "ConfigurationMockValidTreeJobs 5 Elements, 100% Coverage"},
-          "children":[]},{"id":"ConfigurationMockValidTwoJobs790","name":
+          "children":[]},{"id":"ConfigurationMockValidTwoJobs789","name":
           "ConfigurationMockValidTwoJobs","data":{"$area":5.0,"$color":
             100.0,"path":
             "com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockValidTwoJobs.html#ConfigurationMockValidTwoJobs",
