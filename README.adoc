@@ -23,7 +23,7 @@ ____
 
 [#summary]
 Ein Monitor zum Überwachen der Buildstatus ausgewählter Jenkins Jobs.
-Details finden Sie in der link:https://funthomas424242.github.io/jenkinsmonitor/index.html[Projektdokumentation,window=_blank].
+Details finden Sie in der link:https://funthomas424242.github.io/jenkinsmonitor/index.html[Projektdokumentation,role=external,window=_blank].
 Als Teil dieser finden Sie auch die link:ArchitekturEntscheidungen.adoc[ArchitekturEntscheidungen]
 zur Umsetzung der fachlichen Anforderungen.
 
