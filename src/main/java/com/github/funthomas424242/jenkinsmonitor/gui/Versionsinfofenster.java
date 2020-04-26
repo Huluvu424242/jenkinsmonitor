@@ -48,7 +48,6 @@ public class Versionsinfofenster extends JWindow {
     protected JPanel createGoldsteinPanel() {
 
         final JPanel panel = new JPanel();
-//        panel.setLayout(new BoxLayout(panel,));
         panel.add(new JLabel("<html>" +
                 "<h1>Jenkins Monitor Version: 0.1.1</h1>" +
                 "<p>Wer den Jenkins kontrolliert, kontrolliert die Gegenwart !!!</p>" +
