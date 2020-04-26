@@ -8,7 +8,7 @@ install: skip
 
 script:
   - ./mvnw -U -Pheadless clean site install
-  - ./etc/devscripts/buildAppImage.sh
+  - etc/devscripts/buildAppImage.sh
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
