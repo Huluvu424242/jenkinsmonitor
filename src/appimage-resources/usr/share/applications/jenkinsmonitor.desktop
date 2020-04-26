@@ -2,11 +2,11 @@
 Version=1.0
 Encoding=UTF-8
 Type=Application
-Name=Jenkins Monitor 0.1.1-SNAPSHOT
+Name=Jenkins Monitor 0.1.1
 GenericName=Jenkins Monitor
 Comment=Ein Monitor für Jenkins Jobs.
 Icon=1984EmmanuelGoldstein
-Exec=Jenkins_Monitor_0.1.1-SNAPSHOT-x86_64.AppImage
+Exec=Jenkins_Monitor_0.1.1-x86_64.AppImage
 MimeType=application/x-iso9660-appimage;
 Terminal=false
 StartupNotify=true
