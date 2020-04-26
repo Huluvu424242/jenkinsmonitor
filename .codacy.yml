@@ -1,6 +1,7 @@
 exclude_paths:
     - '.github/**'
     - '.mvn/**'
+    - 'etc/devscripts/mvnw.*'
     - 'docs/css/print.css'
     - 'docs/css/*.min.css'
     - 'docs/clover/**'
