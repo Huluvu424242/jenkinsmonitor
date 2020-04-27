@@ -49,35 +49,15 @@ public class Statusfenster extends JDialog {
 
     protected transient final JobStatusBeschreibungen jobStatusBeschreibungen;
 
-//    protected int userHeight;
-//    protected int fixedWidth;
-
     public Statusfenster(final JobStatusBeschreibungen jobStatusBeschreibungen) {
         this.jobStatusBeschreibungen = jobStatusBeschreibungen;
         this.setAlwaysOnTop(true);
         this.setLocationByPlatform(false);
         // HINT: setPreferredSize: Nicht nutzen, ist dann immer zu klein
         this.pack();
-////        final Dimension maxSize = getMaximumSize();
-////        this.setSize(maxSize);
-//        userHeight = maxSize.height;
-//        fixedWidth = maxSize.width;
         this.setTitle("Jenkins Jobstatusübersicht");
         final ImageIcon goldsteinLogo = ImageGenerator.getGoldSteinImageIcon();
         this.setIconImage(goldsteinLogo.getImage());
-
-//        addComponentListener(new ComponentAdapter() {
-//            final Dimension maxSize = getMaximumSize();
-//            @Override
-//            public void componentResized(ComponentEvent e) {
-//                final Rectangle bounds = getBounds();
-//                if (bounds.height != maxSize.height) {
-//                    bounds.height = maxSize.height;
-//                    setBounds(bounds);
-//                }
-//                super.componentResized(e);
-//            }
-//        });
     }
 
 
@@ -137,7 +117,6 @@ public class Statusfenster extends JDialog {
             setContentPane(createContent());
             pack();
             repaint();
-//            repaint(0, 0, fixedWidth, userHeight);
         }
     }
 
