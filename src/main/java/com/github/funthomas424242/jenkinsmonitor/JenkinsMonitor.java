@@ -36,21 +36,10 @@ public class JenkinsMonitor {
     public JenkinsMonitor(Configuration configuration) {
         this.monitorTray = new JenkinsMonitorTray(configuration);
         LOGGER.info("Jenkinsmonitor gestartet");
-
-        // MainThread killen bei jvm shutdown
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            LOGGER.debug("Shutdown Hook is running for future !!!");
-            terminateMainThread();
-        }));
     }
 
     public JenkinsMonitorTray getMonitorTray() {
         return this.monitorTray;
-    }
-
-    protected void terminateMainThread() {
-        // TODO Funktioniert nicht im Test
-        // System.exit(0);
     }
 
     public static void main(final String[] commandlineArgs) {
