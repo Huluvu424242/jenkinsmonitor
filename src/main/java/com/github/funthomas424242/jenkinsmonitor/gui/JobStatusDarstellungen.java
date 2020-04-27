@@ -50,12 +50,6 @@ public class JobStatusDarstellungen {
 
         // Statusfenster
         this.statusfenster = new Statusfenster(jobStatusBeschreibungen);
-        try {
-            this.statusfenster.setAlwaysOnTop(true);
-            this.statusfenster.setLocationByPlatform(false);
-        } catch (Exception ex) {
-            LOGGER.warn("Konnte natives Desktopverhalten nicht setzen", ex);
-        }
         // ContextMenu
         this.contextMenu = new ContextMenu(this.jobStatusBeschreibungen, trayWrapper, statusfenster, timer);
     }

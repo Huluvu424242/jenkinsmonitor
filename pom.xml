@@ -160,6 +160,7 @@
                 <directory>src/main/resources/img/</directory>
                 <includes>
                     <include>1984EmmanuelGoldstein.jpg</include>
+                    <include>MinervaV-64x64.png</include>
                 </includes>
             </resource>
         </resources>
