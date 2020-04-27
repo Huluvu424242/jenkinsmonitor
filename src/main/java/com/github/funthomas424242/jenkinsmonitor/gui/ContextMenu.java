@@ -111,6 +111,8 @@ public class ContextMenu {
         final MenuItem exitItem = new MenuItem("Beenden");
         exitItem.addActionListener(actionEvent -> {
             timer.stop();
+            versionsinfofenster.setVisible(false);
+            versionsinfofenster.dispose();
             statusArea.setVisible(false);
             statusArea.dispose();
             tray.removeTrayIcon();

@@ -32,12 +32,14 @@ import javax.swing.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Versionsinfofenster extends JWindow {
+public class Versionsinfofenster extends JFrame {
     public static final Logger LOGGER = LoggerFactory.getLogger(Versionsinfofenster.class);
 
     public Versionsinfofenster() {
         // create Window Content
         this.add(createGoldsteinPanel());
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        this.setUndecorated(true);
         this.pack();
         this.setAlwaysOnTop(true);
         this.setLocationByPlatform(false);
