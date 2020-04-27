@@ -38,7 +38,7 @@ public class Versionsinfofenster extends JFrame {
     public Versionsinfofenster() {
         // create Window Content
         this.add(createGoldsteinPanel());
-        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         this.setUndecorated(true);
         this.pack();
         this.setAlwaysOnTop(true);
@@ -60,7 +60,7 @@ public class Versionsinfofenster extends JFrame {
             assert inputStream != null;
             final BufferedImage myPicture = ImageIO.read(inputStream);
             final JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-            panel.add(picLabel,BorderLayout.CENTER);
+            panel.add(picLabel, BorderLayout.CENTER);
             inputStream.close();
         } catch (IOException e) {
             LOGGER.warn(MessageFormat.format("Goldstein Panel nicht erzeugt: {0}", e));
@@ -69,7 +69,7 @@ public class Versionsinfofenster extends JFrame {
         panel.add(new JLabel("<html><p>Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft.</p>" +
                 "<p>Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.</p>" +
                 "<p>— Georg Orwell (Author des Buches \"1984\")</p>" +
-                "</html>"),BorderLayout.PAGE_END);
+                "</html>"), BorderLayout.PAGE_END);
 
         return panel;
     }
