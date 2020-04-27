@@ -35,7 +35,11 @@ import org.slf4j.LoggerFactory;
 public class Versionsinfofenster extends JFrame {
     public static final Logger LOGGER = LoggerFactory.getLogger(Versionsinfofenster.class);
 
+    protected final ImageIcon goldsteinLogo;
+
     public Versionsinfofenster() {
+        // create Logo
+        goldsteinLogo = getImageIcon();
         // create Window Content
         this.add(createGoldsteinPanel());
         this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -45,6 +49,7 @@ public class Versionsinfofenster extends JFrame {
         this.setLocationByPlatform(false);
         this.setLocationRelativeTo(null);
         this.setAutoRequestFocus(false);
+        this.setIconImage(goldsteinLogo.getImage());
     }
 
     protected JPanel createGoldsteinPanel() {
@@ -55,16 +60,8 @@ public class Versionsinfofenster extends JFrame {
                 "<p>Wer den Jenkins kontrolliert, kontrolliert die Gegenwart !!!</p>" +
                 "</html>"), BorderLayout.PAGE_START);
 
-        try {
-            final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("1984EmmanuelGoldstein.jpg");
-            assert inputStream != null;
-            final BufferedImage myPicture = ImageIO.read(inputStream);
-            final JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-            panel.add(picLabel, BorderLayout.CENTER);
-            inputStream.close();
-        } catch (IOException e) {
-            LOGGER.warn(MessageFormat.format("Goldstein Panel nicht erzeugt: {0}", e));
-        }
+        final JLabel picLabel = new JLabel(goldsteinLogo);
+        panel.add(picLabel, BorderLayout.CENTER);
 
         panel.add(new JLabel("<html><p>Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft.</p>" +
                 "<p>Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.</p>" +
@@ -72,6 +69,19 @@ public class Versionsinfofenster extends JFrame {
                 "</html>"), BorderLayout.PAGE_END);
 
         return panel;
+    }
+
+    protected ImageIcon getImageIcon() {
+        try {
+            final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("1984EmmanuelGoldstein.jpg");
+            assert inputStream != null;
+            final BufferedImage myPicture = ImageIO.read(inputStream);
+            inputStream.close();
+            return new ImageIcon(myPicture);
+        } catch (IOException e) {
+            LOGGER.warn(MessageFormat.format("Goldstein Panel nicht erzeugt: {0}", e));
+        }
+        return null;
     }
 
 }
