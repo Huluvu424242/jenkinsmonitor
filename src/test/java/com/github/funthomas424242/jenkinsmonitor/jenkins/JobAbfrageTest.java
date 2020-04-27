@@ -26,7 +26,6 @@ import com.github.funthomas424242.jenkinsmonitor.gui.JobStatusBeschreibungen;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import java.net.MalformedURLException;
 import java.net.URL;
-import org.apache.http.client.HttpResponseException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -181,11 +180,11 @@ public class JobAbfrageTest {
     protected void getValidJsonGray() {
         final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW, null);
         final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
-        HttpResponseException exception = assertThrows(HttpResponseException.class, () -> {
+        JobNotFoundException exception = assertThrows(JobNotFoundException.class, () -> {
             requester.sendGetRequest();
             fail();
         });
-        assertEquals(exception.getStatusCode(), 404);
+        assertNotNull(exception);
     }
 
 

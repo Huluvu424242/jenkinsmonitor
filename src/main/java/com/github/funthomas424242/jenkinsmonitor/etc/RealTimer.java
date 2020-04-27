@@ -51,6 +51,12 @@ public class RealTimer implements Timer {
         this.period = new Period();
         this.period.duration = period;
         this.period.durationTimeUnit = periodTimeUnit;
+
+        // Service killen bei jvm shutdown
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            LOGGER.debug(String.format("Shutdown Hook is running for future:%s", timerService));
+            stop();
+        }));
     }
 
     @Override
@@ -58,10 +64,33 @@ public class RealTimer implements Timer {
         listeners.add(listener);
     }
 
+
+    public void cancel() {
+        cancelableFuture.cancel(false);
+    }
+
+    @Override
+    public void stop() {
+        timerService.shutdown();
+    }
+
     @Override
     public void start() {
         reportTimeStarted();
         this.cancelableFuture = timerService.scheduleAtFixedRate(this::reportTimeElapse, period.duration, period.duration, period.durationTimeUnit);
+
+        // Future killen bei jvm shutdown
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            protected final ScheduledFuture<?> future = cancelableFuture;
+
+            @Override
+            public void run() {
+                LOGGER.debug(String.format("Shutdown Hook is running for future:%s", future));
+                if (future != null) {
+                    future.cancel(true);
+                }
+            }
+        });
     }
 
     private void reportTimeStarted() {
@@ -72,17 +101,6 @@ public class RealTimer implements Timer {
         listeners.forEach(Listener::timeElapsed);
     }
 
-    public void cancel() {
-        cancelableFuture.cancel(false);
-    }
-
-    @Override
-    public void stop() {
-        timerService.shutdown();
-//        listeners.clear();
-        // TODO das sollte besser gehen - beseitigt erstmal die Http Zoombies
-        System.exit(0);
-    }
 
     @Override
     public void resetPeriod(long period, TimeUnit periodTimeUnit) {

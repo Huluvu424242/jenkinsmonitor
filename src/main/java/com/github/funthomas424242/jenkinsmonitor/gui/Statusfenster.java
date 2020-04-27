@@ -137,7 +137,7 @@ public class Statusfenster extends JWindow {
             JobStatusBeschreibung jobstatusBeschreibungen2a = new JobStatusBeschreibung("job2", JobStatus.OTHER, new URL("http://localhost/job2"), "2");
             jobstatusBeschreibungen.put(jobstatusBeschreibungen2a.getPrimaryKey(), jobstatusBeschreibungen2a);
         } catch (MalformedURLException | InterruptedException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.toString());
         }
         window.aktualisiereContentPane();
 
