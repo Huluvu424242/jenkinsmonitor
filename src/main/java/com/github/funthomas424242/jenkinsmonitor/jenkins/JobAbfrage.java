@@ -85,13 +85,10 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
             final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
             final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
             return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
-
-        } catch (HttpResponseException e) {
-            if (e.getStatusCode() == 404) {
-                return new JobStatusBeschreibung("Job Not Found ERROR: " + jobAbfragedaten.getJenkinsJobUrl(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
-            } else {
-                return new JobStatusBeschreibung("HTTP Status:" + e.getStatusCode(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
-            }
+        } catch (JobNotFoundException e) {
+            return new JobStatusBeschreibung("Job Not Found ERROR: " + jobAbfragedaten.getJenkinsJobUrl(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
+        } catch (ConnectionErrorException e) {
+            return new JobStatusBeschreibung("HTTP Status:" + e.getStatusCode(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
         } catch (ConnectionFailedException e) {
             return new JobStatusBeschreibung("Connection ERROR: " + jobAbfragedaten.getJenkinsJobUrl(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
         } catch (NullPointerException | JSONException ex) {
@@ -99,7 +96,7 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
         }
     }
 
-    protected JSONObject sendGetRequest() throws HttpResponseException, ConnectionFailedException {
+    protected JSONObject sendGetRequest() throws JobNotFoundException, ConnectionFailedException, ConnectionErrorException {
         final URL statusAbfrageUrl = jobAbfragedaten.getStatusAbfrageUrl();
         int statusCode = -1;
         int timeout = 1;
@@ -115,25 +112,28 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
                 httpGetRequest.setHeader("Authorization", "Basic " + basicAuthToken);
             }
             final HttpResponse httpResponse;
-            try {
-                httpResponse = httpClient.execute(target, httpGetRequest);
-            } catch (IOException ex) {
-                throw new ConnectionFailedException(ex);
-            }
+            httpResponse = getHttpResponse(httpClient, target, httpGetRequest);
             statusCode = httpResponse.getStatusLine().getStatusCode();
-            if (statusCode != 200) {
-                throw new HttpResponseException(statusCode, httpResponse.getStatusLine().getReasonPhrase());
+            if (statusCode == 404) {
+                throw new JobNotFoundException(new HttpResponseException(statusCode, httpResponse.getStatusLine().getReasonPhrase()));
+            } else if (statusCode != 200) {
+                throw new ConnectionErrorException(new HttpResponseException(statusCode, httpResponse.getStatusLine().getReasonPhrase()));
             }
             return getJsonObjectFromResponse(httpResponse);
         } catch (JSONException | IOException ex) {
             LOG.warn(String.format("Could not retrieve data from jenkins: %s", ex));
-            if (ex instanceof HttpResponseException) {
-                throw (HttpResponseException) ex;
-            } else {
-                LOG.warn(String.format("An Error occured%s", ex));
-            }
         }
         return null;
+    }
+
+    protected HttpResponse getHttpResponse(CloseableHttpClient httpClient, HttpHost target, HttpGet httpGetRequest) throws ConnectionFailedException {
+        HttpResponse httpResponse;
+        try {
+            httpResponse = httpClient.execute(target, httpGetRequest);
+        } catch (IOException ex) {
+            throw new ConnectionFailedException(ex);
+        }
+        return httpResponse;
     }
 
 
