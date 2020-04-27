@@ -45,16 +45,29 @@ public class ContextMenu {
 
     protected final SystemTrayWrapper tray;
 
-    protected final Statusfenster statusArea;
+    protected final Statusfenster statusfenster;
 
     protected final Timer timer;
 
-    public ContextMenu(final JobStatusBeschreibungen jobStatusBeschreibungen, final SystemTrayWrapper tray, final Statusfenster statusArea, final Timer timer) {
+    public ContextMenu(final JobStatusBeschreibungen jobStatusBeschreibungen, final SystemTrayWrapper tray, final Timer timer) {
+        // Statusfenster
+        this.statusfenster = new Statusfenster(jobStatusBeschreibungen);
         this.versionsinfofenster = new Versionsinfofenster();
         this.jobStatusBeschreibungen = jobStatusBeschreibungen;
         this.tray = tray;
-        this.statusArea = statusArea;
         this.timer = timer;
+    }
+
+    protected void aktualisiereStatusfenster() {
+        statusfenster.aktualisiereContentPane();
+    }
+
+    protected void showStatusfenster(final boolean isShown){
+        statusfenster.setVisible(isShown);
+    }
+
+    protected boolean isStatusfensterSichtbar(){
+        return statusfenster.isVisible();
     }
 
     /**
@@ -75,7 +88,7 @@ public class ContextMenu {
                         try {
                             webSite = statusBeschreibung.getJobUrl().toURI();
                             Desktop.getDesktop().browse(webSite);
-                            statusArea.setVisible(false);
+                            statusfenster.setVisible(false);
                         } catch (IOException | URISyntaxException ex) {
                             LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, webSite), ex);
                         }
@@ -89,7 +102,7 @@ public class ContextMenu {
         homepage.addActionListener(actionEvent -> {
             try {
                 Desktop.getDesktop().browse(new URI(WEBSITE_JENKINSMONITOR));
-                statusArea.setVisible(false);
+                statusfenster.setVisible(false);
             } catch (IOException | URISyntaxException ex) {
                 LOGGER.error(String.format(ERR_COULD_NOT_OPEN_URL, WEBSITE_JENKINSMONITOR), ex);
             }
@@ -99,7 +112,7 @@ public class ContextMenu {
         bugtracker.addActionListener(actionEvent -> {
             try {
                 Desktop.getDesktop().browse(new URI(WEBSITE_JENKINSMONITOR_ISSUES));
-                statusArea.setVisible(false);
+                statusfenster.setVisible(false);
             } catch (IOException | URISyntaxException ex) {
                 LOGGER.warn(String.format(ERR_COULD_NOT_OPEN_URL, WEBSITE_JENKINSMONITOR_ISSUES), ex);
             }
@@ -113,8 +126,8 @@ public class ContextMenu {
             timer.stop();
             versionsinfofenster.setVisible(false);
             versionsinfofenster.dispose();
-            statusArea.setVisible(false);
-            statusArea.dispose();
+            statusfenster.setVisible(false);
+            statusfenster.dispose();
             tray.removeTrayIcon();
         });
 
