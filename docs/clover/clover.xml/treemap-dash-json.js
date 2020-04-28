@@ -1,15 +1,15 @@
-var treeMapJson = {"id":"Clover database So. Apr. 26 2020 15:27:40 MESZ0","name":"","data":{
-    "$area":820.0,"$color":81.21951,"title":
-    " 820 Elements, 81,2% Coverage"},"children":[{"id":
-      "com.github.funthomas424242.jenkinsmonitor.jenkins471","name":
+var treeMapJson = {"id":"Clover database Di. Apr. 28 2020 21:10:49 MESZ0","name":"","data":{
+    "$area":870.0,"$color":80.91954,"title":
+    " 870 Elements, 80,9% Coverage"},"children":[{"id":
+      "com.github.funthomas424242.jenkinsmonitor.jenkins515","name":
       "com.github.funthomas424242.jenkinsmonitor.jenkins","data":{"$area":
-        294.0,"$color":81.63265,"title":
-        "com.github.funthomas424242.jenkinsmonitor.jenkins 294 Elements, 81,6% Coverage"},
+        300.0,"$color":85.66667,"title":
+        "com.github.funthomas424242.jenkinsmonitor.jenkins 300 Elements, 85,7% Coverage"},
       "children":[]},{"id":
-      "com.github.funthomas424242.jenkinsmonitor.gui167","name":
+      "com.github.funthomas424242.jenkinsmonitor.gui176","name":
       "com.github.funthomas424242.jenkinsmonitor.gui","data":{"$area":
-        324.0,"$color":76.54321,"title":
-        "com.github.funthomas424242.jenkinsmonitor.gui 324 Elements, 76,5% Coverage"},
+        359.0,"$color":74.37326,"title":
+        "com.github.funthomas424242.jenkinsmonitor.gui 359 Elements, 74,4% Coverage"},
       "children":[]},{"id":"com.github.funthomas424242.jenkinsmonitor0",
       "name":"com.github.funthomas424242.jenkinsmonitor","data":{"$area":
         8.0,"$color":100.0,"title":
@@ -21,9 +21,9 @@ var treeMapJson = {"id":"Clover database So. Apr. 26 2020 15:27:40 MESZ0","name"
         "com.github.funthomas424242.jenkinsmonitor.config 160 Elements, 95% Coverage"},
       "children":[]},{"id":
       "com.github.funthomas424242.jenkinsmonitor.etc133","name":
-      "com.github.funthomas424242.jenkinsmonitor.etc","data":{"$area":34.0,
-        "$color":52.941177,"title":
-        "com.github.funthomas424242.jenkinsmonitor.etc 34 Elements, 52,9% Coverage"},
+      "com.github.funthomas424242.jenkinsmonitor.etc","data":{"$area":43.0,
+        "$color":46.51163,"title":
+        "com.github.funthomas424242.jenkinsmonitor.etc 43 Elements, 46,5% Coverage"},
       "children":[]}]}
 ;
 processTreeMapDashJson (treeMapJson);
