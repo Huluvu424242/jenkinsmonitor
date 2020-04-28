@@ -26,6 +26,11 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.MessageFormat;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,6 +86,45 @@ public class ImageGenerator {
         g.dispose();
 
         return image;
+    }
+
+    protected static ImageIcon getGoldSteinImageIcon() {
+        try {
+            final InputStream inputStream = Versionsinfofenster.class.getClassLoader().getResourceAsStream("1984EmmanuelGoldstein.jpg");
+            assert inputStream != null;
+            final BufferedImage myPicture = ImageIO.read(inputStream);
+            inputStream.close();
+            return new ImageIcon(myPicture);
+        } catch (IOException e) {
+            LOGGER.warn(MessageFormat.format("Goldstein Logo nicht erzeugt: {0}", e));
+        }
+        return null;
+    }
+
+    protected static ImageIcon getMinervaLogo() {
+        try {
+            final InputStream inputStream = Versionsinfofenster.class.getClassLoader().getResourceAsStream("MinervaV-64x64.png");
+            assert inputStream != null;
+            final BufferedImage myPicture = ImageIO.read(inputStream);
+            inputStream.close();
+            return new ImageIcon(myPicture);
+        } catch (IOException e) {
+            LOGGER.warn(MessageFormat.format("Minerva Logo nicht erzeugt: {0}", e));
+        }
+        return null;
+    }
+
+    public static Image convertIconToImage(Icon icon) {
+        if (icon instanceof ImageIcon) {
+            return ((ImageIcon) icon).getImage();
+        } else {
+            int width = icon.getIconWidth();
+            int height = icon.getIconHeight();
+            final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+//            Graphics2D g = (Graphics2D) image.getGraphics();
+//            icon.paintIcon(null, g, 0, 0);
+            return image;
+        }
     }
 
 }
