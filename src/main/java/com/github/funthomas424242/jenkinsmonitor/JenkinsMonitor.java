@@ -38,6 +38,11 @@ public class JenkinsMonitor {
         LOGGER.info("Jenkinsmonitor gestartet");
     }
 
+    public JenkinsMonitor(JenkinsMonitorTray jenkinsMonitorTray) {
+        this.monitorTray = jenkinsMonitorTray;
+        LOGGER.info("Jenkinsmonitor für Tests gestartet");
+    }
+
     public JenkinsMonitorTray getMonitorTray() {
         return this.monitorTray;
     }

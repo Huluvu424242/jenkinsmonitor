@@ -30,6 +30,7 @@ import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockOneJobF
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockOneJobSuccess;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTwoJobs;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsAPIMock;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import java.awt.*;
@@ -52,12 +53,17 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 public class JenkinsMonitorTest {
 
     protected WireMockServer wireMockServer;
+    protected JenkinsClient jenkinsClient;
+    protected TestDrivenTimer clock;
 
     @BeforeEach
     public void setUp() {
         wireMockServer = new WireMockServer(8099);
         wireMockServer.start();
         JenkinsAPIMock.definiereAnnahmen(wireMockServer);
+
+        jenkinsClient = new JenkinsClient();
+        this.clock = new TestDrivenTimer();
     }
 
     @AfterEach
@@ -135,8 +141,10 @@ public class JenkinsMonitorTest {
     @DisplayName("Eine Konfiguration mit einem erfolgreichen Job erzeugt ein grünes TrayIcon")
     protected void trayIconHasGreenImage() {
         final Configuration config = new ConfigurationMockOneJobSuccess();
-        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
-        final TrayIcon icon = jenkinsMonitor.getMonitorTray().jobStatusDarstellungen.trayWrapper.getTrayIcon();
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, jenkinsClient, config);
+        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(jenkinsMonitorTray);
+
+        final TrayIcon icon = jenkinsMonitorTray.jobStatusDarstellungen.trayWrapper.getTrayIcon();
         assertNotNull(icon);
         final BufferedImage image = (BufferedImage) icon.getImage();
         assertNotNull(image);

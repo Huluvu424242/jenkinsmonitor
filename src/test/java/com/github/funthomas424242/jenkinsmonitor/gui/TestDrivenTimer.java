@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-class TestDrivenTimer implements Timer {
+public class TestDrivenTimer implements Timer {
     private final List<Listener> listeners = new ArrayList<>();
 
     @Override
