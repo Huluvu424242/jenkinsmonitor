@@ -1,4 +1,6 @@
-Das Bild wurde mmit dem Bilbearbeitungsprogramm Gimp freihändig abgemalt.
+
+== EmmanuelGoldstein
+Das Bild wurde mit dem Bilbearbeitungsprogramm Gimp freihändig abgemalt.
 Das beim Abmalen verwendete Original findet man hier:
 https://upload.wikimedia.org/wikipedia/en/9/9f/1984EmmanuelGoldstein.jpg
 (Das Original ist urheberrechtlich geschützt. Das abgemalte Bild kann wahlweise unter LGPL oder CCby4.0 verwendet werden).
@@ -13,3 +15,9 @@ Mit Hilfe der beigelegten xmp Datei lässt es sich wohl im PDF und ähnlichen Fo
 
 Im Prinzip darf es jeder verwenden wie und wofür er möchte, einzig die Namensnennung ist wie folgt gewünscht:
 @2019 Huluvu424242 (Thomas Schubert)
+
+== MinervaV
+Quelle: https://commons.wikimedia.org/wiki/File:MinervaV.xcf#mw-jump-to-license
+Lizenz: Diese Datei ist lizenziert unter der Creative-Commons-Lizenz „Namensnennung – Weitergabe unter gleichen Bedingungen 4.0 international“.
+Lizenz URL: https://creativecommons.org/licenses/by-sa/4.0/deed.de
+Urheber: @2015 Huluvu424242 (Thomas Schubert)

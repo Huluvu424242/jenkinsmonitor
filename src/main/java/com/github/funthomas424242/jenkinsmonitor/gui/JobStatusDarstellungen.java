@@ -38,26 +38,14 @@ public class JobStatusDarstellungen {
     public static final Logger LOGGER = LoggerFactory.getLogger(JobStatusDarstellungen.class);
 
     protected final JobStatusBeschreibungen jobStatusBeschreibungen;
-
     protected final SystemTrayWrapper trayWrapper;
-    protected final Statusfenster statusfenster;
     protected final ContextMenu contextMenu;
 
     public JobStatusDarstellungen(final JobStatusBeschreibungen jobStatusBeschreibungen,
                                   final Timer timer) {
         this.jobStatusBeschreibungen = jobStatusBeschreibungen;
         this.trayWrapper = new SystemTrayWrapper();
-
-        // Statusfenster
-        this.statusfenster = new Statusfenster(jobStatusBeschreibungen);
-        try {
-            this.statusfenster.setAlwaysOnTop(true);
-            this.statusfenster.setLocationByPlatform(false);
-        } catch (Exception ex) {
-            LOGGER.warn("Konnte natives Desktopverhalten nicht setzen", ex);
-        }
-        // ContextMenu
-        this.contextMenu = new ContextMenu(this.jobStatusBeschreibungen, trayWrapper, statusfenster, timer);
+        this.contextMenu = new ContextMenu(this.jobStatusBeschreibungen, trayWrapper, timer);
     }
 
 
@@ -70,7 +58,7 @@ public class JobStatusDarstellungen {
     }
 
     protected void aktualisiereStatusfenster() {
-        statusfenster.aktualisiereContentPane();
+        contextMenu.aktualisiereStatusfenster();
     }
 
     protected void aktualisiereTrayIconDarstellung() {
@@ -89,7 +77,7 @@ public class JobStatusDarstellungen {
                     public void mouseClicked(MouseEvent e) {
                         LOGGER.debug("Mouseklick links");
                         if (e.getClickCount() == 1) {
-                            statusfenster.setVisible(!statusfenster.isVisible());
+                            contextMenu.showStatusfenster(!contextMenu.isStatusfensterSichtbar());
                         }
                     }
                 });

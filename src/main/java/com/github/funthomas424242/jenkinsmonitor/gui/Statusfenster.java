@@ -44,13 +44,20 @@ import org.slf4j.LoggerFactory;
 import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
 
 
-public class Statusfenster extends JWindow {
+public class Statusfenster extends JDialog {
     public static final Logger LOGGER = LoggerFactory.getLogger(Statusfenster.class);
 
     protected transient final JobStatusBeschreibungen jobStatusBeschreibungen;
 
     public Statusfenster(final JobStatusBeschreibungen jobStatusBeschreibungen) {
         this.jobStatusBeschreibungen = jobStatusBeschreibungen;
+        this.setAlwaysOnTop(true);
+        this.setLocationByPlatform(false);
+        // HINT: setPreferredSize: Nicht nutzen, ist dann immer zu klein
+        this.pack();
+        this.setTitle("Jenkins Jobstatusübersicht");
+        final ImageIcon goldsteinLogo = ImageGenerator.getGoldSteinImageIcon();
+        this.setIconImage(goldsteinLogo.getImage());
     }
 
 
@@ -127,8 +134,6 @@ public class Statusfenster extends JWindow {
         }
 
         Statusfenster window = new Statusfenster(jobstatusBeschreibungen);
-        window.setAlwaysOnTop(true);
-        window.setLocationByPlatform(false);
         window.aktualisiereContentPane();
         window.setVisible(true);
 
@@ -137,7 +142,7 @@ public class Statusfenster extends JWindow {
             JobStatusBeschreibung jobstatusBeschreibungen2a = new JobStatusBeschreibung("job2", JobStatus.OTHER, new URL("http://localhost/job2"), "2");
             jobstatusBeschreibungen.put(jobstatusBeschreibungen2a.getPrimaryKey(), jobstatusBeschreibungen2a);
         } catch (MalformedURLException | InterruptedException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.toString());
         }
         window.aktualisiereContentPane();
 

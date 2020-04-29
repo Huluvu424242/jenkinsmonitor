@@ -23,26 +23,28 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  */
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.MessageFormat;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Versionsinfofenster extends JWindow {
+public class Versionsinfofenster extends JFrame {
     public static final Logger LOGGER = LoggerFactory.getLogger(Versionsinfofenster.class);
 
+    protected final ImageIcon goldsteinImageIcon;
+
     public Versionsinfofenster() {
+        // Goldstein Logo
+        this.goldsteinImageIcon = ImageGenerator.getGoldSteinImageIcon();
         // create Window Content
         this.add(createGoldsteinPanel());
+        this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        this.setUndecorated(true);
         this.pack();
         this.setAlwaysOnTop(true);
         this.setLocationByPlatform(false);
         this.setLocationRelativeTo(null);
         this.setAutoRequestFocus(false);
+        this.setIconImage(getLogoImage());
     }
 
     protected JPanel createGoldsteinPanel() {
@@ -53,23 +55,20 @@ public class Versionsinfofenster extends JWindow {
                 "<p>Wer den Jenkins kontrolliert, kontrolliert die Gegenwart !!!</p>" +
                 "</html>"), BorderLayout.PAGE_START);
 
-        try {
-            final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("1984EmmanuelGoldstein.jpg");
-            assert inputStream != null;
-            final BufferedImage myPicture = ImageIO.read(inputStream);
-            final JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-            panel.add(picLabel,BorderLayout.CENTER);
-            inputStream.close();
-        } catch (IOException e) {
-            LOGGER.warn(MessageFormat.format("Goldstein Panel nicht erzeugt: {0}", e));
-        }
+        final JLabel picLabel = new JLabel(this.goldsteinImageIcon);
+        panel.add(picLabel, BorderLayout.CENTER);
 
         panel.add(new JLabel("<html><p>Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft.</p>" +
                 "<p>Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.</p>" +
                 "<p>— Georg Orwell (Author des Buches \"1984\")</p>" +
-                "</html>"),BorderLayout.PAGE_END);
+                "</html>"), BorderLayout.PAGE_END);
 
         return panel;
+    }
+
+    static protected Image getLogoImage() {
+        return ImageGenerator.getMinervaLogo().getImage();
+//        return ImageGenerator.convertIconToImage(UIManager.getIcon("FileChooser.detailsViewIcon"));
     }
 
 }
