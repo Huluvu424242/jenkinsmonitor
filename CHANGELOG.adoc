@@ -55,10 +55,10 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 * Logo von Goldstein und Zitate werden mit angezeigt.
 * Behandlung von Requestfehlern implementiert.
 * file logging supported via -Dlogback.configurationFile=filelogging.xml
-* https://github.com/FunThomas424242/jenkinsmonitor/issues/35[issue #35] Zustand Abgebrochen aufgenommen
-* https://github.com/FunThomas424242/jenkinsmonitor/issues/32[issue #32] Datei mit Verhaltensregeln steht bereit
-* https://github.com/FunThomas424242/jenkinsmonitor/issues/25[issue #25] Basic Authentification wird unterstützt
-* https://github.com/FunThomas424242/jenkinsmonitor/issues/22[issue #22] Windows Skripte korrigiert
+* https://github.com/Huluvu424242/jenkinsmonitor/issues/35[issue #35] Zustand Abgebrochen aufgenommen
+* https://github.com/Huluvu424242/jenkinsmonitor/issues/32[issue #32] Datei mit Verhaltensregeln steht bereit
+* https://github.com/Huluvu424242/jenkinsmonitor/issues/25[issue #25] Basic Authentification wird unterstützt
+* https://github.com/Huluvu424242/jenkinsmonitor/issues/22[issue #22] Windows Skripte korrigiert
 
 === Changed
 
@@ -68,7 +68,7 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 * Job Not Found Fehler werden jetzt im Status angezeigt
 * Connection Fehler werden jetzt im Status angezeigt
 * Statusfenster wird nach Timer aktualisiert auch wenn noch nicht alle Responses eingetroffen sind.
-* https://github.com/FunThomas424242/jenkinsmonitor/issues/19[issue #19] Umgestellt auf jdk11
+* https://github.com/Huluvu424242/jenkinsmonitor/issues/19[issue #19] Umgestellt auf jdk11
 * natural sort of jobident supported
 * hard system.exit(0) added to avoid zoombie http get requests
 * Loglevel und Logmeldungen überarbeitet
@@ -80,9 +80,9 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 == [0.0.1] fertiggestellt 2019-10-06
 === Added
 
-* https://github.com/FunThomas424242/jenkinsmonitor/issues/11[issue #11] Kleines Logo ins JAR gepackt.
-* https://github.com/FunThomas424242/jenkinsmonitor/issues/3[issue #3] Dokumentation aktualisiert.
-* https://github.com/FunThomas424242/jenkinsmonitor/issues/1[issue #1] Projekt aufgesetzt.
+* https://github.com/Huluvu424242/jenkinsmonitor/issues/11[issue #11] Kleines Logo ins JAR gepackt.
+* https://github.com/Huluvu424242/jenkinsmonitor/issues/3[issue #3] Dokumentation aktualisiert.
+* https://github.com/Huluvu424242/jenkinsmonitor/issues/1[issue #1] Projekt aufgesetzt.
 
 ### Changed
 

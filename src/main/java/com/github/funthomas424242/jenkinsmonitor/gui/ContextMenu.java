@@ -33,8 +33,8 @@ import org.slf4j.LoggerFactory;
 
 public class ContextMenu {
 
-    public static final String WEBSITE_JENKINSMONITOR_ISSUES = "https://github.com/FunThomas424242/jenkinsmonitor/issues?q=is%3Aopen+is%3Aissue+label%3Abug";
-    public static final String WEBSITE_JENKINSMONITOR = "https://github.com/FunThomas424242/jenkinsmonitor";
+    public static final String WEBSITE_JENKINSMONITOR_ISSUES = "https://github.com/Huluvu424242/jenkinsmonitor/issues?q=is%3Aopen+is%3Aissue+label%3Abug";
+    public static final String WEBSITE_JENKINSMONITOR = "https://github.com/Huluvu424242/jenkinsmonitor";
     public static final String ERR_COULD_NOT_OPEN_URL = "URL %s konnte nicht geöffnet werden";
 
     public static final Logger LOGGER = LoggerFactory.getLogger(ContextMenu.class);

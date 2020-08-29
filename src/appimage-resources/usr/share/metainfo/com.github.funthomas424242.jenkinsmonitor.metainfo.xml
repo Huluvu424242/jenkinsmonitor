@@ -56,7 +56,7 @@
             <caption>Das Icon der Anwendung</caption>
             ​
             <image>
-                https://raw.githubusercontent.com/FunThomas424242/jenkinsmonitor/master/src/main/resources/img/1984EmmanuelGoldstein.jpg
+                https://raw.githubusercontent.com/Huluvu424242/jenkinsmonitor/master/src/main/resources/img/1984EmmanuelGoldstein.jpg
             </image>
             ​
         </screenshot>
@@ -64,7 +64,7 @@
         <screenshot>
             ​
             <image>
-                https://raw.githubusercontent.com/FunThomas424242/jenkinsmonitor/master/src/main/resources/img/screenshot.jpg
+                https://raw.githubusercontent.com/Huluvu424242/jenkinsmonitor/master/src/main/resources/img/screenshot.jpg
             </image>
             ​
         </screenshot>
@@ -72,7 +72,7 @@
     </screenshots>
     ​
     ​
-    <url type="homepage">https://github.com/FunThomas424242/jenkinsmonitor/</url>
+    <url type="homepage">https://github.com/Huluvu424242/jenkinsmonitor/</url>
     ​
     <project_group>RADeS</project_group>
     ​
@@ -90,7 +90,7 @@
             ​
             <description>
                 ​
-                <a href="https://github.com/FunThomas424242/jenkinsmonitor/blob/master/CHANGELOG.adoc">siehe CHANGELOG
+                <a href="https://github.com/Huluvu424242/jenkinsmonitor/blob/master/CHANGELOG.adoc">siehe CHANGELOG
                 </a>
                 ​
             </description>
