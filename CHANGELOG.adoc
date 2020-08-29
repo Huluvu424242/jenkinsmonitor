@@ -7,6 +7,17 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 // == [3.1.1] fertiggestellt 2018-05-11
 
 //== [undelivered]
+== [0.1.2]
+
+=== Added
+
+* read jenkins.properties zunächst von ${HOMESHARE}
+
+=== Changed
+
+=== Removed
+
+
 == [0.1.1] fertiggestellt 2020-04-26
 
 === Added
