@@ -49,6 +49,7 @@ public class Configuration {
 
     public static final String JENKINSMONITOR_CONFIGURATIONFILENAME = "jenkinsmonitor.properties";
     public static final String PROPERTY_USER_HOME = "user.home";
+    public static final String ENV_HOMESHARE = "HOMESHARE";
     public static final String JENKINSMONITOR_POLLPERIOD = "jenkinsmonitor.pollperiod";
     public static final String DEFAULT_POLLPERIOD = "5";
     public static final String JOBKEY_PREFIX = "joburl-";
@@ -61,7 +62,17 @@ public class Configuration {
     protected boolean isInitialisiert;
 
     public static File getDefaultConfigurationsfile() {
-        return new File(System.getProperty(PROPERTY_USER_HOME) + File.separator + JENKINSMONITOR_CONFIGURATIONFILENAME);
+        final File homeFile = new File(System.getProperty(PROPERTY_USER_HOME) + File.separator + JENKINSMONITOR_CONFIGURATIONFILENAME);
+        if (homeFile.exists()) {
+            return homeFile;
+        } else {
+            final String homeshare = System.getenv(ENV_HOMESHARE);
+            if (homeshare == null) {
+                return homeFile;
+            } else {
+                return new File(homeshare + File.separator + JENKINSMONITOR_CONFIGURATIONFILENAME);
+            }
+        }
     }
 
     public Configuration(final File configurationFile) {
