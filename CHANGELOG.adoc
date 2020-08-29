@@ -17,7 +17,7 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 
 * github repo owner renamed to Huluvu424242
 * upgrade project dependencies
-
+* upgrade maven plugins
 
 === Removed
 
