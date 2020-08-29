@@ -12,7 +12,7 @@
     <name>Jenkins Monitor</name>
     <description>Ein Jenkinsmonitor für den Systemtray</description>
     <inceptionYear>2019</inceptionYear>
-    <url>https://github.com/FunThomas424242/jenkinsmonitor</url>
+    <url>https://github.com/Huluvu424242/jenkinsmonitor</url>
     <licenses>
         <license>
             <url>https://www.gnu.org/licenses/lgpl-3.0.de.html</url>
@@ -23,23 +23,23 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:https://github.com/FunThomas424242/jenkinsmonitor.git</connection>
-        <developerConnection>scm:git:git@github.com:FunThomas424242/jenkinsmonitor.git</developerConnection>
-        <url>https://github.com/FunThomas424242/jenkinsmonitor</url>
+        <connection>scm:git:https://github.com/Huluvu424242/jenkinsmonitor.git</connection>
+        <developerConnection>scm:git:git@github.com:Huluvu424242/jenkinsmonitor.git</developerConnection>
+        <url>https://github.com/Huluvu424242/jenkinsmonitor</url>
     </scm>
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/FunThomas424242/jenkinsmonitor/issues/new</url>
+        <url>https://github.com/Huluvu424242/jenkinsmonitor/issues/new</url>
     </issueManagement>
     <ciManagement>
         <system>Travis</system>
-        <url>https://travis-ci.org/FunThomas424242/jenkinsmonitor</url>
+        <url>https://travis-ci.org/Huluvu424242/jenkinsmonitor</url>
     </ciManagement>
     <distributionManagement>
         <repository>
             <id>github</id>
-            <name>GitHub FunThomas424242 Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/FunThomas424242/${project.artifactId}</url>
+            <name>GitHub Huluvu424242 Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/Huluvu424242/${project.artifactId}</url>
         </repository>
     </distributionManagement>
 
@@ -482,8 +482,8 @@
 
     <developers>
         <developer>
-            <name>FunThomas424242 (Thomas Schubert)</name>
-            <email>funthomas424242@gmail.com</email>
+            <name>Huluvu424242 (Thomas Schubert)</name>
+            <email>huluvu424242@gmail.com</email>
             <roles>
                 <role>project owner</role>
                 <role>developer</role>

@@ -1,5 +1,5 @@
 # Jenkins Monitor Projekt
-:author: FunThomas424242 (Thomas Schubert)
+:author: Huluvu424242 (Thomas Schubert)
 //:toc:
 :icons: font
 :lang: de
