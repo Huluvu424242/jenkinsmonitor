@@ -11,7 +11,7 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 
 === Added
 
-* read jenkins.properties zunächst von ${HOMESHARE}
+* read jenkins.properties erst von ${user.home} dann von ${HOMESHARE}
 
 === Changed
 
