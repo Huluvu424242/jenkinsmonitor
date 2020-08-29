@@ -12,9 +12,12 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 === Added
 
 * read jenkins.properties zunächst von ${HOMESHARE}
-* github repo owner renamed to Huluvu424242
 
 === Changed
+
+* github repo owner renamed to Huluvu424242
+* upgrade project dependencies
+* upgrade maven plugins
 
 === Removed
 
