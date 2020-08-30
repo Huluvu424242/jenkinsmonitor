@@ -6,7 +6,7 @@
 
 
     <groupId>com.github.funthomas424242</groupId>
-    <version>0.1.2-SNAPSHOT</version>
+    <version>0.1.2</version>
     <artifactId>jenkinsmonitor</artifactId>
     <packaging>${mypackaging}</packaging>
     <name>Jenkins Monitor</name>
