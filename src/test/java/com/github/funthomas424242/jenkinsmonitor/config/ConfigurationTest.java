@@ -30,6 +30,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Map;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -76,6 +77,11 @@ class ConfigurationTest {
         validConfigurationfile = new ConfigurationMockValidTwoJobs();
     }
 
+    @AfterEach
+    protected void tearDown(){
+        Configuration.setJavaSysteMock(null);
+    }
+
     @Test
     @DisplayName("Nach Lesen der Pollperiod ist die Configuration initialisiert")
     protected void initAfterGetPollOK() {
@@ -98,14 +104,29 @@ class ConfigurationTest {
     @Test
     @DisplayName("Die Default Konfiguration wird aus ~/jenkinsmonitor.properties geladen")
     protected void useDefaultConfigfile() {
+        final String tmpDir = new File("src/test/resources/").getAbsolutePath().toString();
+        System.out.println("TMP DIR: " + tmpDir);
+        final JavaSystemWrapper.JavaSystemMock mock = new JavaSystemWrapper.JavaSystemMock() {
+
+            @Override
+            public String getProperty(String name) {
+                if ("user.home".equals(name)) {
+                    return tmpDir;
+                } else {
+                    return null;
+                }
+            }
+        };
+
         assertDoesNotThrow(() -> {
+            Configuration.setJavaSysteMock(mock);
             final File defaultConfigurationsfile = Configuration.getDefaultConfigurationsfile();
             final Configuration configuration = new Configuration(defaultConfigurationsfile);
             assumeTrue(configuration != null);
             final File file = configuration.getConfigurationfile();
 
             final String configurationsFilePath = file.getAbsolutePath().toString();
-            final String expectedPath = System.getProperty(USER_HOME) + File.separator + Configuration_CONFIGURATIONFILENAME;
+            final String expectedPath = tmpDir + File.separator + Configuration_CONFIGURATIONFILENAME;
             assertEquals(expectedPath, configurationsFilePath);
         });
     }
@@ -114,7 +135,6 @@ class ConfigurationTest {
     @DisplayName("Die Default Konfiguration wird aus ${HOMESHARE}/jenkinsmonitor.properties geladen")
     protected void useSharedDefaultConfigfile() throws NoSuchFieldException {
 
-        final Map<String, String> envVars = System.getenv();
         final String tmpDir = new File("src/test/resources/").getAbsolutePath().toString();
         System.out.println("TMP DIR: " + tmpDir);
         final JavaSystemWrapper.JavaSystemMock mock = new JavaSystemWrapper.JavaSystemMock() {
