@@ -479,8 +479,8 @@
             </activation>
             <properties>
                 <jvm.arg.addOpens/>               
-                <maven.compiler.source>1.8</maven.compiler.source>
-                <maven.compiler.target>1.8</maven.compiler.target>
+                <maven.compiler.source>${java.vm.specification.version}</maven.compiler.source>
+                <maven.compiler.target>${java.vm.specification.version}</maven.compiler.target>
             </properties>
         </profile>
         <profile>
@@ -495,7 +495,7 @@
                     --add-opens=java.base/java.lang=ALL-UNNAMED
                     --add-opens=java.base/java.net=ALL-UNNAMED
                 </jvm.arg.addOpens>                
-                <maven.compiler.release>11</maven.compiler.release>
+                <maven.compiler.release>${java.vm.specification.version}</maven.compiler.release>
             </properties>
         </profile>
         
