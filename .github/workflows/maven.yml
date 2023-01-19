@@ -1,12 +1,8 @@
 name: Java CI
 
-on: [push, workflow_dispatch]
-
-strategy:
-  matrix:
-    java-version:
-    - 8
-    - 17     
+on:
+  push:
+  workflow_dispatch: {}
 
 jobs:
   build:
@@ -27,3 +23,9 @@ jobs:
           chmod +x etc/devscripts/*.sh
           cd etc/devscripts
           ./mvnw.sh -Pheadless -B package --file pom.xml
+
+    strategy:
+          matrix:
+            java-version:
+            - 8
+            - 17     
