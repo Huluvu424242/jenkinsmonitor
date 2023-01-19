@@ -47,7 +47,6 @@
         <mypackaging>jar</mypackaging>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven.compiler.release>11</maven.compiler.release>
         <junit-jupiter-engine.version>5.6.2</junit-jupiter-engine.version>
         <junit-excluded-groups/>
         <surefireArgLine/>
@@ -477,6 +476,7 @@
                 <!-- Legacy 'jmdesprez' plugin used in compatibility test needs access to internal JDK API -->
                 <jvm.arg.addOpens>--add-opens java.desktop/com.sun.imageio.plugins.png=ALL-UNNAMED</jvm.arg.addOpens>
                 <java.code.version><release>${{jdk}}</release></java.code.version>
+                <maven.compiler.release>${{jdk}}</maven.compiler.release>
             </properties>
         </profile>
         
