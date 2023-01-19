@@ -322,7 +322,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <release>11</release>
+                    ${{ java.code.version }}
                     <compilerArgs>
                         <arg>-Xlint:all</arg>
                         <arg>--add-opens=java.base/java.lang=ALL-UNNAMED</arg>
@@ -346,7 +346,7 @@
                 <version>2.22.2</version>
                 <configuration>
                     <forkCount>0</forkCount>
-                    <argLine>${surefireArgLine} --illegal-access=warn</argLine>
+                    <argLine>${jvm.arg.addOpens} ${surefireArgLine} --illegal-access=warn</argLine>
                     <excludedGroups>
                         ${junit-excluded-groups}
                     </excludedGroups>
@@ -457,6 +457,29 @@
     </build>
 
     <profiles>
+        
+         <profile>
+            <id>jdk-8-to-15</id>
+            <activation>
+                <jdk>[1.8,16)</jdk>
+            </activation>
+            <properties>
+                <jvm.arg.addOpens/>
+                <java.code.version><srouce>${{jdk}}</source><target>${{jdk}}</target></java.code.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>jdk-16-to-xx</id>
+            <activation>
+                <jdk>[16,)</jdk>
+            </activation>
+            <properties>
+                <!-- Legacy 'jmdesprez' plugin used in compatibility test needs access to internal JDK API -->
+                <jvm.arg.addOpens>--add-opens java.desktop/com.sun.imageio.plugins.png=ALL-UNNAMED</jvm.arg.addOpens>
+                <java.code.version><release>${{jdk}}</release></java.code.version>
+            </properties>
+        </profile>
+        
 
         <profile>
             <id>headless</id>
@@ -472,6 +495,8 @@
                 </defaultGoal>
             </build>
         </profile>
+        
+        
 
     </profiles>
 
