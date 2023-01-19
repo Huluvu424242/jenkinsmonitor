@@ -463,8 +463,8 @@
             </activation>
             <properties>
                 <jvm.arg.addOpens/>               
-                <maven.compiler.source>${{jdk}}</maven.compiler.source>
-                <maven.compiler.target>${{jdk}}</maven.compiler.target>
+                <maven.compiler.source>${{java.version}}</maven.compiler.source>
+                <maven.compiler.target>${{java.version}}</maven.compiler.target>
             </properties>
         </profile>
         <profile>
@@ -475,7 +475,7 @@
             <properties>
                 <!-- Legacy 'jmdesprez' plugin used in compatibility test needs access to internal JDK API -->
                 <jvm.arg.addOpens>--add-opens java.desktop/com.sun.imageio.plugins.png=ALL-UNNAMED</jvm.arg.addOpens>                
-                <maven.compiler.release>${{jdk}}</maven.compiler.release>
+                <maven.compiler.release>${{java.version}}</maven.compiler.release>
             </properties>
         </profile>
         
