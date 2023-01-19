@@ -465,7 +465,7 @@
             </activation>
             <properties>
                 <jvm.arg.addOpens/>
-                <java.code.version><srouce>${{jdk}}</source><target>${{jdk}}</target></java.code.version>
+                <java.code.version><source>${{jdk}}</source><target>${{jdk}}</target></java.code.version>
             </properties>
         </profile>
         <profile>
