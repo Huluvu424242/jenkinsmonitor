@@ -473,20 +473,20 @@
     <profiles>
         
          <profile>
-            <id>jdk-8-to-15</id>
+            <id>jdk-8</id>
             <activation>
-                <jdk>[1.8,16)</jdk>
+                <jdk>[1.8,1.10)</jdk>
             </activation>
             <properties>
                 <jvm.arg.addOpens/>               
-                <maven.compiler.source>${settings.jdk}</maven.compiler.source>
-                <maven.compiler.target>${settings.jdk}</maven.compiler.target>
+                <maven.compiler.source>1.8</maven.compiler.source>
+                <maven.compiler.target>1.8</maven.compiler.target>
             </properties>
         </profile>
         <profile>
-            <id>jdk-16-to-xx</id>
+            <id>jdk-11-to-xx</id>
             <activation>
-                <jdk>[16,)</jdk>
+                <jdk>[11,)</jdk>
             </activation>
             <properties>
                 <!-- Legacy 'jmdesprez' plugin used in compatibility test needs access to internal JDK API -->
@@ -495,7 +495,7 @@
                     --add-opens=java.base/java.lang=ALL-UNNAMED
                     --add-opens=java.base/java.net=ALL-UNNAMED
                 </jvm.arg.addOpens>                
-                <maven.compiler.release>${settings.jdk}</maven.compiler.release>
+                <maven.compiler.release>11</maven.compiler.release>
             </properties>
         </profile>
         
