@@ -17,9 +17,6 @@
 @REM under the License.
 @REM ----------------------------------------------------------------------------
 
-@REM Gehe in das Basisverzeichnis in dem das Skript sonst liegt
-cd ../../
-
 @REM ----------------------------------------------------------------------------
 @REM Maven2 Start Up Batch script
 @REM
