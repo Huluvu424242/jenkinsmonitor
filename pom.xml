@@ -37,7 +37,7 @@
     </ciManagement>
 
     <properties>
-        <mypackaging>jar</mypackaging>
+        <mypackaging>pom</mypackaging>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit-excluded-groups/>
         <surefireArgLine/>
@@ -207,7 +207,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
@@ -401,6 +401,15 @@
                         </manifest>
                     </archive>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!--      <plugin>-->
             <!--        <artifactId>maven-jlink-plugin</artifactId>-->
