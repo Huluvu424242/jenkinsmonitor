@@ -51,4 +51,6 @@ jobs:
           - 11
           - 17
           - 19
+      fail-fast: false
+      max-parallel: 1
 
