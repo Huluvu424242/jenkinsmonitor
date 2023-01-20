@@ -51,7 +51,7 @@ public class Versionsinfofenster extends JFrame {
 
         final JPanel panel = new JPanel();
         panel.add(new JLabel("<html>" +
-                "<h1>Jenkins Monitor Version: 0.2.0</h1>" +
+                "<h1>Jenkins Monitor Version: 0.1.3</h1>" +
                 "<p>Wer den Jenkins kontrolliert, kontrolliert die Gegenwart !!!</p>" +
                 "</html>"), BorderLayout.PAGE_START);
 

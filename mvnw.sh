@@ -18,9 +18,6 @@
 # under the License.
 # ----------------------------------------------------------------------------
 
-# gehe in das Basisverzeichnis in dem das Skript sonst liegt.
-cd ../../
-
 # ----------------------------------------------------------------------------
 # Maven2 Start Up Batch script
 #

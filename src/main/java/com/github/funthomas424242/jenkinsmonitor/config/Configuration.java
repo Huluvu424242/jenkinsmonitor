@@ -85,6 +85,7 @@ public class Configuration {
 
     /**
      * use only in tests with new JavaSystemWrapper(new JavaSystemMock());
+     * @param systemMock JavaSystemMock for testing
      */
     protected static void setJavaSysteMock(final JavaSystemWrapper.JavaSystemMock systemMock) {
         system = new JavaSystemWrapper(systemMock);
