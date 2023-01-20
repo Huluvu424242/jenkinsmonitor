@@ -23,7 +23,7 @@ jobs:
           cache: 'maven'
           server-id: github
       - name: Publish to Github Package Registry
-        run: ./mvnw -U -Prelease,publish-github deploy
+        run: ./mvnw -U -Pheadless,publish-github deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
