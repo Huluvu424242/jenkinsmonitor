@@ -22,7 +22,7 @@ jobs:
         run: |
           chmod +x etc/devscripts/*.sh
           chmod +x *.sh
-          ./mvnw.sh -Pheadless -B package --file pom.xml
+          ./mvnw.sh -PpruefeVersionen,headless -B package --file pom.xml
 
     strategy:
           matrix:
