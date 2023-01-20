@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'release/**'
-      - 'feature/multibuilds'
       - '!release/**-snapshot'
   workflow_dispatch: {}
 
