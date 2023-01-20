@@ -1,0 +1,30 @@
+name: Site Build
+
+on:
+  push:
+    branches:
+      - 'master'
+  workflow_dispatch: {}
+
+jobs:
+  site:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: ${{ matrix.java-version }}
+          java-package: jdk
+          cache: 'maven'
+      - name: Build with Maven
+        run: |
+          ./mvnw.sh -PpruefeVersionen,headless clean site
+
+    strategy:
+          matrix:
+            java-version:
+            - 19
