@@ -1,4 +1,4 @@
-name: Site Build
+name: Site Build und Deploy
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   site:
-
+    name: site deploy on github
     runs-on: ubuntu-latest
 
     steps:
@@ -24,6 +24,6 @@ jobs:
         run:  ./mvnw.sh -PpruefeVersionen,headless clean site
 
     strategy:
-          matrix:
-            java-version:
-            - 19
+      matrix:
+        java-version:
+        - 19
