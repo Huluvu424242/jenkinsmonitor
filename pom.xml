@@ -415,7 +415,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.9.1</version>
+                <version>3.12.1</version>
                 <configuration>
                     <outputDirectory>${basedir}/docs</outputDirectory>
                     <locales>de</locales>
@@ -441,6 +441,43 @@
                         <version>2.2.2</version>
                     </dependency>
                 </dependencies>
+<!--                <configuration>-->
+<!--                    &lt;!&ndash; Disable generateReports if you don't want to include the built-in reports &ndash;&gt;-->
+<!--                    <generateReports>true</generateReports>-->
+<!--                    <generateSitemap>true</generateSitemap>-->
+<!--                    <relativizeDecorationLinks>false</relativizeDecorationLinks>-->
+<!--                    <locales>en</locales>-->
+<!--                    <inputEncoding>UTF-8</inputEncoding>-->
+<!--                    <outputEncoding>UTF-8</outputEncoding>-->
+<!--                    <asciidoc>-->
+<!--                        &lt;!&ndash; Optional site-wide AsciiDoc attributes &ndash;&gt;-->
+<!--                        <attributes>-->
+<!--                            <icons>font</icons>-->
+<!--                            &lt;!&ndash; Add required rouge styles in '/css/site.css' &ndash;&gt;-->
+<!--                            <source-highlighter>rouge</source-highlighter>-->
+<!--                            <toclevels>2</toclevels>-->
+<!--                        </attributes>-->
+<!--                    </asciidoc>-->
+<!--                </configuration>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>org.asciidoctor</groupId>-->
+<!--                        <artifactId>asciidoctor-maven-plugin</artifactId>-->
+<!--                        <version>${asciidoctor.maven.plugin.version}</version>-->
+<!--                    </dependency>-->
+<!--                    &lt;!&ndash; Comment this section to use the default jruby artifact provided by the plugin &ndash;&gt;-->
+<!--                    <dependency>-->
+<!--                        <groupId>org.jruby</groupId>-->
+<!--                        <artifactId>jruby</artifactId>-->
+<!--                        <version>${jruby.version}</version>-->
+<!--                    </dependency>-->
+<!--                    &lt;!&ndash; Comment this section to use the default AsciidoctorJ artifact provided by the plugin &ndash;&gt;-->
+<!--                    <dependency>-->
+<!--                        <groupId>org.asciidoctor</groupId>-->
+<!--                        <artifactId>asciidoctorj</artifactId>-->
+<!--                        <version>${asciidoctorj.version}</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
             </plugin>
             <plugin>
                 <!-- NOTE: We don't need a groupId specification because the group is
