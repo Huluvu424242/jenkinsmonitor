@@ -5,6 +5,7 @@ on:
     branches:
       - 'release/**'
       - 'feature/multibuilds'
+      - 'feature/multibuilds-upgrade'
       - '!release/**-snapshot'
   workflow_dispatch: {}
 
