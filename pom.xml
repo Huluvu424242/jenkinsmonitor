@@ -460,9 +460,9 @@
                                 </manifest>
                             </archive>
                             <tarLongFileMode>posix</tarLongFileMode>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
+                            <descriptors>
+                                <descriptor>src/assembly/jdk${java.vm.specification.version}-jar-with-deps.xml</descriptor>
+                            </descriptors>
                         </configuration>
                     </execution>
                 </executions>
