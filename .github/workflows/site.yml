@@ -21,8 +21,7 @@ jobs:
           java-package: jdk
           cache: 'maven'
       - name: Build with Maven
-        run: |
-          ./mvnw.sh -PpruefeVersionen,headless clean site
+        run:  ./mvnw.sh -PpruefeVersionen,headless clean site
 
     strategy:
           matrix:
