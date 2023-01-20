@@ -28,5 +28,5 @@ jobs:
           matrix:
             java-version:
             - 11
-            # - 17
+            - 17
             # - 17     
