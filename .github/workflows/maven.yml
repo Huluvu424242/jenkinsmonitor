@@ -21,8 +21,7 @@ jobs:
       - name: Build with Maven
         run: |
           chmod +x etc/devscripts/*.sh
-          chmod +x *.sh
-          ./mvnw.sh -PpruefeVersionen,headless -B package --file pom.xml
+          ./mvnw.sh -PpruefeVersionen,headless clean install
 
     strategy:
           matrix:
