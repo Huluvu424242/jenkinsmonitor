@@ -65,7 +65,7 @@ jobs:
           # Arguments for the git fetch command. If set to false, the action won't fetch the repo.
           # For more info as to why fetching is usually recommended, please see the "Performance on large repos" FAQ.
           # Default: --tags --force
-          fetch: false
+          #fetch: true
 
           # The message for the commit.
           # Default: 'Commit from GitHub Actions (name of the workflow)'
@@ -73,7 +73,7 @@ jobs:
 
           # If this input is set, the action will push the commit to a new branch with this name.
           # Default: ''
-          new_branch: §{{ github.ref_name }}
+          new_branch: ${{ github.ref_name }}
 
           # The way the action should handle pathspec errors from the add and remove commands. Three options are available:
           # - ignore -> errors will be logged but the step won't fail
