@@ -478,6 +478,7 @@
                 <artifactId>maven-deploy-plugin</artifactId>
                 <configuration>
                     <classifier>jdk${java.vm.specification.version}</classifier>
+                    <generatePom>false</generatePom>
                 </configuration>
             </plugin>
             <plugin>
