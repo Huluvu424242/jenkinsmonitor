@@ -402,16 +402,13 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!--      <plugin>-->
-            <!--        <artifactId>maven-jlink-plugin</artifactId>-->
-            <!--        <version>3.0.0-alpha-1</version>-->
-            <!--        <extensions>true</extensions>-->
-            <!--        <configuration>-->
-            <!--          <verbose>false</verbose>-->
-            <!--          <noHeaderFiles>true</noHeaderFiles>-->
-            <!--          <noManPages>true</noManPages>-->
-            <!--        </configuration>-->
-            <!--      </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <configuration>
+                    <classifier>jdk${java.vm.specification.version}</classifier>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
@@ -485,6 +482,7 @@
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
+                    <classifier>jdk${java.vm.specification.version}-javadoc</classifier>
                     <attach>true</attach>
                     <failOnError>false</failOnError>
                     <debug>false</debug>
@@ -506,6 +504,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
+                <configuration>
+                    <classifier>jdk${java.vm.specification.version}-sources</classifier>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
