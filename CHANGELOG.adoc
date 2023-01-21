@@ -20,14 +20,24 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 *
 
 
-== [0.1.3] fertiggestellt 2023-xx-xx
+== [0.1.3] published at  2023-xx-xx (maintainance release for infrastructure)
+
+=== On Hold
+
+* maven-install-plugin and maven-deploy-plugin versions on hold because build problems with new versions
+
 === Added
 
 === Changed
 
-* compiled with jdk11
-* jar name with jdk version in name
-* dependencies version upgrade
+* build with java 11,17,19
+* jar name with jdk version in the name
+* dependencies versions upgrade
+* maven upgrade to 3.8.7
+* maven plugins upgrade
+* clover report and website build fixed
+* automatic deploy to github
+* maven wrapper scripts moved into project root
 
 === Removed
 

@@ -22,7 +22,7 @@ jobs:
           java-package: jdk
           cache: 'maven'
       - name: Build with Maven
-        run:  ./mvnw.sh -PpruefeVersionen,headless clean site clover:setup verify clover:aggregate clover:clover clover:reset install
+        run:  ./mvnw.sh -PpruefeVersionen -Pheadless clean site clover:setup verify clover:aggregate clover:clover clover:reset install
 
       - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
         with:
