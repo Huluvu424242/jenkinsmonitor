@@ -451,7 +451,7 @@
                     </execution>
                     <execution>
                         <id>remove-std-pom</id>
-                        <phase>install</phase>
+                        <phase>deploy</phase>
                         <goals>
                             <goal>remove-project-artifact</goal>
                         </goals>
@@ -471,6 +471,13 @@
                 <configuration>
                     <classifier>jdk${java.vm.specification.version}</classifier>
                     <generatePom>false</generatePom>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <classifier>jdk${java.vm.specification.version}</classifier>
                 </configuration>
             </plugin>
             <plugin>
