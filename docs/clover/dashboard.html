@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    
+    
+    <link rel="SHORTCUT ICON" href="img/clover.ico" />
+
+    <link rel="stylesheet" href="aui/css/aui.min.css" media="all"/>
+    <link rel="stylesheet" href="aui/css/aui-experimental.min.css" media="all"/>
+    <!--[if IE 9]><link rel="stylesheet" href="aui/css/aui-ie9.min.css" media="all"/><![endif]-->
+
+    <style type="text/css" media="all">
+        @import url('style.css');
+        @import url('tree.css');
+        
+    </style>
+
+    <script src="jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="aui/js/aui.min.js" type="text/javascript"></script>
+    <script src="aui/js/aui-experimental.min.js" type="text/javascript"></script>
+    <script src="aui/js/aui-soy.min.js" type="text/javascript"></script>
+
+    <script src="package-nodes-tree.js" type="text/javascript"></script>
+    <script src="clover-tree.js" type="text/javascript"></script>
+    <script src="clover.js" type="text/javascript"></script>
+    <script src="clover-descriptions.js" type="text/javascript"></script>
+    <script src="cloud.js" type="text/javascript"></script>
+
+            <title>Jenkins Monitor 0.1.3-SNAPSHOT</title>
+    </head>
+
+<body onresize="processTreeMapDashJson(treeMapJson);" >
+    <div id="page">
+        
+        
+
+
+<header id="header" role="banner">
+    <nav class="aui-header aui-dropdown2-trigger-group" role="navigation">
+        <div class="aui-header-inner">
+            <div class="aui-header-primary">
+                <h1 id="logo" class="aui-header-logo aui-header-logo-clover">
+                    <a href="http://openclover.org" title="Visit OpenClover home page"><span class="aui-header-logo-device">OpenClover</span></a>
+                </h1>
+                            </div>
+            <div class="aui-header-secondary">
+                <ul class="aui-nav">
+                    <li id="system-help-menu">
+                        <a class="aui-nav-link" title="Open online documentation" target="_blank"
+                           href="http://openclover.org/documentation">
+                            <span class="aui-icon aui-icon-small aui-iconfont-help">&#160;Help</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+        
+        <div class="aui-page-panel">
+            <div class="aui-page-panel-inner">
+                <div class="aui-page-panel-nav aui-page-panel-nav-clover">
+                    
+
+<div class="aui-page-header-inner" style="margin-bottom: 20px;">
+    <div class="aui-page-header-image">
+                <div class="aui-avatar aui-avatar-large aui-avatar-project">
+            <div class="aui-avatar-inner">
+                                    <img src="img/clover_logo_large.png" alt="Clover icon"/>
+                            </div>
+        </div>
+            </div>
+    <div class="aui-page-header-main" >
+        <h1>
+                                        Jenkins Monitor 0.1.3-SNAPSHOT
+                                </h1>
+    </div>
+</div>
+
+<nav class="aui-navgroup aui-navgroup-vertical">
+    <div class="aui-navgroup-inner">
+                                            <ul class="aui-nav">
+                <li class="aui-nav-selected">
+                    <a href="dashboard.html">Project overview</a>
+                </li>
+            </ul>
+        
+                <div class="aui-nav-heading packages-nav-heading">
+            <strong>Packages</strong>
+        </div>
+        <div class="aui-nav project-packages">
+            <form method="get" action="#" class="aui package-filter-container">
+                <input type="text" autocomplete="off" class="package-filter text"
+                       placeholder="Type to filter packages..." name="package-filter" id="package-filter"
+                       title="Start typing package name (or part of the name) to search through the tree. Use arrow keys and the Enter key to navigate."/>
+            </form>
+            <p class="package-filter-no-results-message hidden">
+                <small>No results found.</small>
+            </p>
+                                                  <div class="packages-tree-wrapper" data-root-relative="" data-package-name="">
+                <div class="packages-tree-container"></div>
+                <div class="clover-packages-lozenges"></div>
+            </div>
+        </div>
+        
+            </div>
+</nav>                </div>
+                <section class="aui-page-panel-content">
+                    <div class="aui-page-panel-content-clover">
+
+                    
+                    <ol class="aui-nav aui-nav-breadcrumbs">
+            
+        <li><a href="dashboard.html">Project Clover database Sa. Jan. 21 2023 14:41:46 UTC</a></li>
+    </ol>
+    
+<h1 class="aui-h2-clover">
+            Project overview
+    </h1>
+<div class="aui-tabs horizontal-tabs">
+        <ul class="tabs-menu">
+            <li class="menu-item active-tab">
+            <a href="dashboard.html">Dashboard</a>
+        </li>
+                <li class="menu-item ">
+            <a href="pkg-summary.html"><strong>Application code</strong></a>
+        </li>
+                <li class="menu-item ">
+            <a href="testsrc-pkg-summary.html"><strong>Test code</strong></a>
+        </li>
+        <li class="menu-item ">
+            <a href="test-pkg-summary.html"><strong>Test results</strong></a>
+        </li>
+                <li class="menu-item ">
+            <a href="top-risks.html"><strong>Top risks</strong></a>
+        </li>
+        <li class="menu-item ">
+            <a href="quick-wins.html"><strong>Quick wins</strong></a>
+        </li>
+                                                <li class="menu-item ">
+                <a href="treemap.html"><strong>Coverage tree map</strong></a>
+            </li>
+            </ul>
+    <div class="tabs-pane active-pane" id="tabs-first">
+
+        <div>&#160;</div>
+
+
+
+
+
+
+<div class="aui-group">
+    <div class="aui-item">
+        <div class="dashboard-widget">
+            <header class="dashboard-widget-header">
+                
+                <h3>
+                    Code coverage
+                    <small style="float:right; font-weight: normal">
+                        51 classes,
+                        437 /
+                        904 elements
+                    </small>
+                </h3>
+            </header>
+            <div class="dashboard-widget-content">
+                <div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.48340708</span>48,3%</div><div style="display: table-cell">
+ <div title="48,3% Covered"  style="min-width:200px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:48.3%"></div></div></div></div>
+                <p><a href="pkg-summary.html">See more</a></p>
+            </div>
+        </div>
+
+        <div class="dashboard-widget">
+            <header class="dashboard-widget-header">
+                <h3>
+                    Test results
+                    <small style="float:right; font-weight: normal">
+                        45 /
+                        45 tests
+                        2,9 secs
+                    </small>
+                </h3>
+            </header>
+            <div class="dashboard-widget-content">
+                                    
+
+<div style="display: table; width: 100%">
+            <div class="barGraphValue"><span class="sortValue">1.0</span>100%</div>         <div style="display: table-cell">
+            
+            <div title="0% Errors" style="min-width: 40px;" class="testBarError">
+                <div title="100% of tests passed&lt;br/&gt;0% of tests failed" class="testBarFail" style="width: 100%"><div class="testBarPass" style="width: 100%"></div></div>
+            </div>
+        </div>
+    </div>                                <p><a href="test-pkg-summary.html">See more</a></p>
+            </div>
+        </div>
+
+        <div class="dashboard-widget">
+            <header class="dashboard-widget-header">
+                <h3>Code metrics</h3>
+            </header>
+                         
+
+<div id="$statsId" class="aui-item" style="display: ${display}">
+<div style="display: table">
+    <div class="stats-box">
+        <div class="stats-box-label"><label title="Total number of branches in this project">Branches:</label></div>
+        <div class="stats-box-value">112</div>
+    </div>
+    <div class="stats-box">
+        <div class="stats-box-label"><label title="Total number of statements in this project">Statements:</label></div>
+        <div class="stats-box-value">616</div>
+    </div>
+    <div class="stats-box">
+        <div class="stats-box-label"><label title="Total number of methods in this project">Methods:</label></div>
+        <div class="stats-box-value">176</div>
+    </div>
+    <div class="stats-box">
+        <div class="stats-box-label"><label title="Total number of classes in this project">Classes:</label></div>
+        <div class="stats-box-value">51</div>
+    </div>
+            <div class="stats-box">
+            <div class="stats-box-label"><label title="Total number of files in this project">Files:</label></div>
+            <div class="stats-box-value">44</div>
+        </div>
+                <div class="stats-box">
+            <div class="stats-box-label"><label title="Total number of packages in this project">Packages:</label></div>
+            <div class="stats-box-value">5</div>
+        </div>
+        <div class="stats-box">
+        <div class="stats-box-label"><label title="Total number of lines of code in this project">LOC:</label></div>
+        <div class="stats-box-value">3.122</div>
+    </div>
+    <div class="stats-box">
+        <div class="stats-box-label"><label title="Total number of non-comment lines of code in this project">NCLOC:</label></div>
+        <div class="stats-box-value">1.650</div>
+    </div>
+    <div class="stats-box">
+        <div class="stats-box-label"><label title="Cyclomatic complexity is the number of paths in this project">Total complexity:</label></div>
+        <div class="stats-box-value">273</div>
+    </div>
+    <div class="stats-box">
+        <div class="stats-box-label">
+            <label title="Complexity density is the complexity divided by the number of statements in this project">Complexity density:</label>
+        </div>
+        <div class="stats-box-value">0,44</div>
+    </div>
+    <div class="stats-box">
+        <div class="stats-box-label"><label title="Number of statements per method.">Statements/Method:</label></div>
+        <div class="stats-box-value">3,5</div>
+    </div>
+    <div class="stats-box">
+        <div class="stats-box-label"><label title="Number of methods per class.">Methods/Class:</label></div>
+        <div class="stats-box-value">3,45</div>
+    </div>
+            <div class="stats-box">
+            <div class="stats-box-label"><label title="Number of classes per package.">Classes/Package:</label></div>
+            <div class="stats-box-value">10,2</div>
+        </div>
+        <div class="stats-box">
+        <div class="stats-box-label"><label title="Complexity divided by the number of methods in this project">Average method complexity:</label></div>
+        <div class="stats-box-value">1,55</div>
+    </div>
+</div>
+
+</div>        </div>
+
+                <div class="dashboard-widget">
+            <header class="dashboard-widget-header">
+                <h3>Class Coverage Distribution</h3>
+            </header>
+            <div class="dashboard-widget-content">
+                <div style="text-align: center">                     <img src="img/classDistrubutionChart.png" alt="img/classDistrubutionChart.png" usemap="#classDistrubutionChart.png"/>
+                </div>
+                <map id="classDistrubutionChart.png" name="classDistrubutionChart.png">
+<area shape="rect" coords="288,90,310,206" title="11 classes have 91-100% coverage" alt="" nohref="nohref"/>
+<area shape="rect" coords="263,175,285,206" title="3 classes have 81-90% coverage" alt="" nohref="nohref"/>
+<area shape="rect" coords="238,153,260,206" title="5 classes have 71-80% coverage" alt="" nohref="nohref"/>
+<area shape="rect" coords="213,185,235,206" title="2 classes have 61-70% coverage" alt="" nohref="nohref"/>
+<area shape="rect" coords="188,196,210,206" title="1 class has 51-60% coverage" alt="" nohref="nohref"/>
+<area shape="rect" coords="163,185,185,206" title="2 classes have 41-50% coverage" alt="" nohref="nohref"/>
+<area shape="rect" coords="138,196,160,206" title="1 class has 31-40% coverage" alt="" nohref="nohref"/>
+<area shape="rect" coords="38,15,60,206" title="18 classes have 0% coverage" alt="" nohref="nohref"/>
+</map>
+            </div>
+        </div>
+        
+                <div class="dashboard-widget">
+            <header class="dashboard-widget-header">
+                <h3>Class Complexity</h3>
+            </header>
+            <div class="dashboard-widget-content">
+                <div style="text-align: center">
+                    <img src="img/classComplexityChart.png" alt="img/classComplexityChart.png" usemap="#classComplexityChart.png"/>
+                </div>
+                <map id="classComplexityChart.png" name="classComplexityChart.png">
+<area shape="poly" coords="54,128,52,131,49,128,52,126,54,128,54,128" title="Complexity: 11; Coverage: 0%; Class: RealTimer" alt="" href="com/github/funthomas424242/jenkinsmonitor/etc/RealTimer.html#RealTimer"/>
+<area shape="poly" coords="204,194,202,197,199,194,202,192,204,194,204,194" title="Complexity: 2; Coverage: 60%; Class: NetworkHelper" alt="" href="com/github/funthomas424242/jenkinsmonitor/etc/NetworkHelper.html#NetworkHelper"/>
+<area shape="poly" coords="179,194,177,197,174,194,177,192,179,194,179,194" title="Complexity: 2; Coverage: 50%; Class: JavaSystemWrapper.JavaSystemMock" alt="" href="com/github/funthomas424242/jenkinsmonitor/etc/JavaSystemWrapper.html#JavaSystemWrapper.JavaSystemMock"/>
+<area shape="poly" coords="247,157,244,160,242,157,244,155,247,157,247,157" title="Complexity: 7; Coverage: 77%; Class: JavaSystemWrapper" alt="" href="com/github/funthomas424242/jenkinsmonitor/etc/JavaSystemWrapper.html#JavaSystemWrapper"/>
+<area shape="poly" coords="304,194,302,197,299,194,302,192,304,194,304,194" title="Complexity: 2; Coverage: 100%; Class: ConfigurationMockValidTwoJobs" alt="" href="com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockValidTwoJobs.html#ConfigurationMockValidTwoJobs"/>
+<area shape="poly" coords="54,194,52,197,49,194,52,192,54,194,54,194" title="Complexity: 2; Coverage: 0%; Class: ConfigurationMockValidTreeJobs" alt="" href="com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockValidTreeJobs.html#ConfigurationMockValidTreeJobs"/>
+<area shape="poly" coords="54,194,52,197,49,194,52,192,54,194,54,194" title="Complexity: 2; Coverage: 0%; Class: ConfigurationMockValidTreeJobs" alt="" href="com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockValidTreeJobs.html#ConfigurationMockValidTreeJobs"/>
+<area shape="poly" coords="54,194,52,197,49,194,52,192,54,194,54,194" title="Complexity: 2; Coverage: 0%; Class: ConfigurationMockValidTreeJobs" alt="" href="com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockValidTreeJobs.html#ConfigurationMockValidTreeJobs"/>
+<area shape="poly" coords="54,194,52,197,49,194,52,192,54,194,54,194" title="Complexity: 2; Coverage: 0%; Class: ConfigurationMockValidTreeJobs" alt="" href="com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockValidTreeJobs.html#ConfigurationMockValidTreeJobs"/>
+<area shape="poly" coords="304,194,302,197,299,194,302,192,304,194,304,194" title="Complexity: 2; Coverage: 100%; Class: ConfigurationMockValidTwoJobs" alt="" href="com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockValidTwoJobs.html#ConfigurationMockValidTwoJobs"/>
+<area shape="poly" coords="304,194,302,197,299,194,302,192,304,194,304,194" title="Complexity: 2; Coverage: 100%; Class: ConfigurationMockValidTwoJobs" alt="" href="com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockValidTwoJobs.html#ConfigurationMockValidTwoJobs"/>
+<area shape="poly" coords="282,91,279,94,277,91,279,89,282,91,282,91" title="Complexity: 16; Coverage: 91%; Class: Zugangsdatensammler" alt="" href="com/github/funthomas424242/jenkinsmonitor/config/Zugangsdatensammler.html#Zugangsdatensammler"/>
+<area shape="poly" coords="304,187,302,189,299,187,302,184,304,187,304,187" title="Complexity: 3; Coverage: 100%; Class: Jenkinszugangskonfiguration" alt="" href="com/github/funthomas424242/jenkinsmonitor/config/Jenkinszugangskonfiguration.html#Jenkinszugangskonfiguration"/>
+<area shape="poly" coords="279,69,277,72,274,69,277,67,279,69,279,69" title="Complexity: 19; Coverage: 90%; Class: Configuration" alt="" href="com/github/funthomas424242/jenkinsmonitor/config/Configuration.html#Configuration"/>
+<area shape="poly" coords="54,187,52,189,49,187,52,184,54,187,54,187" title="Complexity: 3; Coverage: 0%; Class: JenkinsMonitor" alt="" href="com/github/funthomas424242/jenkinsmonitor/JenkinsMonitor.html#JenkinsMonitor"/>
+<area shape="poly" coords="304,180,302,182,299,180,302,177,304,180,304,180" title="Complexity: 4; Coverage: 100%; Class: TrayImageTestHelper" alt="" href="com/github/funthomas424242/jenkinsmonitor/gui/TrayImageTestHelper.html#TrayImageTestHelper"/>
+<area shape="poly" coords="54,187,52,189,49,187,52,184,54,187,54,187" title="Complexity: 3; Coverage: 0%; Class: JenkinsMonitor" alt="" href="com/github/funthomas424242/jenkinsmonitor/JenkinsMonitor.html#JenkinsMonitor"/>
+<area shape="poly" coords="54,165,52,167,49,165,52,162,54,165,54,165" title="Complexity: 6; Coverage: 0%; Class: SystemTrayWrapper" alt="" href="com/github/funthomas424242/jenkinsmonitor/gui/SystemTrayWrapper.html#SystemTrayWrapper"/>
+<area shape="poly" coords="54,172,52,175,49,172,52,170,54,172,54,172" title="Complexity: 5; Coverage: 0%; Class: SharedListSelectionHandler" alt="" href="com/github/funthomas424242/jenkinsmonitor/gui/Statusfenster.html#SharedListSelectionHandler"/>
+<area shape="poly" coords="54,135,52,138,49,135,52,133,54,135,54,135" title="Complexity: 10; Coverage: 0%; Class: Statusfenster" alt="" href="com/github/funthomas424242/jenkinsmonitor/gui/Statusfenster.html#Statusfenster"/>
+<area shape="poly" coords="54,187,52,189,49,187,52,184,54,187,54,187" title="Complexity: 3; Coverage: 0%; Class: JenkinsMonitor" alt="" href="com/github/funthomas424242/jenkinsmonitor/JenkinsMonitor.html#JenkinsMonitor"/>
+<area shape="poly" coords="54,180,52,182,49,180,52,177,54,180,54,180" title="Complexity: 4; Coverage: 0%; Class: JobStatusZeileUnten" alt="" href="com/github/funthomas424242/jenkinsmonitor/gui/JobStatusZeileUnten.html#JobStatusZeileUnten"/>
+<area shape="poly" coords="54,172,52,175,49,172,52,170,54,172,54,172" title="Complexity: 5; Coverage: 0%; Class: SharedListSelectionHandler" alt="" href="com/github/funthomas424242/jenkinsmonitor/gui/Statusfenster.html#SharedListSelectionHandler"/>
+<area shape="poly" coords="54,143,52,145,49,143,52,140,54,143,54,143" title="Complexity: 9; Coverage: 0%; Class: JobStatusDarstellungen" alt="" href="com/github/funthomas424242/jenkinsmonitor/gui/JobStatusDarstellungen.html#JobStatusDarstellungen"/>
+<area shape="poly" coords="219,172,217,175,214,172,217,170,219,172,219,172" title="Complexity: 5; Coverage: 66%; Class: JobStatusBeschreibungen" alt="" href="com/github/funthomas424242/jenkinsmonitor/gui/JobStatusBeschreibungen.html#JobStatusBeschreibungen"/>
+<area shape="poly" coords="54,143,52,145,49,143,52,140,54,143,54,143" title="Complexity: 9; Coverage: 0%; Class: JobStatusDarstellungen" alt="" href="com/github/funthomas424242/jenkinsmonitor/gui/JobStatusDarstellungen.html#JobStatusDarstellungen"/>
+<area shape="poly" coords="167,106,164,108,162,106,164,103,167,106,167,106" title="Complexity: 14; Coverage: 45%; Class: ImageGenerator" alt="" href="com/github/funthomas424242/jenkinsmonitor/gui/ImageGenerator.html#ImageGenerator"/>
+<area shape="poly" coords="54,150,52,153,49,150,52,148,54,150,54,150" title="Complexity: 8; Coverage: 0%; Class: ContextMenu" alt="" href="com/github/funthomas424242/jenkinsmonitor/gui/ContextMenu.html#ContextMenu"/>
+<area shape="poly" coords="304,202,302,204,299,202,302,199,304,202,304,202" title="Complexity: 1; Coverage: 100%; Class: JenkinsAPIMock" alt="" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JenkinsAPIMock.html#JenkinsAPIMock"/>
+<area shape="poly" coords="304,128,302,131,299,128,302,126,304,128,304,128" title="Complexity: 11; Coverage: 100%; Class: JobStatusBeschreibung" alt="" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JobStatusBeschreibung.html#JobStatusBeschreibung"/>
+<area shape="poly" coords="232,187,229,189,227,187,229,184,232,187,232,187" title="Complexity: 3; Coverage: 71%; Class: JobStatus" alt="" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JobStatus.html#JobStatus"/>
+<area shape="poly" coords="304,202,302,204,299,202,302,199,304,202,304,202" title="Complexity: 1; Coverage: 100%; Class: JenkinsAPIMock" alt="" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JenkinsAPIMock.html#JenkinsAPIMock"/>
+<area shape="poly" coords="304,194,302,197,299,194,302,192,304,194,304,194" title="Complexity: 2; Coverage: 100%; Class: ConfigurationMockValidTwoJobs" alt="" href="com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockValidTwoJobs.html#ConfigurationMockValidTwoJobs"/>
+<area shape="poly" coords="284,121,282,123,279,121,282,118,284,121,284,121" title="Complexity: 12; Coverage: 92%; Class: JobBeschreibung" alt="" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JobBeschreibung.html#JobBeschreibung"/>
+<area shape="poly" coords="259,113,257,116,254,113,257,111,259,113,259,113" title="Complexity: 13; Coverage: 82%; Class: JobAbfragedaten" alt="" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JobAbfragedaten.html#JobAbfragedaten"/>
+<area shape="poly" coords="232,187,229,189,227,187,229,184,232,187,232,187" title="Complexity: 3; Coverage: 71%; Class: JobStatus" alt="" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JobStatus.html#JobStatus"/>
+<area shape="poly" coords="232,18,229,20,227,18,229,15,232,18,232,18" title="Complexity: 26; Coverage: 71%; Class: JobAbfrage" alt="" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JobAbfrage.html#JobAbfrage"/>
+<area shape="poly" coords="234,194,232,197,229,194,232,192,234,194,234,194" title="Complexity: 2; Coverage: 72%; Class: JenkinsClient" alt="" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JenkinsClient.html#JenkinsClient"/>
+<area shape="poly" coords="54,202,52,204,49,202,52,199,54,202,54,202" title="Complexity: 1; Coverage: 0%; Class: ConnectionFailedException" alt="" href="com/github/funthomas424242/jenkinsmonitor/jenkins/ConnectionFailedException.html#ConnectionFailedException"/>
+<area shape="poly" coords="54,194,52,197,49,194,52,192,54,194,54,194" title="Complexity: 2; Coverage: 0%; Class: ConfigurationMockValidTreeJobs" alt="" href="com/github/funthomas424242/jenkinsmonitor/config/ConfigurationMockValidTreeJobs.html#ConfigurationMockValidTreeJobs"/>
+<area shape="poly" coords="257,128,254,131,252,128,254,126,257,128,257,128" title="Complexity: 11; Coverage: 81%; Class: BasicAuthDaten" alt="" href="com/github/funthomas424242/jenkinsmonitor/jenkins/BasicAuthDaten.html#BasicAuthDaten"/>
+<area shape="poly" coords="222,121,219,123,217,121,219,118,222,121,222,121" title="Complexity: 12; Coverage: 67%; Class: AbstractJobBeschreibungen" alt="" href="com/github/funthomas424242/jenkinsmonitor/jenkins/AbstractJobBeschreibungen.html#AbstractJobBeschreibungen"/>
+<area shape="poly" coords="139,128,137,131,134,128,137,126,139,128,139,128" title="Complexity: 11; Coverage: 34%; Class: AbstractJobBeschreibung" alt="" href="com/github/funthomas424242/jenkinsmonitor/jenkins/AbstractJobBeschreibung.html#AbstractJobBeschreibung"/>
+</map>
+            </div>
+        </div>
+        
+                    <div class="dashboard-widget">
+                <header class="dashboard-widget-header">
+                    <h3>Coverage tree map</h3>
+                </header>
+                <div class="dashboard-widget-content">
+                    <div id="infovis" style="width:100%; height:250px;">
+                        <div id="treemap-loader" style="position:relative;top:50px;">
+                            <p>
+                                Generating Coverage Tree Map. Please wait...
+                            </p>
+                            <p>
+                                <img src="img/ajax-loader.gif" alt="Loading Treemap"/>
+                            </p>
+                        </div>
+                    </div>
+                    <p><a href="treemap.html">See more</a></p>
+                </div>
+
+            </div>
+            </div>
+
+
+    <div class="aui-item">
+        <div class="dashboard-widget">
+            <header class="dashboard-widget-header">
+                <h3>Top 20 project risks</h3>
+            </header>
+            <div class="dashboard-widget-content">
+                
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/jenkins/BasicAuthDaten.html"
+                            style="font-size: 28px;color:#14892c"
+                            title="Average Method Complexity - 2,75 , Coverage - 81,5% ">BasicAuthDaten</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/config/Zugangsdatensammler.html"
+                            style="font-size: 23px;color:#89c495"
+                            title="Average Method Complexity - 2 , Coverage - 91,1% ">Zugangsdatensammler</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JobAbfrage.html"
+                            style="font-size: 27px;color:#fae1a0"
+                            title="Average Method Complexity - 2,6 , Coverage - 71,6% ">JobAbfrage</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JenkinsClient.html"
+                            style="font-size: 23px;color:#fae1a0"
+                            title="Average Method Complexity - 2 , Coverage - 72,2% ">JenkinsClient</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JobBeschreibung.html"
+                            style="font-size: 21px;color:#89c495"
+                            title="Average Method Complexity - 1,714 , Coverage - 92,9% ">JobBeschreibung</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JobAbfragedaten.html"
+                            style="font-size: 22px;color:#14892c"
+                            title="Average Method Complexity - 1,857 , Coverage - 82,9% ">JobAbfragedaten</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/config/Configuration.html"
+                            style="font-size: 22px;color:#89c495"
+                            title="Average Method Complexity - 1,727 , Coverage - 90,5% ">Configuration</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/gui/JobStatusZeileOben.html"
+                            style="font-size: 26px;color:#d04437"
+                            title="Average Method Complexity - 2,5 , Coverage - 0% ">JobStatusZeileOben</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/etc/NetworkHelper.html"
+                            style="font-size: 23px;color:#f6c342"
+                            title="Average Method Complexity - 2 , Coverage - 60% ">NetworkHelper</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/gui/Statusfenster.html"
+                            style="font-size: 26px;color:#d04437"
+                            title="Average Method Complexity - 2,5 , Coverage - 0% ">SharedListSelectionHandler</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/etc/JavaSystemWrapper.html"
+                            style="font-size: 20px;color:#14892c"
+                            title="Average Method Complexity - 1,4 , Coverage - 77,8% ">JavaSystemWrapper</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/gui/ImageGenerator.html"
+                            style="font-size: 23px;color:#e28e87"
+                            title="Average Method Complexity - 2 , Coverage - 45,3% ">ImageGenerator</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/gui/Statusfenster.html"
+                            style="font-size: 23px;color:#d04437"
+                            title="Average Method Complexity - 2 , Coverage - 0% ">Statusfenster</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/jenkins/AbstractJobBeschreibungen.html"
+                            style="font-size: 18px;color:#fae1a0"
+                            title="Average Method Complexity - 1,2 , Coverage - 67,7% ">AbstractJobBeschreibungen</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/gui/JobStatusZeileUnten.html"
+                            style="font-size: 23px;color:#d04437"
+                            title="Average Method Complexity - 2 , Coverage - 0% ">JobStatusZeileUnten</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JobAbfrageFutureWrapper.html"
+                            style="font-size: 17px;color:#fae1a0"
+                            title="Average Method Complexity - 1 , Coverage - 71,4% ">JobAbfrageFutureWrapper</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/jenkins/JobStatus.html"
+                            style="font-size: 17px;color:#fae1a0"
+                            title="Average Method Complexity - 1 , Coverage - 71,4% ">JobStatus</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/gui/JobStatusDarstellungen.html"
+                            style="font-size: 22px;color:#d04437"
+                            title="Average Method Complexity - 1,8 , Coverage - 0% ">JobStatusDarstellungen</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/gui/JobStatusBeschreibungen.html"
+                            style="font-size: 17px;color:#f6c342"
+                            title="Average Method Complexity - 1 , Coverage - 66,7% ">JobStatusBeschreibungen</a>
+                                    
+                                                                <a class="tag" href="com/github/funthomas424242/jenkinsmonitor/gui/ContextMenu.html"
+                            style="font-size: 21px;color:#d04437"
+                            title="Average Method Complexity - 1,6 , Coverage - 0% ">ContextMenu</a>
+                                                    <p><a href="top-risks.html">See more</a></p>
+            </div>
+        </div>
+
+        <div class="dashboard-widget">
+            <header class="dashboard-widget-header">
+                <h3>Most complex packages</h3>
+            </header>
+            <div class="dashboard-widget-content">
+                
+                <table class="aui">
+                                            
+                                                <tr>
+                            <td>1. </td>
+                            <td><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.75333333</span>75,3%</div><div style="display: table-cell">
+ <div title="75,3% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:75.3%"></div></div></div></div></td>
+                            <td>
+                                <a href="com/github/funthomas424242/jenkinsmonitor/jenkins/pkg-summary.html">com.github.funthomas424242.jenkinsmonitor.jenkins</a>
+                                <span class="aui-badge" title="Package complexity">111</span>
+                            </td>
+                        </tr>
+                                            
+                                                <tr>
+                            <td>2. </td>
+                            <td><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.1448468</span>14,5%</div><div style="display: table-cell">
+ <div title="14,5% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:14.5%"></div></div></div></div></td>
+                            <td>
+                                <a href="com/github/funthomas424242/jenkinsmonitor/gui/pkg-summary.html">com.github.funthomas424242.jenkinsmonitor.gui</a>
+                                <span class="aui-badge" title="Package complexity">85</span>
+                            </td>
+                        </tr>
+                                            
+                                                <tr>
+                            <td>3. </td>
+                            <td><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.81395346</span>81,4%</div><div style="display: table-cell">
+ <div title="81,4% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:81.4%"></div></div></div></div></td>
+                            <td>
+                                <a href="com/github/funthomas424242/jenkinsmonitor/config/pkg-summary.html">com.github.funthomas424242.jenkinsmonitor.config</a>
+                                <span class="aui-badge" title="Package complexity">52</span>
+                            </td>
+                        </tr>
+                                            
+                                                <tr>
+                            <td>4. </td>
+                            <td><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.2923077</span>29,2%</div><div style="display: table-cell">
+ <div title="29,2% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:29.2%"></div></div></div></div></td>
+                            <td>
+                                <a href="com/github/funthomas424242/jenkinsmonitor/etc/pkg-summary.html">com.github.funthomas424242.jenkinsmonitor.etc</a>
+                                <span class="aui-badge" title="Package complexity">22</span>
+                            </td>
+                        </tr>
+                                            
+                                                <tr>
+                            <td>5. </td>
+                            <td><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                            <td>
+                                <a href="com/github/funthomas424242/jenkinsmonitor/pkg-summary.html">com.github.funthomas424242.jenkinsmonitor</a>
+                                <span class="aui-badge" title="Package complexity">3</span>
+                            </td>
+                        </tr>
+                                    </table>
+            </div>
+        </div>
+
+        <div class="dashboard-widget">
+            <header class="dashboard-widget-header">
+                <h3>Most complex classes</h3>
+            </header>
+            <div class="dashboard-widget-content">
+                <table class="aui">
+                                            
+                                                <tr>
+                            <td>1. </td>
+                            <td><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.7162162</span>71,6%</div><div style="display: table-cell">
+ <div title="71,6% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:71.6%"></div></div></div></div></td>
+                            <td>
+                                <a  href="com/github/funthomas424242/jenkinsmonitor/jenkins/JobAbfrage.html"  title="com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfrage">JobAbfrage</a>
+                                <span class="aui-badge" title="Class complexity">26</span>
+                            </td>
+                        </tr>
+                                            
+                                                <tr>
+                            <td>2. </td>
+                            <td><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.9054054</span>90,5%</div><div style="display: table-cell">
+ <div title="90,5% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:90.5%"></div></div></div></div></td>
+                            <td>
+                                <a  href="com/github/funthomas424242/jenkinsmonitor/config/Configuration.html"  title="com.github.funthomas424242.jenkinsmonitor.config.Configuration">Configuration</a>
+                                <span class="aui-badge" title="Class complexity">19</span>
+                            </td>
+                        </tr>
+                                            
+                                                <tr>
+                            <td>3. </td>
+                            <td><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.91071427</span>91,1%</div><div style="display: table-cell">
+ <div title="91,1% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:91.1%"></div></div></div></div></td>
+                            <td>
+                                <a  href="com/github/funthomas424242/jenkinsmonitor/config/Zugangsdatensammler.html"  title="com.github.funthomas424242.jenkinsmonitor.config.Zugangsdatensammler">Zugangsdatensammler</a>
+                                <span class="aui-badge" title="Class complexity">16</span>
+                            </td>
+                        </tr>
+                                            
+                                                <tr>
+                            <td>4. </td>
+                            <td><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.4528302</span>45,3%</div><div style="display: table-cell">
+ <div title="45,3% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:45.3%"></div></div></div></div></td>
+                            <td>
+                                <a  href="com/github/funthomas424242/jenkinsmonitor/gui/ImageGenerator.html"  title="com.github.funthomas424242.jenkinsmonitor.gui.ImageGenerator">ImageGenerator</a>
+                                <span class="aui-badge" title="Class complexity">14</span>
+                            </td>
+                        </tr>
+                                            
+                                                <tr>
+                            <td>5. </td>
+                            <td><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.82857144</span>82,9%</div><div style="display: table-cell">
+ <div title="82,9% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:82.9%"></div></div></div></div></td>
+                            <td>
+                                <a  href="com/github/funthomas424242/jenkinsmonitor/jenkins/JobAbfragedaten.html"  title="com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten">JobAbfragedaten</a>
+                                <span class="aui-badge" title="Class complexity">13</span>
+                            </td>
+                        </tr>
+                                    </table>
+            </div>
+        </div>
+
+                <div class="dashboard-widget">
+            <header class="dashboard-widget-header">
+                <h3>Least tested methods</h3>
+            </header>
+            <div class="dashboard-widget-content">
+                <table class="aui">
+                                            
+
+                    <tr>
+                        <td align="right">1.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="ContextMenu.createContextMenu()&#160;:&#160;PopupMenu" href="com/github/funthomas424242/jenkinsmonitor/gui/ContextMenu.html?line=78#src-78">ContextMenu.createContextMenu()&#160;:&#160;PopupMenu</a>
+                            <span class="aui-badge" title="Method complexity">4</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">2.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="JobStatusDarstellungen.aktualisiereTrayIconDarstellung()&#160;:&#160;void" href="com/github/funthomas424242/jenkinsmonitor/gui/JobStatusDarstellungen.html?line=64#src-64">JobStatusDarstellungen.aktualisiereTrayIconDarstellung()&#160;:&#160;void</a>
+                            <span class="aui-badge" title="Method complexity">4</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">3.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="Statusfenster.main(String[])&#160;:&#160;void" href="com/github/funthomas424242/jenkinsmonitor/gui/Statusfenster.html?line=123#src-123">Statusfenster.main(String[])&#160;:&#160;void</a>
+                            <span class="aui-badge" title="Method complexity">3</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">4.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="Statusfenster.createContent()&#160;:&#160;Container" href="com/github/funthomas424242/jenkinsmonitor/gui/Statusfenster.html?line=76#src-76">Statusfenster.createContent()&#160;:&#160;Container</a>
+                            <span class="aui-badge" title="Method complexity">1</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">5.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="JobStatusZeileOben.toHTMLString()&#160;:&#160;String" href="com/github/funthomas424242/jenkinsmonitor/gui/JobStatusZeileOben.html?line=43#src-43">JobStatusZeileOben.toHTMLString()&#160;:&#160;String</a>
+                            <span class="aui-badge" title="Method complexity">4</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">6.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="SharedListSelectionHandler.valueChanged(ListSelectionEvent)&#160;:&#160;void" href="com/github/funthomas424242/jenkinsmonitor/gui/Statusfenster.html?line=164#src-164">SharedListSelectionHandler.valueChanged(ListSelectionEvent)&#160;:&#160;void</a>
+                            <span class="aui-badge" title="Method complexity">4</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">7.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="JenkinsMonitorTray.timeBasedUpdate()&#160;:&#160;void" href="com/github/funthomas424242/jenkinsmonitor/gui/JenkinsMonitorTray.html?line=94#src-94">JenkinsMonitorTray.timeBasedUpdate()&#160;:&#160;void</a>
+                            <span class="aui-badge" title="Method complexity">2</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">8.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="Versionsinfofenster.Versionsinfofenster()" href="com/github/funthomas424242/jenkinsmonitor/gui/Versionsinfofenster.html?line=35#src-35">Versionsinfofenster.Versionsinfofenster()</a>
+                            <span class="aui-badge" title="Method complexity">1</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">9.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="ImageGenerator.getGoldSteinImageIcon()&#160;:&#160;ImageIcon" href="com/github/funthomas424242/jenkinsmonitor/gui/ImageGenerator.html?line=91#src-91">ImageGenerator.getGoldSteinImageIcon()&#160;:&#160;ImageIcon</a>
+                            <span class="aui-badge" title="Method complexity">3</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">10.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="ImageGenerator.getMinervaLogo()&#160;:&#160;ImageIcon" href="com/github/funthomas424242/jenkinsmonitor/gui/ImageGenerator.html?line=104#src-104">ImageGenerator.getMinervaLogo()&#160;:&#160;ImageIcon</a>
+                            <span class="aui-badge" title="Method complexity">3</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">11.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="JobStatusZeileUnten.toHTMLString()&#160;:&#160;String" href="com/github/funthomas424242/jenkinsmonitor/gui/JobStatusZeileUnten.html?line=49#src-49">JobStatusZeileUnten.toHTMLString()&#160;:&#160;String</a>
+                            <span class="aui-badge" title="Method complexity">3</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">12.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="ImageGenerator.convertIconToImage(Icon)&#160;:&#160;Image" href="com/github/funthomas424242/jenkinsmonitor/gui/ImageGenerator.html?line=117#src-117">ImageGenerator.convertIconToImage(Icon)&#160;:&#160;Image</a>
+                            <span class="aui-badge" title="Method complexity">2</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">13.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="RealTimer.resetPeriod(long,TimeUnit)&#160;:&#160;void" href="com/github/funthomas424242/jenkinsmonitor/etc/RealTimer.html?line=105#src-105">RealTimer.resetPeriod(long,TimeUnit)&#160;:&#160;void</a>
+                            <span class="aui-badge" title="Method complexity">1</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">14.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="JenkinsMonitorTray.JenkinsMonitorTray(Timer,JenkinsClient,Configuration)" href="com/github/funthomas424242/jenkinsmonitor/gui/JenkinsMonitorTray.html?line=54#src-54">JenkinsMonitorTray.JenkinsMonitorTray(Timer,JenkinsClient,Configuration)</a>
+                            <span class="aui-badge" title="Method complexity">1</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">15.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="JenkinsMonitorTray.updateJobStatus()&#160;:&#160;void" href="com/github/funthomas424242/jenkinsmonitor/gui/JenkinsMonitorTray.html?line=68#src-68">JenkinsMonitorTray.updateJobStatus()&#160;:&#160;void</a>
+                            <span class="aui-badge" title="Method complexity">1</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">16.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="Statusfenster.Statusfenster(JobStatusBeschreibungen)" href="com/github/funthomas424242/jenkinsmonitor/gui/Statusfenster.html?line=52#src-52">Statusfenster.Statusfenster(JobStatusBeschreibungen)</a>
+                            <span class="aui-badge" title="Method complexity">1</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">17.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="Statusfenster.aktualisiereContentPane()&#160;:&#160;void" href="com/github/funthomas424242/jenkinsmonitor/gui/Statusfenster.html?line=115#src-115">Statusfenster.aktualisiereContentPane()&#160;:&#160;void</a>
+                            <span class="aui-badge" title="Method complexity">3</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">18.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="Versionsinfofenster.createGoldsteinPanel()&#160;:&#160;JPanel" href="com/github/funthomas424242/jenkinsmonitor/gui/Versionsinfofenster.html?line=50#src-50">Versionsinfofenster.createGoldsteinPanel()&#160;:&#160;JPanel</a>
+                            <span class="aui-badge" title="Method complexity">1</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">19.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="RealTimer.RealTimer(long,TimeUnit)" href="com/github/funthomas424242/jenkinsmonitor/etc/RealTimer.html?line=50#src-50">RealTimer.RealTimer(long,TimeUnit)</a>
+                            <span class="aui-badge" title="Method complexity">1</span>
+
+                        </td>
+                    </tr>
+                                            
+
+                    <tr>
+                        <td align="right">20.</td>
+                        <td align="right"><div style="display: table; width: 100%">
+<div class="barGraphValue"><span class="sortValue">0.0</span>0%</div><div style="display: table-cell">
+ <div title="0% Covered"  style="min-width:40px;" class="barNegative contribBarNegative "><div class="barPositive contribBarPositive " style="width:0%"></div></div></div></div></td>
+                        <td>
+                              <!-- normal method -->
+                                                      <a title="JobStatusDarstellungen.mouseClicked(MouseEvent)&#160;:&#160;void" href="com/github/funthomas424242/jenkinsmonitor/gui/JobStatusDarstellungen.html?line=76#src-76">JobStatusDarstellungen.mouseClicked(MouseEvent)&#160;:&#160;void</a>
+                            <span class="aui-badge" title="Method complexity">2</span>
+
+                        </td>
+                    </tr>
+                                    </table>
+            </div>
+        </div>
+        
+    </div>
+</div>
+                            </div> <!-- tabs-pane active-pane -->
+                        </div>
+
+    <script type="text/javascript" src="jit.js" ></script>
+    <script type="text/javascript" src="treemap-dash-json.js" ></script>
+
+                        </div> <!-- class="aui-page-panel-content-clover" -->
+                    <footer id="footer" role="contentinfo">
+    <section class="footer-body">
+        <ul>
+            <li>
+                Report generated by <a target="_new" href="http://openclover.org">OpenClover</a> v 4.4.1
+                on Sa. Jan. 21 2023 14:42:05 UTC using coverage data from Sa. Jan. 21 2023 14:41:56 UTC.
+            </li>
+        </ul>
+        <ul>
+            <li>OpenClover is free and open-source software. </li>
+        </ul>
+    </section>
+</footer>                </section> <!-- class="aui-page-panel-content" -->
+            </div> <!-- class="aui-page-panel-inner" -->
+        </div> <!-- class="aui-page-panel" -->
+    </div> <!-- id="page" -->
+</body>
+</html>

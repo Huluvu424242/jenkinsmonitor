@@ -1,0 +1,10 @@
+var clover = new Object();
+
+// JSON: {classes : [{name, id, sl, el,  methods : [{sl, el}, ...]}, ...]}
+clover.pageData = {"classes":[{"el":42,"id":167,"methods":[{"el":41,"sc":5,"sl":34}],"name":"NetworkHelper","sl":30}]}
+
+// JSON: {test_ID : {"methods": [ID1, ID2, ID3...], "name" : "testXXX() void"}, ...};
+clover.testTargets = {"test_1":{"methods":[{"sl":34}],"name":"useDefaultPollPeriod","pass":true,"statements":[{"sl":35},{"sl":36}]},"test_17":{"methods":[{"sl":34}],"name":"checkLadeStatusWithException","pass":true,"statements":[{"sl":35},{"sl":36}]},"test_18":{"methods":[{"sl":34}],"name":"reloadCurrentConfiguration","pass":true,"statements":[{"sl":35},{"sl":36}]},"test_26":{"methods":[{"sl":34}],"name":"reloadOtherConfiguration","pass":true,"statements":[{"sl":35},{"sl":36}]},"test_3":{"methods":[{"sl":34}],"name":"initOneJobGreenIcon100x100","pass":true,"statements":[{"sl":35},{"sl":36}]},"test_31":{"methods":[{"sl":34}],"name":"checkLadeTwoJobStatusSUCCESSandUNSTABLE","pass":true,"statements":[{"sl":35},{"sl":36}]},"test_33":{"methods":[{"sl":34}],"name":"checkLadeOneJobStatusFailure","pass":true,"statements":[{"sl":35},{"sl":36}]},"test_39":{"methods":[{"sl":34}],"name":"useUserNameFromConfigfile","pass":true,"statements":[{"sl":35},{"sl":36}]},"test_4":{"methods":[{"sl":34}],"name":"initOneJobYellowIcon100x100","pass":true,"statements":[{"sl":35},{"sl":36}]},"test_8":{"methods":[{"sl":34}],"name":"initOneJobRedIcon100x100","pass":true,"statements":[{"sl":35},{"sl":36}]},"test_9":{"methods":[{"sl":34}],"name":"initTwoJobsOneGreenOneRedIcon50x100","pass":true,"statements":[{"sl":35},{"sl":36}]}}
+
+// JSON: { lines : [{tests : [testid1, testid2, testid3, ...]}, ...]};
+clover.srcFileLines = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [9, 39, 31, 3, 33, 4, 17, 1, 18, 26, 8], [9, 39, 31, 3, 33, 4, 17, 1, 18, 26, 8], [9, 39, 31, 3, 33, 4, 17, 1, 18, 26, 8], [], [], [], [], [], []]
