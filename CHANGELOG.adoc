@@ -20,7 +20,7 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 *
 
 
-== [0.1.3] published at  2023-xx-xx (maintainance release for infrastructure)
+== [0.1.3] published at  2023-0-21 (maintainance release for infrastructure)
 
 === On Hold
 
