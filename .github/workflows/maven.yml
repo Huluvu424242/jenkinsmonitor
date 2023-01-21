@@ -19,9 +19,7 @@ jobs:
           java-package: jdk
           cache: 'maven'
       - name: Build with Maven
-        run: |
-          chmod +x etc/devscripts/*.sh
-          ./mvnw.sh -PpruefeVersionen -Pheadless clean install
+        run: ./mvnw.sh -PpruefeVersionen -Pheadless -PaddStandardArtifacts clean install
 
     strategy:
           matrix:
