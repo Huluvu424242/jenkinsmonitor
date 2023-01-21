@@ -23,12 +23,12 @@ ____
 
 [#summary]
 Ein Monitor zum Überwachen der Buildstatus ausgewählter Jenkins Jobs.
-Details finden Sie in der link:https://funthomas424242.github.io/jenkinsmonitor/index.html[Projektdokumentation,role=external,window=_blank].
-Als Teil dieser finden Sie auch die link:ArchitekturEntscheidungen.adoc[ArchitekturEntscheidungen]
+Details finden Sie in der link:https://huluvu424242.github.io/jenkinsmonitor/index.html[Projektdokumentation,role=external,window=_blank].
+Als Teil dieser finden Sie auch die link:https://huluvu424242.github.io/jenkinsmonitor/entwickler.html#architekturentscheidungen[ArchitekturEntscheidungen,role=external,window=_blank]
 zur Umsetzung der fachlichen Anforderungen.
 
 Da die einzige Aufgabe des Programmes in der Überwachung liegt, hielt ich eine Analogie zu Orwells Roman
-link:https://de.wikipedia.org/wiki/1984_(Roman)#Emmanuel_Goldstein["1984"] für gegeben und habe
+link:https://de.wikipedia.org/wiki/1984_(Roman)#Emmanuel_Goldstein["1984",role=external,window=_blank] für gegeben und habe
 versucht Goldstein im Logo zu verewigen :)
 
 
@@ -59,7 +59,7 @@ benutzt habe irgend einen Mangel hatten sie alle:
 
 Dem gegenüber habe ich aber auch gute Features gesehen, allerdings kosteten diese manchmal Geld ;)
 Naja, ich denke in ein paar Iterationen werde ich diese Features mit diesem Projekt auch bieten können und zwar ganz
-nach dem Vorbild von link:https://de.wikipedia.org/wiki/Richard_Stallman[Richard Stallmann] - frei und
+nach dem Vorbild von link:https://de.wikipedia.org/wiki/Richard_Stallman[Richard Stallmann,role=external,window=_blank] - frei und
 nicht nur kostenlos. Mein Beitrag und meine Hommage an 20 Jahre Open Source.
 
 Features die ich mir vom Projekt wünsche und eben auch umsetzen möchte:
@@ -145,7 +145,7 @@ noch keine Authentifizierung untestützt wird.)
 [#projektverantwortlicher]
 == Projektverantwortlicher
 
-https://github.com/Huluvu424242[@Huluvu424242]
+https://github.com/Huluvu424242[@Huluvu424242,role=external,window=_blank]
 
 [#unterstützung]
 == Unterstützung
@@ -153,7 +153,7 @@ https://github.com/Huluvu424242[@Huluvu424242]
 Unterstützung ist jederzeit erwünscht. Ein gelungener Einstieg sollte sich über Duchlesen, Prüfen/Testen, Korrigieren/Weiterentwickeln und Änderungen als Pull-Request einstellen, ergeben.
 Du kannst aber auch jederzeit gern ein Ticket öffnen unter: https://github.com/Huluvu424242/jenkinsmonitor/issues/new/choose[Ticket Erstellen].
 
-Dieses Projekt folgt den unter https://funthomas424242.github.io/jenkinsmonitor/code-of-conduct.txt[Verhaltenskodex] abgelegten Verhaltensregeln. Welche auch unter https://www.contributor-covenant.org/de/version/1/4/code-of-conduct/[Verhaltenskodex für Unterstützer] veröffentlicht wurden.
+Dieses Projekt folgt den unter https://funthomas424242.github.io/jenkinsmonitor/code-of-conduct.txt[Verhaltenskodex,role=external,window=_blank] abgelegten Verhaltensregeln. Welche auch unter https://www.contributor-covenant.org/de/version/1/4/code-of-conduct/[Verhaltenskodex für Unterstützer] veröffentlicht wurden.
 
 === Unterstützer
 
@@ -170,6 +170,6 @@ This project exists thanks to all the people who contribute.
 [#lizenz]
 == Lizenz
 
-link:LICENSE[LGPL-3.0] © link:https://github.com/PIUGroup[PIUG]
+link:LICENSE[LGPL-3.0,role=external,window=_blank] © link:https://github.com/PIUGroup[PIUG,role=external,window=_blank]
 
 
