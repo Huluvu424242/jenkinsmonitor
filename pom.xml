@@ -579,15 +579,6 @@
                 <junit-excluded-groups>headfull</junit-excluded-groups>
             </properties>
         </profile>
-
-        <profile>
-            <id>site</id>
-            <build>
-                <defaultGoal>clean site clover:setup verify clover:aggregate clover:clover clover:reset install
-                </defaultGoal>
-            </build>
-        </profile>
-
         <profile>
             <id>pruefeVersionen</id>
             <build>
