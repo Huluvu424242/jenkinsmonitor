@@ -470,7 +470,7 @@
                 <artifactId>maven-install-plugin</artifactId>
                 <configuration>
                     <classifier>jdk${java.vm.specification.version}</classifier>
-                    <pomFile>target/${classified-pom-file}</pomFile>
+                    <generatePom>false</generatePom>
                 </configuration>
             </plugin>
             <plugin>
