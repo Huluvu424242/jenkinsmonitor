@@ -5,6 +5,7 @@ on:
     branches:
       - 'release/**'
       - '!release/**-snapshot'
+      - 'feature/minifixes'
   workflow_dispatch: {}
 
 jobs:
