@@ -3,7 +3,7 @@
 //:toc:
 :icons: font
 :lang: de
-:encoding: iso-8859-1
+:encoding: UTF-8
 
 Dieses Projekt stellt einen Jenkinsmonitor zur Überwachung der laufenden Jenkins Jobs bereit.
 

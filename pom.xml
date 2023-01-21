@@ -415,15 +415,18 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.9.1</version>
+                <version>3.12.1</version>
                 <configuration>
+
                     <outputDirectory>${basedir}/docs</outputDirectory>
                     <locales>de</locales>
+                    <inputEncoding>UTF-8</inputEncoding>
+                    <outputEncoding>UTF-8</outputEncoding>
                     <relativizeDecorationLinks>false</relativizeDecorationLinks>
                     <requires>
                         <require>asciidoctor-diagram</require>
                     </requires>
-                    <backend>html5</backend>
+<!--                    <backend>html5</backend>-->
                     <asciidoc>
                         <attributes>
                             <icons>font</icons>
@@ -439,6 +442,18 @@
                         <groupId>org.asciidoctor</groupId>
                         <artifactId>asciidoctor-maven-plugin</artifactId>
                         <version>2.2.2</version>
+                    </dependency>
+                    <!-- Comment this section to use the default jruby artifact provided by the plugin -->
+                    <dependency>
+                        <groupId>org.jruby</groupId>
+                        <artifactId>jruby</artifactId>
+                        <version>9.4.0.0</version>
+                    </dependency>
+                    <!-- Comment this section to use the default AsciidoctorJ artifact provided by the plugin -->
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj</artifactId>
+                        <version>2.5.7</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -564,15 +579,6 @@
                 <junit-excluded-groups>headfull</junit-excluded-groups>
             </properties>
         </profile>
-
-        <profile>
-            <id>site</id>
-            <build>
-                <defaultGoal>clean site clover:setup verify clover:aggregate clover:clover clover:reset install
-                </defaultGoal>
-            </build>
-        </profile>
-
         <profile>
             <id>pruefeVersionen</id>
             <build>
