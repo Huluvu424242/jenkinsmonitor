@@ -153,7 +153,7 @@ https://github.com/Huluvu424242[@Huluvu424242,role=external,window=_blank]
 Unterstützung ist jederzeit erwünscht. Ein gelungener Einstieg sollte sich über Duchlesen, Prüfen/Testen, Korrigieren/Weiterentwickeln und Änderungen als Pull-Request einstellen, ergeben.
 Du kannst aber auch jederzeit gern ein Ticket öffnen unter: https://github.com/Huluvu424242/jenkinsmonitor/issues/new/choose[Ticket Erstellen].
 
-Dieses Projekt folgt den unter https://funthomas424242.github.io/jenkinsmonitor/code-of-conduct.txt[Verhaltenskodex,role=external,window=_blank] abgelegten Verhaltensregeln. Welche auch unter https://www.contributor-covenant.org/de/version/1/4/code-of-conduct/[Verhaltenskodex für Unterstützer] veröffentlicht wurden.
+Dieses Projekt folgt den unter https://huluvu424242.github.io/jenkinsmonitor/code-of-conduct.txt[Verhaltenskodex,role=external,window=_blank] abgelegten Verhaltensregeln. Welche auch unter https://www.contributor-covenant.org/de/version/1/4/code-of-conduct/[Verhaltenskodex für Unterstützer] veröffentlicht wurden.
 
 === Unterstützer
 
