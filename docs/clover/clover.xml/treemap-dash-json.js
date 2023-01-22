@@ -1,10 +1,10 @@
-var treeMapJson = {"id":"Clover database Sa. Jan. 21 2023 23:12:23 UTC0","name":"","data":{
-    "$area":904.0,"$color":48.34071,"title":
-    " 904 Elements, 48,3% Coverage"},"children":[{"id":
+var treeMapJson = {"id":"Clover database So. Jan. 22 2023 16:47:28 UTC0","name":"","data":{
+    "$area":905.0,"$color":48.397793,"title":
+    " 905 Elements, 48,4% Coverage"},"children":[{"id":
       "com.github.funthomas424242.jenkinsmonitor.jenkins549","name":
       "com.github.funthomas424242.jenkinsmonitor.jenkins","data":{"$area":
-        300.0,"$color":75.333336,"title":
-        "com.github.funthomas424242.jenkinsmonitor.jenkins 300 Elements, 75,3% Coverage"},
+        301.0,"$color":75.41528,"title":
+        "com.github.funthomas424242.jenkinsmonitor.jenkins 301 Elements, 75,4% Coverage"},
       "children":[]},{"id":
       "com.github.funthomas424242.jenkinsmonitor.gui210","name":
       "com.github.funthomas424242.jenkinsmonitor.gui","data":{"$area":
