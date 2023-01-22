@@ -93,7 +93,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
 
     protected void timeBasedUpdate() {
         LOGGER.debug("Lade Konfiguration");
-        this.configuration.reload();
+        this.configuration.reload().resetLoggerConfiguration();
         if (this.timer.getPeriod() != this.configuration.getPollPeriodInSecond()) {
             LOGGER.debug("Setze Timer Period auf {} Sekunden.", this.configuration.getPollPeriodInSecond());
             this.timer.resetPeriod(this.configuration.getPollPeriodInSecond(), TimeUnit.SECONDS);

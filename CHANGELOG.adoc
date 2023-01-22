@@ -19,8 +19,25 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 
 *
 
+== [0.1.4] published at 2023-XX-XX
 
-== [0.1.3] published at  2023-0-21 (maintainance release for infrastructure)
+=== On Hold
+
+* maven-install-plugin and maven-deploy-plugin versions on hold because build problems with new versions
+
+=== Added
+
+* https://github.com/Huluvu424242/jenkinsmonitor/issues/61[issue #61] change logstash configuration by the jenkinsmonitor.properties file (useful for developers in debugging cases)
+
+=== Changed
+
+*
+
+=== Removed
+
+*
+
+== [0.1.3] published at  2023-01-21 (maintainance release for infrastructure)
 
 === On Hold
 

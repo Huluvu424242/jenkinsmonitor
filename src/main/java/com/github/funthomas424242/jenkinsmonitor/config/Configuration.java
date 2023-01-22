@@ -22,6 +22,9 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * #L%
  */
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.util.ContextInitializer;
+import ch.qos.logback.core.joran.spi.JoranException;
 import com.github.funthomas424242.jenkinsmonitor.etc.JavaSystemWrapper;
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.BasicAuthDaten;
@@ -46,7 +49,7 @@ import org.slf4j.LoggerFactory;
 
 public class Configuration {
 
-    protected static final Logger LOG = LoggerFactory.getLogger(Configuration.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
 
     public static final String JENKINSMONITOR_CONFIGURATIONFILENAME = "jenkinsmonitor.properties";
     public static final String PROPERTY_USER_HOME = "user.home";
@@ -93,13 +96,13 @@ public class Configuration {
 
     protected void loadPropertiesFromFile(final File configFile) {
         if (this.isInitialisiert) return;
-        LOG.debug(MessageFormat.format("load properties from file {0}", configFile));
+        LOGGER.debug(MessageFormat.format("load properties from file {0}", configFile));
         final Properties properties = new Properties();
         try (FileInputStream propStream = new FileInputStream(configFile)) {
             properties.load(propStream);
             this.isInitialisiert = true;
         } catch (IOException e) {
-            LOG.error(e.getLocalizedMessage(), e);
+            LOGGER.error(e.getLocalizedMessage(), e);
         }
         this.configurationProperties = properties;
     }
@@ -138,8 +141,9 @@ public class Configuration {
     }
 
 
-    public void reload() {
+    public Configuration reload() {
         reloadFromFile(this.configurationFile);
+        return this;
     }
 
     public void reloadFromFile(final File configFile) {
@@ -152,6 +156,49 @@ public class Configuration {
         loadPropertiesFromFile(configurationFile);
         final String propValue = this.configurationProperties.getProperty(JENKINSMONITOR_POLLPERIOD, DEFAULT_POLLPERIOD);
         return Long.parseLong(propValue);
+    }
+
+    public void reloadDefaultConfiguration() throws JoranException {
+        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+        ContextInitializer ci = new ContextInitializer(loggerContext);
+        loggerContext.reset();
+        ci.autoConfig();
+    }
+    public Configuration resetLoggerConfiguration(){
+        reload();
+        final String[] LOG_LEVEL = {"debug","info","error","log"};
+        final String[] LOG_APPENDER = {"CONSOLE","FILE"};
+
+        // applog.level
+        final String applogLevel=configurationProperties.getProperty("applog.level");
+        if(Arrays.stream(LOG_LEVEL).anyMatch(entry -> entry.equals(applogLevel) )){
+            System.setProperty("applog.level", applogLevel);
+        }
+
+        // applog.appender
+        final String applogAppender=configurationProperties.getProperty("applog.appender");
+        if(Arrays.stream(LOG_APPENDER).anyMatch(entry -> entry.equals(applogAppender) )){
+            System.setProperty("applog.appender", applogAppender);
+        }
+
+        // rootlog.level
+        final String rootlogLevel=configurationProperties.getProperty("rootlog.level");
+        if(Arrays.stream(LOG_LEVEL).anyMatch(entry -> entry.equals(rootlogLevel) )){
+            System.setProperty("rootlog.level", rootlogLevel);
+        }
+
+        // applog.appender
+        final String rootlogAppender=configurationProperties.getProperty("rootlog.appender");
+        if(Arrays.stream(LOG_APPENDER).anyMatch(entry -> entry.equals(rootlogAppender) )){
+            System.setProperty("rootlog.appender", rootlogAppender);
+        }
+        try {
+            // Logger Konfiguratin neu laden mit gesetzten Systemproperties
+            reloadDefaultConfiguration();
+        } catch (JoranException e) {
+            throw new RuntimeException(e);
+        }
+        return this;
     }
 
     public JobBeschreibungen getJobBeschreibungen() {
@@ -171,7 +218,7 @@ public class Configuration {
                         final String id = matcher.group(1);
                         return new JobBeschreibung(id, jobAbfragedaten);
                     } else {
-                        LOG.debug("Config Key not matched: " + key);
+                        LOGGER.debug("Config Key not matched: " + key);
                         return new JobBeschreibung(jobAbfragedaten);
                     }
                 }).collect(Collectors.toMap(JobBeschreibung::getPrimaryKey, Function.identity()));
