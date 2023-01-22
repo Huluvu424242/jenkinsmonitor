@@ -118,9 +118,11 @@ jenkinsmonitor.pollperiod=6
 
 # id = [a-zA-Z0-9]+ (Zahlen und Buchstaben)
 # joburl-id=http://localhost:8090/job/multibranchjob/job/master
-joburl-#1=http://jenkinshost:8099/job/multibranchjob1/job/master
-joburl-#2=http://jenkinshost:8099/job/multibranchjob2/job/master
-joburl-#3=http://jenkinshost:8099/job/singlejob
+joburl-#1=https://jenkinshost:8099/job/multibranchjob1/job/master
+joburl-#2=https://ci.jenkins.io/job/jenkinsfile-runner/job/jenkinsfile-runner/job/main-branch-renaming
+joburl-#3=https://jenkinshost:8099/job/singlejob
+joburl-#4=https://ci.jenkins.io/job/jenkinsfile-runner/job/jenkinsfile-runner/job/main
+
 ----
 
 [#nutzung]
