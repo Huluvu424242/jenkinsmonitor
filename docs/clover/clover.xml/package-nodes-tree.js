@@ -21,7 +21,7 @@ var Packages = {
     "text": "config",
     "package": "com.github.funthomas424242.jenkinsmonitor.config",
     "url": "com/github/funthomas424242/jenkinsmonitor/config/pkg-summary.html",
-            "coverage": "85,7%",
+            "coverage": "76,9%",
         "icon": "aui-icon aui-icon-small aui-iconfont-devtools-folder-closed",
             "li_attr": {"data-is-link": "true"},
         "a_attr": {"href": "com/github/funthomas424242/jenkinsmonitor/config/pkg-summary.html"},
