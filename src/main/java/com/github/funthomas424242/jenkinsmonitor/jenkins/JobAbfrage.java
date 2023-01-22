@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
 
 public class JobAbfrage implements Callable<JobStatusBeschreibung> {
 
-    protected static final Logger LOG = LoggerFactory.getLogger(JobAbfrage.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(JobAbfrage.class);
 
     public static final String JSONKEY_FULL_DISPLAY_NAME = "fullDisplayName";
     public static final String JSONKEY_RESULT = "result";
@@ -113,6 +113,7 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
             }
             final HttpResponse httpResponse;
             httpResponse = getHttpResponse(httpClient, target, httpGetRequest);
+            LOGGER.debug("Abfrage: {}{}",target,httpGetRequest);
             statusCode = httpResponse.getStatusLine().getStatusCode();
             if (statusCode == 404) {
                 throw new JobNotFoundException(new HttpResponseException(statusCode, httpResponse.getStatusLine().getReasonPhrase()));
@@ -121,7 +122,7 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
             }
             return getJsonObjectFromResponse(httpResponse);
         } catch (JSONException | IOException ex) {
-            LOG.warn(String.format("Could not retrieve data from jenkins: %s", ex));
+            LOGGER.warn(String.format("Could not retrieve data from jenkins: %s", ex));
         }
         return null;
     }
@@ -144,10 +145,10 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
             final InputStream inputStream = entity.getContent();
             requestResult = readStreamIntoString(inputStream);
         } catch (IOException e) {
-            LOG.warn(String.format("Jenkins Response could not be read: %s", e));
+            LOGGER.warn(String.format("Jenkins Response could not be read: %s", e));
             return null;
         }
-        LOG.debug("Empfangen als JSON:\n {}", requestResult);
+        LOGGER.debug("Empfangen als JSON:\n {}", requestResult);
         return new JSONObject(requestResult);
     }
 
