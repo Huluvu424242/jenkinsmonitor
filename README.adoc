@@ -112,6 +112,11 @@ jenkinsauth.host-#2=http://jennkinshost:8099
 jenkinsauth.username-#2=admin
 jenkinsauth.password-#2=noch streng geheimer
 
+# logstash configuration of debugging
+# applog.level=debug
+# applog.appender=FILE
+# rootlog.level=error
+# rootlog.appender=CONSOLE
 
 # valid valid >4 (value in seconds)
 jenkinsmonitor.pollperiod=6

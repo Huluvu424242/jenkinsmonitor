@@ -29,11 +29,13 @@ import org.slf4j.LoggerFactory;
 
 public class JenkinsMonitor {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(JenkinsMonitor.class);
+    // Die LOGGER Konstante darf hier nicht her, da die Konfiguration neu geladen wird
+    // So erfolgt schon der erste Log mit neuer Konfiguration.
 
     protected JenkinsMonitorTray monitorTray;
 
     public JenkinsMonitor(Configuration configuration) {
+        final Logger LOGGER = LoggerFactory.getLogger(JenkinsMonitor.class);
         this.monitorTray = new JenkinsMonitorTray(configuration);
         LOGGER.info("Jenkinsmonitor gestartet");
     }
@@ -44,6 +46,7 @@ public class JenkinsMonitor {
 
     public static void main(final String[] commandlineArgs) {
         final Configuration defaultConfiguration = new Configuration(Configuration.getDefaultConfigurationsfile());
+        defaultConfiguration.resetLoggerConfiguration();
         new JenkinsMonitor(defaultConfiguration);
     }
 }
