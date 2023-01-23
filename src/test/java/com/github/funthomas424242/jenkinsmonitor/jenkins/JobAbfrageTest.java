@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class JobAbfrageTest {
+class JobAbfrageTest {
 
     protected static URL JOB_URL_MULTIBRANCH_JOB1_RED;
     protected static URL JOB_URL_MULTIBRANCH_JOB1_GREEN;
@@ -82,7 +82,7 @@ public class JobAbfrageTest {
 
     @Test
     @DisplayName("Fehlgeschlagener Multibranch Job erzeugt roten Status")
-    protected void getStatusRed() {
+    void getStatusRed() {
 
         final JobStatusBeschreibung jobStatusBeschreibung = assertDoesNotThrow(() -> {
             final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_RED);
@@ -97,7 +97,7 @@ public class JobAbfrageTest {
 
     @Test
     @DisplayName("Erfolgreicher Multibranch Job erzeugt grünen Status")
-    protected void getStatusGreen() {
+    void getStatusGreen() {
         final JobStatusBeschreibung jobStatusBeschreibung = assertDoesNotThrow(() -> {
             final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GREEN);
             final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
@@ -111,7 +111,7 @@ public class JobAbfrageTest {
 
     @Test
     @DisplayName("Instabiler Multibranch Job erzeugt gelben Status")
-    protected void getStatusYellow() {
+    void getStatusYellow() {
         final JobStatusBeschreibung jobStatusBeschreibung = assertDoesNotThrow(() -> {
             final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_YELLOW);
             final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
@@ -125,7 +125,7 @@ public class JobAbfrageTest {
 
     @Test
     @DisplayName("Unbekanter  Multibranch Job Status erzeugt grauen Status")
-    protected void getStatusGray() {
+    void getStatusGray() {
         final JobStatusBeschreibung jobStatusBeschreibung = assertDoesNotThrow(() -> {
             final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW);
             final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
@@ -140,7 +140,7 @@ public class JobAbfrageTest {
 
     @Test
     @DisplayName("Die Statusabfrage eines roten Build Jobs gibt ein valides JSON zurück")
-    protected void getValidJsonRed() {
+    void getValidJsonRed() {
         final JSONObject json = assertDoesNotThrow(() -> {
             final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_RED);
             final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#");
@@ -153,7 +153,7 @@ public class JobAbfrageTest {
 
     @Test
     @DisplayName("Die Statusabfrage eines grünen Build Jobs gibt ein valides JSON zurück")
-    protected void getValidJsonGreen() {
+    void getValidJsonGreen() {
         final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GREEN, null);
         final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
         final JSONObject json = assertDoesNotThrow(() -> requester.sendGetRequest());
@@ -164,7 +164,7 @@ public class JobAbfrageTest {
 
     @Test
     @DisplayName("Die Statusabfrage eines gelben Build Jobs gibt ein valides JSON zurück")
-    protected void getValidJsonYellow() {
+    void getValidJsonYellow() {
         final JSONObject json = assertDoesNotThrow(() -> {
             final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_YELLOW, null);
             final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
@@ -177,7 +177,7 @@ public class JobAbfrageTest {
 
     @Test
     @DisplayName("Die Statusabfrage eines unbekannten Build Jobs gibt KEIN valides JSON zurück")
-    protected void getValidJsonGray() {
+    void getValidJsonGray() {
         final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW, null);
         final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
         JobNotFoundException exception = assertThrows(JobNotFoundException.class, () -> {

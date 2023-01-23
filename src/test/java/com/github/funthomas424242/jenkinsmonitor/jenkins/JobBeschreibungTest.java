@@ -45,7 +45,7 @@ class JobBeschreibungTest {
 
     @Test
     @DisplayName("Prüfe equals und hashCode")
-    protected void checkEqualsAndHashCode() {
+    void checkEqualsAndHashCode() {
         assertDoesNotThrow(() -> {
             EqualsVerifier.forClass(JobBeschreibung.class)
                     .withNonnullFields("jobAbfragedaten")
@@ -56,7 +56,7 @@ class JobBeschreibungTest {
 
     @Test
     @DisplayName("Es wird eine gültige Instanz erstellt")
-    protected void valideInitialisierung() {
+    void valideInitialisierung() {
         final JobBeschreibung jobBeschreibung
                 = new JobBeschreibung(new JobAbfragedaten(LOCALHOST_JOB_TEST_URL));
         assertNotNull(jobBeschreibung);
@@ -65,7 +65,7 @@ class JobBeschreibungTest {
 
     @Test
     @DisplayName("Statusfarbe eines erfolgreichen Jobs ist grün")
-    protected void erfolgreicheJobsSindGruen() {
+    void erfolgreicheJobsSindGruen() {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
                 , new JobAbfragedaten(LOCALHOST_JOB_TEST_URL));
         assertNotNull(jobBeschreibung);
@@ -73,7 +73,7 @@ class JobBeschreibungTest {
 
     @Test
     @DisplayName("Statusfarbe eines instabilen Jobs ist gelb")
-    protected void instabileJobsSindGelb() {
+    void instabileJobsSindGelb() {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
                 , new JobAbfragedaten(LOCALHOST_JOB_TEST_URL));
         assertNotNull(jobBeschreibung);
@@ -81,7 +81,7 @@ class JobBeschreibungTest {
 
     @Test
     @DisplayName("Statusfarbe eines fehlerhaften Jobs ist rot")
-    protected void fehlerhafteJobsSindRot() {
+    void fehlerhafteJobsSindRot() {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(NAME_JOB1
                 , new JobAbfragedaten(LOCALHOST_JOB_TEST_URL));
         assertNotNull(jobBeschreibung);

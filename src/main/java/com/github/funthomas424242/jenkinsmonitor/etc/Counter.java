@@ -23,5 +23,6 @@ package com.github.funthomas424242.jenkinsmonitor.etc;
  */
 
 public class Counter {
+     // Do not make it static, because wie need instances for lambda expressions
     public int value = 0;
 }

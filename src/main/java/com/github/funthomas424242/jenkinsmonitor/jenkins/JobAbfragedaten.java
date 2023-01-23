@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 public class JobAbfragedaten {
 
-    transient protected final Logger LOGGER = LoggerFactory.getLogger(JobAbfragedaten.class);
+    protected final transient Logger LOGGER = LoggerFactory.getLogger(JobAbfragedaten.class);
 
     protected final URL jenkinsJobUrl;
     protected final BasicAuthDaten authDaten;

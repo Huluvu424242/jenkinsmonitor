@@ -107,6 +107,7 @@ public class Configuration implements States {
     }
 
     protected Jenkinszugangskonfiguration[] getAllJenkinszugangskonfigurationen() {
+        //TODO
         loadPropertiesFromFile(configurationFile);
         final Zugangsdatensammler zugangsdatensammler = new Zugangsdatensammler();
         configurationProperties
