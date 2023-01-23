@@ -22,29 +22,24 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * #L%
  */
 
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.util.ContextInitializer;
 import ch.qos.logback.core.joran.spi.JoranException;
 import com.github.funthomas424242.jenkinsmonitor.etc.JavaSystemWrapper;
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.BasicAuthDaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibungen;
+import com.github.funthomas424242.jenkinsmonitor.logstash.LogStashConfigManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import com.github.funthomas424242.jenkinsmonitor.logstash.LogStashConfigManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -117,27 +112,19 @@ public class Configuration implements States {
         configurationProperties
                 .stringPropertyNames()
                 .stream()
-                .filter((key) -> key.startsWith(KEY_JENKINSAUTH))
-                .forEach(key -> {
-                    zugangsdatensammler.addZugangsdatum(key, configurationProperties.getProperty(key));
-                });
+                .filter(key -> key.startsWith(KEY_JENKINSAUTH))
+                .forEach(key -> zugangsdatensammler.addZugangsdatum(key, configurationProperties.getProperty(key)));
         return zugangsdatensammler.getJenkinsZugangsdaten();
     }
 
     protected JobAbfragedaten getAbfragedatenOf(final URL jobUrl) {
         loadPropertiesFromFile(configurationFile);
         final Jenkinszugangskonfiguration[] alleJenkinsZugaenge = getAllJenkinszugangskonfigurationen();
-        final Optional<BasicAuthDaten> jenkinsZugangsdaten = Arrays.stream(alleJenkinsZugaenge)
-                .filter((zugang) -> {
-                    return jobUrl.toExternalForm().startsWith(zugang.getJenkinsUrl().toExternalForm());
-                })
-                .map((zugang) -> zugang.getAuthDaten())
-                .findFirst();
-        if (jenkinsZugangsdaten.isPresent()) {
-            return new JobAbfragedaten(jobUrl, jenkinsZugangsdaten.get());
-        } else {
-            return new JobAbfragedaten(jobUrl, null);
-        }
+        return Arrays.stream(alleJenkinsZugaenge)
+                .filter(zugang -> jobUrl.toExternalForm().startsWith(zugang.getJenkinsUrl().toExternalForm()))
+                .map(Jenkinszugangskonfiguration::getAuthDaten)
+                .findFirst()
+                .map(basicAuthDaten -> new JobAbfragedaten(jobUrl, basicAuthDaten)).orElseGet(() -> new JobAbfragedaten(jobUrl, null));
     }
 
 
@@ -153,7 +140,7 @@ public class Configuration implements States {
 
     protected Loaded loadPropertiesFromFile(final File configFile) {
         if (this.isInitialisiert) return this;
-        LOGGER.debug(MessageFormat.format("load properties from file {0}", configFile));
+        LOGGER.debug("load properties from file {}", configFile);
         final Properties properties = new Properties();
         try (FileInputStream propStream = new FileInputStream(configFile)) {
             properties.load(propStream);
@@ -174,6 +161,7 @@ public class Configuration implements States {
         final String propValue = this.configurationProperties.getProperty(JENKINSMONITOR_POLLPERIOD, DEFAULT_POLLPERIOD);
         return Long.parseLong(propValue);
     }
+
     public Loaded resetLoggerConfiguration() {
         final String[] LOG_LEVEL = {"debug", "info", "error", "log"};
         final String[] LOG_APPENDER = {"CONSOLE", "FILE"};
@@ -198,7 +186,7 @@ public class Configuration implements States {
 
         // applog.appender
         final String rootlogAppender = configurationProperties.getProperty("rootlog.appender");
-        if (Arrays.stream(LOG_APPENDER).anyMatch(entry -> entry.equals(rootlogAppender))) {
+        if (Arrays.asList(LOG_APPENDER).contains(rootlogAppender)) {
             System.setProperty("rootlog.appender", rootlogAppender);
         }
         try {
