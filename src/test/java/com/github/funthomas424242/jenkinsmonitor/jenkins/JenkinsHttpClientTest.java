@@ -26,15 +26,15 @@ import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
 import com.github.funthomas424242.jenkinsmonitor.gui.JobStatusBeschreibungen;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class JenkinsHttpClientTest {
+class JenkinsHttpClientTest {
 
     protected WireMockServer wireMockServer;
 
@@ -60,23 +60,21 @@ public class JenkinsHttpClientTest {
 
     @Test
     @DisplayName("ladeStatus beim Auftreten einer IO Exception wird diese geloggt")
-    protected void checkLadeStatusWithException() {
+    void checkLadeStatusWithException() {
         // TODO Logging Mock erstellen und auswerten
 
         final JobBeschreibungen jobBeschreibungen = new JobBeschreibungen();
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://localhost:8099/job/multibranchjobred/job/master")));
         jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(), jobBeschreibung);
 
-        assertDoesNotThrow(() -> {
-            jenkinsHttpClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
-        });
+        Assertions.assertDoesNotThrow(() -> jenkinsHttpClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen));
         assertEquals(1, jobStatusBeschreibungen.size());
     }
 
 
     @Test
     @DisplayName("prüfe ladeJobStatus für einen Job mit rotem Build")
-    protected void checkLadeOneJobStatusFailure() {
+    void checkLadeOneJobStatusFailure() {
         final JobBeschreibungen jobBeschreibungen = new JobBeschreibungen();
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://localhost:8099/job/multibranchjobred/job/master")));
         jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(), jobBeschreibung);
@@ -93,7 +91,7 @@ public class JenkinsHttpClientTest {
 
     @Test
     @DisplayName("prüfe ladeJobStatutus für zwei Jobs einer rot und einer gelb")
-    protected void checkLadeTwoJobStatusSUCCESSandUNSTABLE() {
+    void checkLadeTwoJobStatusSUCCESSandUNSTABLE() {
 
         final JobBeschreibungen jobBeschreibungen = new JobBeschreibungen();
         final JobBeschreibung jobBeschreibung1 = new JobBeschreibung("#2", new JobAbfragedaten(NetworkHelper.urlOf("http://localhost:8099/job/multibranchjobred/job/master")));
