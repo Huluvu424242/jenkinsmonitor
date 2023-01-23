@@ -115,7 +115,7 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei leerer Configuration wird ein graues Icon angezeigt mit Tooltipp <<No jobs watching>>")
     public void shouldShowNoJobsWatching() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(jenkinsClient, new ConfigurationMockEmpty());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(jenkinsClient,  ConfigurationMockEmpty.getOrCreateInstance().reload());
         jenkinsMonitorTray.updateJobStatus();
         final TrayIcon trayIcon = getTrayIcon(jenkinsMonitorTray);
         assertEquals("Keine Jobs überwachend", trayIcon.getToolTip());
@@ -125,7 +125,7 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei einem erfolreichen Job soll das TrayIcon grün sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master success>>")
     public void shouldShowOneSuccessJobWatching() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMock(JobStatus.SUCCESS), new ConfigurationMockOneJobSuccess());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMock(JobStatus.SUCCESS), ConfigurationMockOneJobSuccess.getOrCreateInstance().reload());
 
         jenkinsMonitorTray.updateJobStatus();
 
@@ -136,7 +136,7 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei einem instabilen Job soll das TrayIcon gelb sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master unstable>>")
     public void shouldShowOneInstabilJobWatching() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMock(JobStatus.UNSTABLE), new ConfigurationMockOneJobUnstable());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMock(JobStatus.UNSTABLE),  ConfigurationMockOneJobUnstable.getOrCreateInstance().reload());
 
         jenkinsMonitorTray.updateJobStatus();
 
@@ -147,7 +147,7 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei einem fehlschlagenden Job soll das TrayIcon rot sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master failed>>")
     public void shouldShowOneFailedJobWatching() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMock(JobStatus.FAILURE), new ConfigurationMockOneJobFailed());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMock(JobStatus.FAILURE), ConfigurationMockOneJobFailed.getOrCreateInstance().reload());
 
         jenkinsMonitorTray.updateJobStatus();
 
@@ -158,7 +158,7 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei 2 Jobs - einer grün, einer rot erscheinen die Status im Tooltipp.")
     protected void showStatusAsToolstippsIfJobPresent() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE), new ConfigurationMockValidTwoJobs());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE), ConfigurationMockValidTwoJobs.getOrCreateInstance().reload());
 
         jenkinsMonitorTray.updateJobStatus();
 
@@ -171,7 +171,7 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei 3 Jobs - einer grün, einer rot, einer gelb  erscheinen die Status im Tooltipp.")
     protected void showStatusAsToolstippsIfJobsPresent() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE), new ConfigurationMockValidTreeJobs());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE), ConfigurationMockValidTreeJobs.getOrCreateInstance().reload());
 
         jenkinsMonitorTray.updateJobStatus();
 
@@ -188,7 +188,7 @@ public class JenkinsMonitorTrayTest {
 //    @Disabled("wackelt")
     public void updateJobsAfterTimePeriod() {
 
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE, JobStatus.SUCCESS, JobStatus.SUCCESS, JobStatus.SUCCESS), new ConfigurationMockValidTreeJobs());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE, JobStatus.SUCCESS, JobStatus.SUCCESS, JobStatus.SUCCESS), ConfigurationMockValidTreeJobs.getOrCreateInstance().reload());
 
         jenkinsMonitorTray.updateJobStatus();
 

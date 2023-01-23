@@ -23,6 +23,8 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar;
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded;
 import com.github.funthomas424242.jenkinsmonitor.etc.RealTimer;
 import com.github.funthomas424242.jenkinsmonitor.etc.Timer;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
@@ -36,22 +38,22 @@ public class JenkinsMonitorTray implements Timer.Listener {
     public static final Logger LOGGER = LoggerFactory.getLogger(JenkinsMonitorTray.class);
 
 
-    protected final Configuration configuration;
+    protected final Loaded configuration;
     protected final JobStatusBeschreibungen jobStatusBeschreibungen;
     protected final JobStatusDarstellungen jobStatusDarstellungen;
     protected final JenkinsClient jenkinsClient;
     protected final Timer timer;
 
 
-    public JenkinsMonitorTray(final Configuration configuration) {
+    public JenkinsMonitorTray(final Loaded configuration) {
         this(new JenkinsClient(), configuration);
     }
 
-    public JenkinsMonitorTray(final JenkinsClient jenkinsClient, final Configuration configuration) {
+    public JenkinsMonitorTray(final JenkinsClient jenkinsClient, final Loaded configuration) {
         this(new RealTimer(configuration.getPollPeriodInSecond(), TimeUnit.SECONDS), jenkinsClient, configuration);
     }
 
-    protected JenkinsMonitorTray(final Timer timer, final JenkinsClient jenkinsClient, final Configuration configuration) {
+    protected JenkinsMonitorTray(final Timer timer, final JenkinsClient jenkinsClient, final Loaded configuration) {
         this.configuration = configuration;
         this.jobStatusBeschreibungen = new JobStatusBeschreibungen();
         this.jobStatusDarstellungen = new JobStatusDarstellungen(this.jobStatusBeschreibungen, timer);

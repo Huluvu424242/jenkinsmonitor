@@ -4,7 +4,7 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * #%L
  * Jenkins Monitor
  * %%
- * Copyright (C) 2019 PIUG
+ * Copyright (C) 2019 - 2023 PIUG
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -22,25 +22,40 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Created;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibungen;
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
-public class ConfigurationMockValidTwoJobs {
-    public static final String PATH_VALID_CONFIGURATION_FILE = "src/test/resources/valid_configuration.properties";
+public interface ConfigurationFluentGrammar {
 
-
-    private ConfigurationMockValidTwoJobs() {
+    static interface States extends Created, Loaded {
     }
 
-    public static Created getOrCreateInstance() {
-        return Configuration.getOrCreateInstance(ConfigurationMockValidTwoJobs.getConfigFile());
+    static interface Created {
+
+        boolean isInitialisiert();
+
+        Loaded reload();
+
+        Loaded reloadFromFile(final File configFile);
+
+        // not public
+        //Loaded loadPropertiesFromFile(final File configFile);
+
+        File getConfigurationfile();
+
+
     }
 
-    protected static File getConfigFile() {
-        final Path validConfigfilePath = Paths.get(".", PATH_VALID_CONFIGURATION_FILE);
-        return validConfigfilePath.toAbsolutePath().toFile();
+    static interface Loaded extends Created {
+
+        Loaded resetLoggerConfiguration();
+
+        long getPollPeriodInSecond();
+
+        JobBeschreibungen getJobBeschreibungen();
     }
+
 
 }
+
+

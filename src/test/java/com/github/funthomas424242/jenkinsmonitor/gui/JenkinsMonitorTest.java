@@ -24,6 +24,9 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
 
 import com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor;
 import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar;
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Created;
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockEmpty;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockNoExisting;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockOneJobFailed;
@@ -90,7 +93,7 @@ public class JenkinsMonitorTest {
     @DisplayName("JenkinsMonitor besitzt eine Tray Instanz nach seiner Erzeugung")
     protected void checkTrayInstanz() {
 
-        final JenkinsMonitor monitor = new JenkinsMonitor(new ConfigurationMockNoExisting());
+        final JenkinsMonitor monitor = new JenkinsMonitor( ConfigurationMockNoExisting.getOrCreateInstance().reload());
         assumeTrue(monitor != null);
         assertNotNull(monitor.getMonitorTray());
     }
@@ -98,7 +101,7 @@ public class JenkinsMonitorTest {
     @Test
     @DisplayName("Initiale Konfiguration enthält keine JobBeschribungen")
     protected void initialConfigWithEmptyJobs() {
-        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(new ConfigurationMockNoExisting());
+        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor( ConfigurationMockNoExisting.getOrCreateInstance().reload());
         assumeTrue(jenkinsMonitor.getMonitorTray() != null);
         assumeTrue(jenkinsMonitor.getMonitorTray().configuration != null);
         assertEquals(0, jenkinsMonitor.getMonitorTray().configuration.getJobBeschreibungen().size());
@@ -107,7 +110,7 @@ public class JenkinsMonitorTest {
     @Test
     @DisplayName("Tray Konfiguration ist identisch zur der dem JenkinsMonitor übergebenen")
     protected void equalsConfigWithTrayAndMonitor() {
-        final Configuration config = new ConfigurationMockValidTwoJobs();
+        final Loaded config =  ConfigurationMockValidTwoJobs.getOrCreateInstance().reload();
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
         assertSame(config, jenkinsMonitor.getMonitorTray().configuration);
     }
@@ -115,7 +118,7 @@ public class JenkinsMonitorTest {
     @Test
     @DisplayName("Nach Erzeugung besitzt der JenkinsMonitor ein Tray Icon")
     protected void afterInitTrayIconExists() {
-        final Configuration config = new ConfigurationMockValidTwoJobs();
+        final Loaded config =  ConfigurationMockValidTwoJobs.getOrCreateInstance().reload();
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
         assertNotNull(jenkinsMonitor.getMonitorTray().jobStatusDarstellungen.trayWrapper.getTrayIcon());
     }
@@ -123,7 +126,7 @@ public class JenkinsMonitorTest {
     @Test
     @DisplayName("Eine leere Konfiguration erzeugt ein graues TrayIcon")
     protected void trayIconHasGrayImage() {
-        final Configuration config = new ConfigurationMockEmpty();
+        final Loaded config =  ConfigurationMockEmpty.getOrCreateInstance().reload();
         final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
         final TrayIcon icon = jenkinsMonitor.getMonitorTray().jobStatusDarstellungen.trayWrapper.getTrayIcon();
         final BufferedImage image = (BufferedImage) icon.getImage();
@@ -134,8 +137,8 @@ public class JenkinsMonitorTest {
     @Test
     @DisplayName("Eine Konfiguration mit einem erfolgreichen Job erzeugt ein grünes TrayIcon")
     protected void trayIconHasGreenImage() {
-        final Configuration config = new ConfigurationMockOneJobSuccess();
-        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
+        final Created config = ConfigurationMockOneJobSuccess.getOrCreateInstance();
+        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config.reload());
         final TrayIcon icon = jenkinsMonitor.getMonitorTray().jobStatusDarstellungen.trayWrapper.getTrayIcon();
         assertNotNull(icon);
         final BufferedImage image = (BufferedImage) icon.getImage();
@@ -146,8 +149,8 @@ public class JenkinsMonitorTest {
     @Test
     @DisplayName("Eine Konfiguration mit einem erfolgreichen Job erzeugt ein rotes TrayIcon")
     protected void trayIconHasRedImage() {
-        final Configuration config = new ConfigurationMockOneJobFailed();
-        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config);
+        final Created config =  ConfigurationMockOneJobFailed.getOrCreateInstance();
+        final JenkinsMonitor jenkinsMonitor = new JenkinsMonitor(config.reload());
         final TrayIcon icon = jenkinsMonitor.getMonitorTray().jobStatusDarstellungen.trayWrapper.getTrayIcon();
         assertNotNull(icon);
         final BufferedImage image = (BufferedImage) icon.getImage();

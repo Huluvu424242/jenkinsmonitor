@@ -47,7 +47,11 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Configuration {
+import static com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Created;
+import static com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded;
+import static com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.States;
+
+public class Configuration implements States {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
 
@@ -81,33 +85,28 @@ public class Configuration {
         }
     }
 
-    public Configuration(final File configurationFile) {
+    public static Created getOrCreateInstance(final File configurationFile) {
+        return new Configuration(configurationFile);
+    }
+
+
+    private Configuration(final File configurationFile) {
         this.configurationFile = configurationFile;
         isInitialisiert = false;
     }
 
+
     /**
      * use only in tests with new JavaSystemWrapper(new JavaSystemMock());
+     *
      * @param systemMock JavaSystemMock for testing
      */
     protected static void setJavaSysteMock(final JavaSystemWrapper.JavaSystemMock systemMock) {
         system = new JavaSystemWrapper(systemMock);
     }
 
-    protected void loadPropertiesFromFile(final File configFile) {
-        if (this.isInitialisiert) return;
-        LOGGER.debug(MessageFormat.format("load properties from file {0}", configFile));
-        final Properties properties = new Properties();
-        try (FileInputStream propStream = new FileInputStream(configFile)) {
-            properties.load(propStream);
-            this.isInitialisiert = true;
-        } catch (IOException e) {
-            LOGGER.error(e.getLocalizedMessage(), e);
-        }
-        this.configurationProperties = properties;
-    }
 
-    protected File getConfigurationfile() {
+    public File getConfigurationfile() {
         return this.configurationFile;
     }
 
@@ -141,15 +140,32 @@ public class Configuration {
     }
 
 
-    public Configuration reload() {
-        reloadFromFile(this.configurationFile);
+    public Loaded reload() {
+        return reloadFromFile(this.configurationFile);
+    }
+
+    public Loaded reloadFromFile(final File configFile) {
+        this.isInitialisiert = false;
+        this.configurationFile = configFile;
+        return loadPropertiesFromFile(configFile);
+    }
+
+    protected Loaded loadPropertiesFromFile(final File configFile) {
+        if (this.isInitialisiert) return this;
+        LOGGER.debug(MessageFormat.format("load properties from file {0}", configFile));
+        final Properties properties = new Properties();
+        try (FileInputStream propStream = new FileInputStream(configFile)) {
+            properties.load(propStream);
+            this.isInitialisiert = true;
+        } catch (IOException e) {
+            LOGGER.error(e.getLocalizedMessage(), e);
+        }
+        this.configurationProperties = properties;
         return this;
     }
 
-    public void reloadFromFile(final File configFile) {
-        this.isInitialisiert = false;
-        this.configurationFile = configFile;
-        loadPropertiesFromFile(configFile);
+    public boolean isInitialisiert() {
+        return this.isInitialisiert;
     }
 
     public long getPollPeriodInSecond() {
@@ -158,43 +174,45 @@ public class Configuration {
         return Long.parseLong(propValue);
     }
 
-    public void reloadDefaultConfiguration() throws JoranException {
+    //TODO auslagern
+    private void reloadDefaultLoggerConfiguration() throws JoranException {
         LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
         ContextInitializer ci = new ContextInitializer(loggerContext);
         loggerContext.reset();
         ci.autoConfig();
     }
-    public Configuration resetLoggerConfiguration(){
-        reload();
-        final String[] LOG_LEVEL = {"debug","info","error","log"};
-        final String[] LOG_APPENDER = {"CONSOLE","FILE"};
+
+    public Loaded resetLoggerConfiguration() {
+//        reload();
+        final String[] LOG_LEVEL = {"debug", "info", "error", "log"};
+        final String[] LOG_APPENDER = {"CONSOLE", "FILE"};
 
         // applog.level
-        final String applogLevel=configurationProperties.getProperty("applog.level");
-        if(Arrays.stream(LOG_LEVEL).anyMatch(entry -> entry.equals(applogLevel) )){
+        final String applogLevel = configurationProperties.getProperty("applog.level");
+        if (Arrays.stream(LOG_LEVEL).anyMatch(entry -> entry.equals(applogLevel))) {
             System.setProperty("applog.level", applogLevel);
         }
 
         // applog.appender
-        final String applogAppender=configurationProperties.getProperty("applog.appender");
-        if(Arrays.stream(LOG_APPENDER).anyMatch(entry -> entry.equals(applogAppender) )){
+        final String applogAppender = configurationProperties.getProperty("applog.appender");
+        if (Arrays.stream(LOG_APPENDER).anyMatch(entry -> entry.equals(applogAppender))) {
             System.setProperty("applog.appender", applogAppender);
         }
 
         // rootlog.level
-        final String rootlogLevel=configurationProperties.getProperty("rootlog.level");
-        if(Arrays.stream(LOG_LEVEL).anyMatch(entry -> entry.equals(rootlogLevel) )){
+        final String rootlogLevel = configurationProperties.getProperty("rootlog.level");
+        if (Arrays.stream(LOG_LEVEL).anyMatch(entry -> entry.equals(rootlogLevel))) {
             System.setProperty("rootlog.level", rootlogLevel);
         }
 
         // applog.appender
-        final String rootlogAppender=configurationProperties.getProperty("rootlog.appender");
-        if(Arrays.stream(LOG_APPENDER).anyMatch(entry -> entry.equals(rootlogAppender) )){
+        final String rootlogAppender = configurationProperties.getProperty("rootlog.appender");
+        if (Arrays.stream(LOG_APPENDER).anyMatch(entry -> entry.equals(rootlogAppender))) {
             System.setProperty("rootlog.appender", rootlogAppender);
         }
         try {
             // Logger Konfiguratin neu laden mit gesetzten Systemproperties
-            reloadDefaultConfiguration();
+            reloadDefaultLoggerConfiguration();
         } catch (JoranException e) {
             throw new RuntimeException(e);
         }
@@ -202,7 +220,7 @@ public class Configuration {
     }
 
     public JobBeschreibungen getJobBeschreibungen() {
-        loadPropertiesFromFile(configurationFile);
+//        loadPropertiesFromFile(configurationFile);
         final Map<String, JobBeschreibung> jobBeschreibungMap = configurationProperties
                 .stringPropertyNames()
                 .stream()
@@ -218,7 +236,7 @@ public class Configuration {
                         final String id = matcher.group(1);
                         return new JobBeschreibung(id, jobAbfragedaten);
                     } else {
-                        LOGGER.debug("Config Key not matched: " + key);
+                        LOGGER.debug("Config Key not matched: {}", key);
                         return new JobBeschreibung(jobAbfragedaten);
                     }
                 }).collect(Collectors.toMap(JobBeschreibung::getPrimaryKey, Function.identity()));
