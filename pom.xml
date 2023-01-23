@@ -95,6 +95,11 @@
             <version>4.5.14</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>io.github.cdancy</groupId>
+            <artifactId>jenkins-rest</artifactId>
+            <version>1.0.2</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
             <groupId>org.json</groupId>
