@@ -22,12 +22,10 @@ package com.github.funthomas424242.jenkinsmonitor.gui;
  * #L%
  */
 
-import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
-import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar;
 import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded;
 import com.github.funthomas424242.jenkinsmonitor.etc.RealTimer;
 import com.github.funthomas424242.jenkinsmonitor.etc.Timer;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsHttpClient;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibungen;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
@@ -41,23 +39,23 @@ public class JenkinsMonitorTray implements Timer.Listener {
     protected final Loaded configuration;
     protected final JobStatusBeschreibungen jobStatusBeschreibungen;
     protected final JobStatusDarstellungen jobStatusDarstellungen;
-    protected final JenkinsClient jenkinsClient;
+    protected final JenkinsHttpClient jenkinsHttpClient;
     protected final Timer timer;
 
 
     public JenkinsMonitorTray(final Loaded configuration) {
-        this(new JenkinsClient(), configuration);
+        this(new JenkinsHttpClient(), configuration);
     }
 
-    public JenkinsMonitorTray(final JenkinsClient jenkinsClient, final Loaded configuration) {
-        this(new RealTimer(configuration.getPollPeriodInSecond(), TimeUnit.SECONDS), jenkinsClient, configuration);
+    public JenkinsMonitorTray(final JenkinsHttpClient jenkinsHttpClient, final Loaded configuration) {
+        this(new RealTimer(configuration.getPollPeriodInSecond(), TimeUnit.SECONDS), jenkinsHttpClient, configuration);
     }
 
-    protected JenkinsMonitorTray(final Timer timer, final JenkinsClient jenkinsClient, final Loaded configuration) {
+    protected JenkinsMonitorTray(final Timer timer, final JenkinsHttpClient jenkinsHttpClient, final Loaded configuration) {
         this.configuration = configuration;
         this.jobStatusBeschreibungen = new JobStatusBeschreibungen();
         this.jobStatusDarstellungen = new JobStatusDarstellungen(this.jobStatusBeschreibungen, timer);
-        this.jenkinsClient = jenkinsClient;
+        this.jenkinsHttpClient = jenkinsHttpClient;
         this.timer = timer;
         timer.register(this);
         timer.start(); // implicit call updateJobStatus()
@@ -76,7 +74,7 @@ public class JenkinsMonitorTray implements Timer.Listener {
         jobStatusDarstellungen.aktualisiereTrayIconDarstellung();
 
         // Langlaufender, blockierender Prozess mit Jenkinsabfragen durch Request die ins timeout laufen
-        jenkinsClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
+        jenkinsHttpClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
 
         // aktualisiere den Status der Anzeigen ohne Jenkinsabfragen
         jobStatusDarstellungen.aktualisiereTrayIconDarstellung();
