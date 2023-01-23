@@ -37,7 +37,7 @@ import static io.restassured.RestAssured.when;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @Tag("compatibillity")
-public class JenkinsAPICompatibillityTest {
+class JenkinsAPICompatibillityTest {
 
 
     protected static URL STATUS_URL_MULTIBRANCH_JOB1_RED;
@@ -72,7 +72,7 @@ public class JenkinsAPICompatibillityTest {
 
     @Test
     @DisplayName("Jenkins API Compatibillity: Statusabfrage roter Multibranch Job")
-    public void statusMultibranchJobRot() {
+    void statusMultibranchJobRot() {
         assertDoesNotThrow(() -> {
             when().
                     get(STATUS_URL_MULTIBRANCH_JOB1_RED).
@@ -85,7 +85,7 @@ public class JenkinsAPICompatibillityTest {
 
     @Test
     @DisplayName("Jenkins API Compatibillity: Statusabfrage grüner Multibranch Job")
-    public void statusMultibranchJobGruen() {
+    void statusMultibranchJobGruen() {
         assertDoesNotThrow(() -> {
             when().
                     get(STATUS_URL_MULTIBRANCH_JOB1_GREEN).
@@ -98,7 +98,7 @@ public class JenkinsAPICompatibillityTest {
 
     @Test
     @DisplayName("Jenkins API Compatibillity: Statusabfrage gelber Multibranch Job")
-    public void statusMultibranchJobGelb() {
+    void statusMultibranchJobGelb() {
         assertDoesNotThrow(() -> {
             when().
                     get(STATUS_URL_MULTIBRANCH_JOB1_YELLOW).
@@ -112,7 +112,7 @@ public class JenkinsAPICompatibillityTest {
 
     @Test
     @DisplayName("Jenkins API Compatibillity: Statusabfrage im Build befindlicher Multibranch Job")
-    public void statusMultibranchJobGrauBuildend() {
+    void statusMultibranchJobGrauBuildend() {
         assertDoesNotThrow(() -> {
             when().
                     get(STATUS_URL_MULTIBRANCH_JOB1_GRAY_BUILDING).
@@ -124,7 +124,7 @@ public class JenkinsAPICompatibillityTest {
 
     @Test
     @DisplayName("Jenkins API Compatibillity: Statusabfrage unbekannter Multibranch Job")
-    public void statusMultibranchJobGrauUnbekannt() {
+    void statusMultibranchJobGrauUnbekannt() {
         assertDoesNotThrow(() -> {
             when().
                     get(STATUS_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW).

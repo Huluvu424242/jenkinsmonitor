@@ -47,7 +47,7 @@ import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
 public class Statusfenster extends JDialog {
     public static final Logger LOGGER = LoggerFactory.getLogger(Statusfenster.class);
 
-    protected transient final JobStatusBeschreibungen jobStatusBeschreibungen;
+    protected final transient JobStatusBeschreibungen jobStatusBeschreibungen;
 
     public Statusfenster(final JobStatusBeschreibungen jobStatusBeschreibungen) {
         this.jobStatusBeschreibungen = jobStatusBeschreibungen;

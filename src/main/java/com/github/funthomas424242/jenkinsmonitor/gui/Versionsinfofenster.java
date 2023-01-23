@@ -66,7 +66,7 @@ public class Versionsinfofenster extends JFrame {
         return panel;
     }
 
-    static protected Image getLogoImage() {
+    protected static Image getLogoImage() {
         return ImageGenerator.getMinervaLogo().getImage();
 //        return ImageGenerator.convertIconToImage(UIManager.getIcon("FileChooser.detailsViewIcon"));
     }
