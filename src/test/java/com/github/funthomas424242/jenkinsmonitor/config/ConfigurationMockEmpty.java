@@ -22,16 +22,20 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Created;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ConfigurationMockEmpty extends Configuration {
+public class ConfigurationMockEmpty {
     public static final String PATH_EMPTY_CONFIGURATION_FILE = "src/test/resources/empty_configuration.properties";
 
 
-    public ConfigurationMockEmpty() {
-        super(getConfigFile());
+    private ConfigurationMockEmpty() {
+    }
+
+    public static Created getOrCreateInstance() {
+        return Configuration.getOrCreateInstance(getConfigFile());
     }
 
     protected static File getConfigFile() {

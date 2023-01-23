@@ -22,16 +22,20 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Created;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ConfigurationMockOneJobUnstable extends Configuration {
+public class ConfigurationMockOneJobUnstable {
     public static final String PATH_ONEJOB_UNSTABLE_CONFIGURATION_FILE = "src/test/resources/onejob-unstable-configuration.properties";
 
 
-    public ConfigurationMockOneJobUnstable() {
-        super(getConfigFile());
+    private ConfigurationMockOneJobUnstable() {
+    }
+
+    public static Created getOrCreateInstance() {
+        return Configuration.getOrCreateInstance(ConfigurationMockOneJobUnstable.getConfigFile());
     }
 
     protected static File getConfigFile() {

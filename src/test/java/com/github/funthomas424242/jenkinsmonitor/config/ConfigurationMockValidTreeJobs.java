@@ -26,12 +26,16 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ConfigurationMockValidTreeJobs extends Configuration {
+import static com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.*;
+
+public class ConfigurationMockValidTreeJobs {
     public static final String PATH_VALID3_CONFIGURATION_FILE = "src/test/resources/valid3_configuration.properties";
 
+    private ConfigurationMockValidTreeJobs() {
+    }
 
-    public ConfigurationMockValidTreeJobs() {
-        super(getConfigFile());
+    public static Created getOrCreateInstance() {
+        return Configuration.getOrCreateInstance(getConfigFile());
     }
 
     protected static File getConfigFile() {

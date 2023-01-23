@@ -29,7 +29,6 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
-import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,6 +37,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Created;
+import static com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -53,9 +54,9 @@ class ConfigurationTest {
 
     protected static Logger LOG = LoggerFactory.getLogger(ConfigurationTest.class);
 
-    protected Configuration notexistingConfigurationfile;
-    protected Configuration emptyConfigurationfile;
-    protected Configuration validConfigurationfile;
+    protected Created notexistingConfigurationfile;
+    protected Created emptyConfigurationfile;
+    protected Created validConfigurationfile;
 
     @BeforeAll
     protected static void setUpAll() {
@@ -72,32 +73,38 @@ class ConfigurationTest {
 
     @BeforeEach
     protected void setUp() {
-        notexistingConfigurationfile = new ConfigurationMockNoExisting();
-        emptyConfigurationfile = new ConfigurationMockEmpty();
-        validConfigurationfile = new ConfigurationMockValidTwoJobs();
+        notexistingConfigurationfile = ConfigurationMockNoExisting.getOrCreateInstance();
+        emptyConfigurationfile = ConfigurationMockEmpty.getOrCreateInstance();
+        validConfigurationfile = ConfigurationMockValidTwoJobs.getOrCreateInstance();
     }
 
     @AfterEach
-    protected void tearDown(){
+    protected void tearDown() {
         Configuration.setJavaSysteMock(null);
     }
 
     @Test
     @DisplayName("Nach Lesen der Pollperiod ist die Configuration initialisiert")
     protected void initAfterGetPollOK() {
-        final Configuration configuration = new ConfigurationMockEmpty();
-        assumeFalse(configuration.isInitialisiert);
-        configuration.getPollPeriodInSecond();
-        assertTrue(configuration.isInitialisiert);
+        final Created config = ConfigurationMockEmpty.getOrCreateInstance();
+        assumeFalse(config.isInitialisiert());
+        final Loaded configuration = config.reload();
+        assumeTrue(config.isInitialisiert());
+        final long pollPeriod = configuration.getPollPeriodInSecond();
+        // TODO
+        assertTrue(configuration.isInitialisiert());
     }
 
     @Test
     @DisplayName("Nach Lesen der JobBeschreibungen ist die Configuration initialisiert")
     protected void initAfterGetJobBeschreibungenOK() {
-        final Configuration configuration = new ConfigurationMockEmpty();
-        assumeFalse(configuration.isInitialisiert);
-        configuration.getJobBeschreibungen();
-        assertTrue(configuration.isInitialisiert);
+        final Created config = ConfigurationMockEmpty.getOrCreateInstance();
+        assumeFalse(config.isInitialisiert());
+        final Loaded configuration = config.reload();
+        assumeTrue(configuration.isInitialisiert());
+        final JobBeschreibungen jobBeschreibungen = configuration.getJobBeschreibungen();
+        // TODO
+        assertTrue(configuration.isInitialisiert());
     }
 
 
@@ -121,7 +128,7 @@ class ConfigurationTest {
         assertDoesNotThrow(() -> {
             Configuration.setJavaSysteMock(mock);
             final File defaultConfigurationsfile = Configuration.getDefaultConfigurationsfile();
-            final Configuration configuration = new Configuration(defaultConfigurationsfile);
+            final Created configuration = Configuration.getOrCreateInstance(defaultConfigurationsfile);
             assumeTrue(configuration != null);
             final File file = configuration.getConfigurationfile();
 
@@ -152,7 +159,7 @@ class ConfigurationTest {
         assertDoesNotThrow(() -> {
             Configuration.setJavaSysteMock(mock);
             final File defaultConfigurationsfile = Configuration.getDefaultConfigurationsfile();
-            final Configuration configuration = new Configuration(defaultConfigurationsfile);
+            final Created configuration = Configuration.getOrCreateInstance(defaultConfigurationsfile);
             assumeTrue(configuration != null);
             final File file = configuration.getConfigurationfile();
 
@@ -166,10 +173,10 @@ class ConfigurationTest {
     @Test
     @DisplayName("Prüfe Default Konfiguration wenn kein Configfile existiert")
     protected void validDefaultsWhenNotExistingConfigfile() {
-        final long pollPeriodInSecond = this.notexistingConfigurationfile.getPollPeriodInSecond();
+        final long pollPeriodInSecond = this.notexistingConfigurationfile.reload().getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
 
-        final JobBeschreibungen jobBeschreibungen = this.notexistingConfigurationfile.getJobBeschreibungen();
+        final JobBeschreibungen jobBeschreibungen = this.notexistingConfigurationfile.reload().getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
         assertEquals(0, jobBeschreibungen.size());
     }
@@ -177,10 +184,10 @@ class ConfigurationTest {
     @Test
     @DisplayName("Prüfe Default Konfiguration wenn das Configfile leer ist")
     protected void validDefaultsWithEmptyConfigfile() {
-        final long pollPeriodInSecond = emptyConfigurationfile.getPollPeriodInSecond();
+        final long pollPeriodInSecond = emptyConfigurationfile.reload().getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
 
-        final JobBeschreibungen jobBeschreibungen = this.emptyConfigurationfile.getJobBeschreibungen();
+        final JobBeschreibungen jobBeschreibungen = this.emptyConfigurationfile.reload().getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
         assertEquals(0, jobBeschreibungen.size());
     }
@@ -188,10 +195,10 @@ class ConfigurationTest {
     @Test
     @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
     protected void useDefaultPollPeriod() {
-        final long pollPeriodInSecond = validConfigurationfile.getPollPeriodInSecond();
+        final long pollPeriodInSecond = validConfigurationfile.reload().getPollPeriodInSecond();
         assertEquals(6, pollPeriodInSecond);
 
-        final JobBeschreibungen jobBeschreibungen = this.validConfigurationfile.getJobBeschreibungen();
+        final JobBeschreibungen jobBeschreibungen = this.validConfigurationfile.reload().getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
         assertEquals(2, jobBeschreibungen.size());
     }
@@ -199,7 +206,7 @@ class ConfigurationTest {
     @Test
     @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
     protected void useUserNameFromConfigfile() {
-        final JobBeschreibungen jobBeschreibungen = validConfigurationfile.getJobBeschreibungen();
+        final JobBeschreibungen jobBeschreibungen = validConfigurationfile.reload().getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
         assertEquals(2, jobBeschreibungen.size());
         assertNotNull(jobBeschreibungen.get("multibranch1#http://localhost:8099/job/multibranchjobred/job/master").getJobAbfragedaten());
@@ -211,14 +218,14 @@ class ConfigurationTest {
     @Test
     @DisplayName("Prüfe auf gleiche Werte bei reload aus Configfile")
     protected void reloadCurrentConfiguration() {
-        final long pollPeriodInSecond1 = validConfigurationfile.getPollPeriodInSecond();
-        final JobBeschreibungen jobBeschreibungen1 = this.validConfigurationfile.getJobBeschreibungen();
+        final long pollPeriodInSecond1 = validConfigurationfile.reload().getPollPeriodInSecond();
+        final JobBeschreibungen jobBeschreibungen1 = this.validConfigurationfile.reload().getJobBeschreibungen();
         assumeTrue(pollPeriodInSecond1 == 6);
         assumeTrue(jobBeschreibungen1 != null);
         assumeTrue(jobBeschreibungen1.size() == 2);
         validConfigurationfile.reload();
-        final long pollPeriodInSecond2 = validConfigurationfile.getPollPeriodInSecond();
-        final JobBeschreibungen jobBeschreibungen2 = this.validConfigurationfile.getJobBeschreibungen();
+        final long pollPeriodInSecond2 = validConfigurationfile.reload().getPollPeriodInSecond();
+        final JobBeschreibungen jobBeschreibungen2 = this.validConfigurationfile.reload().getJobBeschreibungen();
         assumeTrue(pollPeriodInSecond2 == 6);
         assumeTrue(jobBeschreibungen2 != null);
         assumeTrue(jobBeschreibungen2.size() == 2);
@@ -230,14 +237,14 @@ class ConfigurationTest {
     @Test
     @DisplayName("Prüfe auf neue Werte bei reload aus anderem Configfile")
     protected void reloadOtherConfiguration() {
-        final File emptyConfigFile = new ConfigurationMockEmpty().getConfigurationfile();
-        final Configuration tmpConfiguration = new Configuration(emptyConfigFile);
+        final File emptyConfigFile = ConfigurationMockEmpty.getOrCreateInstance().getConfigurationfile();
+        final Loaded tmpConfiguration = Configuration.getOrCreateInstance(emptyConfigFile).reload();
         assumeTrue(tmpConfiguration != null);
         final JobBeschreibungen jobBeschreibungenenLeer = tmpConfiguration.getJobBeschreibungen();
         assumeTrue(jobBeschreibungenenLeer != null);
         assumeTrue(jobBeschreibungenenLeer.size() == 0);
 
-        final File configFile = new ConfigurationMockValidTwoJobs().getConfigurationfile();
+        final File configFile = ConfigurationMockValidTwoJobs.getOrCreateInstance().getConfigurationfile();
         tmpConfiguration.reloadFromFile(configFile);
         final JobBeschreibungen jobBeschreibungenGefuellt = tmpConfiguration.getJobBeschreibungen();
         assertNotNull(jobBeschreibungenGefuellt);

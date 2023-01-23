@@ -22,17 +22,21 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Created;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ConfigurationMockOneJobFailed extends Configuration {
+public class ConfigurationMockOneJobFailed {
 
     public static final String PATH_ONEJOB_FAILED_CONFIGURATION_FILE = "src/test/resources/onejob-failed-configuration.properties";
 
 
-    public ConfigurationMockOneJobFailed() {
-        super(getConfigFile());
+    private ConfigurationMockOneJobFailed() {
+    }
+
+    public static Created getOrCreateInstance() {
+        return Configuration.getOrCreateInstance(ConfigurationMockOneJobFailed.getConfigFile());
     }
 
     protected static File getConfigFile() {
