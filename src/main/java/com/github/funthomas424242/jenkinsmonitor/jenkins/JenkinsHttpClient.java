@@ -31,9 +31,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class JenkinsClient {
+public class JenkinsHttpClient {
 
-    protected static final Logger LOG = LoggerFactory.getLogger(JenkinsClient.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(JenkinsHttpClient.class);
 
     public void ladeJobsStatus(final AbstractJobBeschreibungen<JobStatusBeschreibung> jobStatusBeschreibungen, final JobBeschreibungen jobBeschreibungen) {
         LOG.debug("Frage Jobstatus ab");

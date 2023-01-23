@@ -34,12 +34,12 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class JenkinsClientTest {
+public class JenkinsHttpClientTest {
 
     protected WireMockServer wireMockServer;
 
     protected JobStatusBeschreibungen jobStatusBeschreibungen;
-    protected JenkinsClient jenkinsClient;
+    protected JenkinsHttpClient jenkinsHttpClient;
 
 
     @BeforeEach
@@ -49,7 +49,7 @@ public class JenkinsClientTest {
         JenkinsAPIMock.definiereAnnahmen(wireMockServer);
 
         this.jobStatusBeschreibungen = new JobStatusBeschreibungen();
-        this.jenkinsClient = new JenkinsClient();
+        this.jenkinsHttpClient = new JenkinsHttpClient();
     }
 
     @AfterEach
@@ -68,7 +68,7 @@ public class JenkinsClientTest {
         jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(), jobBeschreibung);
 
         assertDoesNotThrow(() -> {
-            jenkinsClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
+            jenkinsHttpClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
         });
         assertEquals(1, jobStatusBeschreibungen.size());
     }
@@ -81,7 +81,7 @@ public class JenkinsClientTest {
         final JobBeschreibung jobBeschreibung = new JobBeschreibung(null, new JobAbfragedaten(NetworkHelper.urlOf("http://localhost:8099/job/multibranchjobred/job/master")));
         jobBeschreibungen.put(jobBeschreibung.getPrimaryKey(), jobBeschreibung);
 
-        jenkinsClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
+        jenkinsHttpClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
 
         assertEquals(1, jobStatusBeschreibungen.size());
         final JobStatusBeschreibung jobStatusBeschreibung = jobStatusBeschreibungen.get("null#http://localhost:8099/job/multibranchjobred/job/master");
@@ -103,7 +103,7 @@ public class JenkinsClientTest {
 
         final JobStatusBeschreibungen jobStatusBeschreibungen = new JobStatusBeschreibungen();
 
-        jenkinsClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
+        jenkinsHttpClient.ladeJobsStatus(jobStatusBeschreibungen, jobBeschreibungen);
 
         assertEquals(2, jobStatusBeschreibungen.size());
         final JobStatusBeschreibung jobStatusBeschreibung0 = jobStatusBeschreibungen.get("#1#http://localhost:8099/job/multibranchjobgreen/job/master");/**/

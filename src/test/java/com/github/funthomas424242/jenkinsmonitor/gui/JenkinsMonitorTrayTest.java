@@ -31,7 +31,7 @@ import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationMockValidTw
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.AbstractJobBeschreibungen;
-import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsClient;
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsHttpClient;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibungen;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatus;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
@@ -49,12 +49,12 @@ import static com.github.funthomas424242.jenkinsmonitor.gui.TrayImageTestHelper.
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class JenkinsClientMock extends JenkinsClient {
+class JenkinsHttpClientMock extends JenkinsHttpClient {
 
     protected int jobNr = 0;
     protected final JobStatus[] jobStatus;
 
-    public JenkinsClientMock(JobStatus... jobStatus) {
+    public JenkinsHttpClientMock(JobStatus... jobStatus) {
         this.jobStatus = jobStatus;
     }
 
@@ -65,12 +65,12 @@ class JenkinsClientMock extends JenkinsClient {
     }
 }
 
-class JenkinsClientMockAuto extends JenkinsClient {
+class JenkinsHttpClientMockAuto extends JenkinsHttpClient {
 
     protected int jobNr;
     protected final JobStatus[] jobStatus;
 
-    public JenkinsClientMockAuto(JobStatus... jobStatus) {
+    public JenkinsHttpClientMockAuto(JobStatus... jobStatus) {
         this.jobStatus = jobStatus;
         this.jobNr = 0;
     }
@@ -91,7 +91,7 @@ public class JenkinsMonitorTrayTest {
 
     protected static URL LOCALHOST_JOB_TEST_URL;
 
-    protected JenkinsClient jenkinsClient;
+    protected JenkinsHttpClient jenkinsHttpClient;
 
     protected TestDrivenTimer clock;
 
@@ -103,7 +103,7 @@ public class JenkinsMonitorTrayTest {
 
     @BeforeEach
     protected void beforeTest() {
-        jenkinsClient = new JenkinsClient();
+        jenkinsHttpClient = new JenkinsHttpClient();
         this.clock = new TestDrivenTimer();
     }
 
@@ -115,7 +115,7 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei leerer Configuration wird ein graues Icon angezeigt mit Tooltipp <<No jobs watching>>")
     public void shouldShowNoJobsWatching() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(jenkinsClient,  ConfigurationMockEmpty.getOrCreateInstance().reload());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(jenkinsHttpClient,  ConfigurationMockEmpty.getOrCreateInstance().reload());
         jenkinsMonitorTray.updateJobStatus();
         final TrayIcon trayIcon = getTrayIcon(jenkinsMonitorTray);
         assertEquals("Keine Jobs überwachend", trayIcon.getToolTip());
@@ -125,7 +125,7 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei einem erfolreichen Job soll das TrayIcon grün sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master success>>")
     public void shouldShowOneSuccessJobWatching() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMock(JobStatus.SUCCESS), ConfigurationMockOneJobSuccess.getOrCreateInstance().reload());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsHttpClientMock(JobStatus.SUCCESS), ConfigurationMockOneJobSuccess.getOrCreateInstance().reload());
 
         jenkinsMonitorTray.updateJobStatus();
 
@@ -136,7 +136,7 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei einem instabilen Job soll das TrayIcon gelb sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master unstable>>")
     public void shouldShowOneInstabilJobWatching() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMock(JobStatus.UNSTABLE),  ConfigurationMockOneJobUnstable.getOrCreateInstance().reload());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsHttpClientMock(JobStatus.UNSTABLE),  ConfigurationMockOneJobUnstable.getOrCreateInstance().reload());
 
         jenkinsMonitorTray.updateJobStatus();
 
@@ -147,7 +147,7 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei einem fehlschlagenden Job soll das TrayIcon rot sein und der Tooltipp soll einen Eintrag enthalten: <<MultibranchJob/master failed>>")
     public void shouldShowOneFailedJobWatching() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMock(JobStatus.FAILURE), ConfigurationMockOneJobFailed.getOrCreateInstance().reload());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsHttpClientMock(JobStatus.FAILURE), ConfigurationMockOneJobFailed.getOrCreateInstance().reload());
 
         jenkinsMonitorTray.updateJobStatus();
 
@@ -158,7 +158,7 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei 2 Jobs - einer grün, einer rot erscheinen die Status im Tooltipp.")
     protected void showStatusAsToolstippsIfJobPresent() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE), ConfigurationMockValidTwoJobs.getOrCreateInstance().reload());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsHttpClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE), ConfigurationMockValidTwoJobs.getOrCreateInstance().reload());
 
         jenkinsMonitorTray.updateJobStatus();
 
@@ -171,7 +171,7 @@ public class JenkinsMonitorTrayTest {
     @Test
     @DisplayName("Bei 3 Jobs - einer grün, einer rot, einer gelb  erscheinen die Status im Tooltipp.")
     protected void showStatusAsToolstippsIfJobsPresent() {
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE), ConfigurationMockValidTreeJobs.getOrCreateInstance().reload());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsHttpClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE), ConfigurationMockValidTreeJobs.getOrCreateInstance().reload());
 
         jenkinsMonitorTray.updateJobStatus();
 
@@ -188,7 +188,7 @@ public class JenkinsMonitorTrayTest {
 //    @Disabled("wackelt")
     public void updateJobsAfterTimePeriod() {
 
-        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE, JobStatus.SUCCESS, JobStatus.SUCCESS, JobStatus.SUCCESS), ConfigurationMockValidTreeJobs.getOrCreateInstance().reload());
+        final JenkinsMonitorTray jenkinsMonitorTray = new JenkinsMonitorTray(clock, new JenkinsHttpClientMockAuto(JobStatus.SUCCESS, JobStatus.FAILURE, JobStatus.UNSTABLE, JobStatus.SUCCESS, JobStatus.SUCCESS, JobStatus.SUCCESS), ConfigurationMockValidTreeJobs.getOrCreateInstance().reload());
 
         jenkinsMonitorTray.updateJobStatus();
 
