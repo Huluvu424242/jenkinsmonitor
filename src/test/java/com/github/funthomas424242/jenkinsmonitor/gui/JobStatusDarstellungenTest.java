@@ -45,7 +45,7 @@ class JobStatusDarstellungenTest {
     @Test
     @Tag("headfull")
     @DisplayName("Zeige Buildstatusfläche für einen grünen Job an einer bestimmten Position")
-    public void showBuildStatusAreaOneSuccessJob() {
+    void showBuildStatusAreaOneSuccessJob() {
         final JobStatusBeschreibungen jobsStatusBeschreibungen = new JobStatusBeschreibungen();
         final JobStatusBeschreibung jobsStatusBeschreibung0 = new JobStatusBeschreibung("Job1/master"
                 , JobStatus.SUCCESS

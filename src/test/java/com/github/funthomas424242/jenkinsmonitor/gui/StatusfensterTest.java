@@ -36,7 +36,7 @@ class StatusfensterTest {
 
 
     @Test
-    protected void aktualisiereContentPane() throws MalformedURLException {
+    void aktualisiereContentPane() throws MalformedURLException {
         final JobStatusBeschreibungen jobstatusBeschreibungen = new JobStatusBeschreibungen();
         final JobStatusBeschreibung jobstatusBeschreibungen0 = new JobStatusBeschreibung("job0", JobStatus.FAILURE, new URL("http://localhost/job0"), "0");
         jobstatusBeschreibungen.put(jobstatusBeschreibungen0.getPrimaryKey(), jobstatusBeschreibungen0);

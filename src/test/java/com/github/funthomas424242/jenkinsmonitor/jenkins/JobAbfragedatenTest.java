@@ -38,7 +38,7 @@ class JobAbfragedatenTest {
 
     @Test
     @DisplayName("Prüfe das alle Daten als Properties enthalten sind")
-    public void containsAllProperties() {
+    void containsAllProperties() {
         final JobAbfragedaten jobAbfragedaten = assertDoesNotThrow(() -> {
             return new JobAbfragedaten(
                     new URL("http://localhost:8080/"), new BasicAuthDaten(
@@ -55,7 +55,7 @@ class JobAbfragedatenTest {
     @Test
     @Disabled
     @DisplayName("Das BasicAuth Token wird korrekt mit base64 kodiert")
-    public void getBase64CodedToken() {
+    void getBase64CodedToken() {
 
         final JobAbfragedaten jobAbfragedaten = assertDoesNotThrow(() -> {
             return new JobAbfragedaten(
@@ -74,7 +74,7 @@ class JobAbfragedatenTest {
 
     @Test
     @DisplayName("Das BasicAuth Token wird bei gültigem Passwort zurückgegeben")
-    public void getTokenWithValidPassword() {
+    void getTokenWithValidPassword() {
 
         final JobAbfragedaten jobAbfragedaten = assertDoesNotThrow(() -> {
             return new JobAbfragedaten(

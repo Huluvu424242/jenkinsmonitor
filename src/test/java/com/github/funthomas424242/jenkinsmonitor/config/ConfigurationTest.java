@@ -97,7 +97,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Nach Lesen der JobBeschreibungen ist die Configuration initialisiert")
-    protected void initAfterGetJobBeschreibungenOK() {
+    void initAfterGetJobBeschreibungenOK() {
         final Created config = ConfigurationMockEmpty.getOrCreateInstance();
         assumeFalse(config.isInitialisiert());
         final Loaded configuration = config.reload();
@@ -110,7 +110,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Die Default Konfiguration wird aus ~/jenkinsmonitor.properties geladen")
-    protected void useDefaultConfigfile() {
+    void useDefaultConfigfile() {
         final String tmpDir = new File("src/test/resources/").getAbsolutePath().toString();
         System.out.println("TMP DIR: " + tmpDir);
         final JavaSystemWrapper.JavaSystemMock mock = new JavaSystemWrapper.JavaSystemMock() {
@@ -140,7 +140,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Die Default Konfiguration wird aus ${HOMESHARE}/jenkinsmonitor.properties geladen")
-    protected void useSharedDefaultConfigfile() throws NoSuchFieldException {
+    void useSharedDefaultConfigfile() throws NoSuchFieldException {
 
         final String tmpDir = new File("src/test/resources/").getAbsolutePath().toString();
         System.out.println("TMP DIR: " + tmpDir);
@@ -172,7 +172,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Prüfe Default Konfiguration wenn kein Configfile existiert")
-    protected void validDefaultsWhenNotExistingConfigfile() {
+    void validDefaultsWhenNotExistingConfigfile() {
         final long pollPeriodInSecond = this.notexistingConfigurationfile.reload().getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
 
@@ -183,7 +183,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Prüfe Default Konfiguration wenn das Configfile leer ist")
-    protected void validDefaultsWithEmptyConfigfile() {
+    void validDefaultsWithEmptyConfigfile() {
         final long pollPeriodInSecond = emptyConfigurationfile.reload().getPollPeriodInSecond();
         assertEquals(DEFAULT_POLLPERIOD, pollPeriodInSecond);
 
@@ -194,7 +194,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
-    protected void useDefaultPollPeriod() {
+    void useDefaultPollPeriod() {
         final long pollPeriodInSecond = validConfigurationfile.reload().getPollPeriodInSecond();
         assertEquals(6, pollPeriodInSecond);
 
@@ -205,7 +205,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Prüfe auf die im Konfigfile hinterlegten Werte")
-    protected void useUserNameFromConfigfile() {
+    void useUserNameFromConfigfile() {
         final JobBeschreibungen jobBeschreibungen = validConfigurationfile.reload().getJobBeschreibungen();
         assertNotNull(jobBeschreibungen);
         assertEquals(2, jobBeschreibungen.size());
@@ -217,7 +217,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Prüfe auf gleiche Werte bei reload aus Configfile")
-    protected void reloadCurrentConfiguration() {
+    void reloadCurrentConfiguration() {
         final long pollPeriodInSecond1 = validConfigurationfile.reload().getPollPeriodInSecond();
         final JobBeschreibungen jobBeschreibungen1 = this.validConfigurationfile.reload().getJobBeschreibungen();
         assumeTrue(pollPeriodInSecond1 == 6);
@@ -236,7 +236,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Prüfe auf neue Werte bei reload aus anderem Configfile")
-    protected void reloadOtherConfiguration() {
+    void reloadOtherConfiguration() {
         final File emptyConfigFile = ConfigurationMockEmpty.getOrCreateInstance().getConfigurationfile();
         final Loaded tmpConfiguration = Configuration.getOrCreateInstance(emptyConfigFile).reload();
         assumeTrue(tmpConfiguration != null);
