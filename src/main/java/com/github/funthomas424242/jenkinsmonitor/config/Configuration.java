@@ -44,6 +44,7 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import com.github.funthomas424242.jenkinsmonitor.logstash.LogStashConfigManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -173,17 +174,7 @@ public class Configuration implements States {
         final String propValue = this.configurationProperties.getProperty(JENKINSMONITOR_POLLPERIOD, DEFAULT_POLLPERIOD);
         return Long.parseLong(propValue);
     }
-
-    //TODO auslagern
-    private void reloadDefaultLoggerConfiguration() throws JoranException {
-        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
-        ContextInitializer ci = new ContextInitializer(loggerContext);
-        loggerContext.reset();
-        ci.autoConfig();
-    }
-
     public Loaded resetLoggerConfiguration() {
-//        reload();
         final String[] LOG_LEVEL = {"debug", "info", "error", "log"};
         final String[] LOG_APPENDER = {"CONSOLE", "FILE"};
 
@@ -212,7 +203,7 @@ public class Configuration implements States {
         }
         try {
             // Logger Konfiguratin neu laden mit gesetzten Systemproperties
-            reloadDefaultLoggerConfiguration();
+            LogStashConfigManager.reloadDefaultLoggerConfiguration();
         } catch (JoranException e) {
             throw new RuntimeException(e);
         }
@@ -220,12 +211,11 @@ public class Configuration implements States {
     }
 
     public JobBeschreibungen getJobBeschreibungen() {
-//        loadPropertiesFromFile(configurationFile);
         final Map<String, JobBeschreibung> jobBeschreibungMap = configurationProperties
                 .stringPropertyNames()
                 .stream()
                 .sorted()
-                .filter((key) -> key.startsWith(JOBKEY_PREFIX))
+                .filter(key -> key.startsWith(JOBKEY_PREFIX))
                 .map(key -> {
                     final Pattern pattern = Pattern.compile("joburl-(.+)");
                     final Matcher matcher = pattern.matcher(key);
