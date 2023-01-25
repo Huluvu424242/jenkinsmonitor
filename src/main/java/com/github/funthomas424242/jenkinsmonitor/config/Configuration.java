@@ -110,7 +110,6 @@ public class Configuration implements States {
     }
 
     public Jenkinszugangskonfiguration[] getAllJenkinszugangskonfigurationen() {
-//        loadPropertiesFromFile(configurationFile);
         final Zugangsdatensammler zugangsdatensammler = new Zugangsdatensammler();
         configurationProperties
                 .stringPropertyNames()
@@ -121,7 +120,6 @@ public class Configuration implements States {
     }
 
     public JobAbfragedaten getAbfragedatenOf(final URL jobUrl) {
-//        loadPropertiesFromFile(configurationFile);
         final Jenkinszugangskonfiguration[] alleJenkinsZugaenge = getAllJenkinszugangskonfigurationen();
         return Arrays.stream(alleJenkinsZugaenge)
                 .filter(zugang -> jobUrl.toExternalForm().startsWith(zugang.getJenkinsUrl().toExternalForm()))
