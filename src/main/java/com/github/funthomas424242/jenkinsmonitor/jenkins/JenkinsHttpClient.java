@@ -22,11 +22,13 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
+import java.util.concurrent.TimeoutException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,25 +48,31 @@ public class JenkinsHttpClient {
                     final Future<JobStatusBeschreibung> jobAbfrageFuture = executor.submit(jobAbfrage);
                     return new JobAbfrageFutureWrapper(jobAbfrage, jobAbfrageFuture);
                 })
-                // TODO optimieren nach https://www.concretepage.com/java/jdk-8/java-8-stream-collect-example#collect
-                .collect(Collectors.toList())
+                // CHECK REFACTORED  optimieren nach https://www.concretepage.com/java/jdk-8/java-8-stream-collect-example#collect
+                //.collect(Collectors.toList())
+                .collect(ArrayList<JobAbfrageFutureWrapper>::new,ArrayList::add,ArrayList::addAll)
                 .forEach(jobAbfrageFutureWrapper -> {
                     final Future<JobStatusBeschreibung> future = jobAbfrageFutureWrapper.getJobAbfrageFuture();
                     try {
-
                         final JobStatusBeschreibung jobStatus = future.get(3, TimeUnit.SECONDS);
                         jobStatusBeschreibungen.put(jobStatus.getPrimaryKey(), jobStatus);
-                        LOG.debug(String.format("JobStatus geladen: %s : %s  at %s ", jobStatus.getJobName(), jobStatus.getJobStatus().toString(), jobStatus.getJobUrl().toExternalForm()));
-                    } catch (Exception e) {
+                        LOG.debug("JobStatus geladen: {} : {}  at {} ", jobStatus.getJobName(), jobStatus.getJobStatus(), jobStatus.getJobUrl().toExternalForm());
+                    } catch (InterruptedException | TimeoutException | ExecutionException ex) {
+
+                        LOG.warn("Read Future Result goes wrong with exception: \n {}", ex.toString());
+                        addStatusOTHER(jobStatusBeschreibungen, jobAbfrageFutureWrapper);
                         future.cancel(true);
-                        final JobAbfrage jobAbfrage = jobAbfrageFutureWrapper.getJobAbfrage();
-                        final JobStatusBeschreibung jobStatusBeschreibung
-                                = new JobStatusBeschreibung("Connection Timeout" + jobAbfrage.getAbfrageUrl().toExternalForm(), JobStatus.OTHER, jobAbfrage.getAbfrageUrl(), jobAbfrage.getJobOrderId());
-                        jobStatusBeschreibungen.put(jobAbfrage.getPrimaryKey(), jobStatusBeschreibung);
-                        LOG.warn("Read Future Result goes wrong and was canceled");
                     }
                 });
         executor.shutdown();
+    }
+
+    private static void addStatusOTHER(final AbstractJobBeschreibungen<JobStatusBeschreibung> jobStatusBeschreibungen, final JobAbfrageFutureWrapper jobAbfrageFutureWrapper) {
+        final JobAbfrage jobAbfrage = jobAbfrageFutureWrapper.getJobAbfrage();
+        final JobStatusBeschreibung jobStatusBeschreibung
+                = new JobStatusBeschreibung("Connection Timeout" + jobAbfrage.getAbfrageUrl().toExternalForm(), JobStatus.OTHER, jobAbfrage.getAbfrageUrl(), jobAbfrage.getJobOrderId());
+        jobStatusBeschreibungen.put(jobAbfrage.getPrimaryKey(), jobStatusBeschreibung);
+
     }
 }
 

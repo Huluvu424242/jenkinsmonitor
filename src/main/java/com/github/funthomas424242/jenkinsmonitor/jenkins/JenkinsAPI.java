@@ -22,6 +22,8 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
-public interface JenkinsAPI {
-    String STATUS_PATH = "/lastBuild/api/json";
+public class JenkinsAPI {
+
+    private JenkinsAPI(){}
+    public static final String STATUS_PATH = "/lastBuild/api/json";
 }

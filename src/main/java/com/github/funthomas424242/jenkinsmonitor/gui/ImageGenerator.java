@@ -35,7 +35,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class StartXHolder {
-    public int startX = 0;
+    // Dont make static because we need more instances in parallel lambdas
+    public int startX = 0; //NOSONAR java:S1104
 }
 
 public class ImageGenerator {
