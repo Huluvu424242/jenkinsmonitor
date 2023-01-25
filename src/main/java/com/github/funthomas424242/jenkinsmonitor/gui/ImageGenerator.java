@@ -120,10 +120,7 @@ public class ImageGenerator {
         } else {
             int width = icon.getIconWidth();
             int height = icon.getIconHeight();
-            final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-//            Graphics2D g = (Graphics2D) image.getGraphics();
-//            icon.paintIcon(null, g, 0, 0);
-            return image;
+            return new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         }
     }
 
