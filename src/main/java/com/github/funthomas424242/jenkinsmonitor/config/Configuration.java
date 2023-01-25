@@ -46,6 +46,8 @@ import org.slf4j.LoggerFactory;
 import static com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Created;
 import static com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded;
 import static com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.States;
+import static com.github.funthomas424242.jenkinsmonitor.logstash.LogStashConfigManager.LOG_APPENDER;
+import static com.github.funthomas424242.jenkinsmonitor.logstash.LogStashConfigManager.LOG_LEVEL;
 
 public class Configuration implements States {
 
@@ -164,8 +166,7 @@ public class Configuration implements States {
     }
 
     public Loaded resetLoggerConfiguration() {
-        final String[] LOG_LEVEL = {"debug", "info", "error", "log"};
-        final String[] LOG_APPENDER = {"CONSOLE", "FILE"};
+
 
         // applog.level
         final String applogLevel = configurationProperties.getProperty("applog.level");

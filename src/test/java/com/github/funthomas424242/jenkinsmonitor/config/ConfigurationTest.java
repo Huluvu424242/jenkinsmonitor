@@ -85,7 +85,7 @@ class ConfigurationTest {
 
     @Test
     @DisplayName("Nach Lesen der Pollperiod ist die Configuration initialisiert")
-    protected void initAfterGetPollOK() {
+    void initAfterGetPollOK() {
         final Created config = ConfigurationMockEmpty.getOrCreateInstance();
         assumeFalse(config.isInitialisiert());
         final Loaded configuration = config.reload();
