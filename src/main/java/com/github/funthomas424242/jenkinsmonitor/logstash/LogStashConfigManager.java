@@ -29,6 +29,8 @@ import org.slf4j.LoggerFactory;
 
 public class LogStashConfigManager {
 
+    public static final String[] LOG_LEVEL = {"debug", "info", "error", "log"};
+    public static final String[] LOG_APPENDER = {"CONSOLE", "FILE"};
     private LogStashConfigManager() {
     }
 
