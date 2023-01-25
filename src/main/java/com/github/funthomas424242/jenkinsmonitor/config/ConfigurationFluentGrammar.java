@@ -22,8 +22,10 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  * #L%
  */
 
+import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibungen;
 import java.io.File;
+import java.net.URL;
 
 public interface ConfigurationFluentGrammar {
 
@@ -38,9 +40,6 @@ public interface ConfigurationFluentGrammar {
 
         Loaded reloadFromFile(final File configFile);
 
-        // not public
-        //Loaded loadPropertiesFromFile(final File configFile);
-
         File getConfigurationfile();
 
 
@@ -52,7 +51,10 @@ public interface ConfigurationFluentGrammar {
 
         long getPollPeriodInSecond();
 
+        Jenkinszugangskonfiguration[] getAllJenkinszugangskonfigurationen();
+        JobAbfragedaten getAbfragedatenOf(final URL jobUrl);
         JobBeschreibungen getJobBeschreibungen();
+
     }
 
 

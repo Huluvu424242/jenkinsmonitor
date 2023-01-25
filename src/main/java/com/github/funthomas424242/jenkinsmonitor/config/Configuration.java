@@ -23,6 +23,7 @@ package com.github.funthomas424242.jenkinsmonitor.config;
  */
 
 import ch.qos.logback.core.joran.spi.JoranException;
+import com.github.funthomas424242.jenkinsmonitor.JenkinsMonitorRuntimeException;
 import com.github.funthomas424242.jenkinsmonitor.etc.JavaSystemWrapper;
 import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
@@ -108,9 +109,8 @@ public class Configuration implements States {
         return this.configurationFile;
     }
 
-    protected Jenkinszugangskonfiguration[] getAllJenkinszugangskonfigurationen() {
-        //TODO
-        loadPropertiesFromFile(configurationFile);
+    public Jenkinszugangskonfiguration[] getAllJenkinszugangskonfigurationen() {
+//        loadPropertiesFromFile(configurationFile);
         final Zugangsdatensammler zugangsdatensammler = new Zugangsdatensammler();
         configurationProperties
                 .stringPropertyNames()
@@ -120,8 +120,8 @@ public class Configuration implements States {
         return zugangsdatensammler.getJenkinsZugangsdaten();
     }
 
-    protected JobAbfragedaten getAbfragedatenOf(final URL jobUrl) {
-        loadPropertiesFromFile(configurationFile);
+    public JobAbfragedaten getAbfragedatenOf(final URL jobUrl) {
+//        loadPropertiesFromFile(configurationFile);
         final Jenkinszugangskonfiguration[] alleJenkinsZugaenge = getAllJenkinszugangskonfigurationen();
         return Arrays.stream(alleJenkinsZugaenge)
                 .filter(zugang -> jobUrl.toExternalForm().startsWith(zugang.getJenkinsUrl().toExternalForm()))
@@ -195,7 +195,7 @@ public class Configuration implements States {
             // Logger Konfiguratin neu laden mit gesetzten Systemproperties
             LogStashConfigManager.reloadDefaultLoggerConfiguration();
         } catch (JoranException e) {
-            throw new RuntimeException(e);
+            throw new JenkinsMonitorRuntimeException(e);
         }
         return this;
     }
