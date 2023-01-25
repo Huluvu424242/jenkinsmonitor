@@ -21,7 +21,7 @@ var Packages = {
     "text": "config",
     "package": "com.github.funthomas424242.jenkinsmonitor.config",
     "url": "com/github/funthomas424242/jenkinsmonitor/config/pkg-summary.html",
-            "coverage": "76%",
+            "coverage": "77,6%",
         "icon": "aui-icon aui-icon-small aui-iconfont-devtools-folder-closed",
             "li_attr": {"data-is-link": "true"},
         "a_attr": {"href": "com/github/funthomas424242/jenkinsmonitor/config/pkg-summary.html"},
@@ -35,7 +35,7 @@ var Packages = {
     "text": "etc",
     "package": "com.github.funthomas424242.jenkinsmonitor.etc",
     "url": "com/github/funthomas424242/jenkinsmonitor/etc/pkg-summary.html",
-            "coverage": "29,2%",
+            "coverage": "28,8%",
         "icon": "aui-icon aui-icon-small aui-iconfont-devtools-folder-closed",
             "li_attr": {"data-is-link": "true"},
         "a_attr": {"href": "com/github/funthomas424242/jenkinsmonitor/etc/pkg-summary.html"},
@@ -63,10 +63,24 @@ var Packages = {
     "text": "jenkins",
     "package": "com.github.funthomas424242.jenkinsmonitor.jenkins",
     "url": "com/github/funthomas424242/jenkinsmonitor/jenkins/pkg-summary.html",
-            "coverage": "83,9%",
+            "coverage": "83,6%",
         "icon": "aui-icon aui-icon-small aui-iconfont-devtools-folder-closed",
             "li_attr": {"data-is-link": "true"},
         "a_attr": {"href": "com/github/funthomas424242/jenkinsmonitor/jenkins/pkg-summary.html"},
+    "children": [
+                    ]
+},
+                                    
+                
+{
+    "id": "com.github.funthomas424242.jenkinsmonitor.logstash",
+    "text": "logstash",
+    "package": "com.github.funthomas424242.jenkinsmonitor.logstash",
+    "url": "com/github/funthomas424242/jenkinsmonitor/logstash/pkg-summary.html",
+            "coverage": "0%",
+        "icon": "aui-icon aui-icon-small aui-iconfont-devtools-folder-closed",
+            "li_attr": {"data-is-link": "true"},
+        "a_attr": {"href": "com/github/funthomas424242/jenkinsmonitor/logstash/pkg-summary.html"},
     "children": [
                     ]
 },
