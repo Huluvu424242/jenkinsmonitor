@@ -170,19 +170,19 @@ public class Configuration implements States {
 
         // applog.level
         final String applogLevel = configurationProperties.getProperty("applog.level");
-        if (Arrays.stream(LOG_LEVEL).anyMatch(entry -> entry.equals(applogLevel))) {
+        if (Arrays.asList(LOG_LEVEL).contains(applogLevel)) {
             System.setProperty("applog.level", applogLevel);
         }
 
         // applog.appender
         final String applogAppender = configurationProperties.getProperty("applog.appender");
-        if (Arrays.stream(LOG_APPENDER).anyMatch(entry -> entry.equals(applogAppender))) {
+        if (Arrays.asList(LOG_APPENDER).contains(applogAppender)) {
             System.setProperty("applog.appender", applogAppender);
         }
 
         // rootlog.level
         final String rootlogLevel = configurationProperties.getProperty("rootlog.level");
-        if (Arrays.stream(LOG_LEVEL).anyMatch(entry -> entry.equals(rootlogLevel))) {
+        if (Arrays.asList(LOG_LEVEL).contains(rootlogLevel)) {
             System.setProperty("rootlog.level", rootlogLevel);
         }
 
