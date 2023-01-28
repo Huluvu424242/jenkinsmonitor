@@ -1,15 +1,15 @@
-var treeMapJson = {"id":"Clover database Mi. Jan. 25 2023 22:57:56 UTC0","name":"","data":{
-    "$area":953.0,"$color":45.750263,"title":
-    " 953 Elements, 45,8% Coverage"},"children":[{"id":
+var treeMapJson = {"id":"Clover database Sa. Jan. 28 2023 22:18:19 UTC0","name":"","data":{
+    "$area":975.0,"$color":44.82051,"title":
+    " 975 Elements, 44,8% Coverage"},"children":[{"id":
       "com.github.funthomas424242.jenkinsmonitor.jenkins581","name":
       "com.github.funthomas424242.jenkinsmonitor.jenkins","data":{"$area":
-        304.0,"$color":75.0,"title":
-        "com.github.funthomas424242.jenkinsmonitor.jenkins 304 Elements, 75% Coverage"},
+        306.0,"$color":74.8366,"title":
+        "com.github.funthomas424242.jenkinsmonitor.jenkins 306 Elements, 74,8% Coverage"},
       "children":[]},{"id":
-      "com.github.funthomas424242.jenkinsmonitor.gui243","name":
+      "com.github.funthomas424242.jenkinsmonitor.gui231","name":
       "com.github.funthomas424242.jenkinsmonitor.gui","data":{"$area":
-        358.0,"$color":14.525139,"title":
-        "com.github.funthomas424242.jenkinsmonitor.gui 358 Elements, 14,5% Coverage"},
+        370.0,"$color":14.054054,"title":
+        "com.github.funthomas424242.jenkinsmonitor.gui 370 Elements, 14,1% Coverage"},
       "children":[]},{"id":"com.github.funthomas424242.jenkinsmonitor0",
       "name":"com.github.funthomas424242.jenkinsmonitor","data":{"$area":
         20.0,"$color":0.0,"title":
@@ -17,15 +17,15 @@ var treeMapJson = {"id":"Clover database Mi. Jan. 25 2023 22:57:56 UTC0","name":
       "children":[]},{"id":
       "com.github.funthomas424242.jenkinsmonitor.config20","name":
       "com.github.funthomas424242.jenkinsmonitor.config","data":{"$area":
-        199.0,"$color":68.84422,"title":
-        "com.github.funthomas424242.jenkinsmonitor.config 199 Elements, 68,8% Coverage"},
+        187.0,"$color":73.26203,"title":
+        "com.github.funthomas424242.jenkinsmonitor.config 187 Elements, 73,3% Coverage"},
       "children":[]},{"id":
-      "com.github.funthomas424242.jenkinsmonitor.logstash879","name":
+      "com.github.funthomas424242.jenkinsmonitor.logstash881","name":
       "com.github.funthomas424242.jenkinsmonitor.logstash","data":{"$area":
-        6.0,"$color":0.0,"title":
-        "com.github.funthomas424242.jenkinsmonitor.logstash 6 Elements, 0% Coverage"},
+        26.0,"$color":0.0,"title":
+        "com.github.funthomas424242.jenkinsmonitor.logstash 26 Elements, 0% Coverage"},
       "children":[]},{"id":
-      "com.github.funthomas424242.jenkinsmonitor.etc177","name":
+      "com.github.funthomas424242.jenkinsmonitor.etc165","name":
       "com.github.funthomas424242.jenkinsmonitor.etc","data":{"$area":66.0,
         "$color":28.787878,"title":
         "com.github.funthomas424242.jenkinsmonitor.etc 66 Elements, 28,8% Coverage"},
