@@ -46,6 +46,8 @@ public class JenkinsMonitor {
         return this.monitorTray;
     }
 
+
+
     public static void main(final String[] commandlineArgs) {
         final Loaded defaultConfiguration = Configuration.getOrCreateInstance(Configuration.getDefaultConfigurationsfile()).reload();
         defaultConfiguration.resetLoggerConfiguration();
