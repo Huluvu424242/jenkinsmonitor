@@ -29,7 +29,7 @@ public enum JobStatus {
     FAILURE(Color.red, "#FF7F50"),
     UNSTABLE(Color.yellow, "#FFFF00"),
     ABORTED(Color.lightGray, "#C0C0C0"),
-    // lightGray statt gray wegen gray Anomalie!;
+    // lightGray statt gray wegen gray Anomalie!
     OTHER(Color.lightGray, "#C0C0C0");
 
     protected final Color color;

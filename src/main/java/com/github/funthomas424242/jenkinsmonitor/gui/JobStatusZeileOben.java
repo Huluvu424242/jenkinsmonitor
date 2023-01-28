@@ -45,11 +45,7 @@ public class JobStatusZeileOben {
         final String tmpJobName = this.jobName != null ? this.jobName : "unbenannt";
         final String obereZeile = tmpOrderId + tmpJobName;
         final int deltaOben = maxLen - obereZeile.length();
-        String puffer = "";
-        for (int i = 0; i < deltaOben; i++) {
-            puffer += "&nbsp;";
-        }
-        return "<div style=\"font-size:22\">[" + tmpOrderId + "] " + tmpJobName + puffer + "</div>";
+        return "<div style=\"font-size:22\">[" + tmpOrderId + "] " + tmpJobName + "&nbsp;".repeat(Math.max(0, deltaOben)) + "</div>";
     }
 
 }
