@@ -22,17 +22,14 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.Base64;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 class JobAbfragedatenTest {
 
@@ -53,7 +50,6 @@ class JobAbfragedatenTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Das BasicAuth Token wird korrekt mit base64 kodiert")
     void getBase64CodedToken() {
 
@@ -64,12 +60,11 @@ class JobAbfragedatenTest {
                     "Passwort")
             );
         });
-        try {
-            final String expectedToken = Base64.getEncoder().encodeToString("Nutzername:Passwort".getBytes("utf-8"));
-            assertEquals(expectedToken, jobAbfragedaten.getBasicAuthToken());
-        } catch (UnsupportedEncodingException e) {
-            fail();
-        }
+        final String expectedToken = assertDoesNotThrow(() -> {
+            return Base64.getEncoder().encodeToString("Nutzername:Passwort".getBytes("utf-8"));
+
+        });
+        assertEquals(expectedToken, jobAbfragedaten.getBasicAuthToken());
     }
 
     @Test

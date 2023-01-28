@@ -23,13 +23,11 @@ package com.github.funthomas424242.jenkinsmonitor;
  */
 
 import com.github.funthomas424242.jenkinsmonitor.config.Configuration;
-import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar;
-import com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Created;
 import com.github.funthomas424242.jenkinsmonitor.gui.JenkinsMonitorTray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.*;
+import static com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded;
 
 public class JenkinsMonitor {
 
@@ -39,9 +37,9 @@ public class JenkinsMonitor {
     protected JenkinsMonitorTray monitorTray;
 
     public JenkinsMonitor(Loaded configuration) {
-        final Logger LOGGER = LoggerFactory.getLogger(JenkinsMonitor.class);
+        final Logger logger = LoggerFactory.getLogger(JenkinsMonitor.class);
         this.monitorTray = new JenkinsMonitorTray(configuration);
-        LOGGER.info("Jenkinsmonitor gestartet");
+        logger.info("Jenkinsmonitor gestartet");
     }
 
     public JenkinsMonitorTray getMonitorTray() {
@@ -49,8 +47,7 @@ public class JenkinsMonitor {
     }
 
     public static void main(final String[] commandlineArgs) {
-//        final Configuration defaultConfiguration = new Configuration(Configuration.getDefaultConfigurationsfile());
-        final Loaded defaultConfiguration =  Configuration.getOrCreateInstance(Configuration.getDefaultConfigurationsfile()).reload();
+        final Loaded defaultConfiguration = Configuration.getOrCreateInstance(Configuration.getDefaultConfigurationsfile()).reload();
         defaultConfiguration.resetLoggerConfiguration();
         new JenkinsMonitor(defaultConfiguration);
     }

@@ -54,7 +54,7 @@ public class RealTimer implements Timer {
 
         // Service killen bei jvm shutdown
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            LOGGER.debug(String.format("Shutdown Hook is running for future:%s", timerService));
+            LOGGER.debug("Shutdown Hook is running for future:{}", timerService);
             stop();
         }));
     }
@@ -81,7 +81,7 @@ public class RealTimer implements Timer {
 
         // Future killen bei jvm shutdown
         Runtime.getRuntime().addShutdownHook(new Thread() {
-            protected final ScheduledFuture<?> future = cancelableFuture;
+            private final ScheduledFuture<?> future = cancelableFuture;
 
             @Override
             public void run() {

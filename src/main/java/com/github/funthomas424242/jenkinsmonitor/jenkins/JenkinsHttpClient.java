@@ -52,7 +52,7 @@ public class JenkinsHttpClient {
                     JobStatusBeschreibung jobStatusBeschreibung;
                     try {
                         jobStatusBeschreibung = future.get(5, TimeUnit.SECONDS);
-                    } catch (InterruptedException | TimeoutException | ExecutionException ex) {
+                    } catch (InterruptedException | TimeoutException | ExecutionException ex) { // NOSONAR java:S2142
                         LOG.warn("Read Future Result goes wrong with exception: \n {}", ex.toString());
                         jobStatusBeschreibung =getJobStatusOTHER(jobAbfrageFutureWrapper);
                         future.cancel(true);
