@@ -34,8 +34,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class Period {
-    public long duration;
-    public TimeUnit durationTimeUnit;
+    public long duration; // NOSONAR java:S1104
+    public TimeUnit durationTimeUnit; // NOSONAR java:S1104
 }
 
 public class RealTimer implements Timer {

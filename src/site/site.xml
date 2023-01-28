@@ -43,7 +43,7 @@
             </gitHub>
             <ohloh>
                 <projectId>jenkinsmonitor</projectId>
-                <!--<projectId>735033</projectId>-->
+                <!-- projectId 735033 projectId -->
                 <widget>factoids</widget>
             </ohloh>
             <googlePlusOne/>
@@ -61,9 +61,12 @@
     <!--<href>https://github.com/Huluvu424242/rades-annotations</href>-->
     <!--</bannerLeft>-->
 
-    <!--<bannerRight>-->
-    <!--<src>http://maven.apache.org/images/maven-logo-2.gif</src>-->
-    <!--</bannerRight>-->
+    <!-- NOSONAR xml:S125
+
+    <bannerRight>
+    <src>http://maven.apache.org/images/maven-logo-2.gif</src>
+    </bannerRight>
+    -->
 
     <body>
         <menu name="RADES Universum">
