@@ -35,9 +35,9 @@ import org.slf4j.LoggerFactory;
 import static java.util.Arrays.stream;
 
 class Zugang {
-    public String host;
-    public String userName;
-    public String password;
+    public String host; // NOSONAR java:S1104
+    public String userName; // NOSONAR java:S1104
+    public String password; // NOSONAR java:S1104
 }
 
 public class Zugangsdatensammler {

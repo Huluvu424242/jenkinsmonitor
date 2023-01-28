@@ -81,10 +81,12 @@ public class JobStatusDarstellungen {
                         }
                     }
                 });
-//                trayIcon.addActionListener(e -> {
-//                    LOGGER.debug("Mouseklick links doppelt");
-//                    statusArea.setVisible(!statusArea.isVisible());
-//                });
+                /** NOSONAR java:S125
+                trayIcon.addActionListener(e -> {
+                    LOGGER.debug("Mouseklick links doppelt");
+                    statusArea.setVisible(!statusArea.isVisible());
+                });
+                 */
                 trayWrapper.add(trayIcon);
             } else {
                 imageGenerator.drawImage((BufferedImage) trayIcon.getImage(), 100, 100);
