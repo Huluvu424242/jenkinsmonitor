@@ -113,7 +113,7 @@
                     
                     <ol class="aui-nav aui-nav-breadcrumbs">
             
-        <li><a href="../../../../../dashboard.html">Project Clover database Mi. Jan. 25 2023 22:57:56 UTC</a></li> 
+        <li><a href="../../../../../dashboard.html">Project Clover database Sa. Jan. 28 2023 22:18:19 UTC</a></li> 
         <li><a href="pkg-summary.html">        Package com.github.funthomas424242.jenkinsmonitor.etc</a></li> 
     </ol>
     
@@ -145,19 +145,19 @@
                     <img src="../../../../../img/srcFileCovDistChart0.png" alt="../../../../../img/srcFileCovDistChart0.png"
                          usemap="#srcFileCovDistChart0.png" class="clover-histogram-img"/>
                     <map id="srcFileCovDistChart0.png" name="srcFileCovDistChart0.png">
-<area shape="rect" coords="100,44,107,66" title="8 files have 91-100% coverage" alt="" nohref="nohref"/>
-<area shape="rect" coords="91,53,98,66" title="5 files have 81-90% coverage" alt="" nohref="nohref"/>
-<area shape="rect" coords="82,55,89,66" title="4 files have 71-80% coverage" alt="" nohref="nohref"/>
-<area shape="rect" coords="73,55,80,66" title="4 files have 61-70% coverage" alt="" nohref="nohref"/>
+<area shape="rect" coords="100,46,107,66" title="8 files have 91-100% coverage" alt="" nohref="nohref"/>
+<area shape="rect" coords="91,54,98,66" title="5 files have 81-90% coverage" alt="" nohref="nohref"/>
+<area shape="rect" coords="82,54,89,66" title="5 files have 71-80% coverage" alt="" nohref="nohref"/>
+<area shape="rect" coords="73,61,80,66" title="2 files have 61-70% coverage" alt="" nohref="nohref"/>
 <area shape="rect" coords="64,66,71,67" title="0 files have 51-60% coverage" alt="" nohref="nohref"/>
 <area shape="rect" coords="56,61,63,66" title="2 files have 41-50% coverage" alt="" nohref="nohref"/>
 <area shape="rect" coords="47,64,54,66" title="1 file has 31-40% coverage" alt="" nohref="nohref"/>
-<area shape="rect" coords="38,66,45,67" title="0 files have 21-30% coverage" alt="" nohref="nohref"/>
+<area shape="rect" coords="38,64,45,66" title="1 file has 21-30% coverage" alt="" nohref="nohref"/>
 <area shape="rect" coords="29,66,36,67" title="0 files have 11-20% coverage" alt="" nohref="nohref"/>
 <area shape="rect" coords="20,66,27,67" title="0 files have 1-10% coverage" alt="" nohref="nohref"/>
-<area shape="rect" coords="11,8,18,65" title="21 files have 0% coverage" alt="" nohref="nohref"/>
+<area shape="rect" coords="11,8,18,65" title="23 files have 0% coverage" alt="" nohref="nohref"/>
 </map><br />
-                    <span class="subtle"><strong>53% </strong>of files have more coverage</span>
+                    <span class="subtle"><strong>51% </strong>of files have more coverage</span>
                 </div>
             </div>
         </div>
@@ -791,12 +791,12 @@
  <tr id="l37">
 <td align="right" class="lineCount NoHilight"><a class="lineNumHref" href="?line=37#src-37">37</a></td>
 <td align="right" class="coverageCount NoHilight "   >&#160;&#160;</td>
-<td class=" srcCell" ><span class="spacer"></span><span id="src-37" class="srcLine">    <span class="keyword">public</span> <span class="keyword">long</span> duration;</span></td>
+<td class=" srcCell" ><span class="spacer"></span><span id="src-37" class="srcLine">    <span class="keyword">public</span> <span class="keyword">long</span> duration; <span class="comment">// NOSONAR java:S1104</span></span></td>
 </tr>
  <tr id="l38">
 <td align="right" class="lineCount NoHilight"><a class="lineNumHref" href="?line=38#src-38">38</a></td>
 <td align="right" class="coverageCount NoHilight "   >&#160;&#160;</td>
-<td class=" srcCell" ><span class="spacer"></span><span id="src-38" class="srcLine">    <span class="keyword">public</span> TimeUnit durationTimeUnit;</span></td>
+<td class=" srcCell" ><span class="spacer"></span><span id="src-38" class="srcLine">    <span class="keyword">public</span> TimeUnit durationTimeUnit; <span class="comment">// NOSONAR java:S1104</span></span></td>
 </tr>
  <tr id="l39">
 <td align="right" class="lineCount NoHilight"><a class="lineNumHref" href="?line=39#src-39">39</a></td>
@@ -921,7 +921,7 @@
  <tr id="l57">
 <td align="right" class="lineCount Bad"><a class="lineNumHref" href="?line=57#src-57">57</a></td>
 <td align="right" class="coverageCount Bad missedByTest"   ><span title="Line 57, Col 13: statement not executed." class="nolink">&#160;0</span></td>
-<td class=" srcCell" ><span class="spacer"></span><span id="src-57" class="srcLineHilight"><span class="nolink" title="Line 57, Col 13: statement not executed.">            LOGGER.debug(String.format(<span class="string">&quot;Shutdown Hook is running for future:%s&quot;</span>, timerService));</span></span></td>
+<td class=" srcCell" ><span class="spacer"></span><span id="src-57" class="srcLineHilight"><span class="nolink" title="Line 57, Col 13: statement not executed.">            LOGGER.debug(<span class="string">&quot;Shutdown Hook is running for future:{}&quot;</span>, timerService);</span></span></td>
 </tr>
  <tr id="l58">
 <td align="right" class="lineCount Bad"><a class="lineNumHref" href="?line=58#src-58">58</a></td>
@@ -1116,7 +1116,7 @@
  <tr id="l84">
 <td align="right" class="lineCount NoHilight"><a class="lineNumHref" href="?line=84#src-84">84</a></td>
 <td align="right" class="coverageCount NoHilight "   >&#160;&#160;</td>
-<td class=" srcCell" ><span class="spacer"></span><span id="src-84" class="srcLine">            <span class="keyword">protected</span> <span class="keyword">final</span> ScheduledFuture&lt;?&gt; future = cancelableFuture;</span></td>
+<td class=" srcCell" ><span class="spacer"></span><span id="src-84" class="srcLine">            <span class="keyword">private</span> <span class="keyword">final</span> ScheduledFuture&lt;?&gt; future = cancelableFuture;</span></td>
 </tr>
  <tr id="l85">
 <td align="right" class="lineCount NoHilight"><a class="lineNumHref" href="?line=85#src-85">85</a></td>
@@ -1412,7 +1412,7 @@
         <ul>
             <li>
                 Report generated by <a target="_new" href="http://openclover.org">OpenClover</a> v 4.4.1
-                on Mi. Jan. 25 2023 22:58:12 UTC using coverage data from Mi. Jan. 25 2023 22:58:06 UTC.
+                on Sa. Jan. 28 2023 22:18:35 UTC using coverage data from Sa. Jan. 28 2023 22:18:29 UTC.
             </li>
         </ul>
         <ul>
