@@ -27,8 +27,8 @@ public class JavaSystemWrapper  {
 
     public interface JavaSystemMock {
 
-        default String getenv(String name){return null;};
-        default String getProperty(String key){return null;};
+        default String getenv(String name){return null;}
+        default String getProperty(String key){return null;}
 
     }
 

@@ -23,14 +23,16 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  */
 
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
+import com.github.funthomas424242.jenkinsmonitor.JenkinsMonitorRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JobAbfragedaten {
 
-    protected final transient Logger LOGGER = LoggerFactory.getLogger(JobAbfragedaten.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(JobAbfragedaten.class);
 
     protected final URL jenkinsJobUrl;
     protected final BasicAuthDaten authDaten;
@@ -74,8 +76,12 @@ public class JobAbfragedaten {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JobAbfragedaten that = (JobAbfragedaten) o;
-        return jenkinsJobUrl.equals(that.jenkinsJobUrl) &&
-                Objects.equals(authDaten, that.authDaten);
+        try {
+            return jenkinsJobUrl.toURI().equals(that.jenkinsJobUrl.toURI()) &&
+                    Objects.equals(authDaten, that.authDaten);
+        } catch (URISyntaxException e) {
+            throw new JenkinsMonitorRuntimeException(e);
+        }
     }
 
     @Override

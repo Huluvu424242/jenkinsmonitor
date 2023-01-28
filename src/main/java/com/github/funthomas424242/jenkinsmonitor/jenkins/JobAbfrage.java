@@ -109,7 +109,7 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
             final HttpGet httpGetRequest = new HttpGet(statusAbfrageUrl.getPath());
             final String basicAuthToken = jobAbfragedaten.getBasicAuthToken();
             if (basicAuthToken != null && basicAuthToken.length() > 1) {
-                httpGetRequest.setHeader("Authorization", "Basic " + basicAuthToken);
+                httpGetRequest.setHeader("Authorization", "Basic " + basicAuthToken); // NOSONAR java:S2647
             }
             final HttpResponse httpResponse;
             httpResponse = getHttpResponse(httpClient, target, httpGetRequest);
