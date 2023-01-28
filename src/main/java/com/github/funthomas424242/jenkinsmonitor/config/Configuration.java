@@ -29,7 +29,9 @@ import com.github.funthomas424242.jenkinsmonitor.etc.NetworkHelper;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobAbfragedaten;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibung;
 import com.github.funthomas424242.jenkinsmonitor.jenkins.JobBeschreibungen;
+import com.github.funthomas424242.jenkinsmonitor.logstash.LogAppender;
 import com.github.funthomas424242.jenkinsmonitor.logstash.LogStashConfigManager;
+import com.github.funthomas424242.jenkinsmonitor.logstash.Loglevel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -47,8 +49,6 @@ import org.slf4j.LoggerFactory;
 import static com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Created;
 import static com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded;
 import static com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.States;
-import static com.github.funthomas424242.jenkinsmonitor.logstash.LogStashConfigManager.LOG_APPENDER;
-import static com.github.funthomas424242.jenkinsmonitor.logstash.LogStashConfigManager.LOG_LEVEL;
 
 public class Configuration implements States {
 
@@ -167,28 +167,22 @@ public class Configuration implements States {
 
 
         // applog.level
-        final String applogLevel = configurationProperties.getProperty("applog.level");
-        if (Arrays.asList(LOG_LEVEL).contains(applogLevel)) {
-            System.setProperty("applog.level", applogLevel);
-        }
+        final Loglevel applogLevel = Loglevel.fromValue(configurationProperties.getProperty("applog.level"));
+        System.setProperty("applog.level", Loglevel.getValueOrDefault(applogLevel));
 
         // applog.appender
-        final String applogAppender = configurationProperties.getProperty("applog.appender");
-        if (Arrays.asList(LOG_APPENDER).contains(applogAppender)) {
-            System.setProperty("applog.appender", applogAppender);
-        }
+        final LogAppender applogAppender = LogAppender.fromValue(configurationProperties.getProperty("applog.appender"));
+        System.setProperty("applog.appender", LogAppender.getValueOrDefault(applogAppender));
 
         // rootlog.level
-        final String rootlogLevel = configurationProperties.getProperty("rootlog.level");
-        if (Arrays.asList(LOG_LEVEL).contains(rootlogLevel)) {
-            System.setProperty("rootlog.level", rootlogLevel);
-        }
+        final Loglevel rootlogLevel = Loglevel.fromValue(configurationProperties.getProperty("rootlog.level"));
+        System.setProperty("rootlog.level", Loglevel.getValueOrDefault(rootlogLevel));
+
 
         // applog.appender
-        final String rootlogAppender = configurationProperties.getProperty("rootlog.appender");
-        if (Arrays.asList(LOG_APPENDER).contains(rootlogAppender)) {
-            System.setProperty("rootlog.appender", rootlogAppender);
-        }
+        final LogAppender rootlogAppender = LogAppender.fromValue(configurationProperties.getProperty("rootlog.appender"));
+        System.setProperty("rootlog.appender", LogAppender.getValueOrDefault(rootlogAppender));
+
         try {
             // Logger Konfiguratin neu laden mit gesetzten Systemproperties
             LogStashConfigManager.reloadDefaultLoggerConfiguration();

@@ -28,6 +28,7 @@ import com.github.funthomas424242.jenkinsmonitor.jenkins.JobStatusBeschreibung;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class JobStatusBeschreibungen extends AbstractJobBeschreibungen<JobStatusBeschreibung> {
@@ -68,5 +69,17 @@ public class JobStatusBeschreibungen extends AbstractJobBeschreibungen<JobStatus
         return new JobStatusZeileUnten(listIndex, jobStatusBeschreibung.getJobUrl(), this.displayLaengeUnten, jobStatusBeschreibung.getJobStatus());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        JobStatusBeschreibungen that = (JobStatusBeschreibungen) o;
+        return displayLaengeOben == that.displayLaengeOben && displayLaengeUnten == that.displayLaengeUnten;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), displayLaengeOben, displayLaengeUnten);
+    }
 }
