@@ -25,5 +25,6 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
 public class JenkinsAPI {
 
     private JenkinsAPI(){}
-    public static final String STATUS_PATH = "/lastBuild/api/json"; // NOSONAR java:S1075
+    public static final String STATUS_PATH = "/lastBuild/buildNumber"; // NOSONAR java:S1075
+//    public static final String STATUS_PATH = "/lastBuild/api/json"; // NOSONAR java:S1075
 }
