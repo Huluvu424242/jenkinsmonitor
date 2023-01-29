@@ -22,6 +22,7 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
  * #L%
  */
 
+import com.cdancy.jenkins.rest.domain.job.BuildInfo;
 import com.github.funthomas424242.jenkinsmonitor.gui.JobStatusBeschreibungen;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import java.net.MalformedURLException;
@@ -156,23 +157,23 @@ class JobAbfrageTest {
     void getValidJsonGreen() {
         final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GREEN, null);
         final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
-        final JSONObject json = assertDoesNotThrow(() -> requester.sendGetRequest());
+        final BuildInfo json = assertDoesNotThrow(() -> requester.sendGetRequest());
         assertNotNull(json);
-        assertEquals("mypocketmod \u00bb master #2", json.get("fullDisplayName"));
-        assertEquals("SUCCESS", json.get("result"));
+        assertEquals("mypocketmod \u00bb master #2", json.fullDisplayName()); //get("fullDisplayName"));
+        assertEquals("SUCCESS", json.result()); //get("result"));
     }
 
     @Test
     @DisplayName("Die Statusabfrage eines gelben Build Jobs gibt ein valides JSON zurück")
     void getValidJsonYellow() {
-        final JSONObject json = assertDoesNotThrow(() -> {
+        final BuildInfo json = assertDoesNotThrow(() -> {
             final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_YELLOW, null);
             final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
             return requester.sendGetRequest();
         });
         assertNotNull(json);
-        assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
-        assertEquals("UNSTABLE", json.get("result"));
+        assertEquals("mypocketmod » master #2", json.fullDisplayName()); //get("fullDisplayName"));
+        assertEquals("UNSTABLE", json.result()); //get("result"));
     }
 
     @Test

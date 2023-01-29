@@ -29,7 +29,12 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Callable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import com.cdancy.jenkins.rest.JenkinsClient;
+import com.cdancy.jenkins.rest.domain.job.BuildInfo;
+import com.cdancy.jenkins.rest.features.JobsApi;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -81,9 +86,9 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
     protected JobStatusBeschreibung getJobStatus() {
 
         try {
-            final JSONObject resultJSON = sendGetRequest();
-            final String jobName = resultJSON.getString(JSONKEY_FULL_DISPLAY_NAME);
-            final String jobStatus = resultJSON.getString(JSONKEY_RESULT);
+            final BuildInfo resultJSON = sendGetRequest();
+            final String jobName = resultJSON.fullDisplayName();//  getString(JSONKEY_FULL_DISPLAY_NAME);
+            final String jobStatus = resultJSON.result(); //getString(JSONKEY_RESULT);
             return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
         } catch (JobNotFoundException e) {
             return new JobStatusBeschreibung("Job Not Found ERROR: " + jobAbfragedaten.getJenkinsJobUrl(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
@@ -96,35 +101,61 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
         }
     }
 
-    protected JSONObject sendGetRequest() throws JobNotFoundException, ConnectionFailedException, ConnectionErrorException {
+    protected BuildInfo sendGetRequest() throws JobNotFoundException, ConnectionFailedException, ConnectionErrorException {
         final URL statusAbfrageUrl = jobAbfragedaten.getStatusAbfrageUrl();
         int statusCode = -1;
         int timeout = 1;
-        final RequestConfig config = RequestConfig.custom()
-                .setConnectTimeout(timeout * 1000)
-                .setConnectionRequestTimeout(timeout * 1000)
-                .setSocketTimeout(timeout * 1000).build();
-        try (final CloseableHttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build()) {
-            final HttpHost target = new HttpHost(statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort(), statusAbfrageUrl.getProtocol());
-            final HttpGet httpGetRequest = new HttpGet(statusAbfrageUrl.getPath());
-            final String basicAuthToken = jobAbfragedaten.getBasicAuthToken();
-            if (basicAuthToken != null && basicAuthToken.length() > 1) {
-                httpGetRequest.setHeader("Authorization", "Basic " + basicAuthToken); // NOSONAR java:S2647
-            }
-            final HttpResponse httpResponse;
-            httpResponse = getHttpResponse(httpClient, target, httpGetRequest);
-            LOGGER.debug("Abfrage: {}{}",target,httpGetRequest);
-            statusCode = httpResponse.getStatusLine().getStatusCode();
-            if (statusCode == 404) {
-                throw new JobNotFoundException(new HttpResponseException(statusCode, httpResponse.getStatusLine().getReasonPhrase()));
-            } else if (statusCode != 200) {
-                throw new ConnectionErrorException(new HttpResponseException(statusCode, httpResponse.getStatusLine().getReasonPhrase()));
-            }
-            return getJsonObjectFromResponse(httpResponse);
-        } catch (JSONException | IOException ex) {
-            LOGGER.warn(String.format("Could not retrieve data from jenkins: %s", ex));
+//        final RequestConfig config = RequestConfig.custom()
+//                .setConnectTimeout(timeout * 1000)
+//                .setConnectionRequestTimeout(timeout * 1000)
+//                .setSocketTimeout(timeout * 1000).build();
+//        try (final CloseableHttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build()) {
+
+        final JenkinsClient.Builder clientBuilder = JenkinsClient.builder()
+                .endPoint(String.format("%s://%s:%d/", statusAbfrageUrl.getProtocol(), statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort()));
+        // Basic Auth
+        final String basicAuthToken = jobAbfragedaten.getBasicAuthToken();
+        if (basicAuthToken != null && basicAuthToken.length() > 1) {
+            clientBuilder.credentials(jobAbfragedaten.getBasicAuthToken());
         }
-        return null;
+        final JenkinsClient client = clientBuilder.build();
+
+        final String abfrageURL = statusAbfrageUrl.getPath();
+        Pattern pattern = Pattern.compile(".*/job/(.*)/job/(.*)");
+        Matcher matcher = pattern.matcher(statusAbfrageUrl.getPath());
+        final String folderName;
+        final String jobName;
+        final boolean matched= matcher.matches();
+        if(matched){
+            folderName = matcher.group(1);
+            jobName = matcher.group(2);
+        }else{
+            folderName=null;
+            jobName=null;
+        }
+
+
+        final JobsApi api = client.api().jobsApi();
+
+//        final int lastBuildNumber = api.lastBuildNumber(null, statusAbfrageUrl.getPath());
+        final int lastBuildNumber = api.lastBuildNumber(folderName, jobName);
+        LOGGER.debug("Letzte Buildnummer von {}  ist {}", statusAbfrageUrl.getPath(), lastBuildNumber);
+
+        final BuildInfo buildInfo = client.api().jobsApi().buildInfo(folderName,jobName, lastBuildNumber);
+        LOGGER.debug("RESPONSE: URL: {}\n STATUS: {} \n", buildInfo.url(), buildInfo.result());
+
+
+//        statusCode = httpResponse.getStatusLine().getStatusCode();
+//        if (statusCode == 404) {
+//            throw new JobNotFoundException(new HttpResponseException(statusCode, httpResponse.getStatusLine().getReasonPhrase()));
+//        } else if (statusCode != 200) {
+//            throw new ConnectionErrorException(new HttpResponseException(statusCode, httpResponse.getStatusLine().getReasonPhrase()));
+//        }
+//        return getJsonObjectFromResponse(httpResponse);
+//        } catch (JSONException | IOException ex) {
+//            LOGGER.warn(String.format("Could not retrieve data from jenkins: %s", ex));
+//        }
+        return buildInfo;
     }
 
     protected HttpResponse getHttpResponse(CloseableHttpClient httpClient, HttpHost target, HttpGet httpGetRequest) throws ConnectionFailedException {
