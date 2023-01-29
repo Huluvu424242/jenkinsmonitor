@@ -35,7 +35,7 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 === Changed
 
 * https://github.com/Huluvu424242/jenkinsmonitor/issues/60[issue #60] httpcomponents lib replaced by io.github.cdancy.jenkins-rest lib
-* code refactoring such as java streaming api usage
+* code refactoring such as java streaming api usage with enabled quality gates
 
 === Removed
 
