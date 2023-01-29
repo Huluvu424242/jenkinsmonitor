@@ -589,6 +589,13 @@
             </properties>
         </profile>
         <profile>
+            <id>sonarqube</id>
+            <properties>
+                <junit-excluded-groups>headfull</junit-excluded-groups>
+                <maven.clover.skip>true</maven.clover.skip>
+            </properties>
+        </profile>
+        <profile>
             <id>pruefeVersionen</id>
             <build>
                 <plugins>
