@@ -1,9 +1,10 @@
-var treeMapJson = {"id":"Clover database So. Jan. 29 2023 18:26:15 UTC0","name":"","data":{
-    "$area":948.0,"$color":44.3038,"title":" 948 Elements, 44,3% Coverage"},
-  "children":[{"id":"com.github.funthomas424242.jenkinsmonitor.jenkins579",
-      "name":"com.github.funthomas424242.jenkinsmonitor.jenkins","data":{
-        "$area":281.0,"$color":75.44484,"title":
-        "com.github.funthomas424242.jenkinsmonitor.jenkins 281 Elements, 75,4% Coverage"},
+var treeMapJson = {"id":"Clover database So. Jan. 29 2023 20:12:00 UTC0","name":"","data":{
+    "$area":951.0,"$color":44.374344,"title":
+    " 951 Elements, 44,4% Coverage"},"children":[{"id":
+      "com.github.funthomas424242.jenkinsmonitor.jenkins579","name":
+      "com.github.funthomas424242.jenkinsmonitor.jenkins","data":{"$area":
+        284.0,"$color":75.35211,"title":
+        "com.github.funthomas424242.jenkinsmonitor.jenkins 284 Elements, 75,4% Coverage"},
       "children":[]},{"id":
       "com.github.funthomas424242.jenkinsmonitor.gui231","name":
       "com.github.funthomas424242.jenkinsmonitor.gui","data":{"$area":
@@ -19,7 +20,7 @@ var treeMapJson = {"id":"Clover database So. Jan. 29 2023 18:26:15 UTC0","name":
         187.0,"$color":73.26203,"title":
         "com.github.funthomas424242.jenkinsmonitor.config 187 Elements, 73,3% Coverage"},
       "children":[]},{"id":
-      "com.github.funthomas424242.jenkinsmonitor.logstash853","name":
+      "com.github.funthomas424242.jenkinsmonitor.logstash856","name":
       "com.github.funthomas424242.jenkinsmonitor.logstash","data":{"$area":
         26.0,"$color":0.0,"title":
         "com.github.funthomas424242.jenkinsmonitor.logstash 26 Elements, 0% Coverage"},
