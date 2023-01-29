@@ -2,7 +2,7 @@
 
 var Packages = {
     nodes: [
-                                                                                                        
+                                                                                                                        
                 
 {
     "id": "com.github.funthomas424242.jenkinsmonitor",
@@ -49,7 +49,7 @@ var Packages = {
     "text": "gui",
     "package": "com.github.funthomas424242.jenkinsmonitor.gui",
     "url": "com/github/funthomas424242/jenkinsmonitor/gui/pkg-summary.html",
-            "coverage": "19,3%",
+            "coverage": "19,4%",
         "icon": "aui-icon aui-icon-small aui-iconfont-devtools-folder-closed",
             "li_attr": {"data-is-link": "true"},
         "a_attr": {"href": "com/github/funthomas424242/jenkinsmonitor/gui/pkg-summary.html"},
@@ -63,7 +63,7 @@ var Packages = {
     "text": "jenkins",
     "package": "com.github.funthomas424242.jenkinsmonitor.jenkins",
     "url": "com/github/funthomas424242/jenkinsmonitor/jenkins/pkg-summary.html",
-            "coverage": "84,5%",
+            "coverage": "67,2%",
         "icon": "aui-icon aui-icon-small aui-iconfont-devtools-folder-closed",
             "li_attr": {"data-is-link": "true"},
         "a_attr": {"href": "com/github/funthomas424242/jenkinsmonitor/jenkins/pkg-summary.html"},
@@ -86,7 +86,21 @@ var Packages = {
 },
             ]
 },
-            ],
+                                            
+                
+{
+    "id": "default-pkg",
+    "text": "default-pkg",
+    "package": "default-pkg",
+    "url": "default-pkg/testsrc-pkg-summary.html",
+            "coverage": " - ",
+        "icon": "aui-icon aui-icon-small aui-iconfont-devtools-folder-closed",
+            "li_attr": {"data-is-link": "true"},
+        "a_attr": {"href": "default-pkg/testsrc-pkg-summary.html"},
+    "children": [
+                    ]
+},
+                        ],
     settings: {
         "icons": {
             "package": {

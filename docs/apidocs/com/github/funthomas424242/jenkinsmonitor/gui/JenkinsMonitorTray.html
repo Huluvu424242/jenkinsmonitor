@@ -113,8 +113,8 @@ implements <a href="../etc/Timer.Listener.html" title="interface in com.github.f
 <div class="col-first even-row-color"><code>protected final <a href="../config/ConfigurationFluentGrammar.Loaded.html" title="interface in com.github.funthomas424242.jenkinsmonitor.config">ConfigurationFluentGrammar.Loaded</a></code></div>
 <div class="col-second even-row-color"><code><a href="#configuration" class="member-name-link">configuration</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>protected final <a href="../jenkins/JenkinsHttpClient.html" title="class in com.github.funthomas424242.jenkinsmonitor.jenkins">JenkinsHttpClient</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#jenkinsHttpClient" class="member-name-link">jenkinsHttpClient</a></code></div>
+<div class="col-first odd-row-color"><code>protected final <a href="../jenkins/JenkinsRESTClient.html" title="class in com.github.funthomas424242.jenkinsmonitor.jenkins">JenkinsRESTClient</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#jenkinsRESTClient" class="member-name-link">jenkinsRESTClient</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>protected final <a href="JobStatusBeschreibungen.html" title="class in com.github.funthomas424242.jenkinsmonitor.gui">JobStatusBeschreibungen</a></code></div>
 <div class="col-second even-row-color"><code><a href="#jobStatusBeschreibungen" class="member-name-link">jobStatusBeschreibungen</a></code></div>
@@ -144,12 +144,12 @@ implements <a href="../etc/Timer.Listener.html" title="interface in com.github.f
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded)" class="member-name-link">JenkinsMonitorTray</a><wbr>(<a href="../config/ConfigurationFluentGrammar.Loaded.html" title="interface in com.github.funthomas424242.jenkinsmonitor.config">ConfigurationFluentGrammar.Loaded</a>&nbsp;configuration)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 <div class="col-first odd-row-color"><code>protected </code></div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(com.github.funthomas424242.jenkinsmonitor.etc.Timer,com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsHttpClient,com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded)" class="member-name-link">JenkinsMonitorTray</a><wbr>(<a href="../etc/Timer.html" title="interface in com.github.funthomas424242.jenkinsmonitor.etc">Timer</a>&nbsp;timer,
- <a href="../jenkins/JenkinsHttpClient.html" title="class in com.github.funthomas424242.jenkinsmonitor.jenkins">JenkinsHttpClient</a>&nbsp;jenkinsHttpClient,
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(com.github.funthomas424242.jenkinsmonitor.etc.Timer,com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsRESTClient,com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded)" class="member-name-link">JenkinsMonitorTray</a><wbr>(<a href="../etc/Timer.html" title="interface in com.github.funthomas424242.jenkinsmonitor.etc">Timer</a>&nbsp;timer,
+ <a href="../jenkins/JenkinsRESTClient.html" title="class in com.github.funthomas424242.jenkinsmonitor.jenkins">JenkinsRESTClient</a>&nbsp;jenkinsRESTClient,
  <a href="../config/ConfigurationFluentGrammar.Loaded.html" title="interface in com.github.funthomas424242.jenkinsmonitor.config">ConfigurationFluentGrammar.Loaded</a>&nbsp;configuration)</code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsHttpClient,com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded)" class="member-name-link">JenkinsMonitorTray</a><wbr>(<a href="../jenkins/JenkinsHttpClient.html" title="class in com.github.funthomas424242.jenkinsmonitor.jenkins">JenkinsHttpClient</a>&nbsp;jenkinsHttpClient,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsRESTClient,com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded)" class="member-name-link">JenkinsMonitorTray</a><wbr>(<a href="../jenkins/JenkinsRESTClient.html" title="class in com.github.funthomas424242.jenkinsmonitor.jenkins">JenkinsRESTClient</a>&nbsp;jenkinsRESTClient,
  <a href="../config/ConfigurationFluentGrammar.Loaded.html" title="interface in com.github.funthomas424242.jenkinsmonitor.config">ConfigurationFluentGrammar.Loaded</a>&nbsp;configuration)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
@@ -223,9 +223,9 @@ implements <a href="../etc/Timer.Listener.html" title="interface in com.github.f
 </section>
 </li>
 <li>
-<section class="detail" id="jenkinsHttpClient">
-<h3>jenkinsHttpClient</h3>
-<div class="member-signature"><span class="modifiers">protected final</span>&nbsp;<span class="return-type"><a href="../jenkins/JenkinsHttpClient.html" title="class in com.github.funthomas424242.jenkinsmonitor.jenkins">JenkinsHttpClient</a></span>&nbsp;<span class="element-name">jenkinsHttpClient</span></div>
+<section class="detail" id="jenkinsRESTClient">
+<h3>jenkinsRESTClient</h3>
+<div class="member-signature"><span class="modifiers">protected final</span>&nbsp;<span class="return-type"><a href="../jenkins/JenkinsRESTClient.html" title="class in com.github.funthomas424242.jenkinsmonitor.jenkins">JenkinsRESTClient</a></span>&nbsp;<span class="element-name">jenkinsRESTClient</span></div>
 </section>
 </li>
 <li>
@@ -249,17 +249,17 @@ implements <a href="../etc/Timer.Listener.html" title="interface in com.github.f
 </section>
 </li>
 <li>
-<section class="detail" id="&lt;init&gt;(com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsHttpClient,com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded)">
+<section class="detail" id="&lt;init&gt;(com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsRESTClient,com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded)">
 <h3>JenkinsMonitorTray</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">JenkinsMonitorTray</span><wbr><span class="parameters">(<a href="../jenkins/JenkinsHttpClient.html" title="class in com.github.funthomas424242.jenkinsmonitor.jenkins">JenkinsHttpClient</a>&nbsp;jenkinsHttpClient,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">JenkinsMonitorTray</span><wbr><span class="parameters">(<a href="../jenkins/JenkinsRESTClient.html" title="class in com.github.funthomas424242.jenkinsmonitor.jenkins">JenkinsRESTClient</a>&nbsp;jenkinsRESTClient,
  <a href="../config/ConfigurationFluentGrammar.Loaded.html" title="interface in com.github.funthomas424242.jenkinsmonitor.config">ConfigurationFluentGrammar.Loaded</a>&nbsp;configuration)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="&lt;init&gt;(com.github.funthomas424242.jenkinsmonitor.etc.Timer,com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsHttpClient,com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded)">
+<section class="detail" id="&lt;init&gt;(com.github.funthomas424242.jenkinsmonitor.etc.Timer,com.github.funthomas424242.jenkinsmonitor.jenkins.JenkinsRESTClient,com.github.funthomas424242.jenkinsmonitor.config.ConfigurationFluentGrammar.Loaded)">
 <h3>JenkinsMonitorTray</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="element-name">JenkinsMonitorTray</span><wbr><span class="parameters">(<a href="../etc/Timer.html" title="interface in com.github.funthomas424242.jenkinsmonitor.etc">Timer</a>&nbsp;timer,
- <a href="../jenkins/JenkinsHttpClient.html" title="class in com.github.funthomas424242.jenkinsmonitor.jenkins">JenkinsHttpClient</a>&nbsp;jenkinsHttpClient,
+ <a href="../jenkins/JenkinsRESTClient.html" title="class in com.github.funthomas424242.jenkinsmonitor.jenkins">JenkinsRESTClient</a>&nbsp;jenkinsRESTClient,
  <a href="../config/ConfigurationFluentGrammar.Loaded.html" title="interface in com.github.funthomas424242.jenkinsmonitor.config">ConfigurationFluentGrammar.Loaded</a>&nbsp;configuration)</span></div>
 </section>
 </li>
