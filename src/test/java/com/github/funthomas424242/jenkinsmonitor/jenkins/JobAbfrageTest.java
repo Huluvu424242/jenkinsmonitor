@@ -25,9 +25,10 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
 import com.cdancy.jenkins.rest.domain.job.BuildInfo;
 import com.github.funthomas424242.jenkinsmonitor.gui.JobStatusBeschreibungen;
 import com.github.tomakehurst.wiremock.WireMockServer;
+
 import java.net.MalformedURLException;
 import java.net.URL;
-import org.json.JSONObject;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,6 +61,7 @@ class JobAbfrageTest {
         JOB_URL_MULTIBRANCH_JOB1_GRAY_BUILDING = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_GRAY_BUILDING);
         JOB_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW = new URL(JenkinsAPIMock.JOB_URL_MULTIBRANCH_JOB1_GRAY_UNKNOW);
 
+        // TODO
 //        STATUS_URL_MULTIBRANCH_JOB1_RED = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_RED);
 //        STATUS_URL_MULTIBRANCH_JOB1_GREEN = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_GREEN);
 //        STATUS_URL_MULTIBRANCH_JOB1_YELLOW = new URL(JenkinsAPIMock.STATUS_URL_MULTIBRANCH_JOB1_YELLOW);
@@ -142,14 +144,14 @@ class JobAbfrageTest {
     @Test
     @DisplayName("Die Statusabfrage eines roten Build Jobs gibt ein valides JSON zurück")
     void getValidJsonRed() {
-        final JSONObject json = assertDoesNotThrow(() -> {
+        final BuildInfo json = assertDoesNotThrow(() -> {
             final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_RED);
             final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#");
             return requester.sendGetRequest();
         });
         assertNotNull(json);
-        assertEquals("mypocketmod » master #2", json.get("fullDisplayName"));
-        assertEquals("FAILURE", json.get("result"));
+        assertEquals("mypocketmod » master #2", json.fullDisplayName()); //get("fullDisplayName"));
+        assertEquals("FAILURE", json.result()); //get("result"));
     }
 
     @Test
@@ -157,9 +159,9 @@ class JobAbfrageTest {
     void getValidJsonGreen() {
         final JobAbfragedaten jobAbfragedaten = new JobAbfragedaten(JOB_URL_MULTIBRANCH_JOB1_GREEN, null);
         final JobAbfrage requester = new JobAbfrage(jobAbfragedaten, "#1");
-        final BuildInfo json = assertDoesNotThrow(() -> requester.sendGetRequest());
+        final BuildInfo json = assertDoesNotThrow(requester::sendGetRequest);
         assertNotNull(json);
-        assertEquals("mypocketmod \u00bb master #2", json.fullDisplayName()); //get("fullDisplayName"));
+        assertEquals("mypocketmod » master #2", json.fullDisplayName()); //get("fullDisplayName"));
         assertEquals("SUCCESS", json.result()); //get("result"));
     }
 
