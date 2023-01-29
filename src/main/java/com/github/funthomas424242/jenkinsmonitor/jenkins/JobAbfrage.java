@@ -94,6 +94,7 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
             //TODO erzeuge JobNotFoundException
 
             final String abfrageURL = statusAbfrageUrl.getPath();
+            // TODO fix regex because DoS attack -> refactoring move to invariante
             Pattern pattern = Pattern.compile(".*/job/(.*)/job/(.*)");
             Matcher matcher = pattern.matcher(abfrageURL);
             final String folderName;
