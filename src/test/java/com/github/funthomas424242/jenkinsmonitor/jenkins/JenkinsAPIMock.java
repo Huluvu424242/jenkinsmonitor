@@ -59,7 +59,8 @@ public class JenkinsAPIMock {
         jenkins.stubFor(get(WireMock.urlEqualTo(STATUSPATH_MULTIBRANCH_JOB1_RED))
                 .willReturn(aResponse().withHeader("Content-Type", "application/json")
                         .withStatus(200)
-                        .withBodyFile("json/multibranch-job1-red.json")));
+                        .withBody("2")));
+//                        .withBodyFile("json/multibranch-job1-red.json")));
         jenkins.stubFor(get(WireMock.urlEqualTo(STATUSPATH_MULTIBRANCH_JOB1_GREEN))
                 .willReturn(aResponse().withHeader("Content-Type", "application/json")
                         .withStatus(200)

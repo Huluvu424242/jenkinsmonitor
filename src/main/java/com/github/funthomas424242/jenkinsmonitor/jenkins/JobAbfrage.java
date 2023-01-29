@@ -25,10 +25,12 @@ package com.github.funthomas424242.jenkinsmonitor.jenkins;
 import com.cdancy.jenkins.rest.JenkinsClient;
 import com.cdancy.jenkins.rest.domain.job.BuildInfo;
 import com.cdancy.jenkins.rest.features.JobsApi;
+import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.github.funthomas424242.jenkinsmonitor.JenkinsMonitorRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
@@ -36,9 +38,6 @@ import org.slf4j.event.Level;
 public class JobAbfrage implements Callable<JobStatusBeschreibung> {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(JobAbfrage.class);
-
-    public static final String JSONKEY_FULL_DISPLAY_NAME = "fullDisplayName";
-    public static final String JSONKEY_RESULT = "result";
 
     protected final JobAbfragedaten jobAbfragedaten;
     protected final String jobOrderId;
@@ -48,10 +47,10 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
         this.jobOrderId = jobOrderId;
     }
 
-    public String getPrimaryKey() {
-        final String url = getAbfrageUrl() != null ? getAbfrageUrl().toExternalForm() : "";
-        return getJobOrderId() + "#" + url;
-    }
+//    public String getPrimaryKey() {
+//        final String url = getAbfrageUrl() != null ? getAbfrageUrl().toExternalForm() : "";
+//        return getJobOrderId() + "#" + url;
+//    }
 
     public URL getAbfrageUrl() {
         return this.jobAbfragedaten.getJenkinsJobUrl();
@@ -63,7 +62,7 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
 
 
     @Override
-    public JobStatusBeschreibung call() throws Exception {
+    public JobStatusBeschreibung call() {
         return getJobStatus();
     }
 
@@ -71,15 +70,16 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
     protected JobStatusBeschreibung getJobStatus() {
         try {
             final BuildInfo buildInfo = sendGetRequest();
-            final String jobName = buildInfo.fullDisplayName();//  getString(JSONKEY_FULL_DISPLAY_NAME);
-            final String jobStatus = buildInfo.result(); //getString(JSONKEY_RESULT);
+            final String jobName = buildInfo.fullDisplayName();//  JSONKEY_FULL_DISPLAY_NAME
+            final String jobStatus = buildInfo.result(); // JSONKEY_RESULT
             return new JobStatusBeschreibung(jobName, JobStatus.valueOf(jobStatus), jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
         } catch (NullPointerException ex) {
             return new JobStatusBeschreibung(jobAbfragedaten.getJenkinsJobUrl().toExternalForm(), JobStatus.OTHER, jobAbfragedaten.getJenkinsJobUrl(), jobOrderId);
         }
     }
 
-    protected BuildInfo sendGetRequest() {
+    protected BuildInfo sendGetRequest()
+    {
         final URL statusAbfrageUrl = jobAbfragedaten.getStatusAbfrageUrl();
 
         final JenkinsClient.Builder clientBuilder = JenkinsClient.builder()
@@ -89,29 +89,35 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
         if (basicAuthToken != null && basicAuthToken.length() > 1) {
             clientBuilder.credentials(jobAbfragedaten.getBasicAuthToken());
         }
-        final JenkinsClient client = clientBuilder.build();
+        final BuildInfo buildInfo;
+        try (JenkinsClient client = clientBuilder.build()) {
+            //TODO erzeuge JobNotFoundException
 
-        final String abfrageURL = statusAbfrageUrl.getPath();
-        Pattern pattern = Pattern.compile(".*/job/(.*)/job/(.*)");
-        Matcher matcher = pattern.matcher(abfrageURL);
-        final String folderName;
-        final String jobName;
-        final boolean matched = matcher.matches();
-        if (matched) {
-            folderName = matcher.group(1);
-            jobName = matcher.group(2);
-        } else {
-            folderName = null;
-            jobName = null;
+            final String abfrageURL = statusAbfrageUrl.getPath();
+            Pattern pattern = Pattern.compile(".*/job/(.*)/job/(.*)");
+            Matcher matcher = pattern.matcher(abfrageURL);
+            final String folderName;
+            final String jobName;
+            final boolean matched = matcher.matches();
+            if (matched) {
+                folderName = matcher.group(1);
+                jobName = matcher.group(2);
+            } else {
+                folderName = null;
+                jobName = null;
+            }
+
+
+            final JobsApi api = client.api().jobsApi();
+
+            final int lastBuildNumber = api.lastBuildNumber(folderName, jobName);
+            LOGGER.debug("Letzte Buildnummer von {}  ist {}", abfrageURL, lastBuildNumber);
+
+            buildInfo = client.api().jobsApi().buildInfo(folderName, jobName, lastBuildNumber);
+        } catch (IOException e) {
+            throw new JenkinsMonitorRuntimeException(e.getLocalizedMessage());
         }
 
-
-        final JobsApi api = client.api().jobsApi();
-
-        final int lastBuildNumber = api.lastBuildNumber(folderName, jobName);
-        LOGGER.debug("Letzte Buildnummer von {}  ist {}", abfrageURL, lastBuildNumber);
-
-        final BuildInfo buildInfo = client.api().jobsApi().buildInfo(folderName, jobName, lastBuildNumber);
         if (LOGGER.isEnabledForLevel(Level.DEBUG)) {
             LOGGER.debug("RESPONSE: URL: {}\n STATUS: {} \n",
                     buildInfo != null ? buildInfo.url() : "null",
@@ -119,40 +125,4 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
         }
         return buildInfo;
     }
-
-//    protected HttpResponse getHttpResponse(CloseableHttpClient httpClient, HttpHost target, HttpGet httpGetRequest) throws ConnectionFailedException {
-//        HttpResponse httpResponse;
-//        try {
-//            httpResponse = httpClient.execute(target, httpGetRequest);
-//        } catch (IOException ex) {
-//            throw new ConnectionFailedException(ex);
-//        }
-//        return httpResponse;
-//    }
-
-
-//    protected static JSONObject getJsonObjectFromResponse(HttpResponse httpResponse) {
-//        final HttpEntity entity = httpResponse.getEntity();
-//        final String requestResult;
-//        try {
-//            final InputStream inputStream = entity.getContent();
-//            requestResult = readStreamIntoString(inputStream);
-//        } catch (IOException e) {
-//            LOGGER.warn(String.format("Jenkins Response could not be read: %s", e));
-//            return null;
-//        }
-//        LOGGER.debug("Empfangen als JSON:\n {}", requestResult);
-//        return new JSONObject(requestResult);
-//    }
-
-
-//    protected static String readStreamIntoString(InputStream inputStream) throws IOException {
-//        String requestResult;
-//        // wegen json gehen wir von utf-8 aus
-//        try (BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
-//            requestResult = buffer.lines().collect(Collectors.joining("\n"));
-//        }
-//        return requestResult;
-//    }
-
 }
