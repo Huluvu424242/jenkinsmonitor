@@ -83,7 +83,7 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
         final URL statusAbfrageUrl = jobAbfragedaten.getStatusAbfrageUrl();
         final String abfrageURL = statusAbfrageUrl.getPath();
 
-        final Pattern pattern = Pattern.compile("^([a-zA-Z]+)://([^/]+)/job/(.+)/job/(.+)$");
+        final Pattern pattern = Pattern.compile("^([^:]+)://([^/]+)/job/(.+)/job/(.+)$");
         final Matcher matcher = pattern.matcher(statusAbfrageUrl.toExternalForm());
         final String hostName;
         final String folderName;
