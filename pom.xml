@@ -41,6 +41,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit-excluded-groups/>
         <surefireArgLine/>
+        <sonar.organization>huluvu424242</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
@@ -424,7 +426,7 @@
                     <requires>
                         <require>asciidoctor-diagram</require>
                     </requires>
-<!--                    <backend>html5</backend>-->
+                    <!--                    <backend>html5</backend>-->
                     <asciidoc>
                         <attributes>
                             <icons>font</icons>
@@ -503,7 +505,7 @@
                                 </goals>
                                 <configuration>
                                     <tasks>
-                                        <echoproperties />
+                                        <echoproperties/>
                                     </tasks>
                                 </configuration>
                             </execution>
@@ -531,7 +533,8 @@
                                 <configuration>
                                     <archive>
                                         <manifest>
-                                            <mainClass>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor</mainClass>
+                                            <mainClass>com.github.funthomas424242.jenkinsmonitor.JenkinsMonitor
+                                            </mainClass>
                                         </manifest>
                                     </archive>
                                     <tarLongFileMode>posix</tarLongFileMode>
