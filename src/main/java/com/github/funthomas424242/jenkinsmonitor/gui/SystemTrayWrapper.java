@@ -34,9 +34,9 @@ public class SystemTrayWrapper {
         tray = SystemTray.getSystemTray();
     }
 
-    protected TrayIcon[] getTrayIcons() {
-        return this.tray.getTrayIcons();
-    }
+//    protected TrayIcon[] getTrayIcons() {
+//        return this.tray.getTrayIcons();
+//    }
 
     protected void removeTrayIcon() {
         tray.remove(trayIcon);

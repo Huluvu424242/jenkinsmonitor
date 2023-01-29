@@ -51,7 +51,6 @@ public class JobStatusDarstellungen {
 
     protected void bereinigeJobStatusBeschreibungen(final JobBeschreibungen jobBeschreibungen) {
         final java.util.List<String> entriesToDelete = AbstractJobBeschreibung.sortedKeyStreamOf(jobStatusBeschreibungen)
-                .parallel()
                 .filter(primaryKey -> !jobBeschreibungen.containsKey(primaryKey))
                 .collect(Collectors.toList());
         entriesToDelete.stream().parallel().forEach(jobStatusBeschreibungen::remove);
@@ -64,8 +63,6 @@ public class JobStatusDarstellungen {
     protected void aktualisiereTrayIconDarstellung() {
         LOGGER.debug("Erzeuge Darstellung TrayIcon");
         try {
-
-
             TrayIcon trayIcon = trayWrapper.getTrayIcon();
             final ImageGenerator imageGenerator = new ImageGenerator(this.jobStatusBeschreibungen);
             if (trayIcon == null) {
