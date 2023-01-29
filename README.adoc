@@ -6,6 +6,7 @@ image:https://maven-badges.herokuapp.com/maven-central/com.github.funthomas42424
 image:https://travis-ci.org/Huluvu424242/jenkinsmonitor.svg?branch=master["Build Status", link="https://travis-ci.org/Huluvu424242/jenkinsmonitor"]
 image:https://codecov.io/gh/Huluvu424242/jenkinsmonitor/branch/master/graph/badge.svg[link="https://codecov.io/gh/Huluvu424242/jenkinsmonitor"]
 image:http://images.webestools.com/buttons.php?frm=2&btn_type=11&txt=Scrum Board["Scrum Board,scaledwidth="15%"", link="https://github.com/Huluvu424242/jenkinsmonitor/projects/1"]
+image:https://sonarcloud.io/api/project_badges/measure?project=Huluvu424242_jenkinsmonitor&metric=alert_status[Quality Gate Status, link="https://sonarcloud.io/summary/new_code?id=Huluvu424242_jenkinsmonitor"]
 
 image:https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=plastic["standard-readme compilant",link="https://github.com/RichardLitt/standard-readme"]
 
@@ -16,7 +17,7 @@ image:src/main/resources/img/1984EmmanuelGoldstein.jpg[]
 ====
 [quote, Georg Orwell (Author des Buches "1984")]
 ____
-Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft. Wer die Gegenwart kontrolliert, kontrolliert die   
+Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft. Wer die Gegenwart kontrolliert, kontrolliert die
 Vergangenheit.
 ____
 ====
@@ -166,11 +167,11 @@ Dieses Projekt folgt den unter https://huluvu424242.github.io/jenkinsmonitor/cod
 
 Dieses Projekt lebt vom Support all seiner Unterstützer genau wie auch vom Support all jener welche nicht namentlich bekannt sind aber das Projekt im Internet bekannt machen oder anderweitig unterstützen.
 
-Vielen Dank für all Euren Suppprt! 
+Vielen Dank für all Euren Suppprt!
 
 ////
 Ab 100 Sterne auf github ist eine Verwaltung über opencollective für OpenSource Projekte möglich
-This project exists thanks to all the people who contribute. 
+This project exists thanks to all the people who contribute.
 <a href="graphs/contributors"><img src="https://opencollective.com/standard-readme/contributors.svg?width=890&button=false" /></a>
 ////
 
