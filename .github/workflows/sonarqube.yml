@@ -1,4 +1,4 @@
-name: Java CI
+name: Sonar Cloud Analysis
 
 on:
   push:
