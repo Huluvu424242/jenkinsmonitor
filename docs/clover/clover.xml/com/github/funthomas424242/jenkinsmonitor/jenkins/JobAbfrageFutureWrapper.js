@@ -4,7 +4,7 @@ var clover = new Object();
 clover.pageData = {"classes":[{"el":44,"id":736,"methods":[{"el":34,"sc":5,"sl":31},{"el":38,"sc":5,"sl":36},{"el":42,"sc":5,"sl":40}],"name":"JobAbfrageFutureWrapper","sl":27}]}
 
 // JSON: {test_ID : {"methods": [ID1, ID2, ID3...], "name" : "testXXX() void"}, ...};
-clover.testTargets = {"test_20":{"methods":[{"sl":31},{"sl":40}],"name":"checkLadeStatusWithException","pass":true,"statements":[{"sl":32},{"sl":33},{"sl":41}]}}
+clover.testTargets = {"test_12":{"methods":[{"sl":31},{"sl":40}],"name":"checkLadeStatusWithException","pass":true,"statements":[{"sl":32},{"sl":33},{"sl":41}]}}
 
 // JSON: { lines : [{tests : [testid1, testid2, testid3, ...]}, ...]};
-clover.srcFileLines = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [20], [20], [20], [], [], [], [], [], [], [20], [20], [], [], []]
+clover.srcFileLines = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [12], [12], [12], [], [], [], [], [], [], [12], [12], [], [], []]
