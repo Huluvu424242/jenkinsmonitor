@@ -29,15 +29,15 @@ import java.util.Objects;
 public final class JobStatusBeschreibung implements AbstractJobBeschreibung {
 
     // nicht eindeutig, da in der Config leer sein kann
-    protected final String jobOrderId;
+    final String jobOrderId;
 
-    protected final JobStatus jobStatus;
+    final JobStatus jobStatus;
 
     // eigentlich unique aber durch Sonderzeichenverarbeitung evtl. merhdeutig
-    protected final String jobName;
+    final String jobName;
 
     // eindeutig aber wenn mehrmals konfiguriert, werden alle auf einen abgebildet.
-    protected final URL jobUrl;
+    final URL jobUrl;
 
     public JobStatusBeschreibung(final String jobName, final JobStatus jobStatus, final URL jobUrl, final String jobOrderId) {
         this.jobStatus = jobStatus;
