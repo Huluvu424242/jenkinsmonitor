@@ -81,9 +81,26 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
     protected BuildInfo sendGetRequest()
     {
         final URL statusAbfrageUrl = jobAbfragedaten.getStatusAbfrageUrl();
+        final String abfrageURL = statusAbfrageUrl.getPath();
+
+        final Pattern pattern = Pattern.compile("^(.+)://([^/]+)/job/(.+)/job/(.+)$");
+        final Matcher matcher = pattern.matcher(statusAbfrageUrl.toExternalForm());
+        final String hostName;
+        final String folderName;
+        final String jobName;
+        final boolean matched = matcher.matches();
+        if (matched) {
+            hostName = matcher.group(1)+"://"+matcher.group(2);
+            folderName = matcher.group(3);
+            jobName = matcher.group(4);
+        } else {
+            hostName = null;
+            folderName = null;
+            jobName = null;
+        }
 
         final JenkinsClient.Builder clientBuilder = JenkinsClient.builder()
-                .endPoint(String.format("%s://%s:%d/", statusAbfrageUrl.getProtocol(), statusAbfrageUrl.getHost(), statusAbfrageUrl.getPort()));
+                .endPoint(hostName);
         // Basic Auth
         final String basicAuthToken = jobAbfragedaten.getBasicAuthToken();
         if (basicAuthToken != null && basicAuthToken.length() > 1) {
@@ -92,22 +109,6 @@ public class JobAbfrage implements Callable<JobStatusBeschreibung> {
         final BuildInfo buildInfo;
         try (JenkinsClient client = clientBuilder.build()) {
             //TODO erzeuge JobNotFoundException
-
-            final String abfrageURL = statusAbfrageUrl.getPath();
-            // TODO fix regex because DoS attack -> refactoring move to invariante
-            Pattern pattern = Pattern.compile(".*/job/(.*)/job/(.*)");
-            Matcher matcher = pattern.matcher(abfrageURL);
-            final String folderName;
-            final String jobName;
-            final boolean matched = matcher.matches();
-            if (matched) {
-                folderName = matcher.group(1);
-                jobName = matcher.group(2);
-            } else {
-                folderName = null;
-                jobName = null;
-            }
-
 
             final JobsApi api = client.api().jobsApi();
 
