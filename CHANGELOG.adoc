@@ -27,11 +27,15 @@ Die Versionierung erfolgt nach http://semver.org/lang/de/[Semantic Versioning].
 
 === Added
 
+* https://github.com/Huluvu424242/jenkinsmonitor/issues/72[issue #72] sonarqube cloud analysis added
+* https://github.com/Huluvu424242/jenkinsmonitor/issues/71[issue #71] build script to support different java deliveries default: jdk11,jdk17,jdk19
 * https://github.com/Huluvu424242/jenkinsmonitor/issues/61[issue #61] change logstash configuration by the jenkinsmonitor.properties file (useful for developers in debugging cases)
+
 
 === Changed
 
-*
+* https://github.com/Huluvu424242/jenkinsmonitor/issues/60[issue #60] httpcomponents lib replaced by io.github.cdancy.jenkins-rest lib
+* code refactoring such as java streaming api usage
 
 === Removed
 
