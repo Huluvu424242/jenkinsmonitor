@@ -8,8 +8,8 @@ install: skip
 
 script:
   - chmod +x etc/devscripts/*.sh
-  - cd ./etc/devscripts;./mvnw.sh -U -Pheadless site
-  - cd ./etc/devscripts;./mvnw.sh -U -Pheadless clean install
+  - cd ./etc/devscripts;./mvnw -U -Pheadless site
+  - cd ./etc/devscripts;./mvnw -U -Pheadless clean install
   - bash <(curl -s https://codecov.io/bash)
   - cd ./etc/devscripts;./buildAppImage.sh
 

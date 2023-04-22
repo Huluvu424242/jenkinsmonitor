@@ -20,7 +20,7 @@ jobs:
           cache: 'maven'
 
       - name: Build with Maven
-        run: ./mvnw.sh -PpruefeVersionen -Pheadless -PaddStandardArtifacts clean install
+        run: ./mvnw -PpruefeVersionen -Pheadless -PaddStandardArtifacts clean install
 
     strategy:
           matrix:
