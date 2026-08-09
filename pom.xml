@@ -70,7 +70,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.4.5</version>
+            <version>1.4.12</version>
             <!-- weil wir keine Lib sondern eine echte Enduser App sind -->
             <scope>compile</scope>
         </dependency>
