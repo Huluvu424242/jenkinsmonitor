@@ -427,7 +427,7 @@
                     <dependency>
                         <groupId>org.jruby</groupId>
                         <artifactId>jruby</artifactId>
-                        <version>9.4.0.0</version>
+                        <version>9.4.12.1</version>
                     </dependency>
                     <!-- Comment this section to use the default AsciidoctorJ artifact provided by the plugin -->
                     <dependency>
